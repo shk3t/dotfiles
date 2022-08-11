@@ -17,15 +17,18 @@ require("aerial").setup({
         Collapsed = ">>>"
     },
 
-    default_direction = "prefer_left",
-    show_guides = true,
-    guides = {
-        -- mid_item = "├─",
-        -- last_item = "└─",
-        -- nested_top = "│ ",
-        mid_item = "    ",
-        last_item = "    ",
-        nested_top = "    ",
-        whitespace = "    "
-    }
+    close_behavior = "global",
+
+    -- default_direction = "prefer_left",
+    -- show_guides = true,
+    -- guides = {
+    -- --     -- mid_item = "├─",
+    -- --     -- last_item = "└─",
+    -- --     -- nested_top = "│ ",
+    --     mid_item = "    ",
+    --     last_item = "    ",
+    --     nested_top = "    ",
+    --     whitespace = "    "
+    -- }
+    highlight_on_jump = false,
 })

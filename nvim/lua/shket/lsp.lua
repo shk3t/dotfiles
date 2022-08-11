@@ -2,12 +2,11 @@ local keymap = vim.api.nvim_set_keymap
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local opts = {noremap = true, silent = true}
 local HOME = os.getenv("HOME")
+local GOPATH = os.getenv("GOPATH")
 
-keymap("n", "<space>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+-- keymap("n", "<space>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
--- keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
 keymap("n", "<Space>td", "<cmd>lua require('telescope.builtin').diagnostics()<CR>", opts)
 
 local function config(_config)
@@ -16,8 +15,7 @@ local function config(_config)
         on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-            -- Mappings.
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
+
             buf_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
             buf_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
             buf_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -33,11 +31,15 @@ local function config(_config)
 
             client.server_capabilities.documentFormattingProvider = false
 
-        end
+        end,
     }, _config or {})
 end
 
-vim.diagnostic.config({virtual_text = false, signs = true, update_in_insert = false})
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    update_in_insert = false,
+})
 require("neodim").setup({alpha = 0.6, update_in_insert = {enable = false}})
 
 local lspconfig = require("lspconfig")
@@ -53,20 +55,22 @@ lspconfig.html.setup(config({filetypes = {"html", "htmldjango"}}))
 lspconfig.cssls.setup(config())
 
 lspconfig.tsserver.setup(config({
-    init_options ={
-        preferences = {
-            providePrefixAndSuffixTextForRename = false,
-        }
-    }
+    init_options = {preferences = {providePrefixAndSuffixTextForRename = false}},
 }))
 
 lspconfig.jsonls.setup(config())
 
 lspconfig.texlab.setup(config())
 
-lspconfig.sqls.setup(config({
-    cmd = {os.getenv("GOPATH") .. "/bin/sqls", "-config", HOME .. "/.config/nvim/etc/sqls.yml"}
-}))
+if GOPATH then
+    lspconfig.sqls.setup(config({
+        cmd = {
+            GOPATH .. "/bin/sqls",
+            "-config",
+            HOME .. "/.config/nvim/etc/sqls.yml",
+        },
+    }))
+end
 -- lspconfig.sqlls.setup(config())
 
 local sumneko_root_path = HOME .. "/.local/share/lua-language-server"
@@ -79,18 +83,18 @@ lspconfig.sumneko_lua.setup(config({
                 -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                 version = "LuaJIT",
                 -- Setup your lua path
-                path = vim.split(package.path, ";")
+                path = vim.split(package.path, ";"),
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {"vim"}
+                globals = {"vim"},
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
                 library = vim.api.nvim_get_runtime_file("", true),
-                checkThirdParty = false
+                checkThirdParty = false,
             },
-            telemetry = {enable = false}
-        }
-    }
+            telemetry = {enable = false},
+        },
+    },
 }))

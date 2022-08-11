@@ -1,0 +1,1 @@
+setlocal cursorlineopt=line

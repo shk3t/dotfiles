@@ -1,12 +1,17 @@
 set background=dark
+set cursorline
+set cursorlineopt=number
+set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
 
-let g:material_style = "deep ocean"
 let g:tokyonight_style = "night"
 let g:catppuccin_flavour = "mocha"
 
-colorscheme catppuccin
+colorscheme tokyonight
 
-hi CurSearch guibg=None guifg=None
+fun! ConfigColors()
+    hi CurSearch guibg=None guifg=None
+    hi CursorLineNr gui=bold
+endfun
 
 fun! SetWideBorder()
     let vertsplit_guifg = synIDattr(synIDtrans(hlID('VertSplit')), 'fg')
@@ -27,8 +32,6 @@ fun! SetTransparentBG()
     hi NormalFloat blend=20
 endfun
 
-augroup appearance
-    autocmd!
-    autocmd SourcePost,Colorscheme * call SetWideBorder()
-    " autocmd SourcePost,Colorscheme * call SetTransparentBG()
-augroup EN
+autocmd SourcePost,Colorscheme * call ConfigColors()
+autocmd SourcePost,Colorscheme * call SetWideBorder()
+autocmd SourcePost,Colorscheme * call SetTransparentBG()

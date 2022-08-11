@@ -1,29 +1,33 @@
-require('lualine').setup {
+require("lualine").setup({
     options = {
         icons_enabled = false,
-        theme = 'auto',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        theme = "auto",
+        component_separators = {left = "", right = ""},
+        section_separators = {left = "", right = ""},
         disabled_filetypes = {},
         always_divide_middle = true,
         globalstatus = false,
+        refresh = {statusline = 1000, tabline = 1000, winbar = 1000},
     },
     sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'filetype'},
-        lualine_y = {'%l:%v'},
-        lualine_z = {'%"/%L'},
+        lualine_a = {"mode"},
+        lualine_b = {"branch", "diagnostics"},
+        lualine_c = {"filename"},
+        lualine_x = {"filetype"},
+        lualine_y = {"%l:%v"},
+        lualine_z = {"%LL"},
     },
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = {"filename"},
+        lualine_x = {"%l:%v"},
         lualine_y = {},
-        lualine_z = {}
+        lualine_z = {},
     },
     tabline = {},
-    extensions = {}
-}
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {},
+})
+

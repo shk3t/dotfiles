@@ -41,7 +41,7 @@ Backup specified files
 
 Options:
     -c, --configs       backup configs from ~/.config
-    -d, --dotfiles      commit configs to git repo
+    -d, --dotfiles      update configs in ~/repos/dotfiles/
     -p, --projects      backup projects from ~/projects
     -a, --all           backup all important files
     -r, --rewrite       clean ~/backup directory before copying

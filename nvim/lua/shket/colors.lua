@@ -1,5 +1,4 @@
 -- local colors = require("colorbuddy.color").colors
-
 -- require("rose-pine").setup({
 --     -- dark_variant = 'moon',
 --     -- bold_vert_split = false,

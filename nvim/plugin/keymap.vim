@@ -1,5 +1,10 @@
-" Functions
-fun! SwitchLineNumeration()
+" Settings
+set timeoutlen=10000
+set mouse=a
+set cpoptions-=_
+
+" functions
+function! SwitchLineNumeration() abort
     if &number == 1
         set norelativenumber
         set nonumber
@@ -7,58 +12,59 @@ fun! SwitchLineNumeration()
         set relativenumber
         set number
     endif
-endfun
+endfunction
 
-" Settings
-set timeoutlen=10000
-set mouse=a
+" Commands
+command! Cdc cd %:p:h
 
 " Default behaviour
-set cpoptions-=_
 noremap <C-C> <Esc>
 inoremap <C-C> <Esc>
-inoremap <C-H> <C-W>
-inoremap <C-Del> <Esc>ldea
+inoremap <C-C> <Esc>
+inoremap <C-Del> <Esc><Right>dei
 cnoremap <C-H> <C-W>
+noremap p gp
+noremap P gP
+noremap gp p
+noremap gP P
+vnoremap $ g_
+nnoremap <silent> J :<C-U>execute "join ".(v:count1 + 1)<CR>
+noremap <C-D> <C-D>zz
+noremap <C-U> <C-U>zz
 cnoremap <C-J> <C-N>
 cnoremap <C-K> <C-P>
-nnoremap <silent> J :<C-U>execute "join ".(v:count+1)<CR>
-"xnoremap < <gv
-"xnoremap > >gv
-"nnoremap <silent> <CR> :<C-u>put=repeat(nr2char(10),v:count)<Bar>execute "'[-1"<CR>
-"nnoremap <silent> <S-CR> :<C-u>put!=repeat(nr2char(10),v:count)<Bar>execute "']+1"<CR>
+"noremap n nzzzv
+"noremap N Nzzzv
+"noremap * *zzzv
+"noremap # #zzzv
+"vnoremap y ygv<Esc>
+"vnoremap J :m '>+1<CR>gv=gv
+"vnoremap K :m '<-2<CR>gv=gv
 
 " <Space> mappings
 noremap <Space> <Nop>
-"noremap <Space>R :source $MYVIMRC<CR>
-"noremap <C-Space> i_<Esc>r
-noremap <Space>? :set hlsearch!<CR>
-"noremap <Space>I :set ic!<CR>
 noremap <Space>y "+y
 noremap <Space>Y :%y+<CR>
-"noremap <Space>V ggVG
-"noremap <Space>p "+p
+noremap <Space>d "_d
+vnoremap <Space>p "_dP
+noremap <Space>? :set hlsearch!<CR>
+noremap <Space>I :set ic!<CR>
 noremap <Space>N :call SwitchLineNumeration()<CR>
-noremap <silent> <Space>e :Explore<CR>
-noremap <Space>Lr :LspRestart<CR>
-noremap <Space>Li :LspInfo<CR>
+nnoremap <Space>s :%s/<C-R><C-W>//g<Left><Left>
+vnoremap <Space>s "0yV:s/<C-R>0//g<Left><Left>
+nnoremap <silent> <Space>e :Explore<CR>
+" nnoremap <Space>Lr :LspRestart<CR>
+" nnoremap <Space>Li :LspInfo<CR>
 
 " Splits
-"noremap <C-W>z <C-W>s
-" noremap <C-W>z <C-W>s<C-W>j
 noremap <C-W>s <C-W>s<C-W>j
 noremap <C-W>v <C-W>v<C-W>l
-"noremap <C-W>0 <C-W>=
-"noremap <silent> <C-W>H :vertical resize -8<CR>
-"noremap <silent> <C-W>J :resize -8<CR>
-"noremap <silent> <C-W>K :resize +8<CR>
-"noremap <silent> <C-W>L :vertical resize +8<CR>
 
 " Tabs
 noremap <C-W>c <C-W><esc>
 noremap <C-W><C-c> <C-W><esc>
 "noremap <silent> <C-W>t :tablast \| tabnew .<CR>
-" noremap <silent> <C-W>t :tabnew .<CR>
+"noremap <silent> <C-W>t :tabnew .<CR>
 noremap <silent> <C-W>t <C-W>v<C-W>T
 noremap <silent> <C-W>, :tabprevious<CR>
 noremap <silent> <C-W>. :tabnext<CR>
@@ -70,17 +76,38 @@ noremap <silent> <C-W>> :+tabmove<CR>
 noremap <silent> <C-W>Q :tabclose<CR>
 
 " Jumplist
-noremap <silent> } :<C-u>execute "keepjumps norm! " . v:count . "}"<CR>
-noremap <silent> { :<C-u>execute "keepjumps norm! " . v:count . "{"<CR>
+"nnoremap <silent> } :<C-u>execute "keepjumps normal! " . v:count1 . "}"<CR>
+"nnoremap <silent> { :<C-u>execute "keepjumps normal! " . v:count1 . "{"<CR>
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+" TODO find the way how to generalize code with lua
+function! ShiftLeftRestore(type, ...) abort
+    if a:type == 'line'
+        keepjumps normal! '[<']
+    else
+        keepjumps normal! `[<`]
+    endif
+    call setpos('.', g:cursor)
+endfunction
+function! ShiftRightRestore(type, ...) abort
+    if a:type == 'line'
+        keepjumps normal! '[>']
+    else
+        keepjumps normal! `[>`]
+    endif
+    call setpos('.', g:cursor)
+endfunction
+nnoremap <silent> < :let g:cursor=getpos('.')<Bar>set opfunc=ShiftLeftRestore<CR>g@
+nnoremap <silent> > :let g:cursor=getpos('.')<Bar>set opfunc=ShiftRightRestore<CR>g@
+nmap << <<
+nmap >> >>
+vnoremap < <gv<Esc>
+vnoremap > >gv<Esc>
+
 
 " Snippets
 snoremap <BS> _<C-W>
 
 " Sql
-"let g:omni_sql_no_default_maps = 1
 let g:ftplugin_sql_omni_key = '<C-S>'
-
-" Plugins
-"nnoremap <Space>ut :UndotreeToggle<CR>

@@ -14,8 +14,6 @@ set signcolumn=yes
 set scrolloff=8
 set nowrap
 "set wrap linebreak
-set cursorline
-set cursorlineopt=number
 
 " Syntax highlighting
 set hlsearch
@@ -38,6 +36,9 @@ set nobackup
 set undofile
 set undodir=~/.local/share/nvim/undo/
 set updatetime=500
+
+" Navigation
+set jumpoptions=stack
 
 " Explorer
 let g:netrw_list_hide = '^\./$'

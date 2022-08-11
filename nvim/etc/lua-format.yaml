@@ -2,6 +2,7 @@ column_limit: 120
 indent_width: 4
 use_tab: false
 tab_width: 4
+continuation_indent_width: 4
 
 spaces_inside_table_braces: false
 
@@ -13,3 +14,7 @@ keep_simple_function_one_line: false
 chop_down_parameter: true
 chop_down_table: true
 chop_down_kv_table: true
+
+table_sep: ','
+extra_sep_at_table_end: true
+column_table_limit: 80

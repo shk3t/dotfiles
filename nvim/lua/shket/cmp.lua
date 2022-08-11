@@ -6,14 +6,14 @@ vim.api.nvim_create_autocmd("InsertLeave", {
         if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
             luasnip.unlink_current()
         end
-    end
+    end,
 })
 
 cmp.setup({
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
-        end
+        end,
     },
     mapping = cmp.mapping.preset.insert({
         ["<C-U>"] = cmp.mapping.scroll_docs(-4),
@@ -25,13 +25,16 @@ cmp.setup({
         -- ["<C-H>"] = cmp.mapping.abort(),
         ["<C-L>"] = function()
             if cmp.visible() then
-                cmp.confirm({behavior = cmp.ConfirmBehavior.Insert, select = true})
+                cmp.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = true,
+                })
             else
                 cmp.complete()
             end
         end,
-        ["<C-K>"] = cmp.mapping.select_prev_item(),
-        ["<C-J>"] = cmp.mapping.select_next_item(),
+        ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
+        ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
         ["<C-P>"] = cmp.mapping.select_prev_item(),
         ["<C-N>"] = cmp.mapping.select_next_item(),
         -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
@@ -55,21 +58,33 @@ cmp.setup({
             else
                 fallback()
             end
-        end, {"i", "s"})
+        end, {"i", "s"}),
     }),
 
     sources = cmp.config.sources({
         {name = "path"},
-        {name = "nvim_lsp"},
         {name = "luasnip"},
+        {name = "nvim_lsp"},
         {name = "buffer"},
-        {name = "nvim_lsp_signature_help"}
+        {name = "nvim_lsp_signature_help"},
         -- { name = "cmp_tabnine" },
-    })
+    }),
 })
 
+-- cmp.setup.filetype({"javascript", "javascriptreact", "typescript", "typescriptreact"}, {
+--     sources = cmp.config.sources({
+--         {name = "luasnip"},
+--         {name = "nvim_lsp"},
+--         {name = "buffer"},
+--         {name = "nvim_lsp_signature_help"},
+--     })
+-- })
+
+
 require("luasnip.loaders.from_vscode").lazy_load()
+
 luasnip.filetype_extend("htmldjango", {"html"})
+
 -- load snippets from path/of/your/nvim/config/my-cool-snippets
 -- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./my-cool-snippets" } })
 

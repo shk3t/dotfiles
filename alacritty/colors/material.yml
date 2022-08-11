@@ -1,10 +1,13 @@
 colors:
+  cursor:
+    text: '0x191724'
+    cursor: '0x84ffff'
   primary:
     background: '0x0f111a'
     foreground: '0xa6accd'
   normal:
     black:   '0x000000'
-    red:     '0xF07178'
+    red:     '0xf07178'
     green:   '0xc3e88d'
     yellow:  '0xffcb6b'
     blue:    '0x82aaff'
@@ -13,7 +16,7 @@ colors:
     white:   '0xeeffff'
   bright:
     black:   '0x717cb4'
-    red:     '0xF07178'
+    red:     '0xf07178'
     green:   '0xc3e88d'
     yellow:  '0xffcb6b'
     blue:    '0x82aaff'

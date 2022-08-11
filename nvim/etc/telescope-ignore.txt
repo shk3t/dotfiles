@@ -1,7 +1,7 @@
 # General
 .git/
-*.sqlite3
 build/
+*.sqlite3
 metadata.json
 requirements.txt
 
@@ -26,3 +26,4 @@ node_modules/
 package-lock.json
 bootstrap.min.css
 static/libs/
+staticfiles/

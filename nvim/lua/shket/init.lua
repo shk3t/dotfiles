@@ -1,15 +1,16 @@
-
 require("shket.cmp")
-require("shket.autopairs")
 require("shket.lsp")
 require("shket.null-ls")
 require("shket.treesitter")
-require("shket.lualine")
-require("shket.autosave")
 require("shket.telescope")
--- require("shket.colors")
-require("shket.comment")
+require("shket.lualine")
+
+require("shket.tree-explorer")
 require("shket.aerial")
+require("shket.comment")
+require("shket.autopairs")
+require("shket.surround")
+require("shket.auto-save")
 
 require("shket.specific")
--- require("jupyter-nvim").setup()
+-- require("shket.colors")

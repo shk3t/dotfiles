@@ -1,35 +1,36 @@
-" Functions
-fun! RelativeNumberOn()
+function! RelativeNumberOn() abort
     if &number == 1
         set relativenumber
         "redraw
     endif
-endfun
+endfunction
 
 
-" Autocommands
-augroup no_autocomment
-    autocmd!
-    autocmd FileType * setlocal formatoptions-=cro 
-augroup END
+" No autocomments
+autocmd FileType * setlocal formatoptions-=cro 
 
-augroup line_numeration
-    autocmd!
-    autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw
-    autocmd FocusGained,WinEnter,CmdlineLeave,BufEnter * call RelativeNumberOn()
-augroup END
+" Line numeration toggle
+"autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw
+"autocmd FocusGained,WinEnter,CmdlineLeave,BufEnter * call RelativeNumberOn()
+autocmd FocusLost,WinLeave * set norelativenumber
+autocmd FocusGained,WinEnter,BufEnter * call RelativeNumberOn()
 
-augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 100})
-augroup END
+" Highlight yank
+autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 100})
 
-" augroup trim_spaces
-"     autocmd!
-"     autocmd BufWritePre * %s/\s\+$//e
-" augroup END
+" Yank preserve cursor position
+autocmd VimEnter,CursorMoved *
+        \ let s:cursor = getpos('.')
+autocmd TextYankPost *
+    \ if v:event.operator ==? 'y' |
+        \ call setpos('.', s:cursor) |
+    \ endif
 
-"augroup etc
-"    autocmd!
-"    autocmd FileType help wincmd L
-"augroup END
+" Tmux
+" if exists('$TMUX')
+"     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
+"     autocmd VimLeave * call system("tmux setw automatic-rename")
+" endif
+
+" autocmd!
+" autocmd BufWritePre * %s/\s\+$//e

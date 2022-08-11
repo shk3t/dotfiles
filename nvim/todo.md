@@ -1,78 +1,53 @@
 # TODOS
-- [-] reload configs keybind
-- [ ] tj's tabs
-- [ ] browser integration
-    - [ ] Vimium C
-- [ ] reduce big files tattering
-- [?] repeat previous jump (tpope plugin maybe)
-    - [?] repeat in vs mode
-- [?] alternative one-press navigation (nvim + tmux)
 - [?] tabnine
-- [X] pair brackets, tags
-    - [?] semicolon rule
-- [X] telescope effective ignore patterns
-- [ ] select variable (more textobjects!)
-- [ ] move selection
-- [ ] move arguments
-- [ ] single q to live help menu, etc...
-- [ ] native replace selected shortcut
-- [ ] underline diagnostics using specific color
-- [ ] tmux & nvim panes on center
+- [ ] more textobj
+    - [ ] repeat texbobj jump (mb tpope plugin)
+- [ ] switch tab width (4 <-> 2)
+- [ ] mark signs
+- [ ] tmux previous tab shortcut
+- [X] keep pos after paste
+- [ ] delete to next uppercase letter
+- [?] remap backward actions exclusive as default
 ### Lsp
 - [ ] sql
     - [ ] run from nvim
     - [ ] dadbod
-- [ ] bug: diagnostics underlining
 - [-] rename file with references
 - [ ] import code action
-- [ ] js diagnostics
-- [ ] tsserver duplicate cmp
-- [ ] telescope references ignore default entry
+- [ ] js linter for missing imports
+- [ ] go to superclass
 #### Snippets
-- [ ] tj's
-- [ ] try another collection of
-- [?] pyright: replace native stubs (check pylance)
-### Explorer
-- [ ] tj's telescope config
-- [ ] move multiple files
-- [ ] rename current file
-- [ ] remove folders
-- [?] configure netrw
+- [ ] try another collection
 ### Appearance
-- [?] colored indentations
-- [?] cursor color + blinking
-- [?] colored selection
-- [?] caret cmd
-- [ ] colorize stacktrace
-### Semi-crap
-- [?] resize panes using arrows
+- [ ] aerial background color
+- [-] colorize stacktrace
+- [ ] underline diagnostics using specific color
+- [ h] telescope styling
+    - [ ] specific layouts
 
 <br>
 
 ## New plugins
-- [ ] refactoring
-    - [ ] treesitter
+- [ ] firenvim
+- [ ] refactoring (null-ls)
+    - [ ] nvim-treesitter-refactor
 - [ ] lspsaga
 - [ ] neoclip
 - [ ] neoorg
-- [ ] trouble
 - [ ] nvim-dap
     - [ ] dap-ui
 - [ ] nvim-ufo (folding)
-- [ ] yanky
-- [X] aerial
-    - [ ] vista
-- [ ] todo-comments.nvim
-- [ ] python rope (refactoring)
-- [ !] telescope file browser
-    - [ ] eunuch.vim (file manipulations)
-    - [ ] another file explorer
-- [ ] surround.vim (replace two braces)
-- [ ] hop.nvim
+- [ ] hop.nvim/lightspeed
 - [ ] nvim-lsputils
 - [ ] nvim-metals
 - [ ] nvim-jdtls
+- [ ] nvim-hlslens
+- [ ] barbar / bufferline / customise native
 
-## Globally
-- [ ] overwrite all configs using **only lua**
-- [ ] figure out how to make own snippets
+<br>
+
+## ZSH
+- [ ] shorten to 1 letter *username* and *hostname*
+- [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
+- [!] git push <username>,<token> shortcut
+- [ ] use normal plugin for git prompt

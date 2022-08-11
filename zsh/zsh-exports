@@ -20,9 +20,9 @@ PATH="$HOME/.go/bin:$PATH"
 #MANPATH="$HOME/.local/texlive/2022/texmf-dist/doc/man"
 #INFOPATH="$HOME/.local/texlive/2022/texmf-dist/doc/info"
 
+# Packages
 export NODE_PATH="/usr/local/lib/node_modules"
 export GOPATH="$HOME/.go"
-
 
 # Man
 export MANPAGER='nvim +Man!'

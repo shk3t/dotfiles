@@ -32,6 +32,7 @@ Plug 'goerz/jupytext.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 " Navigation
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'stevearc/aerial.nvim'
@@ -40,13 +41,13 @@ Plug 'stevearc/aerial.nvim'
 " Automation
 Plug 'lyokha/vim-xkbswitch'
 Plug 'numToStr/Comment.nvim'
-Plug 'Pocco81/AutoSave.nvim'
+Plug 'Pocco81/auto-save.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
+Plug 'kylechui/nvim-surround'
 
 " Indentation improve
 Plug 'Vimjas/vim-python-pep8-indent'
-"Plug 'neoclide/vim-jsx-improve'
 
 " Interface
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -55,8 +56,6 @@ Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'zbirenbaum/neodim'
-"Plug 'p00f/nvim-ts-rainbow'
-"Plug 'norcalli/nvim-colorizer.lua'
 
 " Colorschemes
 Plug 'folke/tokyonight.nvim'
@@ -69,7 +68,6 @@ Plug 'FrenzyExists/aquarium-vim'
 Plug 'catppuccin/nvim'
 Plug 'rose-pine/neovim'
 Plug 'bkegley/gloombuddy'
-Plug 'marko-cerovac/material.nvim'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'shaunsingh/moonlight.nvim'
 call plug#end()

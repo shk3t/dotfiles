@@ -2,6 +2,9 @@ colors:
   primary:
     background: '0x1a1b26'
     foreground: '0xc0caf5'
+  cursor:
+    text: '0x1a1b26'
+    cursor: '0xc0caf5'
   normal:
     black:   '0x15161E'
     red:     '0xf7768e'
@@ -23,4 +26,3 @@ colors:
   indexed_colors:
     - { index: 16, color: '0xff9e64' }
     - { index: 17, color: '0xdb4b4b' }
-
