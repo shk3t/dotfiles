@@ -28,7 +28,6 @@ local function config(_config)
             buf_keymap(bufnr, "n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 
             require("aerial").on_attach(client, bufnr)
-
             client.server_capabilities.documentFormattingProvider = false
 
         end,

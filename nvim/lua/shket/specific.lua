@@ -2,7 +2,7 @@ local project_group = vim.api.nvim_create_augroup("project_specific", {clear = t
 local opt = vim.opt
 
 vim.api.nvim_create_autocmd("VimEnter", {
-    pattern = {"*/avegabug/client*"},
+    pattern = {"*/bigbug/client*"},
     callback = function()
         opt.tabstop = 2
         opt.softtabstop = 2

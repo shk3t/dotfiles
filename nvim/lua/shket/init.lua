@@ -12,5 +12,5 @@ require("shket.autopairs")
 require("shket.surround")
 require("shket.auto-save")
 
+require("shket.colors")
 require("shket.specific")
--- require("shket.colors")

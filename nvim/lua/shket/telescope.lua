@@ -39,7 +39,7 @@ telescope.setup({
         vimgrep_arguments = {
             "rg",
             "--vimgrep",
-            "--smart-case",
+            -- "--smart-case",
             "--trim",
             "--hidden",
             "--no-ignore",

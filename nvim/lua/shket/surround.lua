@@ -14,4 +14,6 @@ require("nvim-surround").setup {
         ["<"] = {add = {"<", ">"}},
         ["["] = {add = {"[", "]"}},
     },
+    -- indent_lines = false,
+    move_cursor = false
 }

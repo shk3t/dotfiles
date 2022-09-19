@@ -6,7 +6,8 @@ set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
 let g:tokyonight_style = "night"
 let g:catppuccin_flavour = "mocha"
 
-colorscheme tokyonight
+colorscheme rose-pine
+
 
 fun! ConfigColors()
     hi CurSearch guibg=None guifg=None
@@ -34,4 +35,4 @@ endfun
 
 autocmd SourcePost,Colorscheme * call ConfigColors()
 autocmd SourcePost,Colorscheme * call SetWideBorder()
-autocmd SourcePost,Colorscheme * call SetTransparentBG()
+" autocmd SourcePost,Colorscheme * call SetTransparentBG()

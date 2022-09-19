@@ -1,28 +1,38 @@
 # TODOS
-- [?] tabnine
 - [ ] more textobj
     - [ ] repeat texbobj jump (mb tpope plugin)
 - [ ] switch tab width (4 <-> 2)
+- [ ] switch line breaking
 - [ ] mark signs
 - [ ] tmux previous tab shortcut
-- [X] keep pos after paste
-- [ ] delete to next uppercase letter
-- [?] remap backward actions exclusive as default
+- [ ] camel case movements
+- [ ] format selected lines
+- [ ] show full path in lualine
+- [-!] null-ls warning: multiple offset encoding: try check ccls native encoding settings
+- [ ] test updatetime for cpp diagnostics
+- [ ] align center single buffer
+- [ ] rename buffer
+- [h] keep indentation when surround (js)
+- [X] visual paste to null buffer
+- [-] telescope remove word using ctrl + backspace
+- [!] jsx autoindent
+- [?] jumppoint before openning explorer
 ### Lsp
 - [ ] sql
     - [ ] run from nvim
     - [ ] dadbod
 - [-] rename file with references
 - [ ] import code action
-- [ ] js linter for missing imports
+- [!] js linter for missing imports
 - [ ] go to superclass
+- [ ] range formatting
+- [!] change cpp LSP
 #### Snippets
 - [ ] try another collection
 ### Appearance
-- [ ] aerial background color
 - [-] colorize stacktrace
 - [ ] underline diagnostics using specific color
-- [ h] telescope styling
+- [h] telescope styling
     - [ ] specific layouts
 
 <br>
@@ -43,6 +53,8 @@
 - [ ] nvim-jdtls
 - [ ] nvim-hlslens
 - [ ] barbar / bufferline / customise native
+- [ ] neoscroll
+- [ ] telescope filebrowser
 
 <br>
 

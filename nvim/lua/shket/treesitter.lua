@@ -50,23 +50,23 @@ require("nvim-treesitter.configs").setup({
                 ["aC"] = "@class.outer",
                 ["iC"] = "@class.inner",
             },
-            -- selection_modes = {
-            --     ["@function.outer"] = "V",
-            --     ["@funciton.inner"] = "V",
-            --     ["@class.outer"] = "V",
-            --     ["@class.inner"] = "V",
-            -- },
-            -- include_surrounding_whitespace = false,
+            selection_modes = {
+                ["@function.outer"] = "V",
+                ["@function.inner"] = "V",
+                ["@class.outer"] = "V",
+                ["@class.inner"] = "V",
+            },
+            include_surrounding_whitespace = false,
         },
         swap = {
             enable = true,
             swap_next = {
                 ["c>a"] = "@parameter.inner",
-                -- ["c>f"] = "@function.outer",
+                ["c>f"] = "@function.outer",
             },
             swap_previous = {
                 ["c<a"] = "@parameter.inner",
-                -- ["c<f"] = "@funciton.outer",
+                ["c<f"] = "@funciton.outer",
             },
         },
     },

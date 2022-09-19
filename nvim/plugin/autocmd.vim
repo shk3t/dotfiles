@@ -7,7 +7,7 @@ endfunction
 
 
 " No autocomments
-autocmd FileType * setlocal formatoptions-=cro 
+autocmd FileType * setlocal formatoptions-=o
 
 " Line numeration toggle
 "autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw

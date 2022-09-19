@@ -5,7 +5,8 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
-set cindent
+set cinoptions=g0,(0,Ws,l,L0
+" set cinoptions=:0,g0,(0,Ws,l,L0
 
 " Lines
 set number
@@ -47,8 +48,8 @@ let g:netrw_hide = 1
 
 " Language
 let g:XkbSwitchEnabled = 1
-let g:XkbSwitchAssistNKeymap = 1  " for commands r and f
-let g:XkbSwitchAssistSKeymap = 1  " for search lines
+" let g:XkbSwitchAssistNKeymap = 1  " for commands r and f
+" let g:XkbSwitchAssistSKeymap = 1  " for search lines
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0

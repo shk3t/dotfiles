@@ -17,7 +17,7 @@ require("aerial").setup({
         Collapsed = ">>>"
     },
 
-    close_behavior = "global",
+    -- attach_mode = "global",
 
     -- default_direction = "prefer_left",
     -- show_guides = true,
