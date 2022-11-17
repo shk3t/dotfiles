@@ -2,11 +2,14 @@ local opts = {noremap = true, silent = true}
 vim.api.nvim_set_keymap("n", "<Space>E", "<Cmd>NvimTreeFindFile<CR>", opts)
 
 require("nvim-tree").setup({
+    hijack_cursor = true,
     hijack_netrw = false,
     sort_by = "case_sensitive",
     view = {
         adaptive_size = true,
         width = 10,
+        hide_root_folder = true,
+        signcolumn = "no",
         mappings = {
             list = {
                 {key = "l", action = "edit"},
@@ -17,6 +20,7 @@ require("nvim-tree").setup({
     renderer = {
         group_empty = true,
         icons = {
+            padding = "",
             symlink_arrow = " -> ",
             show = {
                 file = false,
@@ -31,5 +35,9 @@ require("nvim-tree").setup({
         },
     },
     filters = {dotfiles = false},
-    actions = {open_file = {window_picker = {enable = false}}},
+    git = {enable = false},
+    actions = {
+        change_dir = {restrict_above_cwd = true},
+        open_file = {window_picker = {enable = false}},
+    },
 })

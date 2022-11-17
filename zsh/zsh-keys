@@ -5,8 +5,11 @@ bindkey -s "^G" "nvim . -c 'Telescope live_grep'^M"
 bindkey "^C" vi-cmd-mode
 bindkey "^L" autosuggest-accept
 bindkey "^S" autosuggest-toggle
+bindkey "^?" backward-delete-char
 bindkey "^H" backward-kill-word
 bindkey "^[[3;5~" kill-word
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 bindkey "^P" up-history
 bindkey "^N" down-history
 bindkey "^K" up-history
@@ -30,6 +33,8 @@ bindkey -M menuselect "^L" accept-line
 # Vim bindings
 bindkey -M viins "^?" backward-delete-char
 bindkey -M visual -s "^C" "^["
+bindkey -M vicmd "^[[1;5C" forward-word
+bindkey -M vicmd "^[[1;5D" backward-word
 bindkey -M vicmd "^K" up-history
 bindkey -M vicmd "^J" down-history
 bindkey -M vicmd "j" down-line

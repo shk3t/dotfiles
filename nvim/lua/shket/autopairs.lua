@@ -25,8 +25,13 @@ require("nvim-autopairs").setup({
 })
 
 require("nvim-ts-autotag").setup({
-    -- filetypes = {
-    --    "html",
-    --    "htmldjango",
-    -- }
+    filetypes = {
+        "html",
+        "htmldjango",
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "markdown",
+    },
 })

@@ -4,13 +4,24 @@ set mouse=a
 set cpoptions-=_
 
 " functions
-function! SwitchLineNumeration() abort
+function! ToggleLineNumeration() abort
     if &number == 1
         set norelativenumber
         set nonumber
     else
         set relativenumber
         set number
+    endif
+endfunction
+function! ToggleTabWidth() abort
+    if &tabstop != 4
+        set tabstop=4
+        set softtabstop=4
+        set shiftwidth=4
+    else
+        set tabstop=2
+        set softtabstop=2
+        set shiftwidth=2
     endif
 endfunction
 
@@ -26,45 +37,51 @@ inoremap <C-Del> <Esc><Right>dei
 noremap <C-L> <Nop>
 noremap p p`]
 noremap P P`]
-"vnoremap p "0p`]
-vnoremap P "_dP`]
+vnoremap D "_d
+vnoremap P "0p`]
 vnoremap $ g_
 "nnoremap <silent> J :<C-U>execute "join ".(v:count1 + 1)<CR>
-"vnoremap J :m '>+1<CR>gv=gv
-"vnoremap K :m '<-2<CR>gv=gv
-noremap <C-D> <C-D>zz
-noremap <C-U> <C-U>zz
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+"noremap <C-D> <C-D>zz
+"noremap <C-U> <C-U>zz
 "noremap n nzzzv
 "noremap N Nzzzv
 "noremap * *zzzv
 "noremap # #zzzv
 cnoremap <C-J> <C-N>
 cnoremap <C-K> <C-P>
+nnoremap va" v2i"
 nnoremap ya" y2i"
 nnoremap da" d2i"
-nnoremap ya" y2i"
+nnoremap ca" c2i"
+nnoremap va' v2i'
 nnoremap ya' y2i'
 nnoremap da' d2i'
 nnoremap ca' c2i'
+nnoremap va` v2i`
 nnoremap ya` y2i`
 nnoremap da` d2i`
 nnoremap ca` c2i`
+noremap <C-S-c> "+y
 
 " <Space> mappings
 noremap <Space> <Nop>
+inoremap <C-Space> <Nop>
 noremap <Space>y "+y
 noremap <Space>Y :%y+<CR>
 "noremap <Space>d "_d
 "vnoremap <Space>p "_dP`]
 noremap <Space>? :set hlsearch!<CR>
-noremap <Space>I :set ignorecase!<CR>
+noremap <Space>C :set ignorecase!<CR>
 noremap <Space>V :set cursorcolumn!<CR>
-noremap <Space>N :call SwitchLineNumeration()<CR>
+noremap <Space>N :call ToggleLineNumeration()<CR>
+noremap <Space>I :call ToggleTabWidth()<CR>
 nnoremap <Space>s :%s/<C-R><C-W>//g<Left><Left>
 vnoremap <Space>s "0yV:s/<C-R>0//g<Left><Left>
 nnoremap <silent> <Space>e :Explore<CR>
-" nnoremap <Space>Lr :LspRestart<CR>
-" nnoremap <Space>Li :LspInfo<CR>
+"nnoremap <Space>Lr :LspRestart<CR>
+"nnoremap <Space>Li :LspInfo<CR>
 
 " Splits
 noremap <C-W>s <C-W>s<C-W>j
@@ -79,17 +96,21 @@ noremap <silent> <C-W>t <C-W>v<C-W>T
 noremap <silent> <C-W>, :tabprevious<CR>
 noremap <silent> <C-W>. :tabnext<CR>
 for i in range(1, 9)
-   execute 'noremap <silent> <C-W>'.i.' :'.i.'tabnext<CR>'
+    execute 'noremap <silent> <C-W>'.i.' :'.i.'tabnext<CR>'
 endfor
 noremap <silent> <C-W>< :-tabmove<CR>
 noremap <silent> <C-W>> :+tabmove<CR>
 noremap <silent> <C-W>Q :tabclose<CR>
 
 " Jumplist
-"nnoremap <silent> } :<C-u>execute "keepjumps normal! " . v:count1 . "}"<CR>
-"nnoremap <silent> { :<C-u>execute "keepjumps normal! " . v:count1 . "{"<CR>
+" nnoremap <silent> } :<C-u>execute "keepjumps normal! " . v:count1 . "}"<CR>
+" nnoremap <silent> { :<C-u>execute "keepjumps normal! " . v:count1 . "{"<CR>
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+" Custom jumps
+nnoremap <silent> [i m':call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
+nnoremap <silent> ]i m':call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
 
 " TODO find the way how to generalize code with lua
 " function! ShiftLeftRestore(type, ...) abort
@@ -118,6 +139,8 @@ nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
 
 " Snippets
 snoremap <BS> _<C-W>
+snoremap <C-C> <Esc>
+snoremap p p
 
 " Sql
 let g:ftplugin_sql_omni_key = '<C-S>'

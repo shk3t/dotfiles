@@ -1,32 +1,30 @@
 # TODOS
-- [ ] more textobj
-    - [ ] repeat texbobj jump (mb tpope plugin)
-- [ ] switch tab width (4 <-> 2)
-- [ ] switch line breaking
+- [ ] repeat texbobj jump (mb tpope plugin)
+- [ ] switch text wrap
 - [ ] mark signs
-- [ ] tmux previous tab shortcut
 - [ ] camel case movements
-- [ ] format selected lines
-- [ ] show full path in lualine
-- [-!] null-ls warning: multiple offset encoding: try check ccls native encoding settings
-- [ ] test updatetime for cpp diagnostics
-- [ ] align center single buffer
-- [ ] rename buffer
-- [h] keep indentation when surround (js)
-- [X] visual paste to null buffer
-- [-] telescope remove word using ctrl + backspace
-- [!] jsx autoindent
-- [?] jumppoint before openning explorer
+- [ ] jsx autoindent
+- [ ] jsx comment
+- [ ] paste to new line (tpope unimpaired)
+- [ ] mini.nvim textobjects
+- [ ] help in the same window
+- [ ] reset settings without exit
+- [ ] `gv` after surrounding
+- [ ] repeat surrounding
+- [ ] repeat capitalization
+- [ ] telescope TODOS
+- [ ] inner tag actions with arrow functions
+- [ ] paired `*` for markdown
+- [ ] keep indentation after `o<C-C>`
 ### Lsp
+- [ ] use TJ lsp config
+- [-] js linter for missing imports (eslint, eslint_d, xo)
 - [ ] sql
     - [ ] run from nvim
-    - [ ] dadbod
 - [-] rename file with references
-- [ ] import code action
-- [!] js linter for missing imports
+- [?] import code action
 - [ ] go to superclass
 - [ ] range formatting
-- [!] change cpp LSP
 #### Snippets
 - [ ] try another collection
 ### Appearance
@@ -34,17 +32,21 @@
 - [ ] underline diagnostics using specific color
 - [h] telescope styling
     - [ ] specific layouts
+- [ ] display diagnostics on hover (virtual text)
+- [ ] rose-pine change horizontal split color
 
 <br>
 
 ## New plugins
-- [ ] firenvim
+- [!] firenvim
+- [!] goyo (align center single window)
+- [ ] trouble
 - [ ] refactoring (null-ls)
     - [ ] nvim-treesitter-refactor
 - [ ] lspsaga
 - [ ] neoclip
 - [ ] neoorg
-- [ ] nvim-dap
+- [!] nvim-dap
     - [ ] dap-ui
 - [ ] nvim-ufo (folding)
 - [ ] hop.nvim/lightspeed
@@ -55,11 +57,17 @@
 - [ ] barbar / bufferline / customise native
 - [ ] neoscroll
 - [ ] telescope filebrowser
+- [ ] dadbod
+- [ ] indent-blankline
+- [ ] mark.nvim
 
 <br>
 
 ## ZSH
-- [ ] shorten to 1 letter *username* and *hostname*
 - [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
 - [!] git push <username>,<token> shortcut
 - [ ] use normal plugin for git prompt
+- [ ] `Ctrl+Shift+C` copy to clip
+
+## Alacritty
+- [ ] `Ctrl+Shift+C` copy to clip

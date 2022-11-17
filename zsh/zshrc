@@ -17,6 +17,10 @@ zstyle ':completion:*' menu select  # Menu
 zmodload zsh/complist               # Completion listing extensions
 _comp_options+=(globdots)           # Include hidden files
 
+# Deletion behaviour
+autoload -U select-word-style
+select-word-style bash
+
 # Colors
 autoload -U colors && colors
 
@@ -29,6 +33,7 @@ source "$ZDOTDIR/zsh-vim-mode"
 source "$ZDOTDIR/zsh-aliases"
 source "$ZDOTDIR/zsh-prompt"
 source "$ZDOTDIR/zsh-keys"
+source "$ZDOTDIR/zsh-colors"
 source "$ZDOTDIR/zsh-private"
 
 # Plugins

@@ -10,9 +10,11 @@ keymap("n", "<Space>f", cmd_telescope .. ".find_files()<CR>", opts)
 keymap("n", "<Space>g", cmd_telescope .. ".live_grep()<CR>", opts)
 keymap("n", "<Space>b", cmd_telescope .. ".buffers()<CR>", opts)
 keymap("n", "<Space>th", cmd_telescope .. ".help_tags()<CR>", opts)
+-- keymap("n", "<Space>tm", cmd_telescope .. ".man_pages()<CR>", opts)
 keymap("n", "<Space>tm", cmd_telescope .. ".marks()<CR>", opts)
 keymap("n", "<Space>tk", cmd_telescope .. ".keymaps()<CR>", opts)
 keymap("n", "<Space>tj", cmd_telescope .. ".jumplist()<CR>", opts)
+keymap("n", "<Space>tr", cmd_telescope .. ".registers()<CR>", opts)
 
 telescope.setup({
     defaults = {
@@ -39,7 +41,7 @@ telescope.setup({
         vimgrep_arguments = {
             "rg",
             "--vimgrep",
-            -- "--smart-case",
+            "--smart-case",
             "--trim",
             "--hidden",
             "--no-ignore",

@@ -5,6 +5,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'kkharji/sqlite.lua'
 Plug 'tjdevries/colorbuddy.nvim'
+Plug 'echasnovski/mini.nvim'
 
 " Lsp
 Plug 'neovim/nvim-lspconfig'
@@ -48,6 +49,7 @@ Plug 'kylechui/nvim-surround'
 
 " Indentation improve
 Plug 'Vimjas/vim-python-pep8-indent'
+"Plug 'MaxMEllon/vim-jsx-pretty'
 
 " Interface
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -67,6 +69,8 @@ Plug 'rose-pine/neovim'
 Plug 'bkegley/gloombuddy'
 Plug 'yashguptaz/calvera-dark.nvim'
 Plug 'shaunsingh/moonlight.nvim'
+"Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
+Plug 'ellisonleao/gruvbox.nvim'
 call plug#end()
 
 

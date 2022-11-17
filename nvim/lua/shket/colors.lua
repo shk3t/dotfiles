@@ -7,3 +7,5 @@ require("rose-pine").setup({
     -- disable_float_background = false,
     disable_italics = true
 })
+
+-- vim.g.calvera_borders = true

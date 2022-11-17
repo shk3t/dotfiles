@@ -1,7 +1,7 @@
 require("nvim-treesitter.configs").setup({
     ensure_installed = "all",
-    highlight = {enable = true},
-    indent = {enable = false, disable = {"python", "css"}},
+    highlight = {enable = true, disable = {"sql", "asm", "md"}},
+    indent = {enable = true, disable = {"python", "css"}},
     incremental_selection = {
         enable = true,
         keymaps = {
@@ -38,17 +38,23 @@ require("nvim-treesitter.configs").setup({
             enable = true,
             lookahead = true,
             keymaps = {
-                ["ac"] = "@conditional.outer",
-                ["ic"] = "@conditional.inner",
-
-                ["aa"] = "@parameter.outer",
-                ["ia"] = "@parameter.inner",
-
                 ["af"] = "@function.outer",
                 ["if"] = "@function.inner",
 
                 ["aC"] = "@class.outer",
                 ["iC"] = "@class.inner",
+
+                ["aa"] = "@parameter.outer",
+                ["ia"] = "@parameter.inner",
+
+                ["ic"] = "@call.inner",
+                ["ac"] = "@call.outer",
+
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
+
+                ["as"] = "@statement.outer",
+                ["is"] = "@statement.outer",
             },
             selection_modes = {
                 ["@function.outer"] = "V",

@@ -11,7 +11,7 @@ keymap("n", "<Space>td", "<cmd>lua require('telescope.builtin').diagnostics()<CR
 
 local function config(_config)
     return vim.tbl_deep_extend("force", {
-        capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
         on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
             vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -27,7 +27,6 @@ local function config(_config)
             buf_keymap(bufnr, "n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", opts)
             buf_keymap(bufnr, "n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 
-            require("aerial").on_attach(client, bufnr)
             client.server_capabilities.documentFormattingProvider = false
 
         end,
@@ -45,7 +44,21 @@ local lspconfig = require("lspconfig")
 
 lspconfig.pyright.setup(config())
 
-lspconfig.ccls.setup(config())
+-- lspconfig.ccls.setup(config())
+lspconfig.clangd.setup(config({
+    cmd = {
+        "clangd",
+        -- "--all-scopes-completion=true",
+        -- "--background-index=true",
+        "--completion-style=bundled",
+        "--function-arg-placeholders=false",
+        "--header-insertion=iwyu",
+        "--header-insertion-decorators=false",
+        "--offset-encoding=utf-16",
+    },
+}))
+
+-- lspconfig.asm_lsp.setup(config())
 
 lspconfig.bashls.setup(config())
 

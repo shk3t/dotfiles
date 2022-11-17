@@ -1,9 +1,18 @@
+# Extensionless
+#*
+#!/**/
+#!*.*
+
 # General
 .git/
-build/
 *.sqlite3
 metadata.json
 requirements.txt
+
+# Build
+#!makefile
+build/
+*.o
 
 # Images
 *.png

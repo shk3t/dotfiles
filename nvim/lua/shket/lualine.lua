@@ -4,7 +4,8 @@ require("lualine").setup({
         theme = "auto",
         component_separators = {left = "", right = ""},
         section_separators = {left = "", right = ""},
-        disabled_filetypes = {},
+        disabled_filetypes = {statusline = {}, winbar = {}},
+        ignore_focus = {},
         always_divide_middle = true,
         globalstatus = false,
         refresh = {statusline = 1000, tabline = 1000, winbar = 1000},
@@ -12,7 +13,7 @@ require("lualine").setup({
     sections = {
         lualine_a = {"mode"},
         lualine_b = {"branch", "diagnostics"},
-        lualine_c = {"filename"},
+        lualine_c = {{"filename", path = 1}},
         lualine_x = {"filetype"},
         lualine_y = {"%l:%v"},
         lualine_z = {"%LL"},
@@ -30,4 +31,3 @@ require("lualine").setup({
     inactive_winbar = {},
     extensions = {},
 })
-

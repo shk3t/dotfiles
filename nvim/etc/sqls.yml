@@ -1,7 +1,7 @@
 lowercaseKeywords: false
 connections:
   - alias: shket
-    dataSourceName: "host=127.0.0.1 port=5432 user=shket password=NJBo|LnJDMI1R2pEZ?0~Khw8Eo|l8DQGP12qQHP3$bqjW78hC%nhzH$Z*g6p dbname=shket"
+    dataSourceName: "host=127.0.0.1 port=5432 user=shket password=1think1dump dbname=shket"
     driver: postgresql
   # - alias: cogito
   #   dataSourceName: "host=127.0.0.1 port=5432 user=shket password=1think1dump dbname=cogito"

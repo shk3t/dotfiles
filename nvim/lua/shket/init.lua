@@ -5,11 +5,12 @@ require("shket.treesitter")
 require("shket.telescope")
 require("shket.lualine")
 
-require("shket.tree-explorer")
+require("shket.nvim-tree")
 require("shket.aerial")
 require("shket.comment")
 require("shket.autopairs")
 require("shket.surround")
+require("shket.mini")
 require("shket.auto-save")
 
 require("shket.colors")

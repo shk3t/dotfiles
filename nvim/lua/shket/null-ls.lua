@@ -1,5 +1,6 @@
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
 
 local NVIM_ETC = os.getenv("HOME") .. "/.config/nvim/etc"
 
@@ -17,5 +18,7 @@ null_ls.setup({
         formatting.clang_format.with({
             extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},
         }),
+
+        -- diagnostics.clang_check,
     },
 })

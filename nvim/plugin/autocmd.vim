@@ -6,9 +6,6 @@ function! RelativeNumberOn() abort
 endfunction
 
 
-" No autocomments
-autocmd FileType * setlocal formatoptions-=o
-
 " Line numeration toggle
 "autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw
 "autocmd FocusGained,WinEnter,CmdlineLeave,BufEnter * call RelativeNumberOn()
@@ -32,5 +29,24 @@ autocmd TextYankPost *
 "     autocmd VimLeave * call system("tmux setw automatic-rename")
 " endif
 
-" autocmd!
-" autocmd BufWritePre * %s/\s\+$//e
+" Trim trailing spaces
+"autocmd BufWritePre * %s/\s\+$//e
+
+" Set the filetype based on the file's extension
+autocmd BufRead,BufNewFile *.inc setlocal filetype=asm
+" autocmd BufRead,BufNewFile *.h setlocal filetype=c
+
+" Don't add the comment prefix when I hit o/O on a comment line.
+autocmd FileType * setlocal formatoptions+=r formatoptions-=co
+autocmd FileType markdown setlocal formatoptions-=r
+
+" Aerial cursor line highlighting
+autocmd FileType aerial setlocal cursorlineopt=line
+
+" Easy Window closing
+autocmd CmdwinEnter * nnoremap <buffer><silent> q :q<CR>
+autocmd FileType help nnoremap <buffer><silent> q :q<CR>
+" autocmd FileType help execute "normal \<C-W>\<C-P>\<C-W>\<C-Q>"
+
+" autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
+" autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()

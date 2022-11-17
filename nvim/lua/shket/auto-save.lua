@@ -2,10 +2,10 @@ require("auto-save").setup({
     enabled = false, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
     execution_message = {
         message = function() -- message to print on save
-            return ("auto-save: current file written")  -- TODO expand current file path
+            return ("F5")  -- TODO expand current file path
         end,
-        dim = 0.18, -- dim the color of `message`
-        cleaning_interval = 1250, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
+        dim = 0, -- dim the color of `message`
+        cleaning_interval = 0, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
     },
     trigger_events = {"InsertLeave", "TextChanged"}, -- vim events that trigger auto-save. See :h events
     -- function that determines whether to save the current buffer or not

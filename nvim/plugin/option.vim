@@ -44,12 +44,13 @@ set jumpoptions=stack
 " Explorer
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
+" let b:netrw_lastfile = 1
 " let g:netrw_liststyle = 3  " Tree-like explorer
 
 " Language
 let g:XkbSwitchEnabled = 1
-" let g:XkbSwitchAssistNKeymap = 1  " for commands r and f
-" let g:XkbSwitchAssistSKeymap = 1  " for search lines
+let g:XkbSwitchAssistNKeymap = 1  " for commands r and f
+let g:XkbSwitchAssistSKeymap = 1  " for search lines
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0

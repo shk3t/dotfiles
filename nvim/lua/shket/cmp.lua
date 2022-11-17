@@ -63,23 +63,23 @@ cmp.setup({
 
     sources = cmp.config.sources({
         {name = "path"},
-        {name = "nvim_lsp"},
         {name = "luasnip"},
-        {name = "buffer"},
+        {name = "nvim_lsp"},
+        {name = "buffer", option = {keyword_pattern = [[\k\+]]}}, -- I should think about it
         {name = "nvim_lsp_signature_help"},
         -- { name = "cmp_tabnine" },
     }),
 })
 
--- cmp.setup.filetype({"javascript", "javascriptreact", "typescript", "typescriptreact"}, {
+-- cmp.setup.filetype({"md", "json", "sql"}, {
 --     sources = cmp.config.sources({
+--         {name = "path"},
 --         {name = "luasnip"},
 --         {name = "nvim_lsp"},
---         {name = "buffer"},
+--         {name = "buffer", option = {keyword_pattern = [[\k\+]]}},
 --         {name = "nvim_lsp_signature_help"},
---     })
+--     }),
 -- })
-
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
