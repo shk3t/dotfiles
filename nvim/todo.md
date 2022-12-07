@@ -1,21 +1,15 @@
 # TODOS
 - [ ] repeat texbobj jump (mb tpope plugin)
-- [ ] switch text wrap
 - [ ] mark signs
-- [ ] camel case movements
+- [ ] camel case movements 
 - [ ] jsx autoindent
 - [ ] jsx comment
-- [ ] paste to new line (tpope unimpaired)
-- [ ] mini.nvim textobjects
-- [ ] help in the same window
-- [ ] reset settings without exit
-- [ ] `gv` after surrounding
-- [ ] repeat surrounding
-- [ ] repeat capitalization
+    - [ ] or keep indentation after `o<C-C>`
+- [h] reset settings without exit
 - [ ] telescope TODOS
 - [ ] inner tag actions with arrow functions
-- [ ] paired `*` for markdown
-- [ ] keep indentation after `o<C-C>`
+- [h] paired `*`, `$` for markdown and latex
+- [?] disable signcolumn in case of disabled diagnostics
 ### Lsp
 - [ ] use TJ lsp config
 - [-] js linter for missing imports (eslint, eslint_d, xo)
@@ -38,7 +32,6 @@
 <br>
 
 ## New plugins
-- [!] firenvim
 - [!] goyo (align center single window)
 - [ ] trouble
 - [ ] refactoring (null-ls)
@@ -60,6 +53,9 @@
 - [ ] dadbod
 - [ ] indent-blankline
 - [ ] mark.nvim
+- [ ] harpoon
+- [ ] mini.ai
+- [ ] unimpaired
 
 <br>
 
@@ -67,7 +63,4 @@
 - [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
 - [!] git push <username>,<token> shortcut
 - [ ] use normal plugin for git prompt
-- [ ] `Ctrl+Shift+C` copy to clip
-
-## Alacritty
-- [ ] `Ctrl+Shift+C` copy to clip
+- [ ] rethink completion keybindings

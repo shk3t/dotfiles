@@ -35,10 +35,11 @@ end
 
 vim.diagnostic.config({
     virtual_text = false,
+    underline = {severity = {min = "WARN"}},
     signs = true,
     update_in_insert = false,
 })
-require("neodim").setup({alpha = 0.6, update_in_insert = {enable = false}})
+-- require("neodim").setup({alpha = 0.6, update_in_insert = {enable = false}})
 
 local lspconfig = require("lspconfig")
 

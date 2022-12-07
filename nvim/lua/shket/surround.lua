@@ -1,19 +1,19 @@
-local get_input = function(prompt)
-    local ok, result = pcall(vim.fn.input, {prompt = prompt})
-    if not ok then
-        return nil
-    end
-    return result
-end
-
 require("nvim-surround").setup {
-    keymaps = {visual = "s", visual_line = "S", delete = "ds", change = "cs"},
+    keymaps = {
+        normal = "s",
+        normal_cur = "ss",
+        normal_cur_line = "S", -- bugged
+        visual = "s",
+        delete = "ds",
+        change = "cs",
+    },
     surrounds = {
         ["("] = {add = {"(", ")"}},
         ["{"] = {add = {"{", "}"}},
         ["<"] = {add = {"<", ">"}},
         ["["] = {add = {"[", "]"}},
     },
+    aliases = {["c"] = "f"},
     -- indent_lines = false,
-    move_cursor = false
+    move_cursor = false,
 }

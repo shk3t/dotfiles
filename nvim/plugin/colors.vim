@@ -11,11 +11,11 @@ fun! ConfigColors()
     hi CursorLineNr gui=bold
 endfun
 
-fun! SetWideBorder()
-    let vertsplit_guifg = synIDattr(synIDtrans(hlID('VertSplit')), 'fg')
-    execute "hi VertSplit guibg=" . vertsplit_guifg
-endfun
-
+" fun! SetWideBorder()
+"     let vertsplit_guifg = synIDattr(synIDtrans(hlID('VertSplit')), 'fg')
+"     execute "hi VertSplit guibg=" . vertsplit_guifg
+" endfun
+"
 fun! SetTransparentBG()
     hi Normal guibg=None
     hi NormalNC guibg=None
@@ -31,5 +31,5 @@ fun! SetTransparentBG()
 endfun
 
 autocmd SourcePost,Colorscheme * call ConfigColors()
-autocmd SourcePost,Colorscheme * call SetWideBorder()
-autocmd SourcePost,Colorscheme * call SetTransparentBG()
+" autocmd SourcePost,Colorscheme * call SetWideBorder()
+" autocmd SourcePost,Colorscheme * call SetTransparentBG()

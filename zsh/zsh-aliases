@@ -10,6 +10,9 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ls='ls -Av --group-directories-first --color=auto'
+function cd {
+    builtin cd "$@" && ls
+}
 
 # Confirm before overwriting something
 #alias cp="cp -i"

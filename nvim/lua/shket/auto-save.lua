@@ -31,7 +31,7 @@ require("auto-save").setup({
     },
 })
 
-vim.api.nvim_set_keymap("n", "<space>W", ":ASToggle<CR>", {
+vim.api.nvim_set_keymap("n", "<space>S", ":ASToggle<CR>", {
     noremap = true,
     silent = false,
 })

@@ -31,6 +31,7 @@ Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'ahmedkhalf/jupyter-nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'goerz/jupytext.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " Navigation
 Plug 'kyazdani42/nvim-tree.lua'
@@ -57,7 +58,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-context'
 Plug 'nvim-treesitter/playground'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'zbirenbaum/neodim'
+"Plug 'zbirenbaum/neodim'
 
 " Colorschemes
 Plug 'folke/tokyonight.nvim'

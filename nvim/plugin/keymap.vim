@@ -24,6 +24,13 @@ function! ToggleTabWidth() abort
         set shiftwidth=2
     endif
 endfunction
+function! ToggleLineWrap() abort
+    if &wrap == 0
+        set wrap
+    else
+        set nowrap
+    endif
+endfunction
 
 " Commands
 command! Cdc cd %:p:h
@@ -34,6 +41,7 @@ inoremap <C-C> <Esc>
 inoremap <C-H> <C-W>
 cnoremap <C-H> <C-W>
 inoremap <C-Del> <Esc><Right>dei
+inoremap <C-V> <C-R>"
 noremap <C-L> <Nop>
 noremap p p`]
 noremap P P`]
@@ -74,9 +82,10 @@ noremap <Space>Y :%y+<CR>
 "vnoremap <Space>p "_dP`]
 noremap <Space>? :set hlsearch!<CR>
 noremap <Space>C :set ignorecase!<CR>
-noremap <Space>V :set cursorcolumn!<CR>
+"noremap <Space>V :set cursorcolumn!<CR>
 noremap <Space>N :call ToggleLineNumeration()<CR>
 noremap <Space>I :call ToggleTabWidth()<CR>
+noremap <Space>W :call ToggleLineWrap()<CR>
 nnoremap <Space>s :%s/<C-R><C-W>//g<Left><Left>
 vnoremap <Space>s "0yV:s/<C-R>0//g<Left><Left>
 nnoremap <silent> <Space>e :Explore<CR>
@@ -105,8 +114,10 @@ noremap <silent> <C-W>Q :tabclose<CR>
 " Jumplist
 " nnoremap <silent> } :<C-u>execute "keepjumps normal! " . v:count1 . "}"<CR>
 " nnoremap <silent> { :<C-u>execute "keepjumps normal! " . v:count1 . "{"<CR>
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k' : 'gk')
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count . 'j' : 'gj')
+vnoremap k gk
+vnoremap j gj
 
 " Custom jumps
 nnoremap <silent> [i m':call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>

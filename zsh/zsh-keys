@@ -41,3 +41,12 @@ bindkey -M vicmd "j" down-line
 bindkey -M vicmd "k" up-line
 bindkey -M vicmd "^S" autosuggest-toggle
 bindkey -rM vicmd ":"
+
+# Yank to the system clipboard
+function vi-yank-xclip {
+    zle vi-yank
+    echo "$CUTBUFFER" | xclip -selection clipboard
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd '\x1b[67;6u' vi-yank-xclip

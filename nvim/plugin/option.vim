@@ -1,6 +1,5 @@
 " SETS
-" Tabs
-set tabstop=4
+" Tabs set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -14,7 +13,9 @@ set relativenumber
 set signcolumn=yes
 set scrolloff=8
 set nowrap
-"set wrap linebreak
+set linebreak
+set breakindent
+"set showbreak=..
 
 " Syntax highlighting
 set hlsearch
@@ -23,8 +24,7 @@ set ignorecase
 set smartcase
 syntax on
 set completeopt=menu,menuone,noselect
-"set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
+"set foldmethod=expr set foldexpr=nvim_treesitter#foldexpr()
 
 " Sounds
 set noerrorbells
@@ -44,16 +44,29 @@ set jumpoptions=stack
 " Explorer
 let g:netrw_list_hide = '^\./$'
 let g:netrw_hide = 1
-" let b:netrw_lastfile = 1
-" let g:netrw_liststyle = 3  " Tree-like explorer
+"let b:netrw_lastfile = 1
+"let g:netrw_liststyle = 3  " Tree-like explorer
 
 " Language
 let g:XkbSwitchEnabled = 1
 let g:XkbSwitchAssistNKeymap = 1  " for commands r and f
-let g:XkbSwitchAssistSKeymap = 1  " for search lines
+let g:XkbSwitchNLayout = 'us' " better telescope support
+"let g:XkbSwitchIminsertToggleKey = '<C-^>'
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
 
 " Providers
 let g:loaded_perl_provider = 0
+
+" Plugins
+let g:firenvim_config = { 
+    \ 'globalSettings': {
+        \ '<C-w>': 'default',
+    \  },
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'selector': '',
+        \ },
+    \ }
+\ }
