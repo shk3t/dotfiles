@@ -1,8 +1,8 @@
 require("nvim-surround").setup {
     keymaps = {
-        normal = "s",
-        normal_cur = "ss",
-        normal_cur_line = "S", -- bugged
+        normal = "ys",
+        normal_cur = "yss",
+        normal_cur_line = "yS", -- bugged
         visual = "s",
         delete = "ds",
         change = "cs",

@@ -9,7 +9,7 @@ autopairs.setup({
     ignored_next_char = [=[[%w%%%'%[%"%.ёйцукенгшщзхъфывапролджэячсмитьбю%$%(%{%`%*]]=],
     enable_moveright = true,
     enable_afterquote = false, -- add bracket pairs after quote
-    enable_check_bracket_line = true, -- check bracket in same line
+    enable_check_bracket_line = false, -- check bracket in same line
     enable_bracket_in_quote = true,
     check_ts = true,
     map_cr = true,

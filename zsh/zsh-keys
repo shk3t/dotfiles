@@ -24,11 +24,12 @@ stty werase "^H"
 # Completion menu movements
 bindkey -M menuselect "^J" vi-down-line-or-history
 bindkey -M menuselect "^K" vi-up-line-or-history
-#bindkey -M menuselect "^H" vi-backward-char
-#bindkey -M menuselect "^L" vi-forward-char
+bindkey -M menuselect "^H" vi-backward-char
+bindkey -M menuselect "^L" vi-forward-char
 bindkey -M menuselect "^[[Z" vi-up-line-or-history
 bindkey -M menuselect "^M" .accept-line
-bindkey -M menuselect "^L" accept-line
+# bindkey -M menuselect "^L" accept-line
+bindkey -M menuselect "^[" vi-cmd-mode
 
 # Vim bindings
 bindkey -M viins "^?" backward-delete-char
@@ -43,10 +44,34 @@ bindkey -M vicmd "^S" autosuggest-toggle
 bindkey -rM vicmd ":"
 
 # Yank to the system clipboard
-function vi-yank-xclip {
+function vi-yank-xclip() {
     zle vi-yank
-    echo "$CUTBUFFER" | xclip -selection clipboard
+    echo -n "$CUTBUFFER" | xclip -selection clipboard
 }
-
 zle -N vi-yank-xclip
-bindkey -M vicmd '\x1b[67;6u' vi-yank-xclip
+bindkey -M vicmd "\x1b[67;6u" vi-yank-xclip
+#bindkey -M vicmd "y" vi-yank-xclip
+
+## Paste from the system clipboard
+#function vi-paste-xclip-before() {
+#    CLIP_DATA=$(xclip -selection clipboard -out)
+#    LBUFFER="$LBUFFER${CLIP_DATA[1,-2]}"
+#    RBUFFER="${CLIP_DATA[-1]}$RBUFFER"
+#}
+#function vi-paste-xclip-after() {
+#    CLIP_DATA=$(xclip -selection clipboard -out)
+#    LBUFFER="$LBUFFER${RBUFFER[1]}${CLIP_DATA[1,-2]}"
+#    RBUFFER="${CLIP_DATA[-1]}${RBUFFER[2,-1]}"
+#}
+#zle -N vi-paste-xclip-before
+#zle -N vi-paste-xclip-after
+#bindkey -M vicmd "P" vi-paste-xclip-before
+#bindkey -M vicmd "p" vi-paste-xclip-after
+
+# Yank current line
+function yank-current-line-xclip() {
+    zle visual-line-mode
+    zle vi-yank-xclip
+}
+zle -N yank-current-line-xclip
+bindkey '^Y' yank-current-line-xclip

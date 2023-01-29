@@ -15,6 +15,8 @@ keymap("n", "<Space>tm", cmd_telescope .. ".marks()<CR>", opts)
 keymap("n", "<Space>tk", cmd_telescope .. ".keymaps()<CR>", opts)
 keymap("n", "<Space>tj", cmd_telescope .. ".jumplist()<CR>", opts)
 keymap("n", "<Space>tr", cmd_telescope .. ".registers()<CR>", opts)
+keymap("n", "<Space>s", cmd_telescope .. ".lsp_document_symbols()<CR>", opts)
+keymap("n", "<Space>as", cmd_telescope .. ".lsp_dynamic_workspace_symbols()<CR>", opts)
 
 telescope.setup({
     defaults = {
@@ -28,9 +30,11 @@ telescope.setup({
             preview_width = 0.55,
         },
         border = true,
+        file_ignore_patterns = {"node_modules"},
 
         mappings = {
             i = {
+                -- ["<C-H>"] = false,
                 ["<C-P>"] = actions.cycle_history_prev,
                 ["<C-N>"] = actions.cycle_history_next,
                 ["<C-J>"] = actions.move_selection_next,
@@ -63,7 +67,8 @@ telescope.setup({
         },
         buffers = {sort_mru = true},
         lsp_references = {include_declaration = false, show_line = false},
-        diagnostics = {severity_limit="WARN"}  -- Only warnings and errors
+        diagnostics = {severity_limit = "WARN"}, -- Only warnings and errors
+        -- lsp_dynamic_workspace_symbols = {ignore_symbols = {"node_modules"}},
         -- jumplist = {show_line = false}
     },
     extensions = {

@@ -62,9 +62,9 @@ cmp.setup({
     }),
 
     sources = cmp.config.sources({
-        {name = "path"},
         {name = "luasnip"},
         {name = "nvim_lsp"},
+        {name = "path"},
         {name = "buffer", option = {keyword_pattern = [[\k\+]]}}, -- I should think about it
         {name = "nvim_lsp_signature_help"},
         -- { name = "cmp_tabnine" },

@@ -2,7 +2,7 @@ require("auto-save").setup({
     enabled = false, -- start auto-save when the plugin is loaded (i.e. when your package manager loads it)
     execution_message = {
         message = function() -- message to print on save
-            return ("F5")  -- TODO expand current file path
+            return ("F5")
         end,
         dim = 0, -- dim the color of `message`
         cleaning_interval = 0, -- (milliseconds) automatically clean MsgArea after displaying `message`. See :h MsgArea
@@ -21,7 +21,7 @@ require("auto-save").setup({
         return false -- can't save
     end,
     write_all_buffers = false, -- write all buffers when the current one meets `condition`
-    debounce_delay = 135, -- saves the file at most every `debounce_delay` milliseconds
+    debounce_delay = 500, -- saves the file at most every `debounce_delay` milliseconds
     callbacks = { -- functions to be executed at different intervals
         enabling = nil, -- ran when enabling auto-save
         disabling = nil, -- ran when disabling auto-save

@@ -24,7 +24,7 @@ fi
 # Nvim_tree plugin config:
 NVIM_TREE_LUA="$NVIM_PLUGIN_DIR/nvim-tree.lua/lua/nvim-tree/view.lua"
 if [[ -e $NVIM_TREE_LUA ]]; then
-    sed -Ei 's/ + 3 -- plus some padding//g' $NVIM_TREE_LUA
+    sed -Ei 's/ \+ 3 -- plus some padding//g' $NVIM_TREE_LUA
 fi
 
 # Remove default colorschemes

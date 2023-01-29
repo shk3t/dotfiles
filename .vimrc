@@ -62,8 +62,11 @@ endfor
 noremap <silent> <C-W>< :-tabmove<CR>
 noremap <silent> <C-W>> :+tabmove<CR>
 noremap <silent> <C-W>Q :tabclose<CR>
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k' : 'gk')
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count . 'j' : 'gj')
+vnoremap k gk
+vnoremap j gj
+
 
 " OPTIONS
 set tabstop=4

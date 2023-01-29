@@ -5,14 +5,6 @@ function! RelativeNumberOn() abort
     endif
 endfunction
 
-function! FirenvimEnter(event) abort
-    if exists('g:started_by_firenvim')
-        " execute "set guifont=Ubuntu\\ Mono:h12"
-        autocmd BufEnter colab.research.google.com_*.txt set filetype=python
-        autocmd BufEnter github.com_*.txt set filetype=markdown
-    endif
-endfunction
-
 " Line numeration toggle
 "autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw
 "autocmd FocusGained,WinEnter,CmdlineLeave,BufEnter * call RelativeNumberOn()
@@ -47,8 +39,9 @@ autocmd BufRead,BufNewFile *.inc setlocal filetype=asm
 autocmd FileType * setlocal formatoptions+=r formatoptions-=co
 autocmd FileType markdown setlocal formatoptions-=r
 
-" Aerial cursor line highlighting
+" Cursor line highlighting
 autocmd FileType aerial setlocal cursorlineopt=line
+autocmd FileType netrw setlocal cursorlineopt=line
 
 " Easy Window closing
 autocmd CmdwinEnter * nnoremap <buffer><silent> q :q<CR>
@@ -57,6 +50,3 @@ autocmd FileType help nnoremap <buffer><silent> q :q<CR>
 
 " autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
 " autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()
-
-" Firenvim
-autocmd UIEnter * call FirenvimEnter(deepcopy(v:event))

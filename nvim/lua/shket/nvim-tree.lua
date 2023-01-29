@@ -14,11 +14,15 @@ require("nvim-tree").setup({
             list = {
                 {key = "l", action = "edit"},
                 {key = "h", action = "close_node"},
+                {key = "R", action = "rename"},
+                {key = "%", action = "create"},
+                {key = "d", action = "create"},
+                {key = "D", action = "trash"},
             },
         },
     },
     renderer = {
-        group_empty = true,
+        group_empty = false,
         icons = {
             padding = "",
             symlink_arrow = " -> ",

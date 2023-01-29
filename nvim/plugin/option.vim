@@ -1,5 +1,6 @@
 " SETS
-" Tabs set tabstop=4
+" Tabs
+set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
@@ -55,18 +56,7 @@ let g:XkbSwitchNLayout = 'us' " better telescope support
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
+"set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 
 " Providers
 let g:loaded_perl_provider = 0
-
-" Plugins
-let g:firenvim_config = { 
-    \ 'globalSettings': {
-        \ '<C-w>': 'default',
-    \  },
-    \ 'localSettings': {
-        \ '.*': {
-            \ 'selector': '',
-        \ },
-    \ }
-\ }

@@ -14,7 +14,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 "Plug 'glepnir/lspsaga.nvim'
 
-" Cmp
+" Completions
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
@@ -31,7 +31,6 @@ Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 "Plug 'ahmedkhalf/jupyter-nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'goerz/jupytext.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 " Navigation
 Plug 'kyazdani42/nvim-tree.lua'
@@ -42,13 +41,14 @@ Plug 'stevearc/aerial.nvim'
 
 " Automation
 Plug 'lyokha/vim-xkbswitch'
-Plug 'numToStr/Comment.nvim'
 Plug 'Pocco81/auto-save.nvim'
+Plug 'numToStr/Comment.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'windwp/nvim-ts-autotag'
 Plug 'kylechui/nvim-surround'
 
 " Indentation improve
+Plug 'gpanders/editorconfig.nvim'
 Plug 'Vimjas/vim-python-pep8-indent'
 "Plug 'MaxMEllon/vim-jsx-pretty'
 

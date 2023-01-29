@@ -14,7 +14,7 @@ function! ToggleLineNumeration() abort
     endif
 endfunction
 function! ToggleTabWidth() abort
-    if &tabstop != 4
+    if &shiftwidth != 4
         set tabstop=4
         set softtabstop=4
         set shiftwidth=4
@@ -31,6 +31,13 @@ function! ToggleLineWrap() abort
         set nowrap
     endif
 endfunction
+" function! RExplore() abort
+"     if exists("w:netrw_rexlocal")
+"         Rexplore
+"     else
+"         Explore
+"     endif
+" endfunction
 
 " Commands
 command! Cdc cd %:p:h
@@ -86,11 +93,12 @@ noremap <Space>C :set ignorecase!<CR>
 noremap <Space>N :call ToggleLineNumeration()<CR>
 noremap <Space>I :call ToggleTabWidth()<CR>
 noremap <Space>W :call ToggleLineWrap()<CR>
-nnoremap <Space>s :%s/<C-R><C-W>//g<Left><Left>
-vnoremap <Space>s "0yV:s/<C-R>0//g<Left><Left>
+nnoremap <Space>/s :%s/\<<C-R><C-W>\>//g<Left><Left>
+vnoremap <Space>/s "0yV:s/\<<C-R>0\>//g<Left><Left>
 nnoremap <silent> <Space>e :Explore<CR>
-"nnoremap <Space>Lr :LspRestart<CR>
-"nnoremap <Space>Li :LspInfo<CR>
+" nnoremap <silent> <Space>e :call RExplore()<CR>
+nnoremap <Space>Lr :LspRestart<CR>
+nnoremap <Space>Li :LspInfo<CR>
 
 " Splits
 noremap <C-W>s <C-W>s<C-W>j
@@ -122,31 +130,6 @@ vnoremap j gj
 " Custom jumps
 nnoremap <silent> [i m':call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
 nnoremap <silent> ]i m':call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
-
-" TODO find the way how to generalize code with lua
-" function! ShiftLeftRestore(type, ...) abort
-"     if a:type == 'line'
-"         keepjumps normal! '[<']
-"     else
-"         keepjumps normal! `[<`]
-"     endif
-"     call setpos('.', g:cursor)
-" endfunction
-" function! ShiftRightRestore(type, ...) abort
-"     if a:type == 'line'
-"         keepjumps normal! '[>']
-"     else
-"         keepjumps normal! `[>`]
-"     endif
-"     call setpos('.', g:cursor)
-" endfunction
-" nnoremap <silent> < :let g:cursor=getpos('.')<Bar>set opfunc=ShiftLeftRestore<CR>g@
-" nnoremap <silent> > :let g:cursor=getpos('.')<Bar>set opfunc=ShiftRightRestore<CR>g@
-" nmap << <<
-" nmap >> >>
-" vnoremap < <gv<Esc>
-" vnoremap > >gv<Esc>
-"
 
 " Snippets
 snoremap <BS> _<C-W>
