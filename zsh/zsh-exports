@@ -11,9 +11,10 @@ PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
-PATH="$HOME/.local/share/lua-language-server/bin:$PATH"
+# PATH="$HOME/.local/share/lua-language-server/bin:$PATH"
 #PATH="$HOME/.local/share/deno/bin:$PATH"
-PATH="$HOME/.go/bin:$PATH"
+PATH="/usr/local/go/bin:$PATH"
+#PATH="$HOME/.go/bin:$PATH"
 
 # Latex
 #PATH="$HOME/.local/texlive/2022/bin/x86_64-linux:$PATH"
@@ -22,7 +23,7 @@ PATH="$HOME/.go/bin:$PATH"
 
 # Packages
 export NODE_PATH="/usr/local/lib/node_modules"
-export GOPATH="$HOME/.go"
+#export GOPATH="$HOME/.go"
 
 # Man
 export MANPAGER='nvim +Man!'

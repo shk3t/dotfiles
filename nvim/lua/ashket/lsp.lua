@@ -1,8 +1,11 @@
+require("mason").setup()
+require("mason-lspconfig").setup()
+
 local keymap = vim.api.nvim_set_keymap
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local opts = {noremap = true, silent = true}
-local HOME = os.getenv("HOME")
-local GOPATH = os.getenv("GOPATH")
+-- local HOME = os.getenv("HOME")
+-- local GOPATH = os.getenv("GOPATH")
 
 -- keymap("n", "<space>d", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
@@ -75,21 +78,20 @@ lspconfig.jsonls.setup(config())
 
 lspconfig.texlab.setup(config())
 
-if GOPATH then
-    lspconfig.sqls.setup(config({
-        cmd = {
-            GOPATH .. "/bin/sqls",
-            "-config",
-            HOME .. "/.config/nvim/etc/sqls.yml",
-        },
-    }))
-end
+lspconfig.sqls.setup(config())
+
+-- if GOPATH then
+--     lspconfig.sqls.setup(config({
+--         cmd = {
+--             GOPATH .. "/bin/sqls",
+--             "-config",
+--             HOME .. "/.config/nvim/etc/sqls.yml",
+--         },
+--     }))
+-- end
 -- lspconfig.sqlls.setup(config())
 
-local sumneko_root_path = HOME .. "/.local/share/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 lspconfig.sumneko_lua.setup(config({
-    cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
         Lua = {
             runtime = {

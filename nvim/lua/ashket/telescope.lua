@@ -58,7 +58,7 @@ telescope.setup({
             find_command = {
                 "fdfind",
                 "--type=f",
-                "--strip-cwd-prefix",
+                -- "--strip-cwd-prefix",
                 "--hidden",
                 "--no-ignore",
                 "--ignore-file",

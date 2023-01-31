@@ -8,6 +8,8 @@ Plug 'tjdevries/colorbuddy.nvim'
 Plug 'echasnovski/mini.nvim'
 
 " Lsp
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -80,4 +82,4 @@ set termguicolors
 
 
 " LUA
-lua require("shket")
+lua require("ashket")

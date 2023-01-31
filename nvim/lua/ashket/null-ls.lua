@@ -7,9 +7,9 @@ local NVIM_ETC = os.getenv("HOME") .. "/.config/nvim/etc"
 null_ls.setup({
     debug = false,
     sources = {
-        formatting.prettier.with({
-            extra_args = {"--config", NVIM_ETC .. "/prettier.json"},
-        }),
+        -- formatting.prettier.with({
+        --     extra_args = {"--config", NVIM_ETC .. "/prettier.json"},
+        -- }),
         formatting.black.with({extra_args = {"--fast"}}),
         formatting.lua_format.with({
             extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},

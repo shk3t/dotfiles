@@ -1,4 +1,6 @@
-/* See LICENSE file for copyright and license details. */
+#define STR(X) #X
+#define ASSTR(X) STR(X)
+#define QSTR(X) " '" STR(X) "' "
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -7,15 +9,37 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "Ubuntu Mono:size=14" };
 static const char dmenufont[]       = "Ubuntu Mono:size=14";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+
+#define DMENUFONT Ubuntu Mono:size=14
+#define COL_BASE #191724
+#define COL_SURFACE #1f1d2e
+#define COL_OVERLAY #26233a
+#define COL_MUTED #6e6a86
+#define COL_SUBTLE #908caa
+#define COL_TEXT #e0def4
+#define COL_LOVE #eb6f92
+#define COL_GOLD #f6c177
+#define COL_ROSE #ebbcba
+#define COL_PINE #31748f
+#define COL_FOAM #9ccfd8
+#define COL_IRIS #c4a7e7
+static const char col_base[] = ASSTR(COL_BASE);
+static const char col_surface[] = ASSTR(COL_SURFACE);
+static const char col_overlay[] = ASSTR(COL_OVERLAY);
+static const char col_muted[] = ASSTR(COL_MUTED);
+static const char col_subtle[] = ASSTR(COL_SUBTLE);
+static const char col_text[] = ASSTR(COL_TEXT);
+static const char col_love[] = ASSTR(COL_LOVE);
+static const char col_gold[] = ASSTR(COL_GOLD);
+static const char col_rose[] = ASSTR(COL_ROSE);
+static const char col_pine[] = ASSTR(COL_PINE);
+static const char col_foam[] = ASSTR(COL_FOAM);
+static const char col_iris[] = ASSTR(COL_IRIS);
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_foam, col_base, col_overlay },
+	[SchemeSel]  = { col_text, col_pine,  col_pine  },
 };
 
 /* tagging */
@@ -56,13 +80,16 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+// static const char *dmenucmd[] = {"dmenu_run", "-fn", dmenufont, "-nb", col_base, "-nf", col_muted, "-sb", col_pine, "-sf", col_text, NULL };
+static const char *dmenucmd[] = {"j4-dmenu-desktop", "--dmenu", "dmenu -i -fn" QSTR(DMENUFONT) "-nb" QSTR(COL_BASE) "-nf" QSTR(COL_FOAM) "-sb" QSTR(COL_PINE) "-sf" QSTR(COL_TEXT), NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *runchrome[]  = { "google-chrome", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ Mod4Mask,                     XK_c,      spawn,          {.v = termcmd } },
+	{ Mod4Mask,                     XK_s,      spawn,          {.v = runchrome } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
