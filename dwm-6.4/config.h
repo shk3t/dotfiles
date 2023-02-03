@@ -1,45 +1,48 @@
+#include <X11/XF86keysym.h>
+
 #define STR(X) #X
 #define ASSTR(X) STR(X)
 #define QSTR(X) " '" STR(X) "' "
+#define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
 static const char *fonts[]          = { "Ubuntu Mono:size=14" };
 static const char dmenufont[]       = "Ubuntu Mono:size=14";
-
 #define DMENUFONT Ubuntu Mono:size=14
+
 #define COL_BASE #191724
 #define COL_SURFACE #1f1d2e
 #define COL_OVERLAY #26233a
 #define COL_MUTED #6e6a86
 #define COL_SUBTLE #908caa
 #define COL_TEXT #e0def4
-#define COL_LOVE #eb6f92
-#define COL_GOLD #f6c177
+#define COL_LOVE #eb6f92 #define COL_GOLD #f6c177
 #define COL_ROSE #ebbcba
 #define COL_PINE #31748f
 #define COL_FOAM #9ccfd8
 #define COL_IRIS #c4a7e7
-static const char col_base[] = ASSTR(COL_BASE);
-static const char col_surface[] = ASSTR(COL_SURFACE);
-static const char col_overlay[] = ASSTR(COL_OVERLAY);
-static const char col_muted[] = ASSTR(COL_MUTED);
-static const char col_subtle[] = ASSTR(COL_SUBTLE);
-static const char col_text[] = ASSTR(COL_TEXT);
-static const char col_love[] = ASSTR(COL_LOVE);
-static const char col_gold[] = ASSTR(COL_GOLD);
-static const char col_rose[] = ASSTR(COL_ROSE);
-static const char col_pine[] = ASSTR(COL_PINE);
-static const char col_foam[] = ASSTR(COL_FOAM);
-static const char col_iris[] = ASSTR(COL_IRIS);
+#define COL_IRIS_D #502485
+
+#define COL_FG COL_TEXT
+#define COL_BG COL_BASE
+#define COL_UNF COL_OVERLAY
+#define COL_ACC_FG COL_TEXT
+#define COL_ACC_BG COL_IRIS_D
+static const char col_fg[] = ASSTR(COL_FG);
+static const char col_bg[] = ASSTR(COL_BG);
+static const char col_unf[] = ASSTR(COL_UNF);
+static const char col_acc_fg[] = ASSTR(COL_ACC_FG);
+static const char col_acc_bg[] = ASSTR(COL_ACC_BG);
 
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_foam, col_base, col_overlay },
-	[SchemeSel]  = { col_text, col_pine,  col_pine  },
+	[SchemeNorm] = { col_acc_fg, col_bg, col_unf },
+	[SchemeSel]  = { col_fg, col_acc_bg,  col_acc_bg  },
 };
 
 /* tagging */
@@ -78,49 +81,57 @@ static const Layout layouts[] = {
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define TRIGGER(cmd, signal) SHCMD(cmd "; pkill -" signal " " STATUSBAR) // signal - 34
 
 /* commands */
 // static const char *dmenucmd[] = {"dmenu_run", "-fn", dmenufont, "-nb", col_base, "-nf", col_muted, "-sb", col_pine, "-sf", col_text, NULL };
-static const char *dmenucmd[] = {"j4-dmenu-desktop", "--dmenu", "dmenu -i -fn" QSTR(DMENUFONT) "-nb" QSTR(COL_BASE) "-nf" QSTR(COL_FOAM) "-sb" QSTR(COL_PINE) "-sf" QSTR(COL_TEXT), NULL };
+static const char *dmenucmd[] = {"j4-dmenu-desktop", "--dmenu", "dmenu -i -fn" QSTR(DMENUFONT) "-nb" QSTR(COL_BG) "-nf" QSTR(COL_ACC_FG) "-sb" QSTR(COL_ACC_BG) "-sf" QSTR(COL_FG), NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
 static const char *runchrome[]  = { "google-chrome", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
-	{ Mod4Mask,                     XK_c,      spawn,          {.v = termcmd } },
-	{ Mod4Mask,                     XK_s,      spawn,          {.v = runchrome } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,                       XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ Mod4Mask,                     XK_space,  setlayout,      {0} },
-	{ Mod4Mask|ShiftMask,           XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    { 0,            XF86XK_MonBrightnessDown,   spawn,          TRIGGER("light -U 5", "35") },
+    { 0,            XF86XK_MonBrightnessUp,     spawn,          TRIGGER("light -A 5", "35") },
+    { 0,            XF86XK_AudioMute,           spawn,          TRIGGER("amixer sset Master toggle", "36") },
+    { 0,            XF86XK_AudioLowerVolume,    spawn,          TRIGGER("amixer sset Master 5%-", "36") },
+    { 0,            XF86XK_AudioRaiseVolume,    spawn,          TRIGGER("amixer sset Master 5%+", "36") },
+	{ MODKEY,                       XK_space,   spawn,          TRIGGER("sleep 0", "39") },
+
+	{ MODKEY,                       XK_r,       spawn,          {.v = dmenucmd } },
+	{ Mod4Mask,                     XK_c,       spawn,          {.v = termcmd } },
+	{ Mod4Mask,                     XK_s,       spawn,          {.v = runchrome } },
+	{ MODKEY,                       XK_b,       togglebar,      {0} },
+	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_i,       incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,       incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
+	{ MODKEY,                       XK_l,       setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_Return,  zoom,           {0} },
+	{ MODKEY,                       XK_Tab,     view,           {0} },
+	{ MODKEY,                       XK_q,       killclient,     {0} },
+	{ MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
+	{ Mod4Mask,                     XK_space,   setlayout,      {0} },
+	{ Mod4Mask|ShiftMask,           XK_space,   togglefloating, {0} },
+	{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,       tag,            {.ui = ~0 } },
+	{ MODKEY,                       XK_comma,   focusmon,       {.i = -1 } },
+	{ MODKEY,                       XK_period,  focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,   tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,  tagmon,         {.i = +1 } },
+	TAGKEYS(                        XK_1,                       0)
+	TAGKEYS(                        XK_2,                       1)
+	TAGKEYS(                        XK_3,                       2)
+	TAGKEYS(                        XK_4,                       3)
+	TAGKEYS(                        XK_5,                       4)
+	TAGKEYS(                        XK_6,                       5)
+	TAGKEYS(                        XK_7,                       6)
+	TAGKEYS(                        XK_8,                       7)
+	TAGKEYS(                        XK_9,                       8)
+	{ MODKEY|ShiftMask,             XK_q,       quit,           {0} },
 };
 
 /* button definitions */

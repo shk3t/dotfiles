@@ -10,6 +10,7 @@ SAVEHIST=10000
 PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH"
+PATH="$HOME/bin/statusbar:$PATH"
 PATH="$HOME/.cargo/bin:$PATH"
 # PATH="$HOME/.local/share/lua-language-server/bin:$PATH"
 #PATH="$HOME/.local/share/deno/bin:$PATH"

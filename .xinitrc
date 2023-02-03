@@ -1,12 +1,14 @@
 #!/bin/sh
 
 xrandr --output eDP --mode 1920x1080 &
+light -S 40 &
 
-setxkbmap -option caps:swapescape
-setxkbmap -option ctrl:swap_lwin_lctl &
+setxkbmap -option grp:alt_space_toggle \
+    -option caps:swapescape \
+    -option ctrl:swap_lwin_lctl &
 xset r rate 180 60 &
 
-picom &
+# picom &
 
-# exec dwm
+dwmblocks &
 exec dbus-run-session dwm

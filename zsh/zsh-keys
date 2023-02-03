@@ -1,5 +1,5 @@
 # Key bindings
-bindkey -s "^E" "nvim .^M"
+# bindkey -s "^E" "nvim .^M"
 bindkey -s "^F" "nvim . -c 'Telescope find_files'^M"
 bindkey -s "^G" "nvim . -c 'Telescope live_grep'^M"
 bindkey "^C" vi-cmd-mode
@@ -50,23 +50,6 @@ function vi-yank-xclip() {
 }
 zle -N vi-yank-xclip
 bindkey -M vicmd "\x1b[67;6u" vi-yank-xclip
-#bindkey -M vicmd "y" vi-yank-xclip
-
-## Paste from the system clipboard
-#function vi-paste-xclip-before() {
-#    CLIP_DATA=$(xclip -selection clipboard -out)
-#    LBUFFER="$LBUFFER${CLIP_DATA[1,-2]}"
-#    RBUFFER="${CLIP_DATA[-1]}$RBUFFER"
-#}
-#function vi-paste-xclip-after() {
-#    CLIP_DATA=$(xclip -selection clipboard -out)
-#    LBUFFER="$LBUFFER${RBUFFER[1]}${CLIP_DATA[1,-2]}"
-#    RBUFFER="${CLIP_DATA[-1]}${RBUFFER[2,-1]}"
-#}
-#zle -N vi-paste-xclip-before
-#zle -N vi-paste-xclip-after
-#bindkey -M vicmd "P" vi-paste-xclip-before
-#bindkey -M vicmd "p" vi-paste-xclip-after
 
 # Yank current line
 function yank-current-line-xclip() {
@@ -75,3 +58,23 @@ function yank-current-line-xclip() {
 }
 zle -N yank-current-line-xclip
 bindkey '^Y' yank-current-line-xclip
+
+# Interrupt completion
+function interruptible-expand-or-complete {
+    COMPLETION_ACTIVE=1
+    zle expand-or-complete
+    COMPLETION_ACTIVE=0
+}
+function interrupt-completion {
+    if [[ $COMPLETION_ACTIVE == 1 ]]; then
+        COMPLETION_ACTIVE=0
+        zle -M "Completion canceled."            
+        return 1
+    else
+        return 0
+    fi
+}
+zle -N interruptible-expand-or-complete
+zle -N interrupt-completion
+bindkey '^I' interruptible-expand-or-complete
+bindkey '^E' interrupt-completion
