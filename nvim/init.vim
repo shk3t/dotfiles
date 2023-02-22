@@ -10,6 +10,7 @@ Plug 'echasnovski/mini.nvim'
 " Lsp
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'jay-babu/mason-null-ls.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -39,6 +40,8 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'stevearc/aerial.nvim'
+Plug 'nanozuki/tabby.nvim',
+"Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
 "Plug 'nvim-telescope/telescope-media-files.nvim'
 
 " Automation

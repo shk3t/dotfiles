@@ -27,7 +27,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
 }
 
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats " %F{yellow}(%F{red}%m%u%c%F{yellow}|/%F{magenta} %b%F{yellow})%F{reset}"
+zstyle ':vcs_info:git:*' formats " %F{yellow}(%F{red}%m%u%c%F{yellow} %F{magenta} %b%F{yellow})%F{reset}"
 
 # format our main prompt for hostname current folder, and permissions.
 PROMPT="%B%F{white}%n%F{red}@%F{white}%m%F{red}:%F{blue}%(3~|%2~|%~)%F{red}\$%F{reset}%b"

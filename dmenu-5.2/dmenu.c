@@ -355,18 +355,18 @@ keypress(XKeyEvent *ev)
 		case XK_J: /* fallthrough */
 		case XK_m: /* fallthrough */
 		case XK_M: ksym = XK_Return; ev->state &= ~ControlMask; break;
-		case XK_n: ksym = XK_Down;      break;
-		case XK_p: ksym = XK_Up;        break;
+		case XK_n: ksym = XK_Next;      break;
+		case XK_p: ksym = XK_Prior;     break;
 		case XK_j: ksym = XK_Down;      break;
 		case XK_k: ksym = XK_Up;        break;
-		case XK_l:
-            if (!sel)
-                return;
-            cursor = strnlen(sel->text, sizeof text - 1);
-            memcpy(text, sel->text, cursor);
-            text[cursor] = '\0';
-            match();
-            break;
+		// case XK_l:
+  //           if (!sel)
+  //               return;
+  //           cursor = strnlen(sel->text, sizeof text - 1);
+  //           memcpy(text, sel->text, cursor);
+  //           text[cursor] = '\0';
+  //           match();
+  //           break;
 		// case XK_k: /* delete right */
 		// 	text[cursor] = '\0';
 		// 	match();

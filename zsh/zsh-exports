@@ -15,7 +15,13 @@ PATH="$HOME/.cargo/bin:$PATH"
 # PATH="$HOME/.local/share/lua-language-server/bin:$PATH"
 #PATH="$HOME/.local/share/deno/bin:$PATH"
 PATH="/usr/local/go/bin:$PATH"
+# PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 #PATH="$HOME/.go/bin:$PATH"
+
+# Python
+# export PYENV_ROOT="$HOME/.pyenv"
+# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
 
 # Latex
 #PATH="$HOME/.local/texlive/2022/bin/x86_64-linux:$PATH"

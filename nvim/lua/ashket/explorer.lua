@@ -44,4 +44,5 @@ require("nvim-tree").setup({
         change_dir = {restrict_above_cwd = true},
         open_file = {window_picker = {enable = false}},
     },
+    notify = {threshold = vim.log.levels.ERROR},
 })

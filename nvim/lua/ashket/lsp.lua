@@ -1,9 +1,27 @@
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "bashls",
+        "clangd",
+        "cssls",
+        "html",
+        "jsonls",
+        "sumneko_lua",
+        "pyright",
+        "jedi_language_server",
+        "sqls",
+        "texlab",
+        "tsserver",
+    },
+})
+require("mason-null-ls").setup({
+    ensure_installed = {"black", "clang-format", "luaformatter", "prettier"},
+})
 
 local keymap = vim.api.nvim_set_keymap
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local opts = {noremap = true, silent = true}
+local NVIM_ETC = os.getenv("HOME") .. "/.config/nvim/etc"
 -- local HOME = os.getenv("HOME")
 -- local GOPATH = os.getenv("GOPATH")
 
@@ -46,7 +64,9 @@ vim.diagnostic.config({
 
 local lspconfig = require("lspconfig")
 
-lspconfig.pyright.setup(config())
+-- lspconfig.pyright.setup(config())
+lspconfig.jedi_language_server.setup(config())
+-- lspconfig.pylsp.setup(config())
 
 -- lspconfig.ccls.setup(config())
 lspconfig.clangd.setup(config({
@@ -113,3 +133,25 @@ lspconfig.sumneko_lua.setup(config({
         },
     },
 }))
+
+local null_ls = require("null-ls")
+local formatting = null_ls.builtins.formatting
+local diagnostics = null_ls.builtins.diagnostics
+null_ls.setup({
+    debug = false,
+    sources = {
+        -- formatting.prettier.with({
+        --     extra_args = {"--config", NVIM_ETC .. "/prettier.json"},
+        -- }),
+        formatting.black.with({extra_args = {"--fast"}}),
+        formatting.lua_format.with({
+            extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},
+        }),
+        formatting.djhtml,
+        formatting.clang_format.with({
+            extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},
+        }),
+
+        -- diagnostics.clang_check,
+    },
+})

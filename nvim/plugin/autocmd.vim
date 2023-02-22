@@ -22,6 +22,9 @@ autocmd TextYankPost *
         \ call setpos('.', s:cursor) |
     \ endif
 
+" Open help in vertical split
+autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+
 " Tmux
 " if exists('$TMUX')
 "     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")

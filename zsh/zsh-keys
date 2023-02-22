@@ -58,6 +58,7 @@ function yank-current-line-xclip() {
 }
 zle -N yank-current-line-xclip
 bindkey '^Y' yank-current-line-xclip
+bindkey -M vicmd '^Y' yank-current-line-xclip
 
 # Interrupt completion
 function interruptible-expand-or-complete {

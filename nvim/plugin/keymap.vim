@@ -60,10 +60,10 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 "noremap <C-D> <C-D>zz
 "noremap <C-U> <C-U>zz
-"noremap n nzzzv
-"noremap N Nzzzv
-"noremap * *zzzv
-"noremap # #zzzv
+noremap n nzz
+noremap N Nzz
+noremap * *zz
+noremap # ##*zz
 cnoremap <C-J> <C-N>
 cnoremap <C-K> <C-P>
 nnoremap va" v2i"
@@ -99,6 +99,7 @@ nnoremap <silent> <Space>e :Explore<CR>
 " nnoremap <silent> <Space>e :call RExplore()<CR>
 nnoremap <Space>Lr :LspRestart<CR>
 nnoremap <Space>Li :LspInfo<CR>
+nnoremap <Space>dm :delmarks a-zA-Z0-9<CR>
 
 " Splits
 noremap <C-W>s <C-W>s<C-W>j
@@ -107,9 +108,10 @@ noremap <C-W>v <C-W>v<C-W>l
 " Tabs
 noremap <C-W>c <C-W><esc>
 noremap <C-W><C-c> <C-W><esc>
-"noremap <silent> <C-W>t :tablast \| tabnew .<CR>
-"noremap <silent> <C-W>t :tabnew .<CR>
+" noremap <silent> <C-W>t :tablast \| tabnew .<CR>
+" noremap <silent> <C-W>t :tabnew .<CR>
 noremap <silent> <C-W>t <C-W>v<C-W>T
+" noremap <silent> <C-W>t <C-W>v<C-W>T \| tabmove<CR>
 noremap <silent> <C-W>, :tabprevious<CR>
 noremap <silent> <C-W>. :tabnext<CR>
 for i in range(1, 9)
@@ -118,6 +120,7 @@ endfor
 noremap <silent> <C-W>< :-tabmove<CR>
 noremap <silent> <C-W>> :+tabmove<CR>
 noremap <silent> <C-W>Q :tabclose<CR>
+noremap <C-W>n :TabRename 
 
 " Jumplist
 " nnoremap <silent> } :<C-u>execute "keepjumps normal! " . v:count1 . "}"<CR>

@@ -7,7 +7,8 @@
 .git/
 *.sqlite3
 metadata.json
-requirements.txt
+.idea/
+# requirements.txt
 
 # Build
 #!makefile
@@ -29,10 +30,11 @@ media/
 # Python
 .venv/
 __pycache__/
-migrations/
+# migrations/
 __init__.py
 pyrightconfig.json
 manage.py
+*.pyc
 
 # JavaScript
 node_modules/
@@ -40,3 +42,6 @@ package-lock.json
 bootstrap.min.css
 static/libs/
 staticfiles/
+
+# Temp
+linuxclient/lib/python2.7/config-x86_64-linux-gnu/*

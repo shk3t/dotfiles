@@ -5,15 +5,22 @@ local opts = {noremap = true, silent = true}
 local IGNORE_FILE = os.getenv("HOME") .. "/.config/nvim/etc/telescope-ignore.txt"
 
 local cmd_telescope = "<Cmd>lua require('telescope.builtin')"
+local paste_action = function(prompt_bufnr)
+    local selection = vim.fn.getreg("\"")
+    -- ensure that the buffer can be written to
+    if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
+        vim.api.nvim_paste(selection, true, -1)
+    end
+end
 
 keymap("n", "<Space>f", cmd_telescope .. ".find_files()<CR>", opts)
 keymap("n", "<Space>g", cmd_telescope .. ".live_grep()<CR>", opts)
 keymap("n", "<Space>b", cmd_telescope .. ".buffers()<CR>", opts)
 keymap("n", "<Space>th", cmd_telescope .. ".help_tags()<CR>", opts)
 -- keymap("n", "<Space>tm", cmd_telescope .. ".man_pages()<CR>", opts)
-keymap("n", "<Space>tm", cmd_telescope .. ".marks()<CR>", opts)
+keymap("n", "<Space>'", cmd_telescope .. ".marks()<CR>", opts)
 keymap("n", "<Space>tk", cmd_telescope .. ".keymaps()<CR>", opts)
-keymap("n", "<Space>tj", cmd_telescope .. ".jumplist()<CR>", opts)
+keymap("n", "<Space>j", cmd_telescope .. ".jumplist()<CR>", opts)
 keymap("n", "<Space>tr", cmd_telescope .. ".registers()<CR>", opts)
 keymap("n", "<Space>s", cmd_telescope .. ".lsp_document_symbols()<CR>", opts)
 keymap("n", "<Space>as", cmd_telescope .. ".lsp_dynamic_workspace_symbols()<CR>", opts)
@@ -32,6 +39,7 @@ telescope.setup({
         border = true,
         file_ignore_patterns = {"node_modules"},
 
+        -- /home/ashket/.local/share/nvim/plugin/telescope.nvim/lua/telescope/mappings.lua
         mappings = {
             i = {
                 -- ["<C-H>"] = false,
@@ -40,6 +48,7 @@ telescope.setup({
                 ["<C-J>"] = actions.move_selection_next,
                 ["<C-K>"] = actions.move_selection_previous,
                 ["<Esc>"] = actions.close,
+                ["<C-V>"] = paste_action,
             },
         },
         vimgrep_arguments = {
@@ -56,7 +65,7 @@ telescope.setup({
     pickers = {
         find_files = {
             find_command = {
-                "fdfind",
+                "fd",
                 "--type=f",
                 -- "--strip-cwd-prefix",
                 "--hidden",

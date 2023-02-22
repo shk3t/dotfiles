@@ -27,11 +27,11 @@ fun! SetTransparentBG()
     hi TabLineFill guibg=None
     hi TabLine guibg=None
     "hi EndOfBuffer guibg=None
-    set pumblend=20
+    set pumblend=15
+    set winblend=15
     hi PmenuSel blend=0
-    hi NormalFloat blend=20
 endfun
 
-autocmd VimEnter,Colorscheme * call ConfigColors()
-autocmd VimEnter,Colorscheme * call SetWideBorder()
-autocmd VimEnter,Colorscheme * call SetTransparentBG()
+autocmd VimEnter,Colorscheme,SourcePost * call ConfigColors()
+autocmd VimEnter,Colorscheme,SourcePost * call SetWideBorder()
+autocmd VimEnter,Colorscheme,SourcePost * call SetTransparentBG()

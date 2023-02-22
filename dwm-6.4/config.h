@@ -7,10 +7,11 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
-static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
+static const int focusonwheel       = 1;
+static const int horizpadbar        = 3;        /* horizontal padding for statusbar */
 static const char *fonts[]          = { "Ubuntu Mono:size=14" };
 static const char dmenufont[]       = "Ubuntu Mono:size=14";
 #define DMENUFONT Ubuntu Mono:size=14
@@ -59,16 +60,16 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5;  /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[][",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "[ ]",      monocle },
 };
 
 /* key definitions */
@@ -87,7 +88,6 @@ static const Layout layouts[] = {
 // static const char *dmenucmd[] = {"dmenu_run", "-fn", dmenufont, "-nb", col_base, "-nf", col_muted, "-sb", col_pine, "-sf", col_text, NULL };
 static const char *dmenucmd[] = {"j4-dmenu-desktop", "--dmenu", "dmenu -i -fn" QSTR(DMENUFONT) "-nb" QSTR(COL_BG) "-nf" QSTR(COL_ACC_FG) "-sb" QSTR(COL_ACC_BG) "-sf" QSTR(COL_FG), NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
-static const char *runchrome[]  = { "google-chrome", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,23 +97,30 @@ static const Key keys[] = {
     { 0,            XF86XK_AudioLowerVolume,    spawn,          TRIGGER("amixer sset Master 5%-", "36") },
     { 0,            XF86XK_AudioRaiseVolume,    spawn,          TRIGGER("amixer sset Master 5%+", "36") },
 	{ MODKEY,                       XK_space,   spawn,          TRIGGER("sleep 0", "39") },
+	{ MODKEY,                       XK_Shift_L,   spawn,          TRIGGER("sleep 0", "39") },
+	{ MODKEY,                       XK_Shift_R,   spawn,          TRIGGER("sleep 0", "39") },
+	{ 0,                            XK_Print,   spawn,          SHCMD("clipscreen") },
+	{ ControlMask,                  XK_Print,   spawn,          SHCMD("clipfragment") },
 
 	{ MODKEY,                       XK_r,       spawn,          {.v = dmenucmd } },
 	{ Mod4Mask,                     XK_c,       spawn,          {.v = termcmd } },
-	{ Mod4Mask,                     XK_s,       spawn,          {.v = runchrome } },
+	{ Mod4Mask,                     XK_s,       spawn,          SHCMD("google-chrome-stable") },
+
 	{ MODKEY,                       XK_b,       togglebar,      {0} },
 	{ MODKEY,                       XK_j,       focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,       focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,       incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,       incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,       setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,       focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_l,       focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_k,       incnmaster,     {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_j,       incnmaster,     {.i = -1 } },
+	// { MODKEY,                       XK_h,       setmfact,       {.f = -0.05} },
+	// { MODKEY,                       XK_l,       setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,     view,           {0} },
 	{ MODKEY,                       XK_q,       killclient,     {0} },
 	{ MODKEY,                       XK_t,       setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,       setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,       setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_v,       setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_f,       setlayout,      {.v = &layouts[2]} },
 	{ Mod4Mask,                     XK_space,   setlayout,      {0} },
 	{ Mod4Mask|ShiftMask,           XK_space,   togglefloating, {0} },
 	{ MODKEY,                       XK_0,       view,           {.ui = ~0 } },
