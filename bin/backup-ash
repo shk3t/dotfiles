@@ -1,0 +1,82 @@
+#!/bin/bash
+
+BACKUP_DIR=$HOME/backup
+DOTFILES_DIR=$HOME/repos/dotfiles
+
+home_dirs=(bin books projects repos saves pictures)
+configs=(alacritty zsh tmux nvim mpv dwm-* dmenu-* st-* dwmblocks-async user-dirs.dirs fontconfig chrome-flags.conf)
+home_configs=(.vimrc .zshenv .xinitrc .gdbinit)
+sys_configs=(/usr/share/X11/xorg.conf.d)
+
+backup_configs () {
+    rm -rf $BACKUP_DIR/configs
+    mkdir -p $BACKUP_DIR/configs
+    for config in ${configs[@]}; do
+        cp -ru $HOME/.config/$config $BACKUP_DIR/configs
+    done
+    for config in ${home_configs[@]}; do
+        cp -ru $HOME/$config $BACKUP_DIR/configs
+    done
+    for config in ${sys_configs[@]}; do
+        cp -ru $config $BACKUP_DIR/configs
+    done
+}
+
+update_dotfiles () {
+    find $DOTFILES_DIR -mindepth 1 -maxdepth 1 ! -regex ".*\.git.*" | xargs rm -rf
+    backup_configs
+    cp -ru $BACKUP_DIR/configs/. $DOTFILES_DIR
+    cp -ru ~/bin $DOTFILES_DIR
+}
+
+backup_projects () {
+    cp -ru $HOME/projects $BACKUP_DIR
+}
+
+backup_all () {
+    for home_dir in ${home_dirs[@]}; do
+        cp -ru $HOME/$home_dir $BACKUP_DIR
+    done
+    backup_configs
+}
+
+show_help_message() {
+    cat << END
+Usage: backup-shket [OPTIONS]
+Backup specified files
+
+Options:
+    -c, --configs       backup configs
+    -d, --dotfiles      update dotfiles repos with configs
+    -p, --projects      backup projects from ~/projects
+    -a, --all           backup all important files
+    -r, --rewrite       clean ~/backup directory before copying
+    -z, --tgz           put files into backup.tgz
+    -h, --help          show help message
+
+END
+}
+
+mkdir -p $BACKUP_DIR
+
+((!$#)) && show_help_message && exit
+while [[ $1 ]]; do
+    case $1 in
+        -c | --configs)
+            backup_configs;;
+        -d | --dotfiles)
+            update_dotfiles;;
+        -p | --projects)
+            backup_projects;;
+        -a | --all)
+            backup_all;;
+        -r | --rewrite)
+            rm -rf $BACKUP_DIR/*;;
+        -z | --tgz)
+            tar -czf $BACKUP_DIR.tgz -C $BACKUP_DIR .;;
+        -h | --help | *)
+            show_help_message
+            exit;;
+    esac
+    shift
+done

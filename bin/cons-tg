@@ -1,0 +1,10 @@
+#!/bin/bash
+conservation_path="/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
+conservation_mode=$(cat $conservation_path)
+if [[ $conservation_mode == 0 ]]; then
+    echo "1" > $conservation_path
+    echo "battery conservation mode ENABLED"
+else
+    echo "0" > $conservation_path
+    echo "battery conservation mode DISABLED"
+fi

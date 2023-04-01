@@ -1,0 +1,63 @@
+#!/bin/bash
+
+show_help_message() {
+    cat << END
+Usage: xkb-shket [OPTION]
+Switch between specific layout presets
+
+Options:
+    -h, --help          show help message
+    -d, --double        double ctrl
+    -s, --single        single ctrl
+    -n, --normie        for normal user
+    --normie-toggle     toggle between ashket and normal user layout
+END
+}
+if [[ $1 == '-h' || $1 == '--help' ]]; then
+    show_help_message
+    exit
+fi
+
+
+use_base() {
+    setxkbmap -option
+    setxkbmap -option grp:alt_space_toggle \
+        -option caps:escape_shifted_capslock
+}
+
+use_normie() {
+    setxkbmap -option
+    setxkbmap -option grp:alt_shift_toggle \
+        -option grp:win_space_toggle
+    echo "normie" > $LAYOUT_PATH
+    echo "Switched to NORMIE layout"
+}
+
+use_ashket() {
+    setxkbmap -option ctrl:swap_lwin_lctl
+    echo "ashket" > $LAYOUT_PATH
+    echo "Switched to ashket layout"
+}
+
+
+LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
+layout=$(cat $LAYOUT_PATH)
+
+use_base
+
+case $1 in
+    -n | --normie)
+        use_normie;;
+    --normie-toggle)
+        if [[ $layout == "normie" ]]; then
+            use_ashket
+        else
+            use_normie
+        fi;;
+    -d | --double-caps)
+        setxkbmap -option altwin:ctrl_win;;
+    -A | --ashket | *)
+        use_ashket;;
+esac
+
+export NEWVAR=228

@@ -1,0 +1,23 @@
+#!/bin/sh
+# sbDisplays unread mail count for my email addresses.
+
+set -e
+
+# Exit if no internet.
+wget --spider -q http://example.com
+
+# sbDisplay the count, if non-zero.
+count1="$(qgmail request users.labels.get me INBOX | jq .messagesUnread)"
+count2="$(qgmail --token ~/.cache/qgmail/college_token.json request users.labels.get me INBOX | jq .messagesUnread)"
+
+output=""
+if [ "$count1" != "null" ]; then
+    output=" $count1"
+    [ "$count2" != "null" ] && output="$output  $count2"
+else
+    [ "$count2" != "null" ] && output=" $count2"
+fi
+
+[ -z "$output" ] && exit
+. sb-theme
+sbDisplay "$output"

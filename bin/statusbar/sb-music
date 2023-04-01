@@ -1,0 +1,26 @@
+#!/bin/sh
+# sbDisplay currently playing music metadata.
+
+case "$BLOCK_BUTTON" in
+    1) musicctl prev ;;
+    2) musicctl toggle ;;
+    3) musicctl next ;;
+    4) musicctl seek +5 ;;
+    5) musicctl seek -5 ;;
+    6) terminal -e "$EDITOR" "$0" ;;
+esac
+
+set -- --player spotify,mpv,%any
+icon="ﱘ"
+if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
+    [ "$status" = "Paused" ] && icon=""
+    currentSong="$(playerctl "$@" metadata --format "{{title}} - {{artist}}")"
+else
+    [ "$(mpc status "%state%")" = "paused" ] && icon=""
+    currentSong="$(mpc current -f "%title%[ - %artist%]")"
+fi
+
+[ -z "$currentSong" ] && exit
+
+. sb-theme
+sbDisplay "$icon $currentSong"

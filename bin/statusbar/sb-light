@@ -1,0 +1,6 @@
+#!/bin/bash
+# sbDisplays monitor brightness level
+
+. sb-theme
+brightness=$(light)
+sbDisplay "󰃞 ${brightness::-3}%"
