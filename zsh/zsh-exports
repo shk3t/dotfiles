@@ -42,6 +42,3 @@ eval "$(zoxide init zsh)"
 EDITOR="nvim"
 TERMINAL="alacritty"
 BROWSER="google-chrome"
-
-# For QT Themes
-QT_QPA_PLATFORMTHEME=qt5ct

@@ -4,7 +4,6 @@ function! RelativeNumberOn() abort
         "redraw
     endif
 endfunction
-
 " Line numeration toggle
 "autocmd FocusLost,WinLeave,CmdlineEnter * set norelativenumber | redraw
 "autocmd FocusGained,WinEnter,CmdlineLeave,BufEnter * call RelativeNumberOn()
@@ -22,14 +21,8 @@ autocmd TextYankPost *
         \ call setpos('.', s:cursor) |
     \ endif
 
-" Open help in vertical split
+" Open in specific split
 autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
-
-" Tmux
-" if exists('$TMUX')
-"     autocmd BufEnter * call system("tmux rename-window '" . expand("%:t") . "'")
-"     autocmd VimLeave * call system("tmux setw automatic-rename")
-" endif
 
 " Trim trailing spaces
 "autocmd BufWritePre * %s/\s\+$//e
@@ -49,7 +42,16 @@ autocmd FileType netrw setlocal cursorlineopt=line
 " Easy Window closing
 autocmd CmdwinEnter * nnoremap <buffer><silent> q :q<CR>
 autocmd FileType help nnoremap <buffer><silent> q :q<CR>
-" autocmd FileType help execute "normal \<C-W>\<C-P>\<C-W>\<C-Q>"
+autocmd FileType dap-float nnoremap <buffer><silent> q :q<CR>
+
+" Other
+" TODO: use lua
+autocmd User TelescopePreviewerLoaded setlocal number | setlocal wrap
+autocmd FileType dap-repl
+    \ inoremap <buffer><silent> <C-K> <C-W>k |
+    \ inoremap <buffer><silent> <C-L> <C-W>l |
+    \ imap <buffer><silent> <C-P> <Up><End> |
+    \ imap <buffer><silent> <C-N> <Down><End> |
 
 " autocmd CursorHold * lua vim.diagnostic.open_float({scope="line"})
 " autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()

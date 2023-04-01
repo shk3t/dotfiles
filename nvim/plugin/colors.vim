@@ -1,10 +1,7 @@
 set background=dark
 set cursorline
-set cursorlineopt=number
+set cursorlineopt=number,line
 set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
-
-colorscheme rose-pine
-
 
 fun! ConfigColors()
     hi CurSearch guibg=None guifg=None

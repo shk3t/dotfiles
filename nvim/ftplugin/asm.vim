@@ -1,4 +1,4 @@
-nnoremap <buffer> <space><CR> :wa<CR>:exec
+nnoremap <buffer> <C-CR> :wa<CR>:exec
     \ '!nasm -f elf64' shellescape(@%, 1) '-o asm.o
     \ && ld asm.o -o asm
     \ && ./asm

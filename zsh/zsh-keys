@@ -4,9 +4,10 @@ bindkey -s "^F" "nvim . -c 'Telescope find_files'^M"
 bindkey -s "^G" "nvim . -c 'Telescope live_grep'^M"
 bindkey "^C" vi-cmd-mode
 bindkey "^L" autosuggest-accept
-bindkey "^S" autosuggest-toggle
+# bindkey "^S" autosuggest-toggle
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-kill-word
+bindkey "^[[3~" delete-char
 bindkey "^[[3;5~" kill-word
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
@@ -18,6 +19,7 @@ bindkey "^J" down-history
 # Stty
 stty stop undef  # disable ctrl-s to freeze terminal.
 stty start undef
+stty susp undef
 stty intr "^Q"
 stty werase "^H"
 
@@ -28,7 +30,7 @@ bindkey -M menuselect "^H" vi-backward-char
 bindkey -M menuselect "^L" vi-forward-char
 bindkey -M menuselect "^[[Z" vi-up-line-or-history
 bindkey -M menuselect "^M" .accept-line
-# bindkey -M menuselect "^L" accept-line
+bindkey -M menuselect "^[[13;5u" accept-line
 bindkey -M menuselect "^[" vi-cmd-mode
 
 # Vim bindings
@@ -43,6 +45,16 @@ bindkey -M vicmd "k" up-line
 bindkey -M vicmd "^S" autosuggest-toggle
 bindkey -rM vicmd ":"
 
+# Complete and run
+function autosuggest-accept-line() {
+    zle autosuggest-accept
+    zle accept-line
+}
+zle -N autosuggest-accept-line
+bindkey "^[[13;5u" autosuggest-accept-line
+# bindkey "^[[13;5u" autosuggest-accept
+bindkey "^[[13;2u" accept-and-hold
+
 # Yank to the system clipboard
 function vi-yank-xclip() {
     zle vi-yank
@@ -50,15 +62,6 @@ function vi-yank-xclip() {
 }
 zle -N vi-yank-xclip
 bindkey -M vicmd "\x1b[67;6u" vi-yank-xclip
-
-# Yank current line
-function yank-current-line-xclip() {
-    zle visual-line-mode
-    zle vi-yank-xclip
-}
-zle -N yank-current-line-xclip
-bindkey '^Y' yank-current-line-xclip
-bindkey -M vicmd '^Y' yank-current-line-xclip
 
 # Interrupt completion
 function interruptible-expand-or-complete {
@@ -79,3 +82,23 @@ zle -N interruptible-expand-or-complete
 zle -N interrupt-completion
 bindkey '^I' interruptible-expand-or-complete
 bindkey '^E' interrupt-completion
+
+# Widgets update: https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/config.zsh#L43-L49
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+    end-of-line
+    vi-end-of-line
+    vi-add-eol
+    autosuggest-accept-line
+)
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
+    forward-char
+    vi-forward-char
+    forward-word
+    emacs-forward-word
+    vi-forward-word
+    vi-forward-word-end
+    vi-forward-blank-word
+    vi-forward-blank-word-end
+    vi-find-next-char
+    vi-find-next-char-skip
+)

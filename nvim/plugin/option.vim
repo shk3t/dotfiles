@@ -13,7 +13,8 @@ set number
 set relativenumber
 set signcolumn=yes
 set scrolloff=8
-set nowrap
+" set nowrap
+set wrap
 set linebreak
 set breakindent
 "set showbreak=..

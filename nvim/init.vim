@@ -6,6 +6,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'kkharji/sqlite.lua'
 Plug 'tjdevries/colorbuddy.nvim'
 Plug 'echasnovski/mini.nvim'
+Plug 'folke/neodev.nvim'
 
 " Lsp
 Plug 'williamboman/mason.nvim'
@@ -15,14 +16,20 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'jose-elias-alvarez/null-ls.nvim'
-"Plug 'glepnir/lspsaga.nvim'
 
 " Completions
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'rcarriga/cmp-dap'
 "Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+
+" Syntax
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'nvim-treesitter/playground'
 
 " Snippets
 Plug 'saadparwaiz1/cmp_luasnip'
@@ -30,27 +37,33 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
 " Integration
-Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
-"Plug 'ahmedkhalf/jupyter-nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+"Plug 'dccsillag/magma-nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'goerz/jupytext.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
+Plug 'aserowy/tmux.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+" Plug 'hkupty/iron.nvim'
+" Plug 'kana/vim-textobj-user'
+" Plug 'GCBallesteros/vim-textobj-hydrogen'
 
 " Navigation
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'stevearc/aerial.nvim'
-Plug 'nanozuki/tabby.nvim',
-"Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
-"Plug 'nvim-telescope/telescope-media-files.nvim'
+Plug 'ThePrimeagen/harpoon'
+Plug 'prochri/telescope-all-recent.nvim'
 
 " Automation
 Plug 'lyokha/vim-xkbswitch'
 Plug 'Pocco81/auto-save.nvim'
 Plug 'numToStr/Comment.nvim'
-Plug 'windwp/nvim-autopairs'
-Plug 'windwp/nvim-ts-autotag'
 Plug 'kylechui/nvim-surround'
+Plug 'chrisgrieser/nvim-recorder'
+"Plug 'windwp/nvim-autopairs'
+"Plug 'windwp/nvim-ts-autotag'
 
 " Indentation improve
 Plug 'gpanders/editorconfig.nvim'
@@ -58,25 +71,23 @@ Plug 'Vimjas/vim-python-pep8-indent'
 "Plug 'MaxMEllon/vim-jsx-pretty'
 
 " Interface
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'nvim-treesitter/playground'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'nanozuki/tabby.nvim'
 "Plug 'zbirenbaum/neodim'
 
 " Colorschemes
-Plug 'folke/tokyonight.nvim'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'EdenEast/nightfox.nvim'
-Plug 'tiagovla/tokyodark.nvim'
-Plug 'catppuccin/nvim'
 Plug 'rose-pine/neovim'
-Plug 'bkegley/gloombuddy'
-Plug 'yashguptaz/calvera-dark.nvim'
-Plug 'shaunsingh/moonlight.nvim'
+Plug 'catppuccin/nvim'
+"Plug 'folke/tokyonight.nvim'
+"Plug 'bluz71/vim-nightfly-guicolors'
+"Plug 'EdenEast/nightfox.nvim'
+"Plug 'tiagovla/tokyodark.nvim'
+"Plug 'bkegley/gloombuddy'
+"Plug 'yashguptaz/calvera-dark.nvim'
+"Plug 'shaunsingh/moonlight.nvim'
 "Plug 'shaunsingh/oxocarbon.nvim', { 'do': './install.sh' }
-Plug 'ellisonleao/gruvbox.nvim'
+"Plug 'ellisonleao/gruvbox.nvim'
+"Plug 'rebelot/kanagawa.nvim'
 call plug#end()
 
 

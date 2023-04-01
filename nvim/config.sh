@@ -13,7 +13,6 @@ function cp_vs_stubs() {
         done
     fi
 }
-
 # TODO add script for proper plugins update
 NVIM_PLUGIN_DIR="$HOME/.local/share/nvim/plugin"
 # Cmp_signature_help plugin config:

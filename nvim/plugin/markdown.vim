@@ -100,4 +100,4 @@ let g:mkdp_theme = 'light'
 " example
 " noremap <C-s> <Plug>MarkdownPreview
 " noremap <M-s> <Plug>MarkdownPreviewStop
-nnoremap <space>Pm <Plug>MarkdownPreviewToggle
+nnoremap <space>PM <Plug>MarkdownPreviewToggle

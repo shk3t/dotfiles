@@ -1,4 +1,4 @@
-nnoremap <buffer> <space><CR> :wa<CR>:exec '!python3' shellescape(@%, 1)<CR>
+nnoremap <buffer> <C-CR> :wa<CR>:exec '!python3' shellescape(@%, 1)<CR>
 nnoremap <Space>Mi :MagmaInit python3<CR>
 
 "lua <<EOF

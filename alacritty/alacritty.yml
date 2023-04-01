@@ -34,9 +34,9 @@ font:
 
 import:
   - ~/.config/alacritty/colors/rose-pine.yml
+  - ~/.config/alacritty/extended-keys.yml
 
 
 key_bindings:
   - { key: C, mods: Control|Shift, action: Copy }
   - { key: C, mods: Control|Shift, chars: "\x1b[67;6u" } # LMAO it works
-  # - { key: Y, mods: Control|Shift, action: Copy }

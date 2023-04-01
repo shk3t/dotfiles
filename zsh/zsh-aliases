@@ -14,6 +14,12 @@ alias ls='ls -Av --group-directories-first --color=auto'
 function cd {
     builtin cd "$@" && ls
 }
+function z {
+    __zoxide_z "$@" && ls
+}
+function zi {
+    __zoxide_zi "$@" && ls
+}
 
 # Confirm before overwriting something
 #alias cp="cp -i"

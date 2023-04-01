@@ -1,1 +1,1 @@
-nnoremap <buffer> <space><CR> :wa<CR>:exec '!node' shellescape(@%, 1)<CR>
+nnoremap <buffer> <C-CR> :wa<CR>:exec '!node' shellescape(@%, 1)<CR>

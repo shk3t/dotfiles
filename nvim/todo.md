@@ -1,42 +1,68 @@
 # IMPORTANT TODOS
-- [X] python 2 lsp (jedi?)
-- [ ] lsp + linter
-- [ ] range formatting
-- [ ] nvim-dap
-    - [ ] dap-ui
+- [ ] mark.nvim
+- [ ] open debug splits on start
+    - [ ] close on stop
+- [ ] debugger is slow (test without dap-ui and c debugger)
+    - [ ] f9 remap
+- [ ] frecency: verbatim goes first
+- [ ] undotree
+- [ ] lazygit
 
 # TODOS
-- [ ] repeat texbobj jump (mb tpope plugin)
-- [ ] mark signs
-- [ ] camel case movements 
-- [ ] jsx autoindent
-- [-] reset settings without exit
-- [-] cyclic window switch
-- [ ] actions with indent motions (visual i)
-- [ ] keep position on J
 - [h] explorer preselect current file
-- [ ] try 'smart-pairs' or 'mini-pairs' instead of 'auto-pairs'
-- [ ] undotree alternative
-### Lsp
-- [-] js linter for missing imports (eslint, eslint_d, xo)
-- [-] rename file with references
-### Appearance
-- [ ] underline diagnostics using specific color
-- [h] telescope styling
-    - [ ] specific layouts
-- [ ] display diagnostics on hover (virtual text)
-- [ ] rose-pine change horizontal split color
-- [ ] nvchad colors
-### Bugs
-- [ ] jsx comment
-- [ ] inner tag actions with arrow functions
+- [-] merge tabs
 - [ ] rmdir
     - [ ] rm to trash
+- [-] neodev doc for plugins
+### Keys
+- [ ] word movements
+    - [ ] camel case movements 
+### Lsp
+- [-] rename file with references
+- [ ] js linter for missing imports (eslint, eslint_d, xo)
+- [ ] duplicate entries of cmp-buffer (clangd, pylsp)
+### Dap
+- [ ] debug python libraries (breakpoint rejected)
+- [ ] confused lines on change
+- [?] jump to certain line
+- [ ] conditional breakpoint
+- [ ] config watches
+- [-] focus current line
+- [-] catch focus (for neovim in general)
+### Telescope
+- [ ] resize window
+- [ ] grep with filename filtering
+    - [?] maybe grep_string on #
+- [ ] custom layouts
+- [ ] Custom pickers
+    - [?] list breakpoints
+    - [?] list hunks
+- [h] frecency: clear stats
+- [-] treesitter context
+### Appearance
+- [ ] rose-pine change horizontal split color
+- [ ] nvim_set_hl
+- [ ] wrap symbol
+- [ ] indentlines
+- [ ] telescope styling
+    - [ ] specific layouts
+    - [ ] transparency
+    - [ ] borders
+    - [ ] colors
+- [-] diagnostics underline color (-)
+- [ ] aerial icons
+### Jupyter
+- [ ] vscode + neovim
+- [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
+    - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
+- [ ] try: https://github.com/kiyoon/jupynium.nvim
+#### Refactoring
+- [?] `debug.lua` code clean: configuration table extend
 
 <br>
 
 ## New plugins
-- [!] goyo (align center single window)
+- [ ] goyo (align center single window)
 - [ ] trouble
 - [ ] refactoring (null-ls)
     - [ ] nvim-treesitter-refactor
@@ -53,22 +79,38 @@
 - [ ] telescope filebrowser
 - [ ] dadbod
 - [ ] indent-blankline
-- [ ] mark.nvim
-- [ ] harpoon
 - [ ] mini.ai
 - [ ] unimpaired
+- [ ] live-command.nvim
+- [ ] neogit
+- [ ] diffview.nvim
+- [ ] lazynvim
+- [ ] telescope-undo.nvim
 
 <br>
 
 ## Global
+- [ ] KDE highlight focused window frame
 - [ ] restore tmux + nvim sessions
-- [ ] speedtest nvim
 - [ ] rewrite everything using only lua
-- [ ] lazy load everything
-    - [ ] or migrate to nvchad then adapt everything
+- [ ] test nvchad with rose-pine (-)
+- [ ] lazyload plugins (-)
+    - [ ] speedtest nvim (-)
+
+## Another software (???)
+- [ ] Neovide
+- [ ] LiteMDview (markdown viewer)
+- [ ] Pinta (image viewer)
+- [???] Rofi
+- [ ] lf
 
 <br>
 
 ## ZSH
+- [ ] OHMYZSH
 - [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
 - [ ] use normal plugin for git prompt
+- [ ] tab command args
+- [ ] tmux integration
+- [ ] google mappings
+- [ ] try mozilla 
