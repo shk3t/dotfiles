@@ -1,19 +1,24 @@
 # IMPORTANT TODOS
-- [ ] mark.nvim
-- [ ] open debug splits on start
-    - [ ] close on stop
-- [ ] debugger is slow (test without dap-ui and c debugger)
-    - [ ] f9 remap
-- [ ] frecency: verbatim goes first
-- [ ] undotree
-- [ ] lazygit
+- [ ] "mark" list & indicator
+    - "mark".nvim
+    - "bookmarks".nvim
+- [ ] run dap in external terminal
+- [ ] think about tabs hotkeys (<Space>1 is bad)
+- [ ] frecency telescope symbols
+- [ ] cmp replace only on confirm
+- [ ] diffview.nvim
+- [ ] unflat list of ags in function
+- [ ] `g;` skip first
+    - [ ] double if not the same line
+- [ ] firefox migration
+- [ ] config watches
+- [ ] list hunks
+    - [ ] sort by modification date
+- [-] neodev doc for plugins
 
 # TODOS
 - [h] explorer preselect current file
-- [-] merge tabs
-- [ ] rmdir
-    - [ ] rm to trash
-- [-] neodev doc for plugins
+- [ ] dap debug python libraries (breakpoint rejected)
 ### Keys
 - [ ] word movements
     - [ ] camel case movements 
@@ -21,31 +26,8 @@
 - [-] rename file with references
 - [ ] js linter for missing imports (eslint, eslint_d, xo)
 - [ ] duplicate entries of cmp-buffer (clangd, pylsp)
-### Dap
-- [ ] debug python libraries (breakpoint rejected)
-- [ ] confused lines on change
-- [?] jump to certain line
-- [ ] conditional breakpoint
-- [ ] config watches
-- [-] focus current line
-- [-] catch focus (for neovim in general)
-### Telescope
-- [ ] resize window
-- [ ] grep with filename filtering
-    - [?] maybe grep_string on #
-- [ ] custom layouts
-- [ ] Custom pickers
-    - [?] list breakpoints
-    - [?] list hunks
-- [h] frecency: clear stats
-- [-] treesitter context
 ### Appearance
-- [ ] rose-pine change horizontal split color
-- [ ] nvim_set_hl
-- [ ] wrap symbol
-- [ ] indentlines
 - [ ] telescope styling
-    - [ ] specific layouts
     - [ ] transparency
     - [ ] borders
     - [ ] colors
@@ -55,7 +37,7 @@
 - [ ] vscode + neovim
 - [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
     - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
-- [ ] try: https://github.com/kiyoon/jupynium.nvim
+- [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
 #### Refactoring
 - [?] `debug.lua` code clean: configuration table extend
 
@@ -78,14 +60,11 @@
 - [ ] neoscroll
 - [ ] telescope filebrowser
 - [ ] dadbod
-- [ ] indent-blankline
 - [ ] mini.ai
 - [ ] unimpaired
 - [ ] live-command.nvim
 - [ ] neogit
-- [ ] diffview.nvim
 - [ ] lazynvim
-- [ ] telescope-undo.nvim
 
 <br>
 
@@ -99,9 +78,6 @@
 
 ## Another software (???)
 - [ ] Neovide
-- [ ] LiteMDview (markdown viewer)
-- [ ] Pinta (image viewer)
-- [???] Rofi
 - [ ] lf
 
 <br>
@@ -112,5 +88,3 @@
 - [ ] use normal plugin for git prompt
 - [ ] tab command args
 - [ ] tmux integration
-- [ ] google mappings
-- [ ] try mozilla 

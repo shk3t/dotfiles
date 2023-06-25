@@ -2,62 +2,64 @@
 
 show_help_message() {
     cat << END
-Usage: xkb-shket [OPTION]
+Usage: layout-ash [OPTIONS]
 Switch between specific layout presets
 
 Options:
     -h, --help          show help message
-    -d, --double        double ctrl
-    -s, --single        single ctrl
     -n, --normie        for normal user
-    --normie-toggle     toggle between ashket and normal user layout
+    -d, --double-ctrl   double ctrl
+    -a, --ashket        best keyboard layout
+    -t, --toggle        toggle between `ashket` and desired
 END
-}
-if [[ $1 == '-h' || $1 == '--help' ]]; then
-    show_help_message
-    exit
-fi
-
-
-use_base() {
-    setxkbmap -option
-    setxkbmap -option grp:alt_space_toggle \
-        -option caps:escape_shifted_capslock
 }
 
 use_normie() {
     setxkbmap -option
-    setxkbmap -option grp:alt_shift_toggle \
-        -option grp:win_space_toggle
+    setxkbmap \
+        -option grp:win_space_toggle \
+        -option grp:alt_shift_toggle
     echo "normie" > $LAYOUT_PATH
-    echo "Switched to NORMIE layout"
 }
 
 use_ashket() {
-    setxkbmap -option ctrl:swap_lwin_lctl
+    setxkbmap -option
+    setxkbmap \
+        -option grp:win_space_toggle\
+        -option grp:alt_space_toggle \
+        -option caps:escape \
+        -option ctrl:swap_lwin_lctl
     echo "ashket" > $LAYOUT_PATH
-    echo "Switched to ashket layout"
+}
+
+use_double_control() {
+    setxkbmap -option
+    setxkbmap \
+        -option grp:win_space_toggle\
+        -option grp:alt_space_toggle \
+        -option caps:escape \
+        -option altwin:ctrl_win
+    echo "double-control" > $LAYOUT_PATH
 }
 
 
 LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
 layout=$(cat $LAYOUT_PATH)
+if [[ " $@ " =~ ( -h | --help ) ]]; then
+    show_help_message
+    exit
+fi
 
-use_base
+if [[ $layout != "ashket" && " $@ " =~ ( -t | --toggle ) ]]; then
+    use_ashket
+    exit
+fi
 
 case $1 in
     -n | --normie)
         use_normie;;
-    --normie-toggle)
-        if [[ $layout == "normie" ]]; then
-            use_ashket
-        else
-            use_normie
-        fi;;
-    -d | --double-caps)
-        setxkbmap -option altwin:ctrl_win;;
-    -A | --ashket | *)
+    -d | --double-ctrl)
+        use_double_control;;
+    -a | --ashket | *)
         use_ashket;;
 esac
-
-export NEWVAR=228

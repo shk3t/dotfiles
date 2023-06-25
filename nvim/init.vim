@@ -23,15 +23,12 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'rcarriga/cmp-dap'
-"Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
 " Syntax
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'nvim-treesitter/playground'
-
-" Snippets
+Plug 'nvim-treesitter/playground' " Snippets
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
@@ -52,20 +49,23 @@ Plug 'lewis6991/gitsigns.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'prochri/telescope-all-recent.nvim'
+Plug 'nvim-telescope/telescope-live-grep-args.nvim'
+Plug 'debugloop/telescope-undo.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'ThePrimeagen/harpoon'
-Plug 'prochri/telescope-all-recent.nvim'
 
 " Automation
 Plug 'lyokha/vim-xkbswitch'
-Plug 'Pocco81/auto-save.nvim'
 Plug 'numToStr/Comment.nvim'
 Plug 'kylechui/nvim-surround'
 Plug 'chrisgrieser/nvim-recorder'
+Plug 'vim-scripts/Tabmerge'
 "Plug 'windwp/nvim-autopairs'
 "Plug 'windwp/nvim-ts-autotag'
 
 " Indentation improve
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'Vimjas/vim-python-pep8-indent'
 "Plug 'MaxMEllon/vim-jsx-pretty'

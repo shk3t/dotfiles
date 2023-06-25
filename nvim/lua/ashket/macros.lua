@@ -8,7 +8,7 @@ require("recorder").setup {
   mapping = {
     startStopRecording = "q",
     playMacro = "@",
-    switchSlot = "<C-q>",
+    switchSlot = "Q",
     editMacro = "cq",
     yankMacro = "yq", -- also decodes it for turning macros to mappings
     addBreakPoint = [[\b]], -- ⚠️ this should be a string you don't use in insert mode during a macro

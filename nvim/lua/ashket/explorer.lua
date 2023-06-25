@@ -1,5 +1,4 @@
-local opts = {noremap = true, silent = true}
-vim.api.nvim_set_keymap("n", "<Space>E", "<Cmd>NvimTreeFindFile<CR>", opts)
+vim.keymap.set("n", "<Space>E", "<Cmd>NvimTreeFindFile<CR>")
 
 require("nvim-tree").setup({
   hijack_cursor = true,
@@ -8,7 +7,6 @@ require("nvim-tree").setup({
   view = {
     adaptive_size = true,
     width = 10,
-    hide_root_folder = true,
     signcolumn = "no",
     mappings = {
       list = {
@@ -22,6 +20,7 @@ require("nvim-tree").setup({
     },
   },
   renderer = {
+    root_folder_label = false,
     group_empty = false,
     icons = {
       padding = "",

@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # dwm or plasma
-session="plasma"
+SESSION="plasma"
+LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
+echo "ashket" > $LAYOUT_PATH
 
-if [[ $session == "plasma" ]]; then
+if [[ $SESSION == "plasma" ]]; then
     export DESKTOP_SESSION=plasma
     exec startplasma-x11
 else # dwm
@@ -14,8 +16,8 @@ else # dwm
     # export QT_QPA_PLATFORMTHEME=qt5ct
 
     setxkbmap -option grp:alt_space_toggle \
-        -option caps:escape_shifted_capslock \
-        -option ctrl:swap_lwin_lctl &
+        -option ctrl:swap_lwin_lctl \
+        -option caps:escape &
     xset r rate 180 60 &
 
     # picom &

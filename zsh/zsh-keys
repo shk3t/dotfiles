@@ -1,7 +1,7 @@
 # Key bindings
 # bindkey -s "^E" "nvim .^M"
 bindkey -s "^F" "nvim . -c 'Telescope find_files'^M"
-bindkey -s "^G" "nvim . -c 'Telescope live_grep'^M"
+bindkey -s "^G" "nvim . -c 'Telescope live_grep_args'^M"
 bindkey "^C" vi-cmd-mode
 bindkey "^L" autosuggest-accept
 # bindkey "^S" autosuggest-toggle

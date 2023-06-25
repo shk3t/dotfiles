@@ -35,9 +35,6 @@ require("nvim-treesitter.configs").setup({
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
 
-        -- ["ac"] = "@class.outer",
-        -- ["ic"] = "@class.inner",
-
         ["aC"] = "@class.outer",
         ["iC"] = "@class.inner",
 

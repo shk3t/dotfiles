@@ -56,14 +56,6 @@ local custom_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = false
 
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-  -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-  -- -- Set autocommands conditional on server_capabilities
-  -- if client.server_capabilities.documentHighlightProvider then
-  --   autocmd_clear { group = augroup_highlight, buffer = bufnr }
-  --   autocmd { "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr }
-  --   autocmd { "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr }
-  -- end
 end
 
 local turn_off_lsp_diagnostics = function() vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end end
@@ -95,39 +87,35 @@ local setup_server = function(server, config)
   lspconfig[server].setup(config)
 end
 
+local use_pyright = not string.find(vim.fn.getcwd(), "s11")
 local servers = {
-  pyright = true,
-  -- jedi_language_server = true,
-  -- pylsp = {
-  --   settings = {
-  --     pylsp = {
-  --       plugins = {
-  --         pycodestyle = {
-  --           ignore = {
-  --             "W191", -- Indentation contains tabs
-  --             "W292", -- No newline at end of file
-  --             "W391", -- Blank line at end of file
-  --             "W503", -- Line break before binary operator
-  --             "E101", -- Indentation contains mixed spaces and tabs
-  --             "E302", -- Expected 2 blank lines, found 0
-  --             "E501", -- Line too long (82 > 79 characters)
-  --           },
-  --           maxLineLength = 100,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
-
+  pyright = use_pyright,
+  pylsp = not use_pyright and {
+    settings = {
+      pylsp = {
+        plugins = {
+          pycodestyle = {
+            ignore = {
+              "W191", -- Indentation contains tabs
+              "W292", -- No newline at end of file
+              "W391", -- Blank line at end of file
+              "W503", -- Line break before binary operator
+              "E101", -- Indentation contains mixed spaces and tabs
+              "E302", -- Expected 2 blank lines, found 0
+              "E501", -- Line too long (82 > 79 characters)
+            },
+            maxLineLength = 100,
+          },
+        },
+      },
+    },
+  },
   html = true,
   cssls = true,
-  -- eslint = true,
   tsserver = {
     init_options = {preferences = {providePrefixAndSuffixTextForRename = false}},
   },
   jsonls = true,
-
-  -- ccls = true,
   clangd = {
     cmd = {
       "clangd",
@@ -137,17 +125,10 @@ local servers = {
       "--header-insertion=iwyu",
       "--header-insertion-decorators=false",
       "--offset-encoding=utf-16",
-      -- "--all-scopes-completion=true",
-      -- "--clang-tidy",
     },
   },
-
   bashls = true,
-
   texlab = true,
-
-  sqls = true, -- Deprecated
-
   lua_ls = true,
 }
 
@@ -187,14 +168,12 @@ null_ls.setup({
     nformatting.clang_format.with({
       extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},
     }),
-
     -- diagnostics.clang_check,
     -- ndiagnostics.pylint.with({
     --     -- command = "/home/ashket/repos/s11/.venv/bin/pylint",
     --     -- args = {"--from-stdin", "$FILENAME", "-f", "json"},
     --     extra_args = {"--rcfile", NVIM_ETC .. "/pylint.toml"},
     -- }),
-
     ncode_actions.gitsigns,
   },
 })

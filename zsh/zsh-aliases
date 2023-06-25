@@ -1,6 +1,4 @@
 #!/bin/sh
-#alias j='z'
-#alias f='zi'
 #alias g='lazygit'
 alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 alias nvimrc='nvim ~/.config/nvim/'
@@ -14,17 +12,18 @@ alias ls='ls -Av --group-directories-first --color=auto'
 function cd {
     builtin cd "$@" && ls
 }
-function z {
+function z_alias {
     __zoxide_z "$@" && ls
 }
-function zi {
+function zi_alias {
     __zoxide_zi "$@" && ls
 }
+alias z=z_alias
+alias zi=zi_alias
 
-# Confirm before overwriting something
-#alias cp="cp -i"
-#alias mv='mv -i'
-#alias rm='rm -i'
+function srm {
+    mv "$@" ~/.local/share/Trash/files
+}
 
 # Navigation
-alias cdf='cd $(find . -type d -print | fzf)'
+alias fcdf='cd $(find . -type d -print | fzf)'

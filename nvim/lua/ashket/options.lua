@@ -1,0 +1,99 @@
+-- Tabs
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
+vim.opt.cinoptions = "g0,(0,Ws,l,L0"
+
+-- Lines
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.signcolumn = "yes"
+vim.opt.scrolloff = 8
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+
+-- Syntax highlighting
+vim.cmd("syntax on")
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.completeopt = {"menu", "menuone", "noselect"}
+
+-- Appearance
+vim.opt.background = "dark"
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = {"number", "line"}
+vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
+
+-- Controls
+vim.opt.timeoutlen = 10000
+vim.opt.mouse = "a"
+vim.cmd("set cpoptions-=_")
+
+-- Sounds
+vim.opt.errorbells = false
+vim.opt.visualbell = false
+
+-- Buffer
+vim.opt.hidden = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undofile = true
+vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo/"
+vim.opt.updatetime = 500
+
+-- Navigation
+vim.opt.jumpoptions = "stack"
+
+-- Explorer
+vim.g.netrw_list_hide = [[^\./$]]
+vim.g.netrw_hide = 1
+-- let b:netrw_lastfile = 1
+
+-- Language
+vim.g.XkbSwitchEnabled = 1
+vim.g.XkbSwitchAssistNKeymap = 1 -- for commands r and f
+vim.g.XkbSwitchNLayout = "us" -- better telescope support
+-- vim.g.XkbSwitchIminsertToggleKey = '<C-^>'
+vim.opt.keymap = "russian-jcukenwin"
+vim.opt.iminsert = 0
+vim.opt.imsearch = 0
+-- vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+
+-- Sql
+vim.g.ftplugin_sql_omni_key = "<C-H-S>"
+
+-- Markdown
+vim.g.mkdp_auto_start = 0
+vim.g.mkdp_auto_close = 1
+vim.g.mkdp_refresh_slow = 1
+vim.g.mkdp_command_for_global = 0
+vim.g.mkdp_open_to_the_world = 0
+vim.g.mkdp_open_ip = ""
+vim.g.mkdp_browser = ""
+vim.g.mkdp_echo_preview_url = 0
+vim.g.mkdp_browserfunc = ""
+vim.g.mkdp_preview_options = {
+  mkit = {},
+  katex = {},
+  uml = {},
+  maid = {},
+  disable_sync_scroll = 0,
+  sync_scroll_type = "middle",
+  hide_yaml_meta = 1,
+  sequence_diagrams = {},
+  flowchart_diagrams = {},
+  content_editable = false,
+  disable_filename = 0,
+  toc = {},
+}
+vim.g.mkdp_markdown_css = ""
+vim.g.mkdp_highlight_css = ""
+vim.g.mkdp_port = ""
+vim.g.mkdp_page_title = "「${name}」"
+vim.g.mkdp_filetypes = {"markdown"}
+vim.g.mkdp_theme = "light"

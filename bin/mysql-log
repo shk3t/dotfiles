@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set_log_off() {
+    eval "$MARIADB --execute='SET GLOBAL general_log = 'OFF';'"
+}
+trap set_log_off EXIT
+
+
+LOG_FILE="/var/run/mysqld/mysqld.log"
+DB_PASS="1think1dump"
+DB_USER="ashket"
+MARIADB="mariadb --user=$DB_USER --password=$DB_PASS"
+
+eval "$MARIADB --execute=\"SET GLOBAL general_log_file = '$LOG_FILE';\""
+eval "$MARIADB --execute='SET GLOBAL general_log = 'ON';'"
+sudo tail -f -n300 $LOG_FILE

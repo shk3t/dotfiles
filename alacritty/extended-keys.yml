@@ -22,8 +22,8 @@ key_bindings:
   # Control + <letter> ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 
   - { key: H, mods: Control, chars: "\x1b[104;5u" }
-  - { key: I, mods: Control, chars: "\x1b[105;5u" }
-  # - { key: I, mods: Control, chars: "\x1b[27;3;9~" } # Tmux bug fix ("Alt + Tab" mapping)
+  # - { key: I, mods: Control, chars: "\x1b[105;5u" }
+  - { key: I, mods: Control, chars: "\x1b[27;3;9~" } # Tmux bug fix ("Alt + Tab" mapping)
   - { key: J, mods: Control, chars: "\x1b[106;5u" }
   - { key: M, mods: Control, chars: "\x1b[109;5u" }
 
