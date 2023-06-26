@@ -29,8 +29,12 @@ cmp.setup({
     -- ["<C-H>"] = cmp.mapping.abort(),
     -- ["<C-L>"] = confirm_complete,
     ["<C-CR>"] = confirm_complete,
-    ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item(), {"i", "c"}),
-    ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item(), {"i", "c"}),
+    ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item({
+      behavior = cmp.SelectBehavior.Insert,
+    }), {"i", "c"}),
+    ["<C-J>"] = cmp.mapping(cmp.mapping.select_next_item({
+      behavior = cmp.SelectBehavior.Insert,
+    }), {"i", "c"}),
     ["<C-P>"] = cmp.mapping.select_prev_item(),
     ["<C-N>"] = cmp.mapping.select_next_item(),
     -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),

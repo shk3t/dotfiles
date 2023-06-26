@@ -2,30 +2,27 @@
 - [ ] "mark" list & indicator
     - "mark".nvim
     - "bookmarks".nvim
-- [ ] run dap in external terminal
-- [ ] think about tabs hotkeys (<Space>1 is bad)
-- [ ] frecency telescope symbols
-- [ ] cmp replace only on confirm
 - [ ] diffview.nvim
-- [ ] unflat list of ags in function
-- [ ] `g;` skip first
-    - [ ] double if not the same line
-- [ ] firefox migration
+- [X] firefox migration
 - [ ] config watches
-- [ ] list hunks
-    - [ ] sort by modification date
-- [-] neodev doc for plugins
 
 # TODOS
+- [?] `g;` skip first (if the same line)
 - [h] explorer preselect current file
 - [ ] dap debug python libraries (breakpoint rejected)
+- [-] list hunks
+    - [-] sort by modification date
 ### Keys
 - [ ] word movements
     - [ ] camel case movements 
 ### Lsp
-- [-] rename file with references
+- [ ] neodev doc for plugins
+- [ ] rename file with references
 - [ ] js linter for missing imports (eslint, eslint_d, xo)
 - [ ] duplicate entries of cmp-buffer (clangd, pylsp)
+- [I] cmp replace only on confirm
+### Dap
+- [ ] run dap in external terminal
 ### Appearance
 - [ ] telescope styling
     - [ ] transparency
@@ -65,18 +62,18 @@
 - [ ] live-command.nvim
 - [ ] neogit
 - [ ] lazynvim
+- [ ] zenmode
 
 <br>
 
 ## Global
 - [ ] KDE highlight focused window frame
 - [ ] restore tmux + nvim sessions
-- [ ] rewrite everything using only lua
 - [ ] test nvchad with rose-pine (-)
 - [ ] lazyload plugins (-)
     - [ ] speedtest nvim (-)
 
-## Another software (???)
+## Another software
 - [ ] Neovide
 - [ ] lf
 

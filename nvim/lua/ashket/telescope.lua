@@ -158,8 +158,14 @@ require("telescope-all-recent").setup({
   },
   default = {
     disable = true, -- disable any unkown pickers (recommended)
+
   },
   pickers = {
     find_files = {disable = false, use_cwd = false, sorting = "frecency"},
+    lsp_dynamic_workspace_symbols = {
+      disable = false,
+      use_cwd = false,
+      sorting = "frecency",
+    },
   },
 })

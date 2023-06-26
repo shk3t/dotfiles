@@ -55,12 +55,13 @@ Plug 'debugloop/telescope-undo.nvim'
 Plug 'stevearc/aerial.nvim'
 Plug 'ThePrimeagen/harpoon'
 
-" Automation
+" Tweaks
 Plug 'lyokha/vim-xkbswitch'
 Plug 'numToStr/Comment.nvim'
 Plug 'kylechui/nvim-surround'
 Plug 'chrisgrieser/nvim-recorder'
 Plug 'vim-scripts/Tabmerge'
+Plug 'AckslD/nvim-trevJ.lua'
 "Plug 'windwp/nvim-autopairs'
 "Plug 'windwp/nvim-ts-autotag'
 
