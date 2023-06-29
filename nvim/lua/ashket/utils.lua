@@ -1,5 +1,9 @@
 local M = {}
 
+M.t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 M.print_table = function(table)
   for k, v in pairs(table) do
     print(k, v)
@@ -28,10 +32,14 @@ M.merge_tables = function(first_table, second_table)
   return new_table
 end
 
-M.highlight = function(ns_id, name, upd_val)
-  local old_val = vim.api.nvim_get_hl(ns_id, {name = name})
+M.get_highlight = function(name)
+  return vim.api.nvim_get_hl(0, {name = name})
+end
+
+M.highlight = function(name, upd_val)
+  local old_val = vim.api.nvim_get_hl(0, {name = name})
   local merged_val = M.merge_tables(old_val, upd_val)
-  vim.api.nvim_set_hl(ns_id, name, merged_val)
+  vim.api.nvim_set_hl(0, name, merged_val)
 end
 
 return M

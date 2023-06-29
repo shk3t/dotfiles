@@ -38,14 +38,14 @@ require("gitsigns").setup {
   on_attach = function(bufnr)
     local gs = package.loaded.gitsigns
 
-    local function map(mode, l, r, opts)
+    local function bufmap(mode, l, r, opts)
       opts = opts or {}
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
 
     -- Navigation
-    map("n", "]h", function()
+    bufmap("n", "]h", function()
       if vim.wo.diff then
         return "]h"
       end
@@ -53,7 +53,7 @@ require("gitsigns").setup {
       return "<Ignore>"
     end, {expr = true})
 
-    map("n", "[h", function()
+    bufmap("n", "[h", function()
       if vim.wo.diff then
         return "[h"
       end
@@ -62,19 +62,29 @@ require("gitsigns").setup {
     end, {expr = true})
 
     -- Actions
-    -- map({"n", "v"}, "<Space>gs", ":Gitsigns stage_hunk<CR>")
-    map({"n", "v"}, "<Space>gr", ":Gitsigns reset_hunk<CR>")
-    -- map("n", "<Space>gS", gs.stage_buffer)
-    -- map("n", "<Space>gu", gs.undo_stage_hunk)
-    map("n", "<Space>UR", gs.reset_buffer)
-    map("n", "<Space>gk", gs.preview_hunk)
-    -- map("n", "<Space>gb", function() gs.blame_line {full = true} end)
-    map("n", "<Space>UB", gs.toggle_current_line_blame)
-    map("n", "<Space>gp", gs.diffthis)
-    -- map("n", "<Space>gD", function() gs.diffthis("~") end)
-    map("n", "<Space>GD", gs.toggle_deleted)
+    -- bufmap({"n", "v"}, "<Space>gs", ":Gitsigns stage_hunk<CR>")
+    bufmap({"n", "v"}, "<Space>gr", ":Gitsigns reset_hunk<CR>")
+    -- bufmap("n", "<Space>gS", gs.stage_buffer)
+    -- bufmap("n", "<Space>gu", gs.undo_stage_hunk)
+    bufmap("n", "<Space>UR", gs.reset_buffer)
+    bufmap("n", "<Space>gk", gs.preview_hunk)
+    -- bufmap("n", "<Space>gb", function() gs.blame_line {full = true} end)
+    bufmap("n", "<Space>UB", gs.toggle_current_line_blame)
+    bufmap("n", "<Space>gp", gs.diffthis)
+    -- bufmap("n", "<Space>gD", function() gs.diffthis("~") end)
+    bufmap("n", "<Space>GD", gs.toggle_deleted)
 
     -- Text object
-    map({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    bufmap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
   end,
 }
+
+local actions = require("diffview.actions")
+require("diffview").setup({
+  use_icons = false,
+  signs = {
+    fold_closed = ">",
+    fold_open = "v",
+    done = "√",
+  },
+})

@@ -1,5 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local print_table = require("ashket.utils").print_table
 
 local confirm_complete = function()
   if cmp.visible() then
@@ -69,6 +70,14 @@ cmp.setup({
     {name = "nvim_lsp_signature_help"},
     -- { name = "cmp_tabnine" },
   }),
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.abbr = string.gsub(vim_item.abbr, "%(.*%)", "")
+      vim_item.abbr = string.gsub(vim_item.abbr, "~", "")
+      -- vim_item.dup = ({buffer = 0, luasnip = 0})[entry.source.name]
+      return vim_item
+    end,
+  },
   enabled = function()
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,

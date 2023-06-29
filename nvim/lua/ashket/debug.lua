@@ -2,13 +2,13 @@ local dap = require("dap")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
+local t = require("ashket.utils").t
 local split_string = require("ashket.utils").split_string
+local merge_tables = require("ashket.utils").merge_tables
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
-dap.listeners.after.event_initialized["steal_focus"] = function()
-  print("Debugger is active!")
-end
+dap.listeners.after.event_initialized["steal_focus"] = function() print("Debugger is active!") end
 dap.listeners.after.event_continued["steal_focus"] = function()
   tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
 end
@@ -17,6 +17,10 @@ dap.listeners.after.event_stopped["steal_focus"] = function()
   vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. tmux_window_id)
 end
 
+-- dap.listeners.after.event_initialized["auto_open_close"] = function() dapui.open() end
+-- dap.listeners.before.event_terminated["auto_open_close"] = function() dapui.close() end
+-- dap.listeners.before.event_exited["auto_open_close"] = function() dapui.close() end
+
 local python_path = (function()
   local cwd = vim.fn.getcwd()
   local venvdirs = {"venv", ".venv"}
@@ -24,16 +28,12 @@ local python_path = (function()
   for _, venvdir in ipairs(venvdirs) do
     local venvpath = cwd .. "/" .. venvdir
     local pybin = venvpath .. "/bin/python"
-    if vim.fn.executable(pybin) == 1 then
-      return pybin
-    end
+    if vim.fn.executable(pybin) == 1 then return pybin end
 
     if vim.fn.isdirectory(venvpath) == 1 then
       for venvsubdir, filetype in vim.fs.dir(venvpath) do
         pybin = venvpath .. "/" .. venvsubdir .. "/bin/python"
-        if filetype == "directory" and vim.fn.executable(pybin) == 1 then
-          return pybin
-        end
+        if filetype == "directory" and vim.fn.executable(pybin) == 1 then return pybin end
       end
     end
   end
@@ -43,6 +43,19 @@ end)()
 
 local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
 local input_args = function() return split_string(vim.fn.input("Args: ")) end
+
+local scopes_widget_winid = 0
+local function open_custom_dapui()
+  dapui.open()
+  vim.fn.execute(t("normal! <C-W>l<C-W>k<C-W>j"))
+  _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
+  vim.fn.execute(t("normal! <C-W>q80<C-W>|40<C-W>_<C-W>k<C-W>h"))
+end
+local function close_custom_dapui()
+  dapui.close()
+  vim.api.nvim_win_close(scopes_widget_winid, false)
+  scopes_widget_winid = 0
+end
 
 keymap({"i", "n", "v"}, "<F9>", dap.continue)
 keymap({"i", "n", "v"}, "<F8>", dap.step_over)
@@ -60,11 +73,14 @@ keymap("n", "<Space>dp", dap.down)
 keymap("n", "<Space>dr", dap.run_last)
 keymap("n", "<Space>ds", function() widgets.sidebar(widgets.scopes).open() end)
 keymap("n", "<Space>dd", function()
-  -- vim.cmd([[execute "normal! \<C-W>o"]])
-  dapui.open()
-  vim.cmd([[execute "normal! \<C-W>l\<C-W>j"]])
-  widgets.sidebar(widgets.scopes).open()
-  vim.cmd([[execute "normal! \<C-W>q80\<C-W>|40\<C-W>_\<C-W>k\<C-W>h"]])
+  if scopes_widget_winid == 0 then
+    open_custom_dapui()
+  else
+    scopes_widget_tabid = vim.api.nvim_win_get_tabpage(scopes_widget_winid)
+    current_tabid = vim.api.nvim_get_current_tabpage()
+    close_custom_dapui()
+    if current_tabid ~= scopes_widget_tabid then open_custom_dapui() end
+  end
 end)
 keymap({"n", "v"}, "<Space>dk", widgets.hover)
 
@@ -79,7 +95,11 @@ dapui.setup({
   floating = {border = "single"},
   layouts = {
     {
-      elements = {{id = "scopes", size = 0.8}, {id = "stacks", size = 0.2}},
+      elements = {
+        {id = "watches", size = 0.15},
+        {id = "scopes", size = 0.7},
+        {id = "stacks", size = 0.15},
+      },
       position = "right",
       size = 80,
     },
@@ -99,49 +119,38 @@ dap.adapters.lldb = {
   name = "lldb",
 }
 
+local python_default_config = {
+  type = "python",
+  request = "launch",
+  pythonPath = python_path,
+}
 dap.configurations.python = {}
 if string.find(vim.fn.getcwd(), "s11") then
-  dap.configurations.python[1] = {
-    type = "python",
-    request = "launch",
+  dap.configurations.python[1] = merge_tables(python_default_config,
+                                              {
     name = "s11",
     program = vim.fn.getcwd() .. "/s11main.py",
-    pythonPath = python_path,
-  }
+  })
 elseif string.find(vim.fn.getcwd(), "PharmacyServer") then
-  dap.configurations.python[1] = {
-    type = "python",
-    request = "launch",
+  dap.configurations.python[1] = merge_tables(python_default_config, {
     name = "Django (noreload)",
     program = vim.fn.getcwd() .. "/manage.py",
     args = {"runserver", "--noreload"},
-    pythonPath = python_path,
-  }
+  })
 elseif string.find(vim.fn.getcwd(), "MDLPServer") then
-  dap.configurations.python[1] = {
-    type = "python",
-    request = "launch",
+  dap.configurations.python[1] = merge_tables(python_default_config,
+                                              {
     name = "Flask",
     program = vim.fn.getcwd() .. "/main.py",
-    pythonPath = python_path,
-  }
+  })
 else
   dap.configurations.python = {
-    {
-      type = "python",
-      request = "launch",
-      name = "Default",
-      program = "${file}",
-      pythonPath = python_path,
-    },
-    -- {
-    --   type = "python",
-    --   request = "launch",
+    merge_tables(python_default_config, {name = "Default", program = "${file}"}),
+    -- merge_tables(python_default_config, {
     --   name = "Specify file and args",
     --   program = input_file,
     --   args = input_args,
-    --   pythonPath = python_path,
-    -- },
+    -- }),
   }
 end
 

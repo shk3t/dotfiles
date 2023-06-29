@@ -1,33 +1,33 @@
 # IMPORTANT TODOS
+- [ ] lazynvim: *https://github.com/folke/lazy.nvim*
 - [ ] "mark" list & indicator
     - "mark".nvim
     - "bookmarks".nvim
-- [ ] diffview.nvim
-- [X] firefox migration
-- [ ] config watches
+    - "grapple".nvim
+    - learn about shada: *https://www.reddit.com/r/vim/comments/povbkh/tip_viminfo_per_project/?utm_source=share&utm_medium=android_app&utm_name=androidcss&utm_term=14&utm_content=share_button*
 
 # TODOS
-- [?] `g;` skip first (if the same line)
+- [?] `g;` skip (if the same line)
 - [h] explorer preselect current file
-- [ ] dap debug python libraries (breakpoint rejected)
 - [-] list hunks
     - [-] sort by modification date
+- [ ] help close error
 ### Keys
 - [ ] word movements
     - [ ] camel case movements 
 ### Lsp
-- [ ] neodev doc for plugins
+- [X] neodev doc for plugins
 - [ ] rename file with references
 - [ ] js linter for missing imports (eslint, eslint_d, xo)
-- [ ] duplicate entries of cmp-buffer (clangd, pylsp)
 - [I] cmp replace only on confirm
+- [I] duplicate entries for cmp-buffer (clangd, pylsp)
+    - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
+- [-] `<C-D>`/`<C-U>` scroll quick doc
 ### Dap
+- [ ] dap debug python libraries (breakpoint rejected)
 - [ ] run dap in external terminal
+- [ ] double click on stacks to switch
 ### Appearance
-- [ ] telescope styling
-    - [ ] transparency
-    - [ ] borders
-    - [ ] colors
 - [-] diagnostics underline color (-)
 - [ ] aerial icons
 ### Jupyter
@@ -35,8 +35,6 @@
 - [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
     - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
 - [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
-#### Refactoring
-- [?] `debug.lua` code clean: configuration table extend
 
 <br>
 
@@ -61,8 +59,8 @@
 - [ ] unimpaired
 - [ ] live-command.nvim
 - [ ] neogit
-- [ ] lazynvim
 - [ ] zenmode
+- [ ] copilot.lua
 
 <br>
 

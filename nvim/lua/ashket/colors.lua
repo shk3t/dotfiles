@@ -1,33 +1,57 @@
 local M = {}
-local autocmd = vim.api.nvim_create_autocmd
+local get_highlight = require("ashket.utils").get_highlight
 local highlight = require("ashket.utils").highlight
+local TRANSPARENCY = require("ashket.consts").TRANSPARENCY
 
 vim.cmd("colorscheme rose-pine")
 
 local function set_transparent_bg()
-  highlight(0, "Normal", {bg = "None"})
-  highlight(0, "NormalNC", {bg = "None"})
-  highlight(0, "NonText", {bg = "None"})
-  highlight(0, "LineNr", {bg = "None"})
-  highlight(0, "SignColumn", {bg = "None"})
-  highlight(0, "TabLineFill", {bg = "None"})
-  highlight(0, "TabLine", {bg = "None"})
+  highlight("Normal", {bg = "None"})
+  highlight("NormalNC", {bg = "None"})
+  highlight("NonText", {bg = "None"})
+  highlight("LineNr", {bg = "None"})
+  highlight("SignColumn", {bg = "None"})
+  highlight("TabLineFill", {bg = "None"})
+  highlight("TabLine", {bg = "None"})
 
-  vim.opt.pumblend = 15
-  vim.opt.winblend = 15
-  highlight(0, "PmenuSel", {blend = 0})
+  vim.opt.pumblend = TRANSPARENCY
+  vim.opt.winblend = TRANSPARENCY
+  highlight("PmenuSel", {blend = 0})
+  highlight("FloatBorder", {blend = TRANSPARENCY})
 
-  highlight(0, "GitSignsUntracked", {bg = "None"})
-  highlight(0, "GitSignsTopdelete", {bg = "None"})
-  highlight(0, "GitSignsChangedelete", {bg = "None"})
-  highlight(0, "GitSignsDelete", {bg = "None"})
-  highlight(0, "GitSignsChange", {bg = "None"})
-  highlight(0, "GitSignsAdd", {bg = "None"})
+  highlight("GitSignsUntracked", {bg = "None"})
+  highlight("GitSignsTopdelete", {bg = "None"})
+  highlight("GitSignsChangedelete", {bg = "None"})
+  highlight("GitSignsDelete", {bg = "None"})
+  highlight("GitSignsChange", {bg = "None"})
+  highlight("GitSignsAdd", {bg = "None"})
 end
 
 local function set_wide_border()
   local vert_split_fg = vim.api.nvim_get_hl(0, {name = "VertSplit"}).fg
-  highlight(0, "VertSplit", {bg = vert_split_fg})
+  highlight("VertSplit", {bg = vert_split_fg})
+end
+
+local function setup_telescope_colors()
+  local normal = get_highlight("Normal")
+  local fg, bg = normal.fg, normal.bg
+  local bg_alt = get_highlight("Visual").bg
+  local green = get_highlight("String").fg
+  local red = get_highlight("Error").fg
+  highlight("TelescopeBorder", {fg = bg, bg = bg})
+  highlight("TelescopeNormal", {bg = bg})
+  highlight("TelescopePreviewBorder", {fg = bg, bg = bg})
+  highlight("TelescopePreviewNormal", {bg = bg})
+  highlight("TelescopePreviewTitle", {fg = bg, bg = green, blend = 0})
+  highlight("TelescopePromptBorder", {fg = bg_alt, bg = bg_alt, blend = 0})
+  highlight("TelescopePromptNormal", {fg = fg, bg = bg_alt, blend = 0})
+  highlight("TelescopePromptPrefix", {fg = red, bg = bg_alt, blend = 0})
+  highlight("TelescopePromptTitle", {fg = bg, bg = red, blend = 0})
+  highlight("TelescopeResultsBorder", {fg = bg, bg = bg})
+  highlight("TelescopeResultsNormal", {bg = bg})
+  highlight("TelescopeResultsTitle", {fg = bg, bg = bg, blend = 0})
+  highlight("TelescopeSelection", {blend = 0})
+  highlight("TelescopeSelectionCaret", {blend = 0})
 end
 
 local function define_dap_signs()
@@ -47,9 +71,10 @@ end
 local colorscheme_setups = {
   ["default"] = function()
     set_wide_border()
-    highlight(0, "CursorLineNr", {bold = true})
+    highlight("CursorLineNr", {bold = true})
     set_transparent_bg()
     define_dap_signs()
+    setup_telescope_colors()
   end,
   ["rose-pine"] = function() require("rose-pine").setup({disable_italics = true}) end,
   ["calvera"] = function() vim.g.calvera_borders = true end,

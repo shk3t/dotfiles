@@ -110,6 +110,7 @@ noremap <silent> <C-W>Q <Cmd>tabclose<CR>
 noremap <silent> <C-W><C-T> <C-W>v<C-W>T
 noremap <silent> <C-W><C-,> <Cmd>tabprevious<CR>
 noremap <silent> <C-W><C-.> <Cmd>tabnext<CR>
+noremap <silent> <S-Tab> g<Tab>
 nnoremap <silent> } :<C-U>execute "keepjumps normal! " . v:count1 . "}"<CR>
 nnoremap <silent> { :<C-U>execute "keepjumps normal! " . v:count1 . "{"<CR>
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count . 'k' : 'gk')

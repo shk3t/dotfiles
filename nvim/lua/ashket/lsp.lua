@@ -136,16 +136,18 @@ for server, config in pairs(servers) do
   setup_server(server, config)
 end
 
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
---   border = "none",
--- })
+local VERTICAL_BORDERS = {"", "", "", " ", "", "", "", " "}
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = VERTICAL_BORDERS
+})
 
 vim.diagnostic.config({
   virtual_text = {severity = {min = "WARN"}},
   underline = {severity = {min = "WARN"}},
   signs = true,
   update_in_insert = false,
-  -- float = {border = "none"},
+  float = {border = VERTICAL_BORDERS},
 })
 
 keymap("n", "[d", vim.diagnostic.goto_prev)

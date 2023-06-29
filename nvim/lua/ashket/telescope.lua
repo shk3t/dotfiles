@@ -5,6 +5,7 @@ local harpoon_ui = require("harpoon.ui")
 local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
+local TRANSPARENCY = require("ashket.consts").TRANSPARENCY
 
 local IGNORE_FILE = os.getenv("HOME") .. "/.config/nvim/etc/telescope-ignore.txt"
 
@@ -54,7 +55,10 @@ telescope.setup({
       width = 0.9,
       preview_width = 0.55,
     },
-    border = false,
+    winblend = TRANSPARENCY,
+    border = true,
+    borderchars = {" ", " ", " ", " ", " ", " ", " ", " "},
+    results_title = "",
     file_ignore_patterns = {"node_modules"},
 
     mappings = {
@@ -158,7 +162,6 @@ require("telescope-all-recent").setup({
   },
   default = {
     disable = true, -- disable any unkown pickers (recommended)
-
   },
   pickers = {
     find_files = {disable = false, use_cwd = false, sorting = "frecency"},

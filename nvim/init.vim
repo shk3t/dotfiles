@@ -41,6 +41,7 @@ Plug 'goerz/jupytext.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': ':call mkdp#util#install()', 'for': 'markdown' }
 Plug 'aserowy/tmux.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 " Plug 'hkupty/iron.nvim'
 " Plug 'kana/vim-textobj-user'
 " Plug 'GCBallesteros/vim-textobj-hydrogen'
