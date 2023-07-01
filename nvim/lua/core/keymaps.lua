@@ -73,7 +73,7 @@ keymap("n", "<Space>e", vim.cmd.Ex)
 keymap({"n", "v"}, "<Space>LR", vim.cmd.LspRestart)
 keymap({"n", "v"}, "<Space>LI", vim.cmd.LspInfo)
 keymap({"n", "v"}, "<Space>PM", vim.cmd.MarkdownPreviewToggle)
-keymap({"n", "v"}, "<Space>gd", vim.cmd.DiffviewOpen)
+keymap({"n", "v"}, "<Space>GD", vim.cmd.DiffviewOpen)
 -- keymap("n", "<Space>dm <Cmd>delmarks a-zA-Z0-9<CR>
 
 -- Splits
@@ -90,9 +90,8 @@ keymap({"n", "v"}, "<Space>qn", vim.cmd.cnext)
 -- Fast actions
 keymap({"n", "v"}, "<C-Q>", "<C-W>q")
 keymap({"n", "v"}, "<C-W>;", "<C-W>p")
-keymap({"n", "v", "i"}, "<C-S>", vim.cmd.write)
--- keymap({"n", "v"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
--- keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
+keymap({"n", "v"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
+keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap({"n", "v"}, "<C-,>", vim.cmd.tabprevious)
 keymap({"n", "v"}, "<C-.>", vim.cmd.tabnext)
 

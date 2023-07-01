@@ -24,6 +24,7 @@ vim.opt.smartcase = true
 vim.opt.completeopt = {"menu", "menuone", "noselect"}
 
 -- Appearance
+vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = {"number", "line"}

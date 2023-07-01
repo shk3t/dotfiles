@@ -1,5 +1,5 @@
 # IMPORTANT TODOS
-- [ ] lazynvim: *https://github.com/folke/lazy.nvim*
+- [X] lazynvim: *https://github.com/folke/lazy.nvim*
 - [ ] "mark" list & indicator
     - "mark".nvim
     - "bookmarks".nvim
@@ -8,9 +8,9 @@
 
 # TODOS
 - [?] `g;` skip (if the same line)
-- [h] explorer preselect current file
 - [-] list hunks
     - [-] sort by modification date
+- [h] explorer preselect current file
 - [ ] help close error
 ### Keys
 - [ ] word movements
@@ -65,6 +65,7 @@
 <br>
 
 ## Global
+- [ ] KDE keep window decorations without titlebar
 - [ ] KDE highlight focused window frame
 - [ ] restore tmux + nvim sessions
 - [ ] test nvchad with rose-pine (-)

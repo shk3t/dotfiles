@@ -66,13 +66,13 @@ require("gitsigns").setup {
     bufmap({"n", "v"}, "<Space>gr", ":Gitsigns reset_hunk<CR>")
     -- bufmap("n", "<Space>gS", gs.stage_buffer)
     -- bufmap("n", "<Space>gu", gs.undo_stage_hunk)
-    bufmap("n", "<Space>UR", gs.reset_buffer)
+    bufmap("n", "<Space>GR", gs.reset_buffer)
     bufmap("n", "<Space>gk", gs.preview_hunk)
     -- bufmap("n", "<Space>gb", function() gs.blame_line {full = true} end)
-    bufmap("n", "<Space>UB", gs.toggle_current_line_blame)
+    bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
     bufmap("n", "<Space>gp", gs.diffthis)
     -- bufmap("n", "<Space>gD", function() gs.diffthis("~") end)
-    bufmap("n", "<Space>GD", gs.toggle_deleted)
+    -- bufmap("n", "<Space>GD", gs.toggle_deleted)
 
     -- Text object
     bufmap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")

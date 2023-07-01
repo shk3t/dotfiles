@@ -2,9 +2,9 @@ local dap = require("dap")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
-local t = require("ashket.utils").t
-local split_string = require("ashket.utils").split_string
-local merge_tables = require("ashket.utils").merge_tables
+local t = require("core.utils").t
+local split_string = require("core.utils").split_string
+local merge_tables = require("core.utils").merge_tables
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])

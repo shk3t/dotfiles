@@ -5,7 +5,7 @@ local harpoon_ui = require("harpoon.ui")
 local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
-local TRANSPARENCY = require("ashket.consts").TRANSPARENCY
+local TRANSPARENCY = require("core.consts").TRANSPARENCY
 
 local IGNORE_FILE = os.getenv("HOME") .. "/.config/nvim/etc/telescope-ignore.txt"
 

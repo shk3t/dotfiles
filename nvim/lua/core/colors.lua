@@ -1,9 +1,9 @@
 local M = {}
-local get_highlight = require("ashket.utils").get_highlight
-local highlight = require("ashket.utils").highlight
-local TRANSPARENCY = require("ashket.consts").TRANSPARENCY
+local get_highlight = require("core.utils").get_highlight
+local highlight = require("core.utils").highlight
+local TRANSPARENCY = require("core.consts").TRANSPARENCY
 
-vim.cmd("colorscheme rose-pine")
+vim.cmd.colorscheme("rose-pine")
 
 local function set_transparent_bg()
   highlight("Normal", {bg = "None"})

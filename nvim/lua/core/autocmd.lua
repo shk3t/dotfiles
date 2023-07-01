@@ -1,6 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local t = require("ashket.utils").t
+local t = require("core.utils").t
 
 -- Line numeration toggle
 autocmd({"FocusLost", "WinLeave"}, {command = "set norelativenumber"})
@@ -47,7 +47,7 @@ autocmd("TextYankPost", {
 
 -- Colorscheme
 autocmd({"Colorscheme", "SourcePost"}, {
-  callback = require("ashket.colors").setup_colors,
+  callback = require("core.colors").setup_colors,
 })
 
 -- Dap
