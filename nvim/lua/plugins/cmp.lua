@@ -1,6 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local print_table = require("core.utils").print_table
+local print_table = require("utils.main").print_table
 
 local confirm_complete = function()
   if cmp.visible() then

@@ -1,6 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local t = require("core.utils").t
+local t = require("utils.main").replace_termcodes
 
 -- Line numeration toggle
 autocmd({"FocusLost", "WinLeave"}, {command = "set norelativenumber"})

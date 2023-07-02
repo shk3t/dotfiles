@@ -59,11 +59,13 @@ keymap({"n", "v"}, "-", "^")
 keymap({"n", "v"}, "<BS>", "s")
 keymap({"n", "v"}, "<C-Z>", "<Nop>")
 for i = 1, #buffer_marks do
-    local mark = buffer_marks:sub(i, i)
-    keymap({"n", "v"}, "m" .. mark, "m" .. mark:upper())
-    keymap({"n", "v"}, "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
+  local mark = buffer_marks:sub(i, i)
+  keymap({"n", "v"}, "m" .. mark, "m" .. mark:upper())
+  keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper())
+  keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
+  keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
 end
-
+keymap("n", "dM", function() vim.cmd.delmarks("a-zA-Z") end)
 
 -- Space mappings
 keymap({"n", "v"}, "<Space>", "<Nop>")
@@ -81,7 +83,6 @@ keymap("n", "<Space>e", vim.cmd.Ex)
 keymap({"n", "v"}, "<Space>LR", vim.cmd.LspRestart)
 keymap({"n", "v"}, "<Space>LI", vim.cmd.LspInfo)
 keymap({"n", "v"}, "<Space>PM", vim.cmd.MarkdownPreviewToggle)
--- keymap("n", "<Space>dm <Cmd>delmarks a-zA-Z0-9<CR>
 
 -- Splits
 keymap({"n", "v"}, "<C-W>s", "<C-W>s<C-W>j")
@@ -89,10 +90,10 @@ keymap({"n", "v"}, "<C-W>v", "<C-W>v<C-W>l")
 keymap({"n", "v"}, "<C-W><C-S>", "<C-W>s<C-W>j")
 keymap({"n", "v"}, "<C-W><C-V>", "<C-W>v<C-W>l")
 
-keymap({"n", "v"}, "<Tab>", "<C-6>")
+-- Quickfix list
 keymap({"n", "v"}, "<Space>qf", vim.cmd.copen)
-keymap({"n", "v"}, "[q", vim.cmd.cprevious)
-keymap({"n", "v"}, "]q", vim.cmd.cnext)
+keymap({"n", "v"}, "[q", function() if not pcall(vim.cmd.cprevious) then vim.cmd.clast() end end)
+keymap({"n", "v"}, "]q", function() if not pcall(vim.cmd.cnext) then vim.cmd.cfirst() end end)
 
 -- Fast actions
 keymap({"n", "v"}, "<C-Q>", "<C-W>q")
@@ -101,6 +102,7 @@ keymap({"n", "v"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
 keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap({"n", "v"}, "<C-,>", vim.cmd.tabprevious)
 keymap({"n", "v"}, "<C-.>", vim.cmd.tabnext)
+keymap({"n", "v"}, "<Tab>", "<C-6>")
 
 -- Tabs
 keymap({"n", "v"}, "<C-W>c", "<C-W><Esc>")

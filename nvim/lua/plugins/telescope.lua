@@ -4,13 +4,12 @@ local builtin = require("telescope.builtin")
 local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
-local TRANSPARENCY = require("core.consts").TRANSPARENCY
+local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
+local TRANSPARENCY = require("utils.consts").TRANSPARENCY
+local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
-local IGNORE_FILE = os.getenv("HOME") .. "/.config/nvim/etc/telescope-ignore.txt"
-
-local paste_action = function(prompt_bufnr)
+local paste_action = function(_)
   local selection = vim.fn.getreg("\"")
-  -- ensure that the buffer can be written to
   if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
     vim.api.nvim_paste(selection, true, -1)
   end
@@ -27,7 +26,6 @@ keymap("v", "<C-G>", function()
 end)
 keymap("n", "<Space>j", builtin.buffers)
 keymap("n", "<Space>th", builtin.help_tags)
-keymap("n", "<Space>'", builtin.marks)
 keymap("n", "<Space>tk", builtin.keymaps)
 keymap("n", "<Space>tr", builtin.registers)
 keymap("n", "<Space>s", builtin.lsp_document_symbols)
@@ -36,7 +34,9 @@ keymap("n", "<Space>gs", builtin.git_status)
 keymap("n", "<Space>gc", builtin.git_commits)
 keymap("n", "<Space>gb", builtin.git_branches)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
-keymap("n", "<Space>m", builtin.quickfix)
+keymap("n", "<Space>tq", builtin.quickfix)
+keymap("n", [[<Space>"]], builtin.marks)
+keymap("n", [[<Space>']], custom_quickfix_picker("Marks List", vim.cmd.MarksQFListAll))
 
 telescope.setup({
   defaults = {

@@ -2,9 +2,9 @@ local dap = require("dap")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
-local t = require("core.utils").t
-local split_string = require("core.utils").split_string
-local merge_tables = require("core.utils").merge_tables
+local t = require("utils.main").replace_termcodes
+local split_string = require("utils.main").split_string
+local merge_tables = require("utils.main").merge_tables
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -47,9 +47,9 @@ end)()
 local scopes_widget_winid = 0
 local function open_custom_dapui()
   dapui.open()
-  vim.fn.execute(t("normal! <C-W>l<C-W>k<C-W>j"))
+  vim.cmd.normal(t("<C-W>l<C-W>k<C-W>j"))
   _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  vim.fn.execute(t("normal! <C-W>q80<C-W>|40<C-W>_<C-W>k<C-W>h"))
+  vim.cmd.normal(t("<C-W>q80<C-W>|40<C-W>_<C-W>k<C-W>h"))
 end
 local function close_custom_dapui()
   dapui.close()

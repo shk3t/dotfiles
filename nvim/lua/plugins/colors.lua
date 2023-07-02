@@ -1,7 +1,9 @@
 local autocmd = vim.api.nvim_create_autocmd
-local get_highlight = require("core.utils").get_highlight
-local highlight = require("core.utils").highlight
-local TRANSPARENCY = require("core.consts").TRANSPARENCY
+local sign_define = vim.fn.sign_define
+local get_highlight = require("utils.main").get_highlight
+local highlight = require("utils.main").highlight
+local TRANSPARENCY = require("utils.consts").TRANSPARENCY
+local DIAGNOSTIC_SIGNS = require("utils.consts").DIAGNOSTIC_SIGNS
 
 vim.cmd.colorscheme("rose-pine")
 
@@ -54,18 +56,28 @@ local function setup_telescope_colors()
   highlight("TelescopeSelectionCaret", {blend = 0})
 end
 
+local function define_diagnostic_signs()
+  local diagnostic_signs = {
+    ["DiagnosticSignError"] = DIAGNOSTIC_SIGNS.error,
+    ["DiagnosticSignWarn"] = DIAGNOSTIC_SIGNS.warn,
+    ["DiagnosticSignInfo"] = DIAGNOSTIC_SIGNS.info,
+    ["DiagnosticSignHint"] = DIAGNOSTIC_SIGNS.hint,
+  }
+  for sign, text in pairs(diagnostic_signs) do sign_define(sign, {
+    text = text,
+    texthl = sign,
+  }) end
+end
+
 local function define_dap_signs()
-  vim.fn.sign_define("DapBreakpoint", {text = "󰪥", texthl = "Error"})
-  vim.fn.sign_define("DapStopped", {
+  sign_define("DapBreakpoint", {text = "󰪥", texthl = "Error"})
+  sign_define("DapStopped", {
     text = "ඞ",
     texthl = "Error",
     linehl = "CursorLine",
   })
-  vim.fn.sign_define("DapBreakpointCondition", {
-    text = "󰘥",
-    texthl = "WarningMsg",
-  })
-  vim.fn.sign_define("DapLogPoint", {text = "󰗖", texthl = "MoreMsg"})
+  sign_define("DapBreakpointCondition", {text = "󰘥", texthl = "WarningMsg"})
+  sign_define("DapLogPoint", {text = "󰗖", texthl = "MoreMsg"})
 end
 
 local colorscheme_setups = {
@@ -73,6 +85,7 @@ local colorscheme_setups = {
     set_wide_border()
     highlight("CursorLineNr", {bold = true})
     set_transparent_bg()
+    define_diagnostic_signs()
     define_dap_signs()
     setup_telescope_colors()
   end,
@@ -90,6 +103,4 @@ local function setup_colors()
   end
 end
 
-autocmd({"Colorscheme", "SourcePost"}, {
-  callback = setup_colors
-})
+autocmd({"Colorscheme", "SourcePost"}, {callback = setup_colors})

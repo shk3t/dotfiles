@@ -3,10 +3,10 @@ local null_ls = require("null-ls")
 local nformatting = null_ls.builtins.formatting
 local ndiagnostics = null_ls.builtins.diagnostics
 local ncode_actions = null_ls.builtins.code_actions
-local keymap = vim.keymap.set
 local buf_keymap = vim.api.nvim_buf_set_keymap
 local opts = {noremap = true, silent = true}
-local NVIM_ETC = os.getenv("HOME") .. "/.config/nvim/etc"
+local NVIM_ETC = vim.fn.stdpath("config") .. "/etc"
+local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -136,24 +136,10 @@ for server, config in pairs(servers) do
   setup_server(server, config)
 end
 
-local VERTICAL_BORDERS = {"", "", "", " ", "", "", "", " "}
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = VERTICAL_BORDERS
 })
-
-vim.diagnostic.config({
-  virtual_text = {severity = {min = "WARN"}},
-  underline = {severity = {min = "WARN"}},
-  signs = true,
-  update_in_insert = false,
-  float = {border = VERTICAL_BORDERS},
-})
-
-keymap("n", "[d", vim.diagnostic.goto_prev)
-keymap("n", "]d", vim.diagnostic.goto_next)
-keymap("n", "<Space>td", require("telescope.builtin").diagnostics)
--- require("neodim").setup({alpha = 0.6, update_in_insert = {enable = false}})
 
 null_ls.setup({
   debug = false,

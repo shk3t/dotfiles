@@ -1,3 +1,5 @@
+local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
+
 local keymap = vim.keymap.set
 
 require("gitsigns").setup {
@@ -48,28 +50,34 @@ require("gitsigns").setup {
 
     -- Navigation
     bufmap("n", "]h", function()
-      if vim.wo.diff then
-        return "]h"
-      end
+      if vim.wo.diff then return "]h" end
       vim.schedule(function() gs.next_hunk() end)
       return "<Ignore>"
     end, {expr = true})
 
     bufmap("n", "[h", function()
-      if vim.wo.diff then
-        return "[h"
-      end
+      if vim.wo.diff then return "[h" end
       vim.schedule(function() gs.prev_hunk() end)
       return "<Ignore>"
     end, {expr = true})
 
     -- Actions
     bufmap("n", "<Space>gs", gs.stage_hunk)
-    bufmap('v', '<Space>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    bufmap("v", "<Space>gs", function() gs.stage_hunk {
+      vim.fn.line("."),
+      vim.fn.line("v"),
+    } end)
     bufmap("n", "<Space>gu", gs.undo_stage_hunk)
     bufmap("n", "<Space>gr", gs.reset_hunk)
-    bufmap('v', '<Space>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    bufmap("v", "<Space>gr", function() gs.reset_hunk {
+      vim.fn.line("."),
+      vim.fn.line("v"),
+    } end)
     bufmap("n", "<Space>gk", gs.preview_hunk)
+    keymap("n", "<Space>gh", custom_quickfix_picker("Git Hunks", function()
+      gs.setqflist("all")
+      vim.cmd.sleep("50m") -- FIXME (later)
+    end))
 
     bufmap("n", "<Space>GS", gs.stage_buffer)
     bufmap("n", "<Space>GR", gs.reset_buffer)
@@ -84,10 +92,6 @@ require("gitsigns").setup {
 local actions = require("diffview.actions")
 require("diffview").setup({
   use_icons = false,
-  signs = {
-    fold_closed = ">",
-    fold_open = "v",
-    done = "√",
-  },
+  signs = {fold_closed = ">", fold_open = "v", done = "√"},
 })
 keymap({"n", "v"}, "<Space>GD", vim.cmd.DiffviewOpen)

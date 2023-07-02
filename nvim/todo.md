@@ -1,22 +1,14 @@
-# IMPORTANT TODO
-- [ ] telescope hunks
-- [ ] telescope git_status + delta
-
 # TODOS
 - [X] expand signcolumn
 - [?] `g;` skip (if the same line)
-- [-] list hunks
-    - [-] sort by modification date
 - [h] explorer preselect current file
 - [ ] help close error
-- [ ] edit quickfix
 ### Keys
 - [ ] word movements
     - [ ] camel case movements 
 ### Lsp
 - [X] neodev doc for plugins
 - [ ] rename file with references
-- [ ] js linter for missing imports (eslint, eslint_d, xo)
 - [I] cmp replace only on confirm
 - [I] duplicate entries for cmp-buffer (clangd, pylsp)
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
@@ -27,9 +19,9 @@
 - [ ] double click on stacks to switch
 ### Telescope
 #### custom telescope pickers
-- [ ] marks 
+- [ ] hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
+- [ ] git_status + delta: https://github.com/nvim-telescope/telescope.nvim/issues/605
 ### Appearance
-- [-] diagnostics underline color (-)
 - [ ] aerial icons
 ### Jupyter
 - [ ] vscode + neovim
@@ -40,6 +32,10 @@
 <br>
 
 ## New plugins
+- [ ] copilot.lua
+- [ ] grapple.nvim
+- [ ] heirline
+- [ ] nvim-bqf
 - [ ] goyo (align center single window)
 - [ ] trouble
 - [ ] refactoring (null-ls)
@@ -61,8 +57,6 @@
 - [ ] live-command.nvim
 - [ ] neogit
 - [ ] zenmode
-- [ ] copilot.lua
-- [ ] grapple.nvim
 
 <br>
 
@@ -70,9 +64,6 @@
 - [ ] KDE keep window decorations without titlebar
 - [ ] KDE highlight focused window frame
 - [ ] restore tmux + nvim sessions
-- [ ] test nvchad with rose-pine (-)
-- [ ] lazyload plugins (-)
-    - [ ] speedtest nvim (-)
 
 ## Another software
 - [ ] Neovide
