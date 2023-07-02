@@ -41,8 +41,8 @@ local python_path = (function()
   return "/usr/bin/python"
 end)()
 
-local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
-local input_args = function() return split_string(vim.fn.input("Args: ")) end
+-- local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
+-- local input_args = function() return split_string(vim.fn.input("Args: ")) end
 
 local scopes_widget_winid = 0
 local function open_custom_dapui()
@@ -66,7 +66,10 @@ keymap("n", "<Space>b", dap.toggle_breakpoint)
 keymap("n", "<Space>BC", function() dap.set_breakpoint(vim.fn.input("")) end)
 keymap("n", "<Space>BL", function() dap.set_breakpoint(nil, nil, vim.fn.input("")) end)
 keymap("n", "<Space>df", dap.focus_frame)
--- keymap("n", "<Space>dl", dap.list_breakpoints)
+keymap("n", "<Space>dl", function()
+  vim.cmd.copen()
+  dap.list_breakpoints()
+end)
 keymap("n", "<Space>dc", dap.repl.open)
 keymap("n", "<Space>dn", dap.up)
 keymap("n", "<Space>dp", dap.down)

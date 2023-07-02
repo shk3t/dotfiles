@@ -1,3 +1,5 @@
+local keymap = vim.keymap.set
+
 require("Comment").setup()
 
 require("nvim-surround").setup({
@@ -38,4 +40,25 @@ require("recorder").setup({
 })
 
 require("trevj").setup()
-vim.keymap.set("n", "U", require('trevj').format_at_cursor)
+keymap("n", "U", require("trevj").format_at_cursor)
+
+local harpoon_ui = require("harpoon.ui")
+keymap("n", "<Space>ha", require("harpoon.mark").add_file)
+keymap("n", "<Space>hh", harpoon_ui.toggle_quick_menu)
+for i = 1, 9 do keymap("n", "'" .. i, function() harpoon_ui.nav_file(i) end) end
+
+-- require("grapple").setup()
+-- vim.keymap.set("n", "<leader>m", require("grapple").toggle)
+
+require("marks").setup({
+  default_mappings = false,
+  mappings = {
+    toggle = "m;",
+    prev = "[m",
+    next = "]m",
+    delete_line = "dm;",
+    delete_buf = "dM",
+    preview = "m:",
+  },
+})
+keymap("n", [[<Space>"]], vim.cmd.MarksListAll)

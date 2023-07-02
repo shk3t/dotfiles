@@ -16,6 +16,8 @@ local function rename_tab()
   if tabname then vim.cmd("TabRename " .. tabname) end
 end
 
+local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
+
 -- Commands
 vim.cmd([[command! Cdc cd %:p:h]])
 
@@ -56,6 +58,12 @@ keymap({"n", "v"}, "<M-Right>", "<C-I>")
 keymap({"n", "v"}, "-", "^")
 keymap({"n", "v"}, "<BS>", "s")
 keymap({"n", "v"}, "<C-Z>", "<Nop>")
+for i = 1, #buffer_marks do
+    local mark = buffer_marks:sub(i, i)
+    keymap({"n", "v"}, "m" .. mark, "m" .. mark:upper())
+    keymap({"n", "v"}, "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
+end
+
 
 -- Space mappings
 keymap({"n", "v"}, "<Space>", "<Nop>")
@@ -73,7 +81,6 @@ keymap("n", "<Space>e", vim.cmd.Ex)
 keymap({"n", "v"}, "<Space>LR", vim.cmd.LspRestart)
 keymap({"n", "v"}, "<Space>LI", vim.cmd.LspInfo)
 keymap({"n", "v"}, "<Space>PM", vim.cmd.MarkdownPreviewToggle)
-keymap({"n", "v"}, "<Space>GD", vim.cmd.DiffviewOpen)
 -- keymap("n", "<Space>dm <Cmd>delmarks a-zA-Z0-9<CR>
 
 -- Splits
@@ -84,8 +91,8 @@ keymap({"n", "v"}, "<C-W><C-V>", "<C-W>v<C-W>l")
 
 keymap({"n", "v"}, "<Tab>", "<C-6>")
 keymap({"n", "v"}, "<Space>qf", vim.cmd.copen)
-keymap({"n", "v"}, "<Space>qp", vim.cmd.cprevious)
-keymap({"n", "v"}, "<Space>qn", vim.cmd.cnext)
+keymap({"n", "v"}, "[q", vim.cmd.cprevious)
+keymap({"n", "v"}, "]q", vim.cmd.cnext)
 
 -- Fast actions
 keymap({"n", "v"}, "<C-Q>", "<C-W>q")
@@ -129,17 +136,6 @@ keymap("v", "k", "gk")
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")
 keymap("s", "<C-C>", "<Esc>")
-
--- Tmux integration
-local tmux = require("tmux")
-keymap({"n", "v"}, "<C-H>", tmux.move_left)
-keymap({"n", "v"}, "<C-J>", tmux.move_bottom)
-keymap({"n", "v"}, "<C-K>", tmux.move_top)
-keymap({"n", "v"}, "<C-L>", tmux.move_right)
-keymap({"n", "v"}, "<C-S-H>", tmux.resize_left)
-keymap({"n", "v"}, "<C-S-J>", tmux.resize_bottom)
-keymap({"n", "v"}, "<C-S-K>", tmux.resize_top)
-keymap({"n", "v"}, "<C-S-L>", tmux.resize_right)
 
 -- Bugfix
 keymap({"n", "v"}, "<M-Tab>", "<C-I>zz") -- tmux

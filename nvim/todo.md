@@ -1,17 +1,15 @@
-# IMPORTANT TODOS
-- [X] lazynvim: *https://github.com/folke/lazy.nvim*
-- [ ] "mark" list & indicator
-    - "mark".nvim
-    - "bookmarks".nvim
-    - "grapple".nvim
-    - learn about shada: *https://www.reddit.com/r/vim/comments/povbkh/tip_viminfo_per_project/?utm_source=share&utm_medium=android_app&utm_name=androidcss&utm_term=14&utm_content=share_button*
+# IMPORTANT TODO
+- [ ] telescope hunks
+- [ ] telescope git_status + delta
 
 # TODOS
+- [X] expand signcolumn
 - [?] `g;` skip (if the same line)
 - [-] list hunks
     - [-] sort by modification date
 - [h] explorer preselect current file
 - [ ] help close error
+- [ ] edit quickfix
 ### Keys
 - [ ] word movements
     - [ ] camel case movements 
@@ -27,6 +25,9 @@
 - [ ] dap debug python libraries (breakpoint rejected)
 - [ ] run dap in external terminal
 - [ ] double click on stacks to switch
+### Telescope
+#### custom telescope pickers
+- [ ] marks 
 ### Appearance
 - [-] diagnostics underline color (-)
 - [ ] aerial icons
@@ -61,6 +62,7 @@
 - [ ] neogit
 - [ ] zenmode
 - [ ] copilot.lua
+- [ ] grapple.nvim
 
 <br>
 

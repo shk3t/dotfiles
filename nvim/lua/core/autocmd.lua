@@ -17,7 +17,7 @@ autocmd("BufEnter", {
   pattern = "*.txt",
   callback = function()
     if vim.o.buftype == "help" then
-      vim.cmd("wincmd L")
+      vim.cmd.wincmd("L")
     end
   end,
 })
@@ -43,11 +43,6 @@ autocmd("FileType", {
 -- Highlight yank
 autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({timeout = 100}) end,
-})
-
--- Colorscheme
-autocmd({"Colorscheme", "SourcePost"}, {
-  callback = require("core.colors").setup_colors,
 })
 
 -- Dap

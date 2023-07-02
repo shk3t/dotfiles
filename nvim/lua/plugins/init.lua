@@ -1,3 +1,4 @@
+require("plugins.colors")
 require("plugins.tweaks")
 require("plugins.cmp")
 require("plugins.lsp")

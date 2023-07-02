@@ -1,11 +1,13 @@
+local keymap = vim.keymap.set
+
 require("gitsigns").setup {
   signs = {
     add = {text = "█"},
     change = {text = "█"},
     delete = {text = "▄"},
     topdelete = {text = "▀"},
-    changedelete = {text = "~"},
-    untracked = {text = "┆"},
+    changedelete = {text = "▙"},
+    untracked = {text = "▚"},
   },
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
   numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -41,7 +43,7 @@ require("gitsigns").setup {
     local function bufmap(mode, l, r, opts)
       opts = opts or {}
       opts.buffer = bufnr
-      vim.keymap.set(mode, l, r, opts)
+      keymap(mode, l, r, opts)
     end
 
     -- Navigation
@@ -62,17 +64,17 @@ require("gitsigns").setup {
     end, {expr = true})
 
     -- Actions
-    -- bufmap({"n", "v"}, "<Space>gs", ":Gitsigns stage_hunk<CR>")
-    bufmap({"n", "v"}, "<Space>gr", ":Gitsigns reset_hunk<CR>")
-    -- bufmap("n", "<Space>gS", gs.stage_buffer)
-    -- bufmap("n", "<Space>gu", gs.undo_stage_hunk)
-    bufmap("n", "<Space>GR", gs.reset_buffer)
+    bufmap("n", "<Space>gs", gs.stage_hunk)
+    bufmap('v', '<Space>gs', function() gs.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    bufmap("n", "<Space>gu", gs.undo_stage_hunk)
+    bufmap("n", "<Space>gr", gs.reset_hunk)
+    bufmap('v', '<Space>gr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
     bufmap("n", "<Space>gk", gs.preview_hunk)
-    -- bufmap("n", "<Space>gb", function() gs.blame_line {full = true} end)
+
+    bufmap("n", "<Space>GS", gs.stage_buffer)
+    bufmap("n", "<Space>GR", gs.reset_buffer)
     bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
-    bufmap("n", "<Space>gp", gs.diffthis)
-    -- bufmap("n", "<Space>gD", function() gs.diffthis("~") end)
-    -- bufmap("n", "<Space>GD", gs.toggle_deleted)
+    bufmap("n", "<Space>GP", gs.toggle_deleted)
 
     -- Text object
     bufmap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
@@ -88,3 +90,4 @@ require("diffview").setup({
     done = "√",
   },
 })
+keymap({"n", "v"}, "<Space>GD", vim.cmd.DiffviewOpen)

@@ -1,7 +1,6 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
-local harpoon_ui = require("harpoon.ui")
 local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
@@ -36,13 +35,8 @@ keymap("n", "<Space>as", builtin.lsp_dynamic_workspace_symbols)
 keymap("n", "<Space>gs", builtin.git_status)
 keymap("n", "<Space>gc", builtin.git_commits)
 keymap("n", "<Space>gb", builtin.git_branches)
-
-keymap("n", "<Space>ha", require("harpoon.mark").add_file)
-keymap("n", "<Space>hh", harpoon_ui.toggle_quick_menu)
-for i = 1, 9 do
-  keymap("n", "'" .. i, function() harpoon_ui.nav_file(i) end)
-end
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
+keymap("n", "<Space>m", builtin.quickfix)
 
 telescope.setup({
   defaults = {

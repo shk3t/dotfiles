@@ -72,8 +72,8 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.abbr = string.gsub(vim_item.abbr, "%(.*%)", "")
-      vim_item.abbr = string.gsub(vim_item.abbr, "~", "")
+      vim_item.abbr = vim_item.abbr:gsub("%(.*%)", "")
+      vim_item.abbr = vim_item.abbr:gsub("~", "")
       -- vim_item.dup = ({buffer = 0, luasnip = 0})[entry.source.name]
       return vim_item
     end,

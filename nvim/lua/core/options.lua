@@ -16,7 +16,7 @@ vim.opt.linebreak = true
 vim.opt.breakindent = true
 
 -- Syntax highlighting
-vim.cmd("syntax on")
+vim.cmd.syntax("on")
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
@@ -29,6 +29,7 @@ vim.opt.background = "dark"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = {"number", "line"}
 vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.signcolumn = "auto:1-2"
 
 -- Controls
 vim.opt.timeoutlen = 10000
@@ -43,9 +44,10 @@ vim.opt.visualbell = false
 vim.opt.hidden = true
 vim.opt.swapfile = false
 vim.opt.backup = false
+vim.opt.updatetime = 150
+vim.opt.undodir = vim.fn.stdpath("data") .. "/undo/"
 vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo/"
-vim.opt.updatetime = 500
+vim.opt.shadafile = vim.fn.stdpath("data") .. "/shadas/" .. vim.fn.getcwd():gsub("/", "%%")
 
 -- Navigation
 vim.opt.jumpoptions = "stack"

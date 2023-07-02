@@ -1,3 +1,5 @@
+require("core")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -62,13 +64,16 @@ require("lazy").setup({
 
   -- Navigation
   "kyazdani42/nvim-tree.lua",
+  "stevearc/aerial.nvim",
+  "ThePrimeagen/harpoon",
+  -- "cbochs/grapple.nvim",
+
+  -- Telescope
   "nvim-telescope/telescope.nvim",
   {"nvim-telescope/telescope-fzf-native.nvim", build = "make"},
   "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
   "debugloop/telescope-undo.nvim",
-  "stevearc/aerial.nvim",
-  "ThePrimeagen/harpoon",
 
   -- Tweaks
   "lyokha/vim-xkbswitch",
@@ -77,6 +82,7 @@ require("lazy").setup({
   "chrisgrieser/nvim-recorder",
   "vim-scripts/Tabmerge",
   "AckslD/nvim-trevJ.lua",
+  "chentoast/marks.nvim",
   -- "windwp/nvim-autopairs",
   -- "windwp/nvim-ts-autotag",
 
@@ -107,5 +113,4 @@ require("lazy").setup({
 
 }, {defaults = {lazy = true}})
 
-require("core")
 require("plugins")

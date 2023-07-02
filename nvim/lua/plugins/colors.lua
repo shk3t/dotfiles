@@ -1,4 +1,4 @@
-local M = {}
+local autocmd = vim.api.nvim_create_autocmd
 local get_highlight = require("core.utils").get_highlight
 local highlight = require("core.utils").highlight
 local TRANSPARENCY = require("core.consts").TRANSPARENCY
@@ -80,7 +80,7 @@ local colorscheme_setups = {
   ["calvera"] = function() vim.g.calvera_borders = true end,
 }
 
-M.setup_colors = function()
+local function setup_colors()
   colorscheme_setups.default()
   for colorscheme, setup in pairs(colorscheme_setups) do
     if vim.g.colors_name == colorscheme then
@@ -89,6 +89,7 @@ M.setup_colors = function()
     end
   end
 end
-M.setup_colors()
 
-return M
+autocmd({"Colorscheme", "SourcePost"}, {
+  callback = setup_colors
+})
