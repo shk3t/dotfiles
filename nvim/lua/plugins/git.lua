@@ -62,8 +62,8 @@ require("gitsigns").setup {
     end, {expr = true})
 
     -- Actions
-    bufmap("n", "<Space>gs", gs.stage_hunk)
-    bufmap("v", "<Space>gs", function() gs.stage_hunk {
+    bufmap("n", "<Space>ga", gs.stage_hunk)
+    bufmap("v", "<Space>ga", function() gs.stage_hunk {
       vim.fn.line("."),
       vim.fn.line("v"),
     } end)
@@ -76,10 +76,14 @@ require("gitsigns").setup {
     bufmap("n", "<Space>gk", gs.preview_hunk)
     keymap("n", "<Space>gh", custom_quickfix_picker("Git Hunks", function()
       gs.setqflist("all")
-      vim.cmd.sleep("50m") -- FIXME (later)
+      for i = 1, 50 do
+        vim.cmd.sleep("20m") -- FIXME (later)
+        if vim.api.nvim_buf_get_option(0, "filetype") == "qf" then return end
+      end
+      error("Git hunks load timeout")
     end))
 
-    bufmap("n", "<Space>GS", gs.stage_buffer)
+    bufmap("n", "<Space>GA", gs.stage_buffer)
     bufmap("n", "<Space>GR", gs.reset_buffer)
     bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
     bufmap("n", "<Space>GP", gs.toggle_deleted)

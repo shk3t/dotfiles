@@ -1,5 +1,4 @@
 # TODOS
-- [X] expand signcolumn
 - [?] `g;` skip (if the same line)
 - [h] explorer preselect current file
 - [ ] help close error
@@ -7,7 +6,6 @@
 - [ ] word movements
     - [ ] camel case movements 
 ### Lsp
-- [X] neodev doc for plugins
 - [ ] rename file with references
 - [I] cmp replace only on confirm
 - [I] duplicate entries for cmp-buffer (clangd, pylsp)

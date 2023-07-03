@@ -4,7 +4,7 @@ local builtin = require("telescope.builtin")
 
 local function custom_quickfix_picker(title, callback)
   return function()
-    callback()
+    if not pcall(function() callback() end) then return end
     local win_id = vim.fn.win_getid()
     builtin.quickfix({prompt_title = title})
     vim.api.nvim_win_close(win_id, false)

@@ -39,10 +39,10 @@ require("lazy").setup({
   "rcarriga/cmp-dap",
 
   -- Syntax
-  "nvim-treesitter/nvim-treesitter",
-  "nvim-treesitter/nvim-treesitter-textobjects",
+  {"nvim-treesitter/nvim-treesitter", lazy = true},
+  {"nvim-treesitter/nvim-treesitter-textobjects", event = "BufEnter"},
+  {"nvim-treesitter/playground", event = "BufEnter"},
   "nvim-treesitter/nvim-treesitter-context",
-  "nvim-treesitter/playground",
 
   -- Snippets
   "saadparwaiz1/cmp_luasnip",
@@ -52,9 +52,9 @@ require("lazy").setup({
   -- Integration
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
-  -- "dccsillag/magma-nvim", -- { "do": ":UpdateRemotePlugins" },
+  -- "dccsillag/magma-nvim",
   "goerz/jupytext.vim",
-  "iamcco/markdown-preview.nvim", -- { "do": ":call mkdp#util#install()", "for": "markdown" },
+  "iamcco/markdown-preview.nvim",
   "aserowy/tmux.nvim",
   "lewis6991/gitsigns.nvim",
   "sindrets/diffview.nvim",
@@ -69,7 +69,7 @@ require("lazy").setup({
   -- "cbochs/grapple.nvim",
 
   -- Telescope
-  "nvim-telescope/telescope.nvim",
+  {"nvim-telescope/telescope.nvim", lazy = true},
   {"nvim-telescope/telescope-fzf-native.nvim", build = "make"},
   "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
@@ -110,7 +110,6 @@ require("lazy").setup({
   -- "shaunsingh/oxocarbon.nvim",
   -- "ellisonleao/gruvbox.nvim",
   -- "rebelot/kanagawa.nvim",
-
-}, {defaults = {lazy = true}})
+}, {defaults = {lazy = false}})
 
 require("plugins")
