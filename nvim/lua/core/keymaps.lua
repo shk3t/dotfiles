@@ -15,6 +15,8 @@ local function rename_tab()
   local tabname = vim.fn.input("New tab name: ")
   if tabname then vim.cmd("TabRename " .. tabname) end
 end
+local function toggle_fixed_signcolumn()
+end
 
 local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
 
@@ -122,6 +124,7 @@ keymap({"n", "v"}, "<C-W><C-N>", rename_tab)
 keymap({"n", "v"}, "<C-W><C-T>", "<C-W>v<C-W>T")
 keymap({"n", "v"}, "<C-W>M", "gT<Cmd>Tabmerge right<CR><C-W>l")
 keymap({"n", "v"}, "<S-Tab>", "g<Tab>")
+keymap({"n", "v"}, "<Space><Tab>", "g<Tab>")
 
 -- Jumplist
 keymap("n", "{", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "{") end)

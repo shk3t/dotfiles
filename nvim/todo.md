@@ -1,4 +1,11 @@
+## IMPORTANT TODOS
+- [ ] toggling signcolumn fixation
+- [ ] firefox numerate tabs
+- [ ] `srm` update trash can
+
 # TODOS
+- [ ] search without moving
+- [ ] remove redundant plugins
 - [?] `g;` skip (if the same line)
 - [h] explorer preselect current file
 - [ ] help close error
@@ -11,6 +18,7 @@
 - [I] duplicate entries for cmp-buffer (clangd, pylsp)
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
 - [-] `<C-D>`/`<C-U>` scroll quick doc
+- [ ] null-ls refactoring
 ### Dap
 - [ ] dap debug python libraries (breakpoint rejected)
 - [ ] run dap in external terminal
@@ -31,30 +39,25 @@
 
 ## New plugins
 - [ ] copilot.lua
-- [ ] grapple.nvim
+- [ ] grapple
 - [ ] heirline
 - [ ] nvim-bqf
-- [ ] goyo (align center single window)
 - [ ] trouble
-- [ ] refactoring (null-ls)
-    - [ ] nvim-treesitter-refactor
-- [ ] lspsaga
-- [ ] neoclip
-- [ ] neoorg
-- [ ] nvim-ufo (folding)
-- [ ] hop.nvim/lightspeed
-- [ ] nvim-lsputils
-- [ ] nvim-metals
-- [ ] nvim-jdtls
-- [ ] nvim-hlslens
-- [ ] neoscroll
-- [ ] telescope filebrowser
+- [ ] zen-mode
+- [ ] live-command
+- [ ] neogit
 - [ ] dadbod
 - [ ] mini.ai
 - [ ] unimpaired
-- [ ] live-command.nvim
-- [ ] neogit
-- [ ] zenmode
+- [ ] telescope filebrowser
+- [ ] nvim-hlslens
+- [ ] nvim-treesitter-refactor
+- [ ] neoscroll / cinnamon
+- [ ] lspsaga
+- [ ] neoclip
+- [ ] neorg
+- [ ] nvim-ufo (folding)
+- [ ] hop / leap / flash
 
 <br>
 

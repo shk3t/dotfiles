@@ -21,6 +21,10 @@ M.split_string = function(inputstr, sep)
   return t
 end
 
+M.cwd_contains = function(str)
+  return string.find(vim.fn.getcwd(), str)
+end
+
 M.merge_tables = function(first_table, second_table)
   local new_table = {}
   for k, v in pairs(first_table) do

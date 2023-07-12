@@ -143,7 +143,7 @@ telescope.load_extension("live_grep_args")
 telescope.load_extension("undo")
 
 require("telescope-all-recent").setup({
-  database = {max_timestamps = 5},
+  database = {max_timestamps = 4},
   scoring = {
     recency_modifier = {
       [1] = {age = 60, value = 100}, -- past hour

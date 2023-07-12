@@ -3,8 +3,9 @@ local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
 local t = require("utils.main").replace_termcodes
-local split_string = require("utils.main").split_string
 local merge_tables = require("utils.main").merge_tables
+local cwd_contains = require("utils.main").cwd_contains
+local MAX_WIN_HEIGHT = require("utils.consts").MAX_WIN_HEIGHT
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -49,7 +50,7 @@ local function open_custom_dapui()
   dapui.open()
   vim.cmd.normal(t("<C-W>l<C-W>k<C-W>j"))
   _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  vim.cmd.normal(t("<C-W>q80<C-W>|40<C-W>_<C-W>k<C-W>h"))
+  vim.cmd.normal(t("<C-W>q80<C-W>|" .. math.floor(0.75 * MAX_WIN_HEIGHT) .. "<C-W>_<C-W>k<C-W>h"))
 end
 local function close_custom_dapui()
   dapui.close()
@@ -71,16 +72,18 @@ keymap("n", "<Space>dl", function()
   dap.list_breakpoints()
 end)
 keymap("n", "<Space>dc", dap.repl.open)
-keymap("n", "<Space>dn", dap.up)
-keymap("n", "<Space>dp", dap.down)
+keymap("n", "<Space>dp", dap.up)
+keymap("n", "<Space>dn", dap.down)
 keymap("n", "<Space>dr", dap.run_last)
 keymap("n", "<Space>ds", function() widgets.sidebar(widgets.scopes).open() end)
 keymap("n", "<Space>dd", function()
   if scopes_widget_winid == 0 then
     open_custom_dapui()
   else
-    scopes_widget_tabid = vim.api.nvim_win_get_tabpage(scopes_widget_winid)
-    current_tabid = vim.api.nvim_get_current_tabpage()
+    local is_opened, scopes_widget_tabid =
+      pcall(function() return vim.api.nvim_win_get_tabpage(scopes_widget_winid) end)
+    if not is_opened then open_custom_dapui() end
+    local current_tabid = vim.api.nvim_get_current_tabpage()
     close_custom_dapui()
     if current_tabid ~= scopes_widget_tabid then open_custom_dapui() end
   end
@@ -99,8 +102,8 @@ dapui.setup({
   layouts = {
     {
       elements = {
-        {id = "watches", size = 0.15},
-        {id = "scopes", size = 0.7},
+        {id = "watches", size = 0.1},
+        {id = "scopes", size = 0.75},
         {id = "stacks", size = 0.15},
       },
       position = "right",
@@ -128,19 +131,25 @@ local python_default_config = {
   pythonPath = python_path,
 }
 dap.configurations.python = {}
-if string.find(vim.fn.getcwd(), "s11") then
-  dap.configurations.python[1] = merge_tables(python_default_config,
-                                              {
-    name = "s11",
-    program = vim.fn.getcwd() .. "/s11main.py",
-  })
-elseif string.find(vim.fn.getcwd(), "PharmacyServer") then
+if cwd_contains("s11") then
+  dap.configurations.python = {
+    merge_tables(python_default_config, {
+      name = "s11",
+      program = vim.fn.getcwd() .. "/s11main.py",
+    }),
+    merge_tables(python_default_config, {
+      name = "s11 external terminal",
+      program = vim.fn.getcwd() .. "/s11main.py",
+      console = "externalTerminal",
+    }),
+  }
+elseif cwd_contains("PharmacyServer") then
   dap.configurations.python[1] = merge_tables(python_default_config, {
     name = "Django (noreload)",
     program = vim.fn.getcwd() .. "/manage.py",
     args = {"runserver", "--noreload"},
   })
-elseif string.find(vim.fn.getcwd(), "MDLPServer") then
+elseif cwd_contains("MDLPServer") then
   dap.configurations.python[1] = merge_tables(python_default_config,
                                               {
     name = "Flask",
