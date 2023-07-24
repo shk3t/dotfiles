@@ -5,7 +5,10 @@
         "/home/ashket/.config/nvim/lua",
         "${3rd}/luv/library",
         "${3rd}/luassert/library",
-        "/home/ashket/.local/share/nvim/lazy"
+        "/home/ashket/.local/share/nvim/lazy",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library",
+        "${3rd}/luassert/library"
     ],
     "workspace.checkThirdParty": false
 }

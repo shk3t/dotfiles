@@ -21,9 +21,5 @@ function zi_alias {
 alias z=z_alias
 alias zi=zi_alias
 
-function srm {
-    mv "$@" ~/.local/share/Trash/files
-}
-
 # Navigation
 alias fcdf='cd $(find . -type d -print | fzf)'

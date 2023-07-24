@@ -5,21 +5,13 @@ local t = require("utils.main").replace_termcodes
 -- Line numeration toggle
 autocmd({"FocusLost", "WinLeave"}, {command = "set norelativenumber"})
 autocmd({"FocusGained", "WinEnter", "BufEnter"}, {
-  callback = function()
-    if vim.o.number then
-      vim.opt.relativenumber = true
-    end
-  end,
+  callback = function() if vim.o.number then vim.opt.relativenumber = true end end,
 })
 
 -- Open help in vertical split
 autocmd("BufEnter", {
   pattern = "*.txt",
-  callback = function()
-    if vim.o.buftype == "help" then
-      vim.cmd.wincmd("L")
-    end
-  end,
+  callback = function() if vim.o.buftype == "help" then vim.cmd.wincmd("L") end end,
 })
 
 -- Don't add the comment prefix when I hit o/O on a comment line.
@@ -44,6 +36,9 @@ autocmd("FileType", {
 autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({timeout = 100}) end,
 })
+
+-- Do not restore deleted marks
+autocmd("VimLeavePre", {command = "wshada!"})
 
 -- Dap
 autocmd("FileType", {

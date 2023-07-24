@@ -18,18 +18,17 @@ require("lazy").setup({
   "nvim-lua/plenary.nvim",
   "nvim-lua/popup.nvim",
   "kkharji/sqlite.lua",
-  "tjdevries/colorbuddy.nvim",
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
 
   -- Lsp
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-  "jay-babu/mason-null-ls.nvim",
   "neovim/nvim-lspconfig",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
   "jose-elias-alvarez/null-ls.nvim",
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "jay-babu/mason-null-ls.nvim",
 
   -- Completions
   "hrsh7th/cmp-buffer",
@@ -41,7 +40,7 @@ require("lazy").setup({
   -- Syntax
   {"nvim-treesitter/nvim-treesitter", lazy = true},
   {"nvim-treesitter/nvim-treesitter-textobjects", event = "BufEnter"},
-  {"nvim-treesitter/playground", event = "BufEnter"},
+  -- {"nvim-treesitter/playground", event = "BufEnter"},
   "nvim-treesitter/nvim-treesitter-context",
 
   -- Snippets
@@ -50,14 +49,14 @@ require("lazy").setup({
   "rafamadriz/friendly-snippets",
 
   -- Integration
+  "aserowy/tmux.nvim",
+  "iamcco/markdown-preview.nvim",
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
-  -- "dccsillag/magma-nvim",
-  "goerz/jupytext.vim",
-  "iamcco/markdown-preview.nvim",
-  "aserowy/tmux.nvim",
   "lewis6991/gitsigns.nvim",
   "sindrets/diffview.nvim",
+  "goerz/jupytext.vim",
+  -- "dccsillag/magma-nvim",
   -- "hkupty/iron.nvim",
   -- "kana/vim-textobj-user",
   -- "GCBallesteros/vim-textobj-hydrogen",

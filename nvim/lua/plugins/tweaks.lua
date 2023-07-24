@@ -44,7 +44,7 @@ keymap("n", "U", require("trevj").format_at_cursor)
 
 require("marks").setup({
   default_mappings = false,
-  force_write_shada = true,
+  -- force_write_shada = true,
   mappings = {
     toggle = "m;",
     prev = "[m",

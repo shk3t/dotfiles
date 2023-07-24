@@ -1,29 +1,33 @@
 ## IMPORTANT TODOS
-- [ ] toggling signcolumn fixation
-- [ ] firefox numerate tabs
-- [ ] `srm` update trash can
 
 # TODOS
+- [ ] mark sign priority upper than warning
 - [ ] search without moving
-- [ ] remove redundant plugins
-- [?] `g;` skip (if the same line)
-- [h] explorer preselect current file
 - [ ] help close error
+- [-] auto signcolumn toggling delay
+- [ ] treesitter better text objects
+- [ ] better visualblock mode
 ### Keys
+- [ ] `m;` to add next **global** mark
+- [?] `g;` skip (if the same line)
 - [ ] word movements
-    - [ ] camel case movements 
+    - [ ] camel case movements
+### Explorer
+- [ ] explorer preselect current file
+- [ ] `<Tab>` skips explorer
 ### Lsp
 - [ ] rename file with references
-- [I] cmp replace only on confirm
-- [I] duplicate entries for cmp-buffer (clangd, pylsp)
+- [-] cmp replace only on confirm
+- [-] duplicate entries for cmp-buffer (clangd, pylsp)
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
 - [-] `<C-D>`/`<C-U>` scroll quick doc
 - [ ] null-ls refactoring
 ### Dap
-- [ ] dap debug python libraries (breakpoint rejected)
-- [ ] run dap in external terminal
+- [ ] debug python libraries (breakpoint rejected)aerial
 - [ ] double click on stacks to switch
+- [-] hover without borders
 ### Telescope
+- [ ] livegrep with args auto add paired `**`
 #### custom telescope pickers
 - [ ] hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
 - [ ] git_status + delta: https://github.com/nvim-telescope/telescope.nvim/issues/605
@@ -62,9 +66,15 @@
 <br>
 
 ## Global
-- [ ] KDE keep window decorations without titlebar
-- [ ] KDE highlight focused window frame
+- [ ] pbcopy
+- [ ] firefox numerate tabs
+- [ ] firefox better smooth scrolling
+- [ ] icons-only task manager (bar) pin only current desktop
 - [ ] restore tmux + nvim sessions
+### KDE
+- [ ] desktop with notes
+- [ ] keep window decorations without titlebar
+- [ ] highlight focused window frame
 
 ## Another software
 - [ ] Neovide

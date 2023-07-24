@@ -47,4 +47,3 @@ vim.diagnostic.handlers.signs = {
     orig_signs_handler.hide(ns, bufnr)
   end,
 }
-

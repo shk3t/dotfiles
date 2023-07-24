@@ -5,15 +5,10 @@ local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
 local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
+local to_qflist_action = require("utils.telescope").to_qflist_action
+local paste_action = require("utils.telescope").paste_action
 local TRANSPARENCY = require("utils.consts").TRANSPARENCY
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
-
-local paste_action = function(_)
-  local selection = vim.fn.getreg("\"")
-  if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
-    vim.api.nvim_paste(selection, true, -1)
-  end
-end
 
 keymap("n", "<C-F>", ":Telescope find_files<CR>") -- frecency bug
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
@@ -62,10 +57,16 @@ telescope.setup({
         ["<C-N>"] = actions.cycle_history_next,
         ["<C-J>"] = actions.move_selection_next,
         ["<C-K>"] = actions.move_selection_previous,
-        ["<Tab>"] = actions.move_selection_next,
-        ["<S-Tab>"] = actions.move_selection_previous,
+        ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
+        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<Esc>"] = actions.close,
         ["<C-V>"] = paste_action,
+        ["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_to_qflist + actions.open_qflist,
+      },
+      n = {
+        ["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_to_qflist + actions.open_qflist,
       },
     },
     vimgrep_arguments = {

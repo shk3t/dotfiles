@@ -1,4 +1,4 @@
--- Tabs
+-- Tabsoption
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -9,7 +9,6 @@ vim.opt.cinoptions = "g0,(0,Ws,l,L0"
 -- Lines
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 8
 vim.opt.wrap = true
 vim.opt.linebreak = true
@@ -29,7 +28,7 @@ vim.opt.background = "dark"
 vim.opt.cursorline = true
 vim.opt.cursorlineopt = {"number", "line"}
 vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
-vim.opt.signcolumn = "auto:1-2"
+vim.opt.signcolumn = "yes"
 
 -- Controls
 vim.opt.timeoutlen = 10000
