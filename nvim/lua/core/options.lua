@@ -43,7 +43,7 @@ vim.opt.visualbell = false
 vim.opt.hidden = true
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.updatetime = 500
+vim.opt.updatetime = 200
 vim.opt.undodir = vim.fn.stdpath("data") .. "/undo/"
 vim.opt.undofile = true
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shadas/" .. vim.fn.getcwd():gsub("/", "%%")
@@ -64,7 +64,7 @@ vim.g.XkbSwitchNLayout = "us" -- better telescope support
 vim.opt.keymap = "russian-jcukenwin"
 vim.opt.iminsert = 0
 vim.opt.imsearch = 0
--- vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
 -- Sql
 vim.g.ftplugin_sql_omni_key = "<C-H-S>"

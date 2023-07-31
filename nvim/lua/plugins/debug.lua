@@ -48,9 +48,9 @@ end)()
 local scopes_widget_winid = 0
 local function open_custom_dapui()
   dapui.open()
-  vim.cmd.normal(t("<C-W>l<C-W>k<C-W>j"))
+  vim.cmd(t("normal! <C-W>l<C-W>k<C-W>j"))
   _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  vim.cmd.normal(t("<C-W>q80<C-W>|" .. math.floor(0.75 * MAX_WIN_HEIGHT) .. "<C-W>_<C-W>k<C-W>h"))
+  vim.cmd(t("normal! <C-W>q80<C-W>|" .. math.floor(0.75 * MAX_WIN_HEIGHT) .. "<C-W>_<C-W>k<C-W>h"))
 end
 local function close_custom_dapui()
   dapui.close()

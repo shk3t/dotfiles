@@ -62,7 +62,7 @@ require("lazy").setup({
   -- "GCBallesteros/vim-textobj-hydrogen",
 
   -- Navigation
-  "kyazdani42/nvim-tree.lua",
+  -- "kyazdani42/nvim-tree.lua",
   "stevearc/aerial.nvim",
   "ThePrimeagen/harpoon",
   -- "cbochs/grapple.nvim",

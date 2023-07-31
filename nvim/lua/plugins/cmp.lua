@@ -1,6 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local print_table = require("utils.main").print_table
+local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
 
 local confirm_complete = function()
   if cmp.visible() then

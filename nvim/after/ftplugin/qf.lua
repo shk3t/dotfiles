@@ -15,7 +15,7 @@ vim.keymap.set("n", "dd", function()
 end, {buffer = true})
 
 vim.keymap.set("v", "d", function()
-  vim.cmd.normal(t("<Esc>"))
+  vim.cmd(t("normal! <Esc>"))
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")

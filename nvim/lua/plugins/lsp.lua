@@ -136,7 +136,6 @@ for server, config in pairs(servers) do
   setup_server(server, config)
 end
 
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = VERTICAL_BORDERS
 })

@@ -1,20 +1,18 @@
 ## IMPORTANT TODOS
 
 # TODOS
-- [ ] mark sign priority upper than warning
-- [ ] search without moving
+- [?] yank system buffer truncate last linebreak
 - [ ] help close error
-- [-] auto signcolumn toggling delay
 - [ ] treesitter better text objects
 - [ ] better visualblock mode
+- [ ] normal mode in cmd with preview and syntax highlighting
+- [ ] explore terminal mode
+- [-] cmd move caret backward wordwise
+- [-] auto signcolumn toggling delay
 ### Keys
 - [ ] `m;` to add next **global** mark
-- [?] `g;` skip (if the same line)
 - [ ] word movements
     - [ ] camel case movements
-### Explorer
-- [ ] explorer preselect current file
-- [ ] `<Tab>` skips explorer
 ### Lsp
 - [ ] rename file with references
 - [-] cmp replace only on confirm
@@ -23,7 +21,7 @@
 - [-] `<C-D>`/`<C-U>` scroll quick doc
 - [ ] null-ls refactoring
 ### Dap
-- [ ] debug python libraries (breakpoint rejected)aerial
+- [ ] debug python libraries (breakpoint rejected)
 - [ ] double click on stacks to switch
 - [-] hover without borders
 ### Telescope
@@ -67,9 +65,7 @@
 
 ## Global
 - [ ] pbcopy
-- [ ] firefox numerate tabs
 - [ ] firefox better smooth scrolling
-- [ ] icons-only task manager (bar) pin only current desktop
 - [ ] restore tmux + nvim sessions
 ### KDE
 - [ ] desktop with notes
@@ -88,3 +84,4 @@
 - [ ] use normal plugin for git prompt
 - [ ] tab command args
 - [ ] tmux integration
+

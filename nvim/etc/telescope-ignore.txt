@@ -38,6 +38,10 @@ pyrightconfig.json
 manage.py
 *.pyc
 
+# Markdown
+.obsidian/
+.trash/
+
 # JavaScript
 node_modules/
 package-lock.json
