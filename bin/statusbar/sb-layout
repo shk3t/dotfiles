@@ -1,6 +1,0 @@
-#!/bin/sh
-# Displays internet status
-
-. sb-theme
-sbDisplay " $(xkb-switch)"
-

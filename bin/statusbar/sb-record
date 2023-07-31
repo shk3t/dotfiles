@@ -1,7 +1,0 @@
-#!/bin/sh
-# sbDisplays an indicator during screen records.
-
-if [ -f /tmp/record ]; then
-    . sb-theme
-    sbDisplay ""
-fi
