@@ -4,7 +4,7 @@ BACKUP_DIR=$HOME/backup
 DOTFILES_DIR=$HOME/repos/dotfiles
 
 home_dirs=(bin books projects repos saves pictures)
-configs=(alacritty zsh tmux nvim mpv dwm-* dmenu-* st-* dwmblocks-async user-dirs.dirs fontconfig chrome-flags.conf)
+configs=(alacritty zsh tmux nvim mpv yay fontconfig user-dirs.dirs chrome-flags.conf)
 home_configs=(.vimrc .zshenv .xinitrc .gdbinit)
 sys_configs=(/usr/share/X11/xorg.conf.d)
 
