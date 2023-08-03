@@ -7,16 +7,15 @@ HISTSIZE=10000
 SAVEHIST=10000
 
 # Path
-PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/bin:$PATH"
-PATH="$HOME/bin/statusbar:$PATH"
-PATH="$HOME/.cargo/bin:$PATH"
-# PATH="$HOME/.local/share/lua-language-server/bin:$PATH"
-#PATH="$HOME/.local/share/deno/bin:$PATH"
-PATH="/usr/local/go/bin:$PATH"
-# PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
-#PATH="$HOME/.go/bin:$PATH"
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/.cargo/bin"
+# PATH="$PATH:$HOME/.local/share/lua-language-server/bin"
+#PATH="$PATH:$HOME/.local/share/deno/bin"
+PATH="$PATH:/usr/local/go/bin"
+# PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
+#PATH="$PATH:$HOME/.go/bin"
 
 # Python
 # export PYENV_ROOT="$HOME/.pyenv"
@@ -24,7 +23,7 @@ PATH="/usr/local/go/bin:$PATH"
 # eval "$(pyenv init -)"
 
 # Latex
-#PATH="$HOME/.local/texlive/2022/bin/x86_64-linux:$PATH"
+#PATH="$PATH:$HOME/.local/texlive/2022/bin/x86_64-linux"
 #MANPATH="$HOME/.local/texlive/2022/texmf-dist/doc/man"
 #INFOPATH="$HOME/.local/texlive/2022/texmf-dist/doc/info"
 
@@ -41,4 +40,4 @@ eval "$(zoxide init zsh)"
 # Environment variables set everywhere
 EDITOR="nvim"
 TERMINAL="alacritty"
-BROWSER="google-chrome"
+BROWSER="firefox"

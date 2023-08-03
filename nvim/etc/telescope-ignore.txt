@@ -33,7 +33,7 @@ media/
 .venv/
 __pycache__/
 # migrations/
-__init__.py
+# __init__.py
 pyrightconfig.json
 manage.py
 *.pyc

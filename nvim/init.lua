@@ -64,7 +64,7 @@ require("lazy").setup({
   -- Navigation
   -- "kyazdani42/nvim-tree.lua",
   "stevearc/aerial.nvim",
-  "ThePrimeagen/harpoon",
+  -- "ThePrimeagen/harpoon",
   -- "cbochs/grapple.nvim",
 
   -- Telescope

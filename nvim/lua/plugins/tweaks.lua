@@ -55,10 +55,10 @@ require("marks").setup({
   },
 })
 
-local harpoon_ui = require("harpoon.ui")
-keymap("n", "<Space>ha", require("harpoon.mark").add_file)
-keymap("n", "<Space>hh", harpoon_ui.toggle_quick_menu)
-for i = 1, 9 do keymap("n", "'" .. i, function() harpoon_ui.nav_file(i) end) end
+-- local harpoon_ui = require("harpoon.ui")
+-- keymap("n", "<Space>ha", require("harpoon.mark").add_file)
+-- keymap("n", "<Space>hh", harpoon_ui.toggle_quick_menu)
+-- for i = 1, 9 do keymap("n", "'" .. i, function() harpoon_ui.nav_file(i) end) end
 
 -- require("grapple").setup()
 -- vim.keymap.set("n", "<leader>m", require("grapple").toggle)

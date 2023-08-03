@@ -69,13 +69,9 @@ local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
 vim.tbl_deep_extend("force", updated_capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 local setup_server = function(server, config)
-  if not config then
-    return
-  end
+  if not config then return end
 
-  if type(config) ~= "table" then
-    config = {}
-  end
+  if type(config) ~= "table" then config = {} end
 
   config = vim.tbl_deep_extend("force", {
     on_init = custom_init,
@@ -132,12 +128,10 @@ local servers = {
   lua_ls = true,
 }
 
-for server, config in pairs(servers) do
-  setup_server(server, config)
-end
+for server, config in pairs(servers) do setup_server(server, config) end
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = VERTICAL_BORDERS
+  border = VERTICAL_BORDERS,
 })
 
 null_ls.setup({
@@ -146,12 +140,12 @@ null_ls.setup({
     nformatting.prettier.with({
       extra_args = {"--config", NVIM_ETC .. "/prettier.json"},
     }),
-    -- nformatting.black.with({extra_args = {"--fast"}}),
-    nformatting.autopep8,
+    nformatting.black.with({extra_args = {"--fast"}}),
+    -- nformatting.autopep8,
     nformatting.lua_format.with({
       extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},
     }),
-    nformatting.djhtml,
+    -- nformatting.djhtml,
     nformatting.clang_format.with({
       extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},
     }),

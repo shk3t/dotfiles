@@ -1,4 +1,7 @@
 ## IMPORTANT TODOS
+- [ ] local configs
+- [ ] livegrep with args auto add paired `**`
+- [ ] do not open window menu on `<Alt>`
 
 # TODOS
 - [?] yank system buffer truncate last linebreak
@@ -10,22 +13,24 @@
 - [-] cmd move caret backward wordwise
 - [-] auto signcolumn toggling delay
 ### Keys
-- [ ] `m;` to add next **global** mark
+- [?] `m;` to add next **global** mark
 - [ ] word movements
     - [ ] camel case movements
 ### Lsp
 - [ ] rename file with references
+- [ ] null-ls refactoring
+- [-] tsserver change severity of "declared but never read"
 - [-] cmp replace only on confirm
 - [-] duplicate entries for cmp-buffer (clangd, pylsp)
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
 - [-] `<C-D>`/`<C-U>` scroll quick doc
-- [ ] null-ls refactoring
 ### Dap
+- [ ] do not allow change scopes split buffer (if it is last used for example)
 - [ ] debug python libraries (breakpoint rejected)
-- [ ] double click on stacks to switch
 - [-] hover without borders
 ### Telescope
-- [ ] livegrep with args auto add paired `**`
+- [ ] preview signcolumn (is it possible???)
+- [ ] `<C-Q>` to add all telescope entries to QF if no selection
 #### custom telescope pickers
 - [ ] hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
 - [ ] git_status + delta: https://github.com/nvim-telescope/telescope.nvim/issues/605

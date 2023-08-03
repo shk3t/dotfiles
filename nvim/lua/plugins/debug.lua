@@ -98,6 +98,11 @@ dap.defaults.fallback.external_terminal = {
 dapui.setup({
   controls = {enabled = false, element = "stacks"},
   icons = {collapsed = ">", current_frame = ">", expanded = "v"},
+  element_mappings = {
+    stacks = {open = {"<CR>", "<2-LeftMouse>"}, expand = {"o", "O"}},
+    watches = {remove = "D", edit = "C", repl = "S"},
+  },
+  expand_lines = false,
   floating = {border = "single"},
   layouts = {
     {
@@ -137,11 +142,11 @@ if cwd_contains("s11") then
       name = "s11",
       program = vim.fn.getcwd() .. "/s11main.py",
     }),
-    merge_tables(python_default_config, {
-      name = "s11 external terminal",
-      program = vim.fn.getcwd() .. "/s11main.py",
-      console = "externalTerminal",
-    }),
+    -- merge_tables(python_default_config, {
+    --   name = "s11 external terminal",
+    --   program = vim.fn.getcwd() .. "/s11main.py",
+    --   console = "externalTerminal",
+    -- }),
   }
 elseif cwd_contains("PharmacyServer") then
   dap.configurations.python[1] = merge_tables(python_default_config, {
