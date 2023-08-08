@@ -3,7 +3,6 @@ local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
 local t = require("utils.main").replace_termcodes
-local merge_tables = require("utils.main").merge_tables
 local cwd_contains = require("utils.main").cwd_contains
 local MAX_WIN_HEIGHT = require("utils.consts").MAX_WIN_HEIGHT
 
@@ -138,32 +137,35 @@ local python_default_config = {
 dap.configurations.python = {}
 if cwd_contains("s11") then
   dap.configurations.python = {
-    merge_tables(python_default_config, {
+    vim.tbl_extend("force", python_default_config, {
       name = "s11",
       program = vim.fn.getcwd() .. "/s11main.py",
     }),
-    -- merge_tables(python_default_config, {
+    -- vim.tbl_extend("force", python_default_config, {
     --   name = "s11 external terminal",
     --   program = vim.fn.getcwd() .. "/s11main.py",
     --   console = "externalTerminal",
     -- }),
   }
 elseif cwd_contains("PharmacyServer") then
-  dap.configurations.python[1] = merge_tables(python_default_config, {
+  dap.configurations.python[1] = vim.tbl_extend("force", python_default_config, {
     name = "Django (noreload)",
     program = vim.fn.getcwd() .. "/manage.py",
     args = {"runserver", "--noreload"},
   })
 elseif cwd_contains("MDLPServer") then
-  dap.configurations.python[1] = merge_tables(python_default_config,
-                                              {
+  dap.configurations.python[1] = vim.tbl_extend("force", python_default_config,
+                                                {
     name = "Flask",
     program = vim.fn.getcwd() .. "/main.py",
   })
 else
   dap.configurations.python = {
-    merge_tables(python_default_config, {name = "Default", program = "${file}"}),
-    -- merge_tables(python_default_config, {
+    vim.tbl_extend("force", python_default_config, {
+      name = "Default",
+      program = "${file}",
+    }),
+    -- vim.tbl_extend("force", python_default_config, {
     --   name = "Specify file and args",
     --   program = input_file,
     --   args = input_args,

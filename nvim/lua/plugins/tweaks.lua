@@ -2,6 +2,12 @@ local keymap = vim.keymap.set
 
 require("Comment").setup()
 
+local spider = require("spider")
+keymap({"n", "o", "x"}, "w", function() spider.motion("w") end)
+keymap({"n", "o", "x"}, "e", function() spider.motion("e") end)
+keymap({"n", "o", "x"}, "b", function() spider.motion("b") end)
+keymap({"n", "o", "x"}, "ge", function() spider.motion("ge") end)
+
 require("nvim-surround").setup({
   keymaps = {
     normal = "s",
@@ -39,9 +45,6 @@ require("recorder").setup({
   dapSharedKeymaps = false,
 })
 
-require("trevj").setup()
-keymap("n", "U", require("trevj").format_at_cursor)
-
 require("marks").setup({
   default_mappings = false,
   -- force_write_shada = true,
@@ -50,7 +53,6 @@ require("marks").setup({
     prev = "[m",
     next = "]m",
     delete_line = "dm;",
-    -- delete_buf = "dM",
     preview = "m:",
   },
 })

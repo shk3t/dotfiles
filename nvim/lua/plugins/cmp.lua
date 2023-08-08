@@ -73,8 +73,9 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item.abbr = vim_item.abbr:gsub("%(.*%)", "")
-      vim_item.abbr = vim_item.abbr:gsub("~", "")
+      for _, redundant_pattern in pairs({"%(.*%)", "~", "?"}) do
+        vim_item.abbr = vim_item.abbr:gsub(redundant_pattern, "")
+      end
       -- vim_item.dup = ({buffer = 0, luasnip = 0})[entry.source.name]
       return vim_item
     end,

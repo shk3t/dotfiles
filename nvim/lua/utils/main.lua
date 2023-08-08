@@ -13,18 +13,11 @@ end
 
 M.cwd_contains = function(str) return string.find(vim.fn.getcwd(), str) end
 
-M.merge_tables = function(first_table, second_table)
-  local new_table = {}
-  for k, v in pairs(first_table) do new_table[k] = v end
-  for k, v in pairs(second_table) do new_table[k] = v end
-  return new_table
-end
-
 M.get_highlight = function(name) return vim.api.nvim_get_hl(0, {name = name}) end
 
 M.highlight = function(name, upd_val)
   local old_val = vim.api.nvim_get_hl(0, {name = name})
-  local merged_val = M.merge_tables(old_val, upd_val)
+  local merged_val = vim.tbl_extend("force", old_val, upd_val)
   vim.api.nvim_set_hl(0, name, merged_val)
 end
 

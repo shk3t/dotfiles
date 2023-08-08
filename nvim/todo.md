@@ -1,25 +1,34 @@
 ## IMPORTANT TODOS
-- [ ] local configs
-- [ ] livegrep with args auto add paired `**`
-- [ ] do not open window menu on `<Alt>`
+- [X] beautiful `J`: https://github.com/Wansmer/treesj
+- [X] word movements: https://github.com/chrisgrieser/nvim-spider
+- [X] replace nvim-tree with native netrw
+- [X] autolaunch syncthing
 
 # TODOS
+- [ ] clean imports
+- [ ] livegrep with args auto add paired `**`
+- [ ] local configs
+- [?] bookmarks
 - [?] yank system buffer truncate last linebreak
-- [ ] help close error
-- [ ] treesitter better text objects
-- [ ] better visualblock mode
+- [ ] `:help` catch error on close
+- [ ] jump to error line in stack trace
+- [ ] treesitter better text objects 
+    - https://github.com/chrisgrieser/nvim-various-textobjs
+    - https://github.com/RRethy/nvim-treesitter-textsubjects
 - [ ] normal mode in cmd with preview and syntax highlighting
-- [ ] explore terminal mode
-- [-] cmd move caret backward wordwise
 - [-] auto signcolumn toggling delay
 ### Keys
+- [ ] repeat jumps
+- [ ] swap lines
+- [-] cmd move caret backward wordwise
+- [-] highlight `f` jumps
+- [ ] better visualblock mode
+- [?] netrw duplicate file
 - [?] `m;` to add next **global** mark
-- [ ] word movements
-    - [ ] camel case movements
 ### Lsp
 - [ ] rename file with references
 - [ ] null-ls refactoring
-- [-] tsserver change severity of "declared but never read"
+- [ ] tsserver import wihtout whitespaces in braces
 - [-] cmp replace only on confirm
 - [-] duplicate entries for cmp-buffer (clangd, pylsp)
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
@@ -36,6 +45,9 @@
 - [ ] git_status + delta: https://github.com/nvim-telescope/telescope.nvim/issues/605
 ### Appearance
 - [ ] aerial icons
+- [ ] nvim-tree icons
+### Explore
+- [ ] terminal mode
 ### Jupyter
 - [ ] vscode + neovim
 - [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
@@ -69,15 +81,17 @@
 <br>
 
 ## Global
-- [ ] pbcopy
 - [ ] firefox better smooth scrolling
 - [ ] restore tmux + nvim sessions
 ### KDE
-- [ ] desktop with notes
+- [ ] note widgets on desktop
 - [ ] keep window decorations without titlebar
 - [ ] highlight focused window frame
+- [-] separated pins for task manager entries (topbar)
+    - [ ] use activities instead of desktops, figure out the diffirences
 
 ## Another software
+- [ ] pbcopy
 - [ ] Neovide
 - [ ] lf
 
@@ -86,7 +100,7 @@
 ## ZSH
 - [ ] OHMYZSH
 - [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
-- [ ] use normal plugin for git prompt
-- [ ] tab command args
+- [ ] better plugin for git prompt
+- [ ] command args on `<Tab>`
 - [ ] tmux integration
 

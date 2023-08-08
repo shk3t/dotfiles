@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<Space>E", "<Cmd>NvimTreeFindFile<CR>")
+local api = require("nvim-tree.api")
 
 require("nvim-tree").setup({
   hijack_cursor = true,
@@ -12,10 +12,10 @@ require("nvim-tree").setup({
       list = {
         {key = "l", action = "edit"},
         {key = "h", action = "close_node"},
-        {key = "R", action = "rename"},
-        {key = "%", action = "create"},
-        {key = "d", action = "create"},
+        {key = {"r", "R"}, action = "rename"},
+        {key = {"%", "a", "d"}, action = "create"},
         {key = "D", action = "trash"},
+        {key = {"c", "y"}, action = "copy"},
       },
     },
   },
@@ -33,7 +33,7 @@ require("nvim-tree").setup({
   git = {enable = false},
   actions = {
     change_dir = {restrict_above_cwd = true},
-    open_file = {window_picker = {enable = false}},
+    open_file = {window_picker = {enable = false}, quit_on_open = true},
   },
   notify = {threshold = vim.log.levels.ERROR},
 })

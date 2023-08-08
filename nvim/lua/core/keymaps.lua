@@ -97,7 +97,8 @@ keymap("n", "<Space>D", [[:%s/\s\+$//e<CR>/<Up><Up><CR><C-O>]])
 keymap({"n", "v"}, "<Space>S", toggle_fixed_signcolumn)
 keymap("n", "<Space>:s", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("n", "<Space>:S", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
-keymap("n", "<Space>e", current_file_in_explorer)
+-- keymap("n", "<Space>e", current_file_in_explorer)
+vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)
 keymap({"n", "v"}, "<Space>LR", vim.cmd.LspRestart)
 keymap({"n", "v"}, "<Space>LI", vim.cmd.LspInfo)
 keymap({"n", "v"}, "<Space>PM", vim.cmd.MarkdownPreviewToggle)
@@ -161,18 +162,18 @@ keymap({"n", "v"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
 keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap({"n", "v"}, "<C-,>", vim.cmd.tabprevious)
 keymap({"n", "v"}, "<C-.>", vim.cmd.tabnext)
--- keymap({"n", "v"}, "<Tab>", "<C-^>")
-keymap({"n", "v"}, "<Tab>", function()
-  if not pcall(function()
-    local bufnrs = require("utils.main").get_recent_buffers()
-    local prev_buffer, prev_prev_buffer = bufnrs[2], bufnrs[3]
-    if vim.api.nvim_buf_get_option(prev_buffer, "filetype") == "netrw" then
-      vim.api.nvim_set_current_buf(prev_prev_buffer)
-    else
-      vim.api.nvim_set_current_buf(prev_buffer)
-    end
-  end) then vim.cmd(t("normal! <C-^>")) end
-end)
+keymap({"n", "v"}, "<Tab>", "<C-^>")
+-- keymap({"n", "v"}, "<Tab>", function()
+--   if not pcall(function()
+--     local bufnrs = require("utils.main").get_recent_buffers()
+--     local prev_buffer, prev_prev_buffer = bufnrs[2], bufnrs[3]
+--     if vim.api.nvim_buf_get_option(prev_buffer, "filetype") == "netrw" then
+--       vim.api.nvim_set_current_buf(prev_prev_buffer)
+--     else
+--       vim.api.nvim_set_current_buf(prev_buffer)
+--     end
+--   end) then vim.cmd(t("normal! <C-^>")) end
+-- end)
 
 -- Custom jumps
 -- keymap("n", "[i", [[m'<Cmd>call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>]], {silent = true})

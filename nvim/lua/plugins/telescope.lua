@@ -61,12 +61,12 @@ telescope.setup({
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<Esc>"] = actions.close,
         ["<C-V>"] = paste_action,
-        ["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["<C-S-Q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
       n = {
-        ["<C-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
-        ["<C-S-Q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
     },
     vimgrep_arguments = {

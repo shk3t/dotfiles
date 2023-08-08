@@ -37,11 +37,12 @@ require("lazy").setup({
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "rcarriga/cmp-dap",
 
-  -- Syntax
-  {"nvim-treesitter/nvim-treesitter", lazy = true},
-  {"nvim-treesitter/nvim-treesitter-textobjects", event = "BufEnter"},
-  -- {"nvim-treesitter/playground", event = "BufEnter"},
+  -- Syntax tree
+  "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter-textobjects",
+  "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-context",
+  "Wansmer/treesj",
 
   -- Snippets
   "saadparwaiz1/cmp_luasnip",
@@ -62,7 +63,7 @@ require("lazy").setup({
   -- "GCBallesteros/vim-textobj-hydrogen",
 
   -- Navigation
-  -- "kyazdani42/nvim-tree.lua",
+  "kyazdani42/nvim-tree.lua",
   "stevearc/aerial.nvim",
   -- "ThePrimeagen/harpoon",
   -- "cbochs/grapple.nvim",
@@ -76,12 +77,12 @@ require("lazy").setup({
 
   -- Tweaks
   "lyokha/vim-xkbswitch",
-  "numToStr/Comment.nvim",
+  {"numToStr/Comment.nvim", lazy = true},
   "kylechui/nvim-surround",
   "chrisgrieser/nvim-recorder",
   "vim-scripts/Tabmerge",
-  "AckslD/nvim-trevJ.lua",
   "chentoast/marks.nvim",
+  "chrisgrieser/nvim-spider",
   -- "windwp/nvim-autopairs",
   -- "windwp/nvim-ts-autotag",
 
