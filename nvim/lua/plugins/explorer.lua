@@ -2,7 +2,7 @@ local api = require("nvim-tree.api")
 
 require("nvim-tree").setup({
   hijack_cursor = true,
-  hijack_netrw = false,
+  hijack_netrw = true,
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,

@@ -35,14 +35,26 @@ local function current_file_in_explorer()
 end
 local function prev_insert_pos()
   pcall(function()
-    local next_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    local next_row = unpack(vim.api.nvim_win_get_cursor(0))
     repeat
       local prev_row = next_row
       vim.cmd(t("normal! g;"))
-      local next_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+      next_row = unpack(vim.api.nvim_win_get_cursor(0))
     until prev_row ~= next_row
   end)
 end
+local function longjump(key)
+  local prime_buf = vim.api.nvim_get_current_buf()
+  local next_row = -1
+  repeat
+    local prev_row = next_row
+    vim.cmd("normal! " .. key)
+    next_row = unpack(vim.api.nvim_win_get_cursor(0))
+  until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
+  -- vim.cmd("normal! zz")
+end
+local function longjump_back() longjump(t("<C-O>")) end
+local function longjump_forward() longjump(t("<C-I>")) end
 
 -- Commands
 vim.cmd([[command! Cdc cd %:p:h]])
@@ -63,6 +75,7 @@ keymap("c", "<C-J>", "<C-N>")
 keymap("c", "<C-K>", "<C-P>")
 keymap({"n", "v"}, "<C-S-C>", [["+y]])
 keymap({"n", "v"}, "<M-Left>", "<C-O>")
+
 keymap({"n", "v"}, "<M-Right>", "<C-I>")
 -- keymap({"n", "v"}, "-", "^")
 keymap({"n", "v"}, "<C-Z>", "<Nop>")
@@ -75,14 +88,16 @@ keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Focus
-keymap({"n", "v"}, "<C-D>", "<C-D>zz")
-keymap({"n", "v"}, "<C-U>", "<C-U>zz")
-keymap({"n", "v"}, "<C-O>", "<C-O>zz")
-keymap({"n", "v"}, "<C-I>", "<C-I>zz")
-keymap({"n", "v"}, "n", [['Nn'[v:searchforward] . 'zz']], {expr = true})
-keymap({"n", "v"}, "N", [['nN'[v:searchforward] . 'zz']], {expr = true})
-keymap({"n", "v"}, "#", "#zz")
-keymap({"n", "v"}, "*", "*zz")
+-- keymap({"n", "v"}, "<C-D>", "<C-D>zz")
+-- keymap({"n", "v"}, "<C-U>", "<C-U>zz")
+-- keymap({"n", "v"}, "<C-O>", "<C-O>zz")
+-- keymap({"n", "v"}, "<C-I>", "<C-I>zz")
+-- keymap({"n", "v"}, "n", [['Nn'[v:searchforward] . 'zz']], {expr = true})
+-- keymap({"n", "v"}, "N", [['nN'[v:searchforward] . 'zz']], {expr = true})
+keymap({"n", "v"}, "n", "'Nn'[v:searchforward]", {expr = true})
+keymap({"n", "v"}, "N", "'nN'[v:searchforward]", {expr = true})
+-- keymap({"n", "v"}, "#", "#zz")
+-- keymap({"n", "v"}, "*", "*zz")
 keymap({"n", "v"}, "<Space>/", function() vim.fn.setreg("/", vim.fn.input("/")) end)
 
 -- Space mappings
@@ -137,11 +152,15 @@ keymap({"n", "v"}, "<C-W>p", "g<Tab>")
 -- Jumps
 keymap({"n", "v"}, "{", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "{") end)
 keymap({"n", "v"}, "}", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "}") end)
-keymap("n", "j", [[(v:count > 1 ? "m'" . v:count . 'j' : 'gj')]], {expr = true})
-keymap("n", "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {expr = true})
-keymap("v", "j", "gj")
-keymap("v", "k", "gk")
+keymap({"n", "v"}, "j", [[(v:count > 1 ? "m'" . v:count . 'j' : 'gj')]], {
+  expr = true,
+})
+keymap({"n", "v"}, "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {
+  expr = true,
+})
 keymap("n", "g;", prev_insert_pos)
+keymap("n", "g<C-O>", longjump_back)
+keymap("n", "g<C-I>", longjump_forward)
 
 -- Quickfix list
 keymap({"n", "v"}, "<Space>qf", vim.cmd.copen)
@@ -153,7 +172,8 @@ local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
 for i = 1, #buffer_marks do
   local mark = buffer_marks:sub(i, i)
   keymap({"n", "v"}, "m" .. mark, "m" .. mark:upper())
-  keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper() .. "zz")
+  keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper())
+  -- keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper() .. "zz")
   keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
   keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
 end
@@ -187,4 +207,6 @@ keymap("s", "<BS>", "_<C-W>")
 keymap("s", "<C-C>", "<Esc>")
 
 -- Bugfix
-keymap({"n", "v"}, "<M-Tab>", "<C-I>zz")
+keymap({"n", "v"}, "<M-Tab>", "<C-I>")
+function longjump_forward() longjump(t("<M-Tab>")) end
+keymap("n", "g<M-Tab>", longjump_forward)

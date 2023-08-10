@@ -125,7 +125,10 @@ telescope.setup({
       mappings = {
         i = {
           ["<C-S>"] = lga_actions.quote_prompt(),
-          ["<C-G>"] = lga_actions.quote_prompt({postfix = " --iglob "}),
+          ["<C-G>"] = function(prompt_bufnr)
+            lga_actions.quote_prompt({postfix = " --iglob ****"})(prompt_bufnr)
+            vim.cmd("normal! 2h")
+          end,
         },
       },
     },

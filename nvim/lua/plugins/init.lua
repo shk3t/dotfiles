@@ -1,4 +1,3 @@
-require("plugins.colors")
 require("plugins.git")
 require("plugins.cmp")
 require("plugins.lsp")

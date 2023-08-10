@@ -1,12 +1,13 @@
 local keymap = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
 
 require("Comment").setup()
 
 local spider = require("spider")
-keymap({"n", "o", "x"}, "w", function() spider.motion("w") end)
-keymap({"n", "o", "x"}, "e", function() spider.motion("e") end)
-keymap({"n", "o", "x"}, "b", function() spider.motion("b") end)
-keymap({"n", "o", "x"}, "ge", function() spider.motion("ge") end)
+keymap({"n", "o", "x"}, "w", function() spider.motion("w") end, {desc = "Spider-w"})
+keymap({"n", "o", "x"}, "e", function() spider.motion("e") end, {desc = "Spider-e"})
+keymap({"n", "o", "x"}, "b", function() spider.motion("b") end, {desc = "Spider-b"})
+keymap({"n", "o", "x"}, "ge", function() spider.motion("ge") end, {desc = "Spider-ge"})
 
 require("nvim-surround").setup({
   keymaps = {
@@ -45,7 +46,8 @@ require("recorder").setup({
   dapSharedKeymaps = false,
 })
 
-require("marks").setup({
+local marks = require("marks")
+marks.setup({
   default_mappings = false,
   -- force_write_shada = true,
   mappings = {

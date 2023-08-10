@@ -77,7 +77,7 @@ require("lazy").setup({
 
   -- Tweaks
   "lyokha/vim-xkbswitch",
-  {"numToStr/Comment.nvim", lazy = true},
+	"numToStr/Comment.nvim",
   "kylechui/nvim-surround",
   "chrisgrieser/nvim-recorder",
   "vim-scripts/Tabmerge",

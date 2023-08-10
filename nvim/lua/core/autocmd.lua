@@ -51,10 +51,10 @@ autocmd("FileType", {
     keymap("i", "<C-P>", "<Up><End>", {buffer = true, remap = true})
     keymap("i", "<C-N>", "<Down><End>", {buffer = true, remap = true})
     keymap("n", "<CR>", function()
-      local line = unpack(vim.api.nvim_win_get_cursor(0))
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
       local current_buffer = vim.api.nvim_win_get_buf(0)
       local count = vim.api.nvim_buf_line_count(current_buffer)
-      if line == count then
+      if row == count then
         vim.fn.execute(t("normal! <Insert><CR>"))
       else
         require("dap.ui").trigger_actions({mode = "first"})

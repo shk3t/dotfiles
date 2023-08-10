@@ -1,15 +1,5 @@
 ## IMPORTANT TODOS
-- [ ] Lazy.nvim source configs
-- [ ] ебучий блять телескоуп со своими слетающими стилями
-- [ ] spider russian language support
-- [ ] mark.nvim after/ or lazyload config (`]m` mappings)
-- [ ] jump back until buffer switch
-- [ ] livegrep with args auto add paired `**`
-- [ ] disable `dap>` prompt
-- [ ] preview diagnostic
 ### Later
-- [ ] do not allow change scopes split buffer (if it is last used for example)
-    - check dap-ui source code (try to find "builder" function)
 - [ ] treesitter better text objects 
     - jump to class/function name, not keyword
     - https://github.com/chrisgrieser/nvim-various-textobjs
@@ -20,6 +10,7 @@
 - [ ] `:help` catch error on close
 - [?] yank system buffer truncate last linebreak
 - [-] auto signcolumn toggling delay
+- [ ] Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 ### Keys
 - [-] cmd move caret backward wordwise
 ### Lsp
@@ -32,6 +23,8 @@
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
 - [-] `<C-D>`/`<C-U>` scroll quick doc
 ### Dap
+- [ ] do not allow change scopes split buffer (if it is last used for example)
+    - check dap-ui source code (try to find "builder" function)
 - [ ] debug python libraries (breakpoint rejected)
 - [-] hover without borders
 ### Telescope

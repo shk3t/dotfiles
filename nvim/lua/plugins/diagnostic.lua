@@ -3,6 +3,7 @@ local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
 
 keymap("n", "[d", vim.diagnostic.goto_prev)
 keymap("n", "]d", vim.diagnostic.goto_next)
+keymap("n", "<Space>dk", vim.diagnostic.open_float)
 keymap("n", "<Space>td", require("telescope.builtin").diagnostics)
 -- require("neodim").setup({alpha = 0.6, update_in_insert = {enable = false}})
 
