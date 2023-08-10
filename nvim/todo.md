@@ -1,31 +1,29 @@
 ## IMPORTANT TODOS
-- [X] beautiful `J`: https://github.com/Wansmer/treesj
-- [X] word movements: https://github.com/chrisgrieser/nvim-spider
-- [X] replace nvim-tree with native netrw
-- [X] autolaunch syncthing
-
-# TODOS
-- [ ] clean imports
+- [ ] Lazy.nvim source configs
+- [ ] ебучий блять телескоуп со своими слетающими стилями
+- [ ] spider russian language support
+- [ ] mark.nvim after/ or lazyload config (`]m` mappings)
+- [ ] jump back until buffer switch
 - [ ] livegrep with args auto add paired `**`
-- [ ] local configs
-- [?] bookmarks
-- [?] yank system buffer truncate last linebreak
-- [ ] `:help` catch error on close
-- [ ] jump to error line in stack trace
+- [ ] disable `dap>` prompt
+- [ ] preview diagnostic
+### Later
+- [ ] do not allow change scopes split buffer (if it is last used for example)
+    - check dap-ui source code (try to find "builder" function)
 - [ ] treesitter better text objects 
+    - jump to class/function name, not keyword
     - https://github.com/chrisgrieser/nvim-various-textobjs
     - https://github.com/RRethy/nvim-treesitter-textsubjects
-- [ ] normal mode in cmd with preview and syntax highlighting
+
+# TODOS
+- [ ] local configs
+- [ ] `:help` catch error on close
+- [?] yank system buffer truncate last linebreak
 - [-] auto signcolumn toggling delay
 ### Keys
-- [ ] repeat jumps
-- [ ] swap lines
 - [-] cmd move caret backward wordwise
-- [-] highlight `f` jumps
-- [ ] better visualblock mode
-- [?] netrw duplicate file
-- [?] `m;` to add next **global** mark
 ### Lsp
+- [ ] clean imports
 - [ ] rename file with references
 - [ ] null-ls refactoring
 - [ ] tsserver import wihtout whitespaces in braces
@@ -34,7 +32,6 @@
     - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
 - [-] `<C-D>`/`<C-U>` scroll quick doc
 ### Dap
-- [ ] do not allow change scopes split buffer (if it is last used for example)
 - [ ] debug python libraries (breakpoint rejected)
 - [-] hover without borders
 ### Telescope
@@ -46,17 +43,31 @@
 ### Appearance
 - [ ] aerial icons
 - [ ] nvim-tree icons
-### Explore
-- [ ] terminal mode
 ### Jupyter
 - [ ] vscode + neovim
 - [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
     - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
 - [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
+### Explore
+- [ ] terminal mode
+- [ ] interesting telescope pickers
+### Optimize
+- [ ] remove unused builtin vim modules
 
 <br>
 
 ## New plugins
+### Features
+- [-] highlight `f` jumps
+- [ ] better visualblock mode
+- [ ] yank history
+- [ ] normal mode in cmd with preview and syntax highlighting
+- [ ] better (modifiable) quickfix buffer
+- [ ] swap lines
+- [ ] dot-repeat preivous jump
+- [ ] jump to error line in stack trace
+- [?] bookmarks
+### Instances
 - [ ] copilot.lua
 - [ ] grapple
 - [ ] heirline
@@ -87,8 +98,6 @@
 - [ ] note widgets on desktop
 - [ ] keep window decorations without titlebar
 - [ ] highlight focused window frame
-- [-] separated pins for task manager entries (topbar)
-    - [ ] use activities instead of desktops, figure out the diffirences
 
 ## Another software
 - [ ] pbcopy
@@ -102,5 +111,4 @@
 - [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
 - [ ] better plugin for git prompt
 - [ ] command args on `<Tab>`
-- [ ] tmux integration
-
+- [ ] tmux integration (`<C-H`, `<C-L`, ... mappings)

@@ -54,7 +54,6 @@ local custom_attach = function(client, bufnr)
   buf_keymap(bufnr, "n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 
   client.server_capabilities.documentFormattingProvider = false
-
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 end
 
@@ -147,6 +146,9 @@ null_ls.setup({
     nformatting.lua_format.with({
       extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},
     }),
+    -- nformatting.stylua.with({
+    --   extra_args = { "--config-path", NVIM_ETC .. "/stylua.toml" },
+    -- }),
     -- nformatting.djhtml,
     nformatting.clang_format.with({
       extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},

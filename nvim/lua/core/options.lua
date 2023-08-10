@@ -65,6 +65,3 @@ vim.opt.keymap = "russian-jcukenwin"
 vim.opt.iminsert = 0
 vim.opt.imsearch = 0
 vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
-
--- Sql
-vim.g.ftplugin_sql_omni_key = "<C-H-S>"

@@ -1,5 +1,8 @@
 local keymap = vim.keymap.set
 local t = require("utils.main").replace_termcodes
+local vc_cmd = require("utils.main").vc_cmd
+local cprev = require("utils.main").cprev
+local cnext = require("utils.main").cnext
 
 local function toggle_line_numeration()
   vim.opt.number = not vim.o.number
@@ -127,13 +130,13 @@ keymap({"n", "v"}, "<C-W>Q", vim.cmd.tabclose)
 keymap({"n", "v"}, "<C-W>n", rename_tab)
 keymap({"n", "v"}, "<C-W><C-N>", rename_tab)
 keymap({"n", "v"}, "<C-W>M", "gT<Cmd>Tabmerge right<CR><C-W>l")
-keymap({"n", "v"}, "<S-Tab>", "g<Tab>")
+-- keymap({"n", "v"}, "<S-Tab>", "g<Tab>")
 keymap({"n", "v"}, "<Space><Tab>", "g<Tab>")
 keymap({"n", "v"}, "<C-W>p", "g<Tab>")
 
 -- Jumps
-keymap("n", "{", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "{") end)
-keymap("n", "}", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "}") end)
+keymap({"n", "v"}, "{", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "{") end)
+keymap({"n", "v"}, "}", function() vim.fn.execute("keepjumps normal! " .. vim.v.count .. "}") end)
 keymap("n", "j", [[(v:count > 1 ? "m'" . v:count . 'j' : 'gj')]], {expr = true})
 keymap("n", "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {expr = true})
 keymap("v", "j", "gj")
@@ -142,15 +145,15 @@ keymap("n", "g;", prev_insert_pos)
 
 -- Quickfix list
 keymap({"n", "v"}, "<Space>qf", vim.cmd.copen)
-keymap({"n", "v"}, "[q", function() if not pcall(vim.cmd.cprevious) then vim.cmd.clast() end end)
-keymap({"n", "v"}, "]q", function() if not pcall(vim.cmd.cnext) then vim.cmd.cfirst() end end)
+keymap({"n", "v"}, "[q", cprev)
+keymap({"n", "v"}, "]q", cnext)
 
 -- Marks
 local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
 for i = 1, #buffer_marks do
   local mark = buffer_marks:sub(i, i)
   keymap({"n", "v"}, "m" .. mark, "m" .. mark:upper())
-  keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper())
+  keymap({"n", "v"}, "'" .. mark, "'" .. mark:upper() .. "zz")
   keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
   keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
 end

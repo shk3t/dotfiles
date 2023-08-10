@@ -3,6 +3,7 @@ local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
+local dap = require("dap")
 local keymap = vim.keymap.set
 local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
 local to_qflist_action = require("utils.telescope").to_qflist_action
@@ -19,7 +20,8 @@ keymap("v", "<C-G>", function()
     trim = true,
   })
 end)
-keymap("n", "<Space>j", builtin.buffers)
+keymap("n", "<C-P>", builtin.resume)
+keymap("n", "<S-Tab>", builtin.buffers)
 keymap("n", "<Space>th", builtin.help_tags)
 keymap("n", "<Space>tk", builtin.keymaps)
 keymap("n", "<Space>tr", builtin.registers)
@@ -31,7 +33,11 @@ keymap("n", "<Space>gb", builtin.git_branches)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
 keymap("n", "<Space>tq", builtin.quickfix)
 keymap("n", [[<Space>"]], builtin.marks)
-keymap("n", [[<Space>']], custom_quickfix_picker("Marks List", vim.cmd.MarksQFListAll))
+keymap("n", [[<Space>']], custom_quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
+keymap("n", "<Space>tb", custom_quickfix_picker("Breakpoints", function()
+  vim.cmd.copen()
+  dap.list_breakpoints()
+end))
 
 telescope.setup({
   defaults = {

@@ -3,8 +3,13 @@ local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local keymap = vim.keymap.set
 local t = require("utils.main").replace_termcodes
+local vc_cmd = require("utils.main").vc_cmd
 local cwd_contains = require("utils.main").cwd_contains
-local MAX_WIN_HEIGHT = require("utils.consts").MAX_WIN_HEIGHT
+local find = require("utils.main").find
+local filter = require("utils.main").filter
+local cprev = require("utils.main").cprev
+local cnext = require("utils.main").cnext
+local print_table = require("utils.main").print_table
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -25,7 +30,7 @@ local python_path = (function()
   local cwd = vim.fn.getcwd()
   local venvdirs = {"venv", ".venv"}
 
-  for _, venvdir in ipairs(venvdirs) do
+  for _, venvdir in pairs(venvdirs) do
     local venvpath = cwd .. "/" .. venvdir
     local pybin = venvpath .. "/bin/python"
     if vim.fn.executable(pybin) == 1 then return pybin end
@@ -44,17 +49,68 @@ end)()
 -- local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
 -- local input_args = function() return split_string(vim.fn.input("Args: ")) end
 
+local dapui_config = {
+  controls = {enabled = false, element = "stacks"},
+  icons = {collapsed = ">", current_frame = ">", expanded = "v"},
+  element_mappings = {
+    stacks = {open = {"<CR>", "<2-LeftMouse>"}, expand = {"o", "O"}},
+    watches = {remove = "D", edit = "C", repl = "S"},
+  },
+  expand_lines = false,
+  floating = {border = "single"},
+  layouts = {
+    {
+      elements = {
+        {id = "watches", size = 0.1},
+        {id = "scopes", size = 0.75},
+        {id = "stacks", size = 0.15},
+      },
+      position = "right",
+      size = 65,
+    },
+    {elements = {{id = "repl", size = 1}}, position = "bottom", size = 10},
+  },
+  render = {indent = 2},
+}
+
+local max_win_height = vim.api.nvim_win_get_height(0)
+local scopes_widget_width = dapui_config.layouts[1].size
+local scopes_widget_height = math.floor(
+                               find(function(v) return v.id == "scopes" end, dapui_config.layouts[1].elements).size *
+                                 max_win_height)
 local scopes_widget_winid = 0
 local function open_custom_dapui()
   dapui.open()
   vim.cmd(t("normal! <C-W>l<C-W>k<C-W>j"))
   _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  vim.cmd(t("normal! <C-W>q80<C-W>|" .. math.floor(0.75 * MAX_WIN_HEIGHT) .. "<C-W>_<C-W>k<C-W>h"))
+  vim.cmd(t("normal! <C-W>q" .. scopes_widget_width .. "<C-W>|" .. scopes_widget_height .. "<C-W>_<C-W>k<C-W>h"))
 end
 local function close_custom_dapui()
   dapui.close()
   vim.api.nvim_win_close(scopes_widget_winid, false)
   scopes_widget_winid = 0
+end
+
+local function breakpoint_jump(find_func)
+  local cur_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local cur_win = vim.api.nvim_get_current_win()
+  vim.cmd.copen()
+  dap.list_breakpoints()
+  local qflist = vim.fn.getqflist()
+  vim.cmd.cclose()
+  vim.api.nvim_set_current_win(cur_win)
+  qflist = filter(function(v) return v.bufnr == cur_buf end, qflist)
+  if next(qflist) == nil then return end
+  vim.api.nvim_win_set_cursor(0, {find_func(cur_row, qflist), 0})
+end
+local function bp_find_prev(cur_row, qflist)
+  for i = #qflist, 1, -1 do if qflist[i].lnum - cur_row < 0 then return qflist[i].lnum end end
+  return qflist[#qflist].lnum
+end
+local function bp_find_next(cur_row, qflist)
+  for i = 1, #qflist do if qflist[i].lnum - cur_row > 0 then return qflist[i].lnum end end
+  return qflist[1].lnum
 end
 
 keymap({"i", "n", "v"}, "<F9>", dap.continue)
@@ -66,10 +122,8 @@ keymap("n", "<Space>b", dap.toggle_breakpoint)
 keymap("n", "<Space>BC", function() dap.set_breakpoint(vim.fn.input("")) end)
 keymap("n", "<Space>BL", function() dap.set_breakpoint(nil, nil, vim.fn.input("")) end)
 keymap("n", "<Space>df", dap.focus_frame)
-keymap("n", "<Space>dl", function()
-  vim.cmd.copen()
-  dap.list_breakpoints()
-end)
+keymap("n", "[b", function() breakpoint_jump(bp_find_prev) end)
+keymap("n", "]b", function() breakpoint_jump(bp_find_next) end)
 keymap("n", "[s", dap.down)
 keymap("n", "]s", dap.up)
 keymap("n", "<Space>dc", dap.repl.open)
@@ -87,36 +141,14 @@ keymap("n", "<Space>dd", function()
     if current_tabid ~= scopes_widget_tabid then open_custom_dapui() end
   end
 end)
-keymap({"n", "v"}, "<Space>dk", widgets.hover)
+keymap({"n", "v"}, "<Space>de", widgets.hover)
 
 dap.defaults.fallback.external_terminal = {
   command = "/usr/bin/alacritty",
   args = {"-e"},
 }
 
-dapui.setup({
-  controls = {enabled = false, element = "stacks"},
-  icons = {collapsed = ">", current_frame = ">", expanded = "v"},
-  element_mappings = {
-    stacks = {open = {"<CR>", "<2-LeftMouse>"}, expand = {"o", "O"}},
-    watches = {remove = "D", edit = "C", repl = "S"},
-  },
-  expand_lines = false,
-  floating = {border = "single"},
-  layouts = {
-    {
-      elements = {
-        {id = "watches", size = 0.1},
-        {id = "scopes", size = 0.75},
-        {id = "stacks", size = 0.15},
-      },
-      position = "right",
-      size = 80,
-    },
-    {elements = {{id = "repl", size = 1}}, position = "bottom", size = 12},
-  },
-  render = {indent = 2},
-})
+dapui.setup(dapui_config)
 
 dap.adapters.python = {
   type = "executable",
@@ -141,11 +173,11 @@ if cwd_contains("s11") then
       name = "s11",
       program = vim.fn.getcwd() .. "/s11main.py",
     }),
-    -- vim.tbl_extend("force", python_default_config, {
-    --   name = "s11 external terminal",
-    --   program = vim.fn.getcwd() .. "/s11main.py",
-    --   console = "externalTerminal",
-    -- }),
+    vim.tbl_extend("force", python_default_config, {
+      name = "s11 external terminal",
+      program = vim.fn.getcwd() .. "/s11main.py",
+      console = "externalTerminal",
+    }),
   }
 elseif cwd_contains("PharmacyServer") then
   dap.configurations.python[1] = vim.tbl_extend("force", python_default_config, {
