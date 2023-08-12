@@ -1,12 +1,10 @@
-local lspconfig = vim.F.npcall(require, "lspconfig")
+local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
-local nformatting = null_ls.builtins.formatting
-local ndiagnostics = null_ls.builtins.diagnostics
-local ncode_actions = null_ls.builtins.code_actions
-local buf_keymap = vim.api.nvim_buf_set_keymap
-local opts = {noremap = true, silent = true}
+local telescope_builtin = require("telescope.builtin")
+local lib = require("lib.main")
+local keymap = vim.keymap.set
 local NVIM_ETC = vim.fn.stdpath("config") .. "/etc"
-local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
+local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 require("mason").setup()
 require("mason-lspconfig").setup({
@@ -35,48 +33,50 @@ require("mason-null-ls").setup({
   },
 })
 
-local custom_init = function(client)
+local function base_init(client)
   client.config.flags = client.config.flags or {}
   client.config.flags.allow_incremental_sync = true
 end
 
-local custom_attach = function(client, bufnr)
-  buf_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  -- buf_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  buf_keymap(bufnr, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  buf_keymap(bufnr, "n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  buf_keymap(bufnr, "n", "<space>F", "<cmd>lua vim.lsp.buf.format()<CR>", opts)
-  buf_keymap(bufnr, "v", "<space>F", "<cmd>lua vim.lsp.buf.format()<CR><Esc>", opts)
+local function base_attach(client, bufnr)
+  keymap("n", "K", vim.lsp.buf.hover, {buffer = bufnr})
+  -- keymap("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = bufnr})
+  keymap("n", "<Space>rn", vim.lsp.buf.rename, {buffer = bufnr})
+  keymap("n", "<Space>ca", vim.lsp.buf.code_action, {buffer = bufnr})
+  keymap({"n", "v"}, "<Space>F", vim.lsp.buf.format, {buffer = bufnr})
 
-  buf_keymap(bufnr, "n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>", opts)
-  buf_keymap(bufnr, "n", "gD", "<cmd>lua require('telescope.builtin').lsp_type_definitions()<CR>", opts)
-  buf_keymap(bufnr, "n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", opts)
-  buf_keymap(bufnr, "n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
+  keymap("n", "gd", telescope_builtin.lsp_definitions, {buffer = bufnr})
+  keymap("n", "gD", telescope_builtin.lsp_type_definitions, {buffer = bufnr})
+  keymap("n", "gi", telescope_builtin.lsp_implementations, {buffer = bufnr})
+  keymap("n", "gr", telescope_builtin.lsp_references, {buffer = bufnr})
+
+  -- if false then vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end end
 
   client.server_capabilities.documentFormattingProvider = false
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 end
 
-local turn_off_lsp_diagnostics = function() vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end end
-
-local no_lsp_diagnostics_attach = function(client, bufnr)
-  custom_attach(client, bufnr)
-  turn_off_lsp_diagnostics()
+local function attach(custom_attach)
+  return function(client, bufnr)
+    base_attach(client, bufnr)
+    custom_attach(client, bufnr)
+  end
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
 updated_capabilities.textDocument.completion.completionItem.snippetSupport = true
 updated_capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 vim.tbl_deep_extend("force", updated_capabilities, require("cmp_nvim_lsp").default_capabilities())
+updated_capabilities.textDocument.completion.completionItem.insertReplaceSupport = false
 
-local setup_server = function(server, config)
+local function setup_server(server, config)
   if not config then return end
 
   if type(config) ~= "table" then config = {} end
 
   config = vim.tbl_deep_extend("force", {
-    on_init = custom_init,
-    on_attach = custom_attach,
+    on_init = base_init,
+    on_attach = base_attach,
     capabilities = updated_capabilities,
     flags = {debounce_text_changes = nil},
   }, config)
@@ -84,9 +84,22 @@ local setup_server = function(server, config)
   lspconfig[server].setup(config)
 end
 
-local use_pyright = not string.find(vim.fn.getcwd(), "s11")
+local tss_spaces_inside_braces = false
+local tss_settings = {
+  format = {
+    insertSpaceAfterOpeningAndBeforeClosingEmptyBraces = tss_spaces_inside_braces,
+    insertSpaceAfterOpeningAndBeforeClosingJsxExpressionBraces = tss_spaces_inside_braces,
+    insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces = tss_spaces_inside_braces,
+    insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces = tss_spaces_inside_braces,
+  },
+}
+local use_pyright = not lib.cwd_contains("s11")
 local servers = {
-  pyright = use_pyright,
+  pyright = use_pyright and {
+    on_attach = attach(function(client, bufnr)
+      keymap("n", "<Space>o", vim.cmd.PyrightOrganizeImports, {buffer = bufnr})
+    end),
+  },
   pylsp = not use_pyright and {
     settings = {
       pylsp = {
@@ -107,11 +120,13 @@ local servers = {
       },
     },
   },
-  html = true,
-  cssls = true,
+  -- https://github.com/typescript-language-server/typescript-language-server
   tsserver = {
     init_options = {preferences = {providePrefixAndSuffixTextForRename = false}},
+    settings = {javascript = tss_settings, typescript = tss_settings},
   },
+  html = true,
+  cssls = true,
   jsonls = true,
   clangd = {
     cmd = {
@@ -126,7 +141,18 @@ local servers = {
   },
   bashls = true,
   texlab = true,
-  lua_ls = true,
+  -- https://github.com/LuaLS/lua-language-server/blob/ed350080cfb3998fa95abb905cfa363f546e70ce/doc/en-us/config.md
+  lua_ls = {
+    settings = {
+      Lua = {
+        workspace = {checkThirdParty = false},
+        diagnostics = {
+          severity = {["missing-fields"] = "Hint!"},
+        },
+      },
+    },
+  },
+
 }
 
 for server, config in pairs(servers) do setup_server(server, config) end
@@ -138,19 +164,19 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 null_ls.setup({
   debug = false,
   sources = {
-    nformatting.prettier.with({
+    null_ls.builtins.formatting.prettier.with({
       extra_args = {"--config", NVIM_ETC .. "/prettier.json"},
     }),
-    nformatting.black.with({extra_args = {"--fast"}}),
-    -- nformatting.autopep8,
-    nformatting.lua_format.with({
+    null_ls.builtins.formatting.black.with({extra_args = {"--fast"}}),
+    -- null_ls.builtins.formatting.autopep8,
+    null_ls.builtins.formatting.lua_format.with({
       extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},
     }),
-    -- nformatting.stylua.with({
+    -- null_ls.builtins.formatting.stylua.with({
     --   extra_args = { "--config-path", NVIM_ETC .. "/stylua.toml" },
     -- }),
-    -- nformatting.djhtml,
-    nformatting.clang_format.with({
+    -- null_ls.builtins.formatting.djhtml,
+    null_ls.builtins.formatting.clang_format.with({
       extra_args = {"-style=file:" .. NVIM_ETC .. "/clang-format.txt"},
     }),
     -- diagnostics.clang_check,
@@ -159,6 +185,8 @@ null_ls.setup({
     --     -- args = {"--from-stdin", "$FILENAME", "-f", "json"},
     --     extra_args = {"--rcfile", NVIM_ETC .. "/pylint.toml"},
     -- }),
-    ncode_actions.gitsigns,
+    -- null_ls.builtins.formatting.gitsigns,
   },
 })
+
+require("neodev").setup()

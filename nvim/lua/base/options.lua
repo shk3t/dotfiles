@@ -1,4 +1,4 @@
--- Tabsoption
+-- Taboptions
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
@@ -57,11 +57,6 @@ vim.g.netrw_hide = 1
 -- let b:netrw_lastfile = 1
 
 -- Language
-vim.g.XkbSwitchEnabled = 1
-vim.g.XkbSwitchAssistNKeymap = 1 -- for commands r and f
-vim.g.XkbSwitchNLayout = "us" -- better telescope support
--- vim.g.XkbSwitchIminsertToggleKey = '<C-^>'
 vim.opt.keymap = "russian-jcukenwin"
 vim.opt.iminsert = 0
-vim.opt.imsearch = 0
-vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.imsearch = -1

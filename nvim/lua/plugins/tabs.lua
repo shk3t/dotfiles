@@ -33,12 +33,8 @@ end, {
       local cur_win = api.get_tab_current_win(tabid)
       local buf_name = buf_name.get(cur_win)
 
-      if api.is_float_win(cur_win) then
-        return "Floating"
-      end
-      if buf_name == "[No Name]" then
-        return "No Name"
-      end
+      if api.is_float_win(cur_win) then return "Floating" end
+      if buf_name == "[No Name]" then return "No Name" end
 
       return buf_name
     end,

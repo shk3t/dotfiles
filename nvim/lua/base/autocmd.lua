@@ -1,6 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local t = require("utils.main").replace_termcodes
+local lib = require("lib.main")
 
 -- Line numeration toggle
 autocmd({"FocusLost", "WinLeave"}, {command = "set norelativenumber"})
@@ -55,7 +55,7 @@ autocmd("FileType", {
       local current_buffer = vim.api.nvim_win_get_buf(0)
       local count = vim.api.nvim_buf_line_count(current_buffer)
       if row == count then
-        vim.fn.execute(t("normal! <Insert><CR>"))
+        lib.norm("<Insert><CR>")
       else
         require("dap.ui").trigger_actions({mode = "first"})
       end

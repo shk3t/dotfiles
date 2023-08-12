@@ -5,10 +5,8 @@ local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local dap = require("dap")
 local keymap = vim.keymap.set
-local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
-local to_qflist_action = require("utils.telescope").to_qflist_action
-local paste_action = require("utils.telescope").paste_action
-local TRANSPARENCY = require("utils.consts").TRANSPARENCY
+local tsclib = require("lib.telescope")
+local consts = require("lib.consts")
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
 keymap("n", "<C-F>", ":Telescope find_files<CR>") -- frecency bug
@@ -33,13 +31,13 @@ keymap("n", "<Space>gb", builtin.git_branches)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
 keymap("n", "<Space>tq", builtin.quickfix)
 keymap("n", [[<Space>"]], builtin.marks)
-keymap("n", [[<Space>']], custom_quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
-keymap("n", "<Space>tb", custom_quickfix_picker("Breakpoints", function()
+keymap("n", [[<Space>']], tsclib.custom_quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
+keymap("n", "<Space>tb", tsclib.custom_quickfix_picker("Breakpoints", function()
   vim.cmd.copen()
   dap.list_breakpoints()
 end))
 
-telescope.setup({
+local telescope_config = {
   defaults = {
     sorting_strategy = "ascending",
     layout_config = {
@@ -50,7 +48,7 @@ telescope.setup({
       width = 0.9,
       preview_width = 0.55,
     },
-    winblend = TRANSPARENCY,
+    winblend = consts.TRANSPARENCY,
     border = true,
     borderchars = {" ", " ", " ", " ", " ", " ", " ", " "},
     results_title = "",
@@ -66,7 +64,7 @@ telescope.setup({
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<Esc>"] = actions.close,
-        ["<C-V>"] = paste_action,
+        ["<C-V>"] = tsclib.paste_action,
         ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
       },
@@ -112,6 +110,7 @@ telescope.setup({
         "property",
       },
     },
+    quickfix = {path_display = {}},
   },
   extensions = {
     fzf = {
@@ -146,7 +145,11 @@ telescope.setup({
       },
     },
   },
+}
+tsclib.adjust_iconpath_display(telescope_config, {"find_files", "buffers"}, {
+  "live_grep_args",
 })
+telescope.setup(telescope_config)
 
 telescope.load_extension("fzf")
 telescope.load_extension("live_grep_args")

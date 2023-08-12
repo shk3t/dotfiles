@@ -1,9 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
 local sign_define = vim.fn.sign_define
-local get_highlight = require("utils.main").get_highlight
-local highlight = require("utils.main").highlight
-local TRANSPARENCY = require("utils.consts").TRANSPARENCY
-local DIAGNOSTIC_SIGNS = require("utils.consts").DIAGNOSTIC_SIGNS
+local get_highlight = require("lib.main").get_highlight
+local highlight = require("lib.main").highlight
+local consts = require("lib.consts")
 
 vim.cmd.colorscheme("rose-pine")
 
@@ -16,10 +15,10 @@ local function set_transparent_bg()
   highlight("TabLineFill", {bg = "NONE"})
   highlight("TabLine", {bg = "NONE"})
 
-  vim.opt.pumblend = TRANSPARENCY
-  vim.opt.winblend = TRANSPARENCY
+  vim.opt.pumblend = consts.TRANSPARENCY
+  vim.opt.winblend = consts.TRANSPARENCY
   highlight("PmenuSel", {blend = 0})
-  highlight("FloatBorder", {blend = TRANSPARENCY})
+  highlight("FloatBorder", {blend = consts.TRANSPARENCY})
 
   highlight("GitSignsUntracked", {bg = "NONE"})
   highlight("GitSignsTopdelete", {bg = "NONE"})
@@ -60,10 +59,10 @@ local function setup_mark_colors() highlight("MarkSignNumHL", {link = "NONE"}) e
 
 local function define_diagnostic_signs()
   local diagnostic_signs = {
-    ["DiagnosticSignError"] = DIAGNOSTIC_SIGNS.error,
-    ["DiagnosticSignWarn"] = DIAGNOSTIC_SIGNS.warn,
-    ["DiagnosticSignInfo"] = DIAGNOSTIC_SIGNS.info,
-    ["DiagnosticSignHint"] = DIAGNOSTIC_SIGNS.hint,
+    ["DiagnosticSignError"] = consts.DIAGNOSTIC_SIGNS.error,
+    ["DiagnosticSignWarn"] = consts.DIAGNOSTIC_SIGNS.warn,
+    ["DiagnosticSignInfo"] = consts.DIAGNOSTIC_SIGNS.info,
+    ["DiagnosticSignHint"] = consts.DIAGNOSTIC_SIGNS.hint,
   }
   for sign, text in pairs(diagnostic_signs) do sign_define(sign, {
     text = text,
@@ -103,6 +102,9 @@ local function setup_colors()
       setup()
       break
     end
+  end
+  if consts.ICONS_ENABLED then
+    require("nvim-web-devicons").setup()
   end
 end
 

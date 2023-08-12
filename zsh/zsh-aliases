@@ -4,11 +4,22 @@ alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/
 alias nvimrc='nvim ~/.config/nvim/'
 alias duh='du -had1 | sort -rh'
 
+# Neovim
+alias v='nvim'
+alias ve='nvim .'
+alias vf="nvim -c 'Telescope find_files'"
+alias vg="nvim -c 'Telescope live_grep_args'"
+alias va="nvim -c \"normal! 'A\""
+alias vo='nvim -c "execute \"normal! \<C-O>\""'
+
 # Colorize output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ls='ls -Av --group-directories-first --color=auto'
+alias l='ls -lApthv --group-directories-first --color=auto'
+
+# Navigation
 function cd {
     builtin cd "$@" && ls
 }
@@ -20,6 +31,4 @@ function zi_alias {
 }
 alias z=z_alias
 alias zi=zi_alias
-
-# Navigation
 alias fcdf='cd $(find . -type d -print | fzf)'

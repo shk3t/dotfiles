@@ -1,4 +1,4 @@
-local custom_quickfix_picker = require("utils.telescope").custom_quickfix_picker
+local custom_quickfix_picker = require("lib.telescope").custom_quickfix_picker
 
 local keymap = vim.keymap.set
 

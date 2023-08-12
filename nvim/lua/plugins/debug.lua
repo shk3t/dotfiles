@@ -1,15 +1,8 @@
 local dap = require("dap")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
+local lib = require("lib.main")
 local keymap = vim.keymap.set
-local t = require("utils.main").replace_termcodes
-local vc_cmd = require("utils.main").vc_cmd
-local cwd_contains = require("utils.main").cwd_contains
-local find = require("utils.main").find
-local filter = require("utils.main").filter
-local cprev = require("utils.main").cprev
-local cnext = require("utils.main").cnext
-local print_table = require("utils.main").print_table
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -75,15 +68,14 @@ local dapui_config = {
 
 local max_win_height = vim.api.nvim_win_get_height(0)
 local scopes_widget_width = dapui_config.layouts[1].size
-local scopes_widget_height = math.floor(
-                               find(function(v) return v.id == "scopes" end, dapui_config.layouts[1].elements).size *
-                                 max_win_height)
+local scopes_widget_height = math.floor(lib.find(function(v) return v.id == "scopes" end,
+                                                 dapui_config.layouts[1].elements).size * max_win_height)
 local scopes_widget_winid = 0
 local function open_custom_dapui()
   dapui.open()
-  vim.cmd(t("normal! <C-W>l<C-W>k<C-W>j"))
+  lib.norm("<C-W>l<C-W>k<C-W>j")
   _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  vim.cmd(t("normal! <C-W>q" .. scopes_widget_width .. "<C-W>|" .. scopes_widget_height .. "<C-W>_<C-W>k<C-W>h"))
+  lib.norm("<C-W>q" .. scopes_widget_width .. "<C-W>|" .. scopes_widget_height .. "<C-W>_<C-W>k<C-W>h")
 end
 local function close_custom_dapui()
   dapui.close()
@@ -100,8 +92,9 @@ local function breakpoint_jump(find_func)
   local qflist = vim.fn.getqflist()
   vim.cmd.cclose()
   vim.api.nvim_set_current_win(cur_win)
-  qflist = filter(function(v) return v.bufnr == cur_buf end, qflist)
+  qflist = lib.filter(function(v) return v.bufnr == cur_buf end, qflist)
   if next(qflist) == nil then return end
+  lib.save_jump()
   vim.api.nvim_win_set_cursor(0, {find_func(cur_row, qflist), 0})
 end
 local function bp_find_prev(cur_row, qflist)
@@ -167,7 +160,7 @@ local python_default_config = {
   pythonPath = python_path,
 }
 dap.configurations.python = {}
-if cwd_contains("s11") then
+if lib.cwd_contains("s11") then
   dap.configurations.python = {
     vim.tbl_extend("force", python_default_config, {
       name = "s11",
@@ -179,13 +172,13 @@ if cwd_contains("s11") then
       console = "externalTerminal",
     }),
   }
-elseif cwd_contains("PharmacyServer") then
+elseif lib.cwd_contains("PharmacyServer") then
   dap.configurations.python[1] = vim.tbl_extend("force", python_default_config, {
     name = "Django (noreload)",
     program = vim.fn.getcwd() .. "/manage.py",
     args = {"runserver", "--noreload"},
   })
-elseif cwd_contains("MDLPServer") then
+elseif lib.cwd_contains("MDLPServer") then
   dap.configurations.python[1] = vim.tbl_extend("force", python_default_config,
                                                 {
     name = "Flask",

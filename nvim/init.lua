@@ -1,4 +1,4 @@
-require("core")
+require("base")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -52,6 +52,7 @@ require("lazy").setup({
   -- Integration
   "aserowy/tmux.nvim",
   "iamcco/markdown-preview.nvim",
+  'antosha417/nvim-lsp-file-operations',
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
   "lewis6991/gitsigns.nvim",
@@ -76,8 +77,8 @@ require("lazy").setup({
   "debugloop/telescope-undo.nvim",
 
   -- Tweaks
-  "lyokha/vim-xkbswitch",
-	"numToStr/Comment.nvim",
+  "ivanesmantovich/xkbswitch.nvim",
+  "numToStr/Comment.nvim",
   "kylechui/nvim-surround",
   "chrisgrieser/nvim-recorder",
   "vim-scripts/Tabmerge",
@@ -93,6 +94,7 @@ require("lazy").setup({
   -- "MaxMEllon/vim-jsx-pretty",
 
   -- Interface
+  "nvim-tree/nvim-web-devicons",
   "nvim-lualine/lualine.nvim",
   "nanozuki/tabby.nvim",
   -- "zbirenbaum/neodim",

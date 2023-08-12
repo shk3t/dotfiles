@@ -3,6 +3,10 @@
 #!/**/
 #!*.*
 
+# Neovim
+lazy-lock.json
+.luarc.json
+
 # General
 .git/
 *.sqlite3

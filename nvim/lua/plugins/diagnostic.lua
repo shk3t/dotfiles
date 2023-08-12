@@ -1,5 +1,5 @@
 local keymap = vim.keymap.set
-local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
+local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 keymap("n", "[d", vim.diagnostic.goto_prev)
 keymap("n", "]d", vim.diagnostic.goto_next)

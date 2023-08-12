@@ -335,9 +335,9 @@ max-module-lines = 1000
 
 # Force import order to recognize a module as part of the standard compatibility
 # libraries.
-# known-standard-library =
+# known-standard-lib.=
 
-# Force import order to recognize a module as part of a third party library.
+# Force import order to recognize a module as part of a third party lib.
 known-third-party = ["enchant"]
 
 # Couples of modules and preferred modules, separated by a comma.
@@ -377,7 +377,7 @@ disable = ["raw-checker-failed", "bad-inline-option", "locally-disabled", "file-
 enable = ["c-extension-no-member"]
 
 [tool.pylint.method_args]
-# List of qualified names (i.e., library.method) which require a timeout
+# List of qualified names (i.e., lib.method) which require a timeout
 # parameter e.g. 'requests.api.get,requests.api.post'
 timeout-methods = ["requests.api.delete", "requests.api.get", "requests.api.head", "requests.api.options", "requests.api.patch", "requests.api.post", "requests.api.put", "requests.api.request"]
 

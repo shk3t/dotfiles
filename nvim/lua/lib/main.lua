@@ -11,10 +11,15 @@ M.split_string = function(inputstr, sep)
   return t
 end
 
+M.norm = function(command) vim.cmd("normal! " .. M.replace_termcodes(command)) end
+
 M.vc_cmd = function(vimcmd)
   vimcmd()
   for i = 1, vim.v.count - 1 do vimcmd() end
 end
+
+M.save_jump = function() vim.cmd("normal! m'") end
+M.center_win = function() vim.cmd("normal! zz") end
 
 M.cwd_contains = function(str) return string.find(vim.fn.getcwd(), str) end
 

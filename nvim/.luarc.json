@@ -8,7 +8,9 @@
         "/home/ashket/.local/share/nvim/lazy",
         "${3rd}/luassert/library",
         "${3rd}/luassert/library",
-        "${3rd}/luassert/library"
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library",
+        "${3rd}/luv/library"
     ],
     "workspace.checkThirdParty": false
 }

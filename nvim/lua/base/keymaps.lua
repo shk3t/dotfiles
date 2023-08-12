@@ -1,8 +1,5 @@
 local keymap = vim.keymap.set
-local t = require("utils.main").replace_termcodes
-local vc_cmd = require("utils.main").vc_cmd
-local cprev = require("utils.main").cprev
-local cnext = require("utils.main").cnext
+local lib = require("lib.main")
 
 local function toggle_line_numeration()
   vim.opt.number = not vim.o.number
@@ -30,7 +27,7 @@ local function current_file_in_explorer()
   local filename = vim.fn.expand("%:t")
   vim.cmd.Ex()
   local searchreg = vim.fn.getreg("/")
-  vim.cmd(t("normal! /" .. filename .. "<CR>"))
+  lib.norm("/" .. filename .. "<CR>")
   vim.fn.setreg("/", searchreg)
 end
 local function prev_insert_pos()
@@ -38,7 +35,7 @@ local function prev_insert_pos()
     local next_row = unpack(vim.api.nvim_win_get_cursor(0))
     repeat
       local prev_row = next_row
-      vim.cmd(t("normal! g;"))
+      lib.norm("g;")
       next_row = unpack(vim.api.nvim_win_get_cursor(0))
     until prev_row ~= next_row
   end)
@@ -48,13 +45,13 @@ local function longjump(key)
   local next_row = -1
   repeat
     local prev_row = next_row
-    vim.cmd("normal! " .. key)
+    lib.norm(key)
     next_row = unpack(vim.api.nvim_win_get_cursor(0))
   until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
-  -- vim.cmd("normal! zz")
+  -- lib.center_win()
 end
-local function longjump_back() longjump(t("<C-O>")) end
-local function longjump_forward() longjump(t("<C-I>")) end
+local function longjump_back() longjump("<C-O>") end
+local function longjump_forward() longjump("<C-I>") end
 
 -- Commands
 vim.cmd([[command! Cdc cd %:p:h]])
@@ -113,8 +110,8 @@ keymap({"n", "v"}, "<Space>T", toggle_tab_width)
 keymap({"n", "v"}, "<Space>W", toggle_line_wrap)
 keymap("n", "<Space>D", [[:%s/\s\+$//e<CR>/<Up><Up><CR><C-O>]])
 keymap({"n", "v"}, "<Space>S", toggle_fixed_signcolumn)
-keymap("n", "<Space>:s", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
-keymap("n", "<Space>:S", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
+keymap("n", "<Space>:s", [[:s/\<<C-R><C-W>\>/<C-R><C-W>/g<Left><Left>]])
+keymap("n", "<Space>:S", [[:%s/\<<C-R><C-W>\>/<C-R><C-W>/g<Left><Left>]])
 -- keymap("n", "<Space>e", current_file_in_explorer)
 vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)
 keymap({"n", "v"}, "<Space>LR", vim.cmd.LspRestart)
@@ -164,8 +161,8 @@ keymap("n", "g<C-I>", longjump_forward)
 
 -- Quickfix list
 keymap({"n", "v"}, "<Space>qf", vim.cmd.copen)
-keymap({"n", "v"}, "[q", cprev)
-keymap({"n", "v"}, "]q", cnext)
+keymap({"n", "v"}, "[q", lib.cprev)
+keymap({"n", "v"}, "]q", lib.cnext)
 
 -- Marks
 local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
@@ -180,7 +177,7 @@ end
 keymap("n", "dM", function() vim.cmd.delmarks("a-zA-Z") end)
 
 -- Fast actions
-keymap({"n", "v"}, "<C-Q>", "<C-W>q")
+keymap({"n", "v"}, "<C-Q>", function() pcall(function() lib.norm("<C-W>q") end) end)
 keymap({"n", "v"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
 keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap({"n", "v"}, "<C-,>", vim.cmd.tabprevious)
@@ -188,14 +185,14 @@ keymap({"n", "v"}, "<C-.>", vim.cmd.tabnext)
 keymap({"n", "v"}, "<Tab>", "<C-^>")
 -- keymap({"n", "v"}, "<Tab>", function()
 --   if not pcall(function()
---     local bufnrs = require("utils.main").get_recent_buffers()
+--     local bufnrs = require("lib.main").get_recent_buffers()
 --     local prev_buffer, prev_prev_buffer = bufnrs[2], bufnrs[3]
 --     if vim.api.nvim_buf_get_option(prev_buffer, "filetype") == "netrw" then
 --       vim.api.nvim_set_current_buf(prev_prev_buffer)
 --     else
 --       vim.api.nvim_set_current_buf(prev_buffer)
 --     end
---   end) then vim.cmd(t("normal! <C-^>")) end
+--   end) then lib.norm("<C-^>") end
 -- end)
 
 -- Custom jumps
@@ -208,5 +205,5 @@ keymap("s", "<C-C>", "<Esc>")
 
 -- Bugfix
 keymap({"n", "v"}, "<M-Tab>", "<C-I>")
-function longjump_forward() longjump(t("<M-Tab>")) end
+function longjump_forward() longjump("<M-Tab>") end
 keymap("n", "g<M-Tab>", longjump_forward)

@@ -1,8 +1,10 @@
-local DIAGNOSTIC_SIGNS = require("utils.consts").DIAGNOSTIC_SIGNS
+local consts = require("lib.consts")
+
+local function filetype() return vim.bo.filetype end
 
 require("lualine").setup({
   options = {
-    icons_enabled = false,
+    icons_enabled = consts.ICONS_ENABLED,
     theme = "auto",
     component_separators = {left = "", right = ""},
     section_separators = {left = "", right = ""},
@@ -15,7 +17,7 @@ require("lualine").setup({
   sections = {
     lualine_a = {"mode"},
     lualine_b = {
-      "branch",
+      {"branch", icon = ""},
       "diff",
       {
         "diagnostics",
@@ -23,13 +25,16 @@ require("lualine").setup({
         sections = {"error", "warn", "hint"},
         symbols = (function()
           local symbols = {}
-          for k, v in pairs(DIAGNOSTIC_SIGNS) do symbols[k] = v .. " " end
+          for k, v in pairs(consts.DIAGNOSTIC_SIGNS) do symbols[k] = v .. " " end
           return symbols
         end)(),
       },
     },
     lualine_c = {{"filename", path = 1}},
-    lualine_x = {"filetype"},
+    lualine_x = consts.ICONS_ENABLED and {
+      {"filetype", icon = true, icon_only = true},
+      filetype,
+    } or {"filetype"},
     lualine_y = {"%l:%v"},
     lualine_z = {"%LL"},
   },

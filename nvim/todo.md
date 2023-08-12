@@ -1,55 +1,41 @@
 ## IMPORTANT TODOS
-### Later
-- [ ] treesitter better text objects 
-    - jump to class/function name, not keyword
-    - https://github.com/chrisgrieser/nvim-various-textobjs
-    - https://github.com/RRethy/nvim-treesitter-textsubjects
 
 # TODOS
-- [ ] local configs
-- [ ] `:help` catch error on close
-- [?] yank system buffer truncate last linebreak
-- [-] auto signcolumn toggling delay
-- [ ] Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
+- [ ] local configs (how?)
+- [-?] auto signcolumn toggling delay
 ### Keys
-- [-] cmd move caret backward wordwise
-### Lsp
-- [ ] clean imports
-- [ ] rename file with references
-- [ ] null-ls refactoring
-- [ ] tsserver import wihtout whitespaces in braces
-- [-] cmp replace only on confirm
-- [-] duplicate entries for cmp-buffer (clangd, pylsp)
-    - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
-- [-] `<C-D>`/`<C-U>` scroll quick doc
+- [?] yank system buffer truncate last linebreak
 ### Dap
-- [ ] do not allow change scopes split buffer (if it is last used for example)
-    - check dap-ui source code (try to find "builder" function)
 - [ ] debug python libraries (breakpoint rejected)
 - [-] hover without borders
 ### Telescope
-- [ ] preview signcolumn (is it possible???)
 - [ ] `<C-Q>` to add all telescope entries to QF if no selection
-#### custom telescope pickers
-- [ ] hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
+    - [ ] fast global rename
 - [ ] git_status + delta: https://github.com/nvim-telescope/telescope.nvim/issues/605
-### Appearance
-- [ ] aerial icons
-- [ ] nvim-tree icons
-### Jupyter
-- [ ] vscode + neovim
-- [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
-    - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
-- [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
 ### Explore
 - [ ] terminal mode
 - [ ] interesting telescope pickers
 ### Optimize
 - [ ] remove unused builtin vim modules
+### Jupyter
+- [ ] vscode + neovim
+- [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
+    - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
+- [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
 
 <br>
 
-## New plugins
+## Plugins
+### Waiting for update
+- Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
+- cmp replace only on confirm
+- duplicate entries for cmp-buffer (clangd, pylsp)
+    - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
+- `<C-D>`/`<C-U>` scroll quick doc
+- spider russian language support
+- git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
+- xkbsearch: https://github.com/ivanesmantovich/xkbswitch.nvim/issues/8
+- rename file with lsp references: https://github.com/neovim/neovim/issues/20784
 ### Features
 - [-] highlight `f` jumps
 - [ ] better visualblock mode
@@ -61,6 +47,19 @@
 - [ ] jump to error line in stack trace
 - [?] bookmarks
 ### Instances
+- [ ] treesitter better text objects 
+    - jump to class/function name, not keyword
+    - dot-repeat
+    - correct lua function
+    - key, value
+    - fast increment-decrement node selections
+    - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    - https://github.com/RRethy/nvim-treesitter-textsubjects
+    - https://github.com/chrisgrieser/nvim-various-textobjs
+- [ ] refactoring: https://github.com/ThePrimeagen/refactoring.nvim
+- [ ] typescript utils:
+    - https://github.com/jose-elias-alvarez/typescript.nvim
+    - https://github.com/pmizio/typescript-tools.nvim
 - [ ] copilot.lua
 - [ ] grapple
 - [ ] heirline

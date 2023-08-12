@@ -1,7 +1,6 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local print_table = require("utils.main").print_table
-local VERTICAL_BORDERS = require("utils.consts").VERTICAL_BORDERS
+local consts = require("lib.consts")
 
 local confirm_complete = function()
   if cmp.visible() then
@@ -75,6 +74,9 @@ cmp.setup({
     format = function(entry, vim_item)
       for _, redundant_pattern in pairs({"%(.*%)", "~", "?"}) do
         vim_item.abbr = vim_item.abbr:gsub(redundant_pattern, "")
+      end
+      if consts.ICONS_ENABLED then
+        vim_item.kind = string.format("%s %s", consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
       end
       -- vim_item.dup = ({buffer = 0, luasnip = 0})[entry.source.name]
       return vim_item
