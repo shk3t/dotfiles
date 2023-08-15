@@ -32,8 +32,10 @@ require("lualine").setup({
     },
     lualine_c = {{"filename", path = 1}},
     lualine_x = consts.ICONS_ENABLED and {
-      {"filetype", icon = true, icon_only = true},
+      {"filetype", icon = true, icon_only = true, padding = {right = 0}, colored = false},
       filetype,
+      -- {filetype, padding = {right = 0}},
+      -- {"filetype", icon = true, icon_only = true, padding = {right = 2}, colored = false},
     } or {"filetype"},
     lualine_y = {"%l:%v"},
     lualine_z = {"%LL"},

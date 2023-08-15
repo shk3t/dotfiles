@@ -27,6 +27,7 @@ build/
 *.ico
 *.webp
 *.svg
+*.ui
 media/
 
 # Cpp

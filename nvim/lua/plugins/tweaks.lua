@@ -3,7 +3,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local lib = require("lib.main")
 
 require("Comment").setup()
-require('xkbswitch').setup()
+-- require('xkbswitch').setup()
 
 local spider = require("spider")
 keymap({"n", "o", "x"}, "w", function() spider.motion("w") end, {

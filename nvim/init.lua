@@ -77,7 +77,8 @@ require("lazy").setup({
   "debugloop/telescope-undo.nvim",
 
   -- Tweaks
-  "ivanesmantovich/xkbswitch.nvim",
+  "lyokha/vim-xkbswitch",
+  -- "ivanesmantovich/xkbswitch.nvim",
   "numToStr/Comment.nvim",
   "kylechui/nvim-surround",
   "chrisgrieser/nvim-recorder",

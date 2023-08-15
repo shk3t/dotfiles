@@ -10,7 +10,7 @@ alias ve='nvim .'
 alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
-alias vo='nvim -c "execute \"normal! \<C-O>\""'
+alias vl='nvim -c "execute \"normal! \<C-O>\""'
 
 # Colorize output (good for log files)
 alias grep='grep --color=auto'

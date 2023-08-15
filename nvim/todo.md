@@ -1,8 +1,11 @@
 ## IMPORTANT TODOS
+### Later
+- [ ] dot-repeat paste
+- [ ] local configs (how?)
 
 # TODOS
-- [ ] local configs (how?)
 - [-?] auto signcolumn toggling delay
+- [?] xkbswitch statusbar current language
 ### Keys
 - [?] yank system buffer truncate last linebreak
 ### Dap
