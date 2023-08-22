@@ -23,6 +23,17 @@ require("nvim-tree").setup({
   },
   renderer = {
     root_folder_label = false,
+    indent_markers = {
+      enable = true,
+      inline_arrows = false,
+      icons = {
+        corner = "⎹",
+        edge = "⎹",
+        item = "⎹",
+        bottom = "⎹",
+        none = " ",
+      },
+    },
     group_empty = false,
     icons = {
       padding = "  ",
@@ -47,6 +58,17 @@ require("aerial").setup({
   highlight_on_jump = false,
   attach_mode = "window",
   close_on_select = true,
+  show_guides = true,
+  guides = {
+    -- When the child item has a sibling below it
+    mid_item = "⎹ ",
+    -- When the child item is the last in the list
+    last_item = "⎹ ",
+    -- When there are nested child guides to the right
+    nested_top = "⎹ ",
+    -- Raw indentation
+    whitespace = "  ",
+  },
   -- filter_kind = false,
 })
 keymap("n", "gs", vim.cmd.AerialOpen)

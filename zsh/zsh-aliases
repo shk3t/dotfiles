@@ -6,7 +6,7 @@ alias duh='du -had1 | sort -rh'
 
 # Neovim
 alias v='nvim'
-alias ve='nvim .'
+# alias ve='nvim .'
 alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""

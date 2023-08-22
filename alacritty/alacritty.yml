@@ -7,7 +7,7 @@ cursor:
 
 window:
   decorations: full
-  opacity: 0.85
+  opacity: 1
 
 scrolling:
   history: 10000

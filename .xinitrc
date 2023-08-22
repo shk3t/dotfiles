@@ -15,9 +15,9 @@ else # dwm
     export QT_STYLE_OVERRIDE=kvantum
     # export QT_QPA_PLATFORMTHEME=qt5ct
 
-    setxkbmap -option grp:alt_space_toggle \
-        -option ctrl:swap_lwin_lctl \
-        -option caps:escape &
+    # setxkbmap -option grp:alt_space_toggle \
+    #     -option ctrl:swap_lwin_lctl \
+    #     -option caps:escape &
     xset r rate 180 60 &
 
     # picom &

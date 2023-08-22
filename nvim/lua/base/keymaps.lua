@@ -52,6 +52,10 @@ local function longjump(key)
 end
 local function longjump_back() longjump("<C-O>") end
 local function longjump_forward() longjump("<C-I>") end
+local function yank_all_sys_clip()
+  vim.cmd("%y y")
+  vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
+end
 
 -- Commands
 vim.cmd([[command! Cdc cd %:p:h]])
@@ -101,7 +105,7 @@ keymap({"n", "v"}, "<Space>/", function() vim.fn.setreg("/", vim.fn.input("/")) 
 keymap({"n", "v"}, "<Space>", "<Nop>")
 keymap("i", "<C-Space>", "<Nop>")
 keymap({"n", "v"}, "<Space>y", [["+y]])
-keymap({"n", "v"}, "<Space>Y", ":%y+<CR>")
+keymap({"n", "v"}, "<Space>Y", yank_all_sys_clip)
 keymap({"n", "v"}, "<Space>?", "<Cmd>set hlsearch!<CR>")
 keymap({"n", "v"}, "<Space>I", "<Cmd>set ignorecase!<CR>")
 keymap({"n", "v"}, "<Space>N", toggle_line_numeration)

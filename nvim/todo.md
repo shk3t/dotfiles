@@ -1,13 +1,13 @@
 ## IMPORTANT TODOS
 ### Later
-- [ ] dot-repeat paste
+- [ ] install magma
 - [ ] local configs (how?)
+- [ ] dot-repeat paste
+- [ ] yank history
 
 # TODOS
-- [-?] auto signcolumn toggling delay
-- [?] xkbswitch statusbar current language
+- [-?] auto signcolumn toggling adelay
 ### Keys
-- [?] yank system buffer truncate last linebreak
 ### Dap
 - [ ] debug python libraries (breakpoint rejected)
 - [-] hover without borders
@@ -22,7 +22,6 @@
 - [ ] remove unused builtin vim modules
 ### Jupyter
 - [ ] vscode + neovim
-- [ ] fix magma: https://github.com/dccsillag/magma-nvim/issues/83
     - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
 - [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
 
@@ -37,12 +36,11 @@
 - `<C-D>`/`<C-U>` scroll quick doc
 - spider russian language support
 - git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
-- xkbsearch: https://github.com/ivanesmantovich/xkbswitch.nvim/issues/8
+- xkbswitch-nvim fixes: https://github.com/ivanesmantovich/xkbswitch.nvim
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
 ### Features
 - [-] highlight `f` jumps
 - [ ] better visualblock mode
-- [ ] yank history
 - [ ] normal mode in cmd with preview and syntax highlighting
 - [ ] better (modifiable) quickfix buffer
 - [ ] swap lines
