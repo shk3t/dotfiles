@@ -27,8 +27,8 @@ use_ashket() {
     setxkbmap \
         -option grp:win_space_toggle\
         -option grp:alt_space_toggle \
-        -option caps:escape \
-        -option ctrl:swap_lwin_lctl
+        # -option caps:escape \
+        # -option ctrl:swap_lwin_lctl
     echo "ashket" > $LAYOUT_PATH
 }
 
@@ -45,6 +45,12 @@ use_double_control() {
 
 LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
 layout=$(cat $LAYOUT_PATH)
+
+if [[ $# == 0 ]]; then
+    echo $layout
+    exit
+fi
+
 if [[ " $@ " =~ ( -h | --help ) ]]; then
     show_help_message
     exit

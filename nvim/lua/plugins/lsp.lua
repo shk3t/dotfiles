@@ -2,6 +2,7 @@ local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
 local telescope_builtin = require("telescope.builtin")
 local lib = require("lib.main")
+local pylsp_paths = require("local.lsp").pylsp_paths
 local keymap = vim.keymap.set
 local NVIM_ETC = vim.fn.stdpath("config") .. "/etc"
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
@@ -93,14 +94,15 @@ local tss_settings = {
     insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces = tss_spaces_inside_braces,
   },
 }
-local use_pyright = not lib.cwd_contains("s11")
+local use_pylsp = false
+for _, path in ipairs(pylsp_paths) do if lib.cwd_contains(path) then use_pylsp = true end end
 local servers = {
-  pyright = use_pyright and {
+  pyright = not use_pylsp and {
     on_attach = attach(function(client, bufnr)
       keymap("n", "<Space>o", vim.cmd.PyrightOrganizeImports, {buffer = bufnr})
     end),
   },
-  pylsp = not use_pyright and {
+  pylsp = use_pylsp and {
     settings = {
       pylsp = {
         plugins = {
@@ -146,9 +148,7 @@ local servers = {
     settings = {
       Lua = {
         workspace = {checkThirdParty = false},
-        diagnostics = {
-          severity = {["missing-fields"] = "Hint!"},
-        },
+        diagnostics = {severity = {["missing-fields"] = "Hint!"}},
       },
     },
   },

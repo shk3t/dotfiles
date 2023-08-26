@@ -1,5 +1,7 @@
 local M = {}
 
+M.is_empty = function(tbl) return next(tbl) == nil end
+
 M.replace_termcodes = function(str) return vim.api.nvim_replace_termcodes(str, true, true, true) end
 
 M.print_table = function(tbl) for k, v in pairs(tbl) do print(k, v) end end

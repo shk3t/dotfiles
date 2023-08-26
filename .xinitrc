@@ -3,7 +3,9 @@
 # dwm or plasma
 SESSION="plasma"
 LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
-echo "ashket" > $LAYOUT_PATH
+DEFAULT_LAYOUT="normie"
+
+echo $DEFAULT_LAYOUT > $LAYOUT_PATH
 
 if [[ $SESSION == "plasma" ]]; then
     export DESKTOP_SESSION=plasma
@@ -15,9 +17,7 @@ else # dwm
     export QT_STYLE_OVERRIDE=kvantum
     # export QT_QPA_PLATFORMTHEME=qt5ct
 
-    # setxkbmap -option grp:alt_space_toggle \
-    #     -option ctrl:swap_lwin_lctl \
-    #     -option caps:escape &
+    layout-ash --$DEFAULT_LAYOUT
     xset r rate 180 60 &
 
     # picom &

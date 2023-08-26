@@ -1,13 +1,12 @@
 ## IMPORTANT TODOS
-### Later
-- [ ] install magma
-- [ ] local configs (how?)
-- [ ] dot-repeat paste
-- [ ] yank history
+- [-] make external keyboard usb port available on boot
+
+### Later: 1 october
 
 # TODOS
-- [-?] auto signcolumn toggling adelay
+- [-?] auto signcolumn toggling delay
 ### Keys
+- [ ] visual dot-repeat
 ### Dap
 - [ ] debug python libraries (breakpoint rejected)
 - [-] hover without borders
@@ -20,10 +19,6 @@
 - [ ] interesting telescope pickers
 ### Optimize
 - [ ] remove unused builtin vim modules
-### Jupyter
-- [ ] vscode + neovim
-    - [ ] or try fork: https://github.com/WhiteBlackGoose/magma-nvim-goose
-- [ ] jupynium: https://github.com/kiyoon/jupynium.nvim
 
 <br>
 
@@ -38,14 +33,16 @@
 - git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
 - xkbswitch-nvim fixes: https://github.com/ivanesmantovich/xkbswitch.nvim
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
+- magma proper save/load, export to `.ipynb`
 ### Features
+- [ ] jump to error line in stack trace
+- [ ] yank history
 - [-] highlight `f` jumps
 - [ ] better visualblock mode
 - [ ] normal mode in cmd with preview and syntax highlighting
 - [ ] better (modifiable) quickfix buffer
 - [ ] swap lines
 - [ ] dot-repeat preivous jump
-- [ ] jump to error line in stack trace
 - [?] bookmarks
 ### Instances
 - [ ] treesitter better text objects 
@@ -61,6 +58,7 @@
 - [ ] typescript utils:
     - https://github.com/jose-elias-alvarez/typescript.nvim
     - https://github.com/pmizio/typescript-tools.nvim
+- [ ] iron: jupyter support: https://www.maxwellrules.com/misc/nvim_jupyter.html
 - [ ] copilot.lua
 - [ ] grapple
 - [ ] heirline
@@ -85,23 +83,11 @@
 <br>
 
 ## Global
-- [ ] firefox better smooth scrolling
 - [ ] restore tmux + nvim sessions
 ### KDE
 - [ ] note widgets on desktop
-- [ ] keep window decorations without titlebar
-- [ ] highlight focused window frame
 
 ## Another software
 - [ ] pbcopy
 - [ ] Neovide
 - [ ] lf
-
-<br>
-
-## ZSH
-- [ ] OHMYZSH
-- [ ] python venv custom prompt (https://github.com/tonyseek/oh-my-zsh-virtualenv-prompt)
-- [ ] better plugin for git prompt
-- [ ] command args on `<Tab>`
-- [ ] tmux integration (`<C-H`, `<C-L`, ... mappings)

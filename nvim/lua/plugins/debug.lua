@@ -2,6 +2,8 @@ local dap = require("dap")
 local dapui = require("dapui")
 local widgets = require("dap.ui.widgets")
 local lib = require("lib.main")
+local dlib = require("lib.debug")
+local local_configs = require("local.debug").local_configs
 local keymap = vim.keymap.set
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
@@ -18,26 +20,6 @@ end
 -- dap.listeners.after.event_initialized["auto_open_close"] = function() dapui.open() end
 -- dap.listeners.before.event_terminated["auto_open_close"] = function() dapui.close() end
 -- dap.listeners.before.event_exited["auto_open_close"] = function() dapui.close() end
-
-local python_path = (function()
-  local cwd = vim.fn.getcwd()
-  local venvdirs = {"venv", ".venv"}
-
-  for _, venvdir in pairs(venvdirs) do
-    local venvpath = cwd .. "/" .. venvdir
-    local pybin = venvpath .. "/bin/python"
-    if vim.fn.executable(pybin) == 1 then return pybin end
-
-    if vim.fn.isdirectory(venvpath) == 1 then
-      for venvsubdir, filetype in vim.fs.dir(venvpath) do
-        pybin = venvpath .. "/" .. venvsubdir .. "/bin/python"
-        if filetype == "directory" and vim.fn.executable(pybin) == 1 then return pybin end
-      end
-    end
-  end
-
-  return "/usr/bin/python"
-end)()
 
 -- local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
 -- local input_args = function() return split_string(vim.fn.input("Args: ")) end
@@ -84,7 +66,7 @@ local function close_custom_dapui()
 end
 
 local function breakpoint_jump(find_func)
-  local cur_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local cur_row, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
   local cur_buf = vim.api.nvim_get_current_buf()
   local cur_win = vim.api.nvim_get_current_win()
   vim.cmd.copen()
@@ -93,9 +75,9 @@ local function breakpoint_jump(find_func)
   vim.cmd.cclose()
   vim.api.nvim_set_current_win(cur_win)
   qflist = lib.filter(function(v) return v.bufnr == cur_buf end, qflist)
-  if next(qflist) == nil then return end
+  if lib.is_empty(qflist) then return end
   lib.save_jump()
-  vim.api.nvim_win_set_cursor(0, {find_func(cur_row, qflist), 0})
+  vim.api.nvim_win_set_cursor(0, {find_func(cur_row, qflist), cur_col})
 end
 local function bp_find_prev(cur_row, qflist)
   for i = #qflist, 1, -1 do if qflist[i].lnum - cur_row < 0 then return qflist[i].lnum end end
@@ -145,7 +127,7 @@ dapui.setup(dapui_config)
 
 dap.adapters.python = {
   type = "executable",
-  command = python_path,
+  command = dlib.python_path,
   args = {"-m", "debugpy.adapter"},
 }
 dap.adapters.lldb = {
@@ -154,52 +136,16 @@ dap.adapters.lldb = {
   name = "lldb",
 }
 
-local python_default_config = {
-  type = "python",
-  request = "launch",
-  pythonPath = python_path,
-}
 dap.configurations.python = {}
-if lib.cwd_contains("s11") then
+for path, config in pairs(local_configs.python) do
+  if lib.cwd_contains("s11") then
+    dap.configurations.python = config
+    break
+  end
+end
+if lib.is_empty(dap.configurations.python) then
   dap.configurations.python = {
-    vim.tbl_extend("force", python_default_config, {
-      name = "s11",
-      program = vim.fn.getcwd() .. "/s11main.py",
-    }),
-    -- vim.tbl_extend("force", python_default_config, {
-    --   name = "s11 external terminal",
-    --   program = vim.fn.getcwd() .. "/s11main.py",
-    --   console = "externalTerminal",
-    -- }),
-    vim.tbl_extend("force", python_default_config, {
-      name = "ASOV 3",
-      program = vim.fn.getcwd() .. "/Exchange/ExportMedicalHistoriesPacketDeliveryRequest.py",
-      args = {
-        "-u", "dbuser",
-        "-P", "dbpassword",
-        "-t", "2023-08-18T14:45:49",
-        "-a", "b15",
-        "-p", "3306",
-        "-d", "s11",
-        "-D", "/home/ashket/repos/s11/result/",
-      },
-    }),
-  }
-elseif lib.cwd_contains("PharmacyServer") then
-  dap.configurations.python[1] = vim.tbl_extend("force", python_default_config, {
-    name = "Django (noreload)",
-    program = vim.fn.getcwd() .. "/manage.py",
-    args = {"runserver", "--noreload"},
-  })
-elseif lib.cwd_contains("MDLPServer") then
-  dap.configurations.python[1] = vim.tbl_extend("force", python_default_config,
-                                                {
-    name = "Flask",
-    program = vim.fn.getcwd() .. "/main.py",
-  })
-else
-  dap.configurations.python = {
-    vim.tbl_extend("force", python_default_config, {
+    vim.tbl_extend("force", dlib.python_default_config, {
       name = "Default",
       program = "${file}",
     }),
