@@ -1,7 +1,11 @@
 ## IMPORTANT TODOS
-- [-] make external keyboard usb port available on boot
 
 ### Later: 1 october
+- [-] make external keyboard usb port available on boot
+- [ ] openvpn + spotify
+- [ ] clean irrelevant plugins (`todo.md`)
+- [ ] pass keys to zsh via tmux (like vim)
+    - [ ] optimize vim passing (regex)
 
 # TODOS
 - [-?] auto signcolumn toggling delay

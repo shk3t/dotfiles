@@ -138,7 +138,7 @@ dap.adapters.lldb = {
 
 dap.configurations.python = {}
 for path, config in pairs(local_configs.python) do
-  if lib.cwd_contains("s11") then
+  if lib.cwd_contains(path) then
     dap.configurations.python = config
     break
   end

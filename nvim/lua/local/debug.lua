@@ -9,24 +9,24 @@ M.local_configs = {
         name = "s11",
         program = vim.fn.getcwd() .. "/s11main.py",
       }),
-      -- vim.tbl_extend("force", python_default_config, {
-      --   name = "s11 external terminal",
-      --   program = vim.fn.getcwd() .. "/s11main.py",
-      --   console = "externalTerminal",
-      -- }),
-      -- vim.tbl_extend("force", python_default_config, {
-      --   name = "ASOV 3",
-      --   program = vim.fn.getcwd() .. "/Exchange/ExportMedicalHistoriesPacketDeliveryRequest.py",
-      --   args = {
-      --     "-u", "dbuser",
-      --     "-P", "dbpassword",
-      --     "-t", "2023-08-18T14:45:49",
-      --     "-a", "b15",
-      --     "-p", "3306",
-      --     "-d", "s11",
-      --     "-D", "/home/ashket/repos/s11/result/",
-      --   },
-      -- }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "s11 external terminal",
+        program = vim.fn.getcwd() .. "/s11main.py",
+        console = "externalTerminal",
+      }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "ASOV 3",
+        program = vim.fn.getcwd() .. "/Exchange/ExportMedicalHistoriesPacketDeliveryRequest.py",
+        args = {
+          "-u", "dbuser",
+          "-P", "dbpassword",
+          "-t", "2023-08-18T14:45:49",
+          "-a", "b15",
+          "-p", "3306",
+          "-d", "s11",
+          "-D", "/home/ashket/repos/s11/result/",
+        },
+      }),
     },
     ["PharmacyServer"] = {
       vim.tbl_extend("force", python_default_config, {

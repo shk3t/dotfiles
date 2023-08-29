@@ -2,9 +2,9 @@
 # bindkey -s "^E" "nvim .^M"
 # bindkey -s "^F" "nvim . -c 'Telescope find_files'^M"
 # bindkey -s "^G" "nvim . -c 'Telescope live_grep_args'^M"
-bindkey "^C" vi-cmd-mode
-bindkey "^L" autosuggest-accept
+# bindkey "^C" vi-cmd-mode
 # bindkey "^S" autosuggest-toggle
+bindkey "^L" autosuggest-accept
 bindkey "^?" backward-delete-char
 bindkey "^H" backward-kill-word
 bindkey "^[[3~" delete-char
@@ -23,7 +23,7 @@ bindkey "^J" down-history
 stty stop undef  # disable ctrl-s to freeze terminal.
 stty start undef
 stty susp undef
-stty intr "^Q"
+stty intr "^C"
 stty werase "^H"
 
 # Completion menu movements
@@ -38,7 +38,7 @@ bindkey -M menuselect "^[" vi-cmd-mode
 
 # Vim bindings
 bindkey -M viins "^?" backward-delete-char
-bindkey -M visual -s "^C" "^["
+# bindkey -M visual -s "^C" "^["
 bindkey -M vicmd "^[[1;5C" forward-word
 bindkey -M vicmd "^[[1;5D" backward-word
 bindkey -M vicmd "^K" up-history
@@ -47,6 +47,12 @@ bindkey -M vicmd "j" down-line
 bindkey -M vicmd "k" up-line
 bindkey -M vicmd "^S" autosuggest-toggle
 bindkey -rM vicmd ":"
+
+# Fast exit
+exit_zsh() { exit }
+zle -N exit_zsh
+bindkey '^Q' exit_zsh
+bindkey -M vicmd '^Q' exit_zsh
 
 # Complete and run
 function autosuggest-accept-line() {

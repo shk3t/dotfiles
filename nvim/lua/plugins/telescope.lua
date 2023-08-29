@@ -56,14 +56,14 @@ local telescope_config = {
 
     mappings = {
       i = {
-        ["<C-C>"] = function() vim.cmd("stopinsert") end,
+        -- ["<Esc>"] = actions.close,
+        -- ["<C-C>"] = function() vim.cmd("stopinsert") end,
         ["<C-P>"] = actions.cycle_history_prev,
         ["<C-N>"] = actions.cycle_history_next,
         ["<C-J>"] = actions.move_selection_next,
         ["<C-K>"] = actions.move_selection_previous,
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
-        ["<Esc>"] = actions.close,
         ["<C-V>"] = tsclib.paste_action,
         ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,

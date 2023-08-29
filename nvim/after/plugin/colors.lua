@@ -91,7 +91,7 @@ local colorscheme_setups = {
     setup_mark_colors()
     setup_telescope_colors()
   end,
-  ["rose-pine"] = function() require("rose-pine").setup({disable_italics = true}) end,
+  -- ["rose-pine"] = function() require("rose-pine").setup({disable_italics = true}) end,
   ["calvera"] = function() vim.g.calvera_borders = true end,
 }
 

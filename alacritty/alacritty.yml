@@ -8,6 +8,7 @@ cursor:
 window:
   decorations: full
   opacity: 1
+  dynamic_padding: true
 
 scrolling:
   history: 10000
@@ -18,16 +19,10 @@ font:
     style: Regular
 
   bold:
-    family: 'Ubuntu Mono'
     style: Bold
 
   italic:
-    family: 'Ubuntu Mono'
-    style: Italic
-
-  bold_italic:
-    family: 'Ubuntu Mono'
-    style: Bold Italic
+    style: Regular
 
   size: 14
 
