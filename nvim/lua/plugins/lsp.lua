@@ -22,6 +22,7 @@ require("mason-lspconfig").setup({
     "sqls",
     "texlab",
     "tsserver",
+    "gopls",
   },
 })
 require("mason-null-ls").setup({
@@ -44,7 +45,7 @@ local function base_attach(client, bufnr)
   -- keymap("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = bufnr})
   keymap("n", "<Space>rn", vim.lsp.buf.rename, {buffer = bufnr})
   keymap("n", "<Space>ca", vim.lsp.buf.code_action, {buffer = bufnr})
-  keymap({"n", "v"}, "<Space>F", vim.lsp.buf.format, {buffer = bufnr})
+  keymap({"n", "x"}, "<Space>F", vim.lsp.buf.format, {buffer = bufnr})
 
   keymap("n", "gd", telescope_builtin.lsp_definitions, {buffer = bufnr})
   keymap("n", "gD", telescope_builtin.lsp_type_definitions, {buffer = bufnr})
@@ -152,7 +153,7 @@ local servers = {
       },
     },
   },
-
+  gopls = true,
 }
 
 for server, config in pairs(servers) do setup_server(server, config) end

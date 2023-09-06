@@ -14,7 +14,7 @@ vim.keymap.set("n", "dd", function()
   end
 end, {buffer = true})
 
-vim.keymap.set("v", "d", function()
+vim.keymap.set("x", "d", function()
   norm("<Esc>")
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local start_line = vim.fn.line("'<")

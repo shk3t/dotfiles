@@ -26,7 +26,8 @@ vim.opt.completeopt = {"menu", "menuone", "noselect"}
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = {"number", "line"}
+-- vim.opt.cursorlineopt = {"number", "line"}
+vim.opt.cursorlineopt = {"number"}
 vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 vim.opt.signcolumn = "yes"
 

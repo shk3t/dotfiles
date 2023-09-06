@@ -4,7 +4,7 @@ local keymap = vim.keymap.set
 vim.g.jupytext_fmt = "py"
 
 -- Magma.nvim
-keymap("v", "<Space>m", ":<C-U>MagmaEvaluateVisual<CR>")
+keymap("x", "<Space>m", ":<C-U>MagmaEvaluateVisual<CR>")
 keymap("n", "<Space>ml", vim.cmd.MagmaEvaluateLine)
 keymap("n", "<Space>mr", vim.cmd.MagmaReevaluateCell)
 keymap("n", "<Space>md", vim.cmd.MagmaDelete)

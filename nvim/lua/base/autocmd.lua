@@ -76,3 +76,9 @@ autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   command = "setlocal number | setlocal wrap",
 })
+
+-- Aerial
+autocmd("FileType", {
+  pattern = "aerial",
+  command = "set cursorlineopt=line",
+})

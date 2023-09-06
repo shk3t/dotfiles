@@ -11,7 +11,7 @@ local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
 keymap("n", "<C-F>", ":Telescope find_files<CR>") -- frecency bug
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
-keymap("v", "<C-G>", function()
+keymap("x", "<C-G>", function()
   require("telescope-live-grep-args.shortcuts").grep_visual_selection({
     postfix = "",
     quote = false,

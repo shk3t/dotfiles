@@ -1,11 +1,27 @@
 ## IMPORTANT TODOS
 
 ### Later: 1 october
+- [ ] classic `alt+tab`
+- [ ] js/ts debugger
+- [ ] config go lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#gopls
+- [ ] go linter: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#golangci_lint
+- [ ] go formatter: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#gofmt
+- [ ] go dap: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#go-using-delve-directly
 - [-] make external keyboard usb port available on boot
 - [ ] openvpn + spotify
 - [ ] clean irrelevant plugins (`todo.md`)
+- [ ] null-ls alternative (guard?)
 - [ ] pass keys to zsh via tmux (like vim)
     - [ ] optimize vim passing (regex)
+- [ ] treesitter better text objects 
+    - jump to class/function name, not keyword
+    - dot-repeat
+    - correct lua function
+    - key, value, triple quotes
+    - fast increment-decrement node selections
+    - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    - https://github.com/RRethy/nvim-treesitter-textsubjects
+    - https://github.com/chrisgrieser/nvim-various-textobjs
 
 # TODOS
 - [-?] auto signcolumn toggling delay
@@ -49,15 +65,6 @@
 - [ ] dot-repeat preivous jump
 - [?] bookmarks
 ### Instances
-- [ ] treesitter better text objects 
-    - jump to class/function name, not keyword
-    - dot-repeat
-    - correct lua function
-    - key, value
-    - fast increment-decrement node selections
-    - https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-    - https://github.com/RRethy/nvim-treesitter-textsubjects
-    - https://github.com/chrisgrieser/nvim-various-textobjs
 - [ ] refactoring: https://github.com/ThePrimeagen/refactoring.nvim
 - [ ] typescript utils:
     - https://github.com/jose-elias-alvarez/typescript.nvim
@@ -93,5 +100,4 @@
 
 ## Another software
 - [ ] pbcopy
-- [ ] Neovide
 - [ ] lf

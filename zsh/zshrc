@@ -1,5 +1,3 @@
-#!/bin/sh
-
 ZSHPLUGINDIR=$HOME/.local/share/zsh
 
 setopt appendhistory
@@ -33,7 +31,7 @@ source "$ZDOTDIR/zsh-vim-mode"
 source "$ZDOTDIR/zsh-aliases"
 source "$ZDOTDIR/zsh-prompt"
 source "$ZDOTDIR/zsh-keys"
-#source "$ZDOTDIR/zsh-colors"
+source "$ZDOTDIR/zsh-colors"
 source "$ZDOTDIR/zsh-private"
 
 # Plugins

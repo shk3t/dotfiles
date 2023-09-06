@@ -27,8 +27,8 @@ use_ashket() {
     setxkbmap \
         -option grp:win_space_toggle\
         -option grp:alt_space_toggle \
-        # -option caps:escape \
-        # -option ctrl:swap_lwin_lctl
+        -option caps:escape \
+        -option ctrl:swap_lwin_lctl
     echo "ashket" > $LAYOUT_PATH
 }
 

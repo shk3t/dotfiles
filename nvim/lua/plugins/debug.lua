@@ -88,11 +88,11 @@ local function bp_find_next(cur_row, qflist)
   return qflist[1].lnum
 end
 
-keymap({"i", "n", "v"}, "<F9>", dap.continue)
-keymap({"i", "n", "v"}, "<F8>", dap.step_over)
-keymap({"i", "n", "v"}, "<F7>", dap.step_into)
-keymap({"i", "n", "v"}, "<S-F8>", dap.step_out)
-keymap({"i", "n", "v"}, "<S-F9>", dap.goto_)
+keymap({"i", "n", "x"}, "<F9>", dap.continue)
+keymap({"i", "n", "x"}, "<F8>", dap.step_over)
+keymap({"i", "n", "x"}, "<F7>", dap.step_into)
+keymap({"i", "n", "x"}, "<S-F8>", dap.step_out)
+keymap({"i", "n", "x"}, "<S-F9>", dap.goto_)
 keymap("n", "<Space>b", dap.toggle_breakpoint)
 keymap("n", "<Space>BC", function() dap.set_breakpoint(vim.fn.input("")) end)
 keymap("n", "<Space>BL", function() dap.set_breakpoint(nil, nil, vim.fn.input("")) end)
@@ -116,7 +116,7 @@ keymap("n", "<Space>dd", function()
     if current_tabid ~= scopes_widget_tabid then open_custom_dapui() end
   end
 end)
-keymap({"n", "v"}, "<Space>de", widgets.hover)
+keymap({"n", "x"}, "<Space>de", widgets.hover)
 
 dap.defaults.fallback.external_terminal = {
   command = "/usr/bin/alacritty",

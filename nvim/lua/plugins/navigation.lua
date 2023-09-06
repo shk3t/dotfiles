@@ -12,8 +12,8 @@ require("nvim-tree").setup({
     signcolumn = "no",
     mappings = {
       list = {
-        {key = "l", action = "edit"},
-        {key = "h", action = "close_node"},
+        -- {key = "l", action = "edit"},
+        -- {key = "h", action = "close_node"},
         {key = {"r", "R"}, action = "rename"},
         {key = {"%", "a", "d"}, action = "create"},
         {key = "D", action = "trash"},
@@ -57,6 +57,7 @@ require("aerial").setup({
   icons = {Collapsed = " >"},
   highlight_on_jump = false,
   attach_mode = "window",
+  keymaps = {["h"] = false, ["l"] = false},
   close_on_select = true,
   show_guides = true,
   guides = {

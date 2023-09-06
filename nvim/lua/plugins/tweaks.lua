@@ -6,18 +6,22 @@ require("Comment").setup()
 -- require('xkbswitch').setup()
 
 local spider = require("spider")
-keymap({"n", "o", "x"}, "w", function() spider.motion("w") end, {
-  desc = "Spider-w",
-})
-keymap({"n", "o", "x"}, "e", function() spider.motion("e") end, {
-  desc = "Spider-e",
-})
-keymap({"n", "o", "x"}, "b", function() spider.motion("b") end, {
-  desc = "Spider-b",
-})
-keymap({"n", "o", "x"}, "ge", function() spider.motion("ge") end, {
-  desc = "Spider-ge",
-})
+vim.g.spider_mappings = false
+
+local function toggle_spider_keymaps()
+  if not vim.g.spider_mappings then
+    for _, key in pairs({"w", "e", "b", "ge"}) do
+      keymap({"n", "o", "x"}, key, function() spider.motion(key) end, {
+        desc = "Spider-" .. key,
+      })
+    end
+  else
+    for _, key in pairs({"w", "e", "b", "ge"}) do vim.keymap.set({"n", "o", "x"}, key, key) end
+  end
+  vim.g.spider_mappings = not vim.g.spider_mappings
+  print("Spider mappings: " .. tostring(vim.g.spider_mappings))
+end
+vim.keymap.set({"n", "o", "x"}, "<S-Space>", toggle_spider_keymaps)
 
 require("nvim-surround").setup({
   keymaps = {

@@ -98,4 +98,4 @@ require("diffview").setup({
   use_icons = false,
   signs = {fold_closed = ">", fold_open = "v", done = "√"},
 })
-keymap({"n", "v"}, "<Space>GD", vim.cmd.DiffviewOpen)
+keymap({"n", "x"}, "<Space>GD", vim.cmd.DiffviewOpen)

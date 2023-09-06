@@ -12,12 +12,16 @@ alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
 alias vl='nvim -c "execute \"normal! \<C-O>\""'
 
+# Tmux
+alias t='tmux'
+alias ta='tmux a -t 0'
+
 # Colorize output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ls='ls -Av --group-directories-first --color=auto'
-alias l='ls -lApthv --group-directories-first --color=auto'
+alias l='ls -lApthvr --group-directories-first --color=auto'
 
 # Navigation
 function cd {

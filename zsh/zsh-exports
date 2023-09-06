@@ -41,3 +41,4 @@ eval "$(zoxide init zsh)"
 EDITOR="nvim"
 TERMINAL="alacritty"
 BROWSER="firefox"
+TERMINAL_BLUR_ENABLED=1

@@ -199,6 +199,7 @@ key_bindings:
   # Unicode characters: https://en.wikipedia.org/wiki/List_of_Unicode_characters
 
   - { key: Return, mods: Shift, chars: "\x1b[13;2u" }
+  - { key: Space, mods: Shift, chars: "\x1b[32;2u" }
   - { key: Tab, mods: Control, chars: "\x1b[27;5;9~" }
   - { key: Tab, mods: Control|Shift, chars: "\x1b[27;6;9~" }
   - { key: Comma, mods: Control, chars: "\x1b[44;5u" }
