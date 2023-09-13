@@ -55,19 +55,21 @@ require("lazy").setup({
   'antosha417/nvim-lsp-file-operations',
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
-  "lewis6991/gitsigns.nvim",
-  "sindrets/diffview.nvim",
   "goerz/jupytext.vim",
   {"dccsillag/magma-nvim", build = ":UpdateRemotePlugins"},
   -- "hkupty/iron.nvim",
   -- "kana/vim-textobj-user",
   -- "GCBallesteros/vim-textobj-hydrogen",
 
+  -- Git
+  "lewis6991/gitsigns.nvim",
+  "FabijanZulj/blame.nvim",
+  "sindrets/diffview.nvim",
+
   -- Navigation
   "kyazdani42/nvim-tree.lua",
   "stevearc/aerial.nvim",
-  -- "ThePrimeagen/harpoon",
-  -- "cbochs/grapple.nvim",
+  "ThePrimeagen/harpoon",
 
   -- Telescope
   {"nvim-telescope/telescope.nvim", lazy = true},

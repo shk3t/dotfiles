@@ -77,13 +77,10 @@ keymap("c", "<C-K>", "<C-P>")
 keymap({"n", "x"}, "<C-S-C>", [["+y]])
 keymap({"n", "x"}, "<M-Left>", "<C-O>")
 keymap({"n", "x"}, "<M-Right>", "<C-I>")
--- keymap({"n", "x"}, "-", "^")
 keymap({"n", "x"}, "<C-Z>", "<Nop>")
 
 -- Visual actions
 keymap("x", "P", [["0p]])
--- keymap("x", "J", ":m '>+1<CR>gv=gv")
--- keymap("x", "K", ":m '<-2<CR>gv=gv")
 
 -- Focus
 -- keymap({"n", "x"}, "<C-D>", "<C-D>zz")
@@ -171,6 +168,8 @@ keymap({"n", "x"}, "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {
 keymap("n", "g;", prev_insert_pos)
 keymap("n", "g<C-O>", longjump_back)
 keymap("n", "g<C-I>", longjump_forward)
+keymap("n", "<C-M-Left>", longjump_back)
+keymap("n", "<C-M-Right>", longjump_forward)
 
 -- Quickfix list
 keymap({"n", "x"}, "<Space>qf", vim.cmd.copen)
@@ -222,3 +221,4 @@ keymap("s", "<C-C>", "<Esc>")
 keymap({"n", "x"}, "<M-Tab>", "<C-I>")
 function longjump_forward() longjump("<M-Tab>") end
 keymap("n", "g<M-Tab>", longjump_forward)
+keymap("n", "<C-M-Right>", longjump_forward)

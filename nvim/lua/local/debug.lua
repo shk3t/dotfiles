@@ -41,6 +41,12 @@ M.local_configs = {
         program = vim.fn.getcwd() .. "/main.py",
       }),
     },
+    ["gogame/backend"] = {
+      vim.tbl_extend("force", python_default_config, {
+        name = "GoGame FastApi",
+        program = vim.fn.getcwd() .. "/rundev.py",
+      }),
+    },
   },
 }
 

@@ -53,7 +53,7 @@ require("nvim-tree").setup({
 require("lsp-file-operations").setup()
 
 require("aerial").setup({
-  layout = {default_direction = "prefer_left", max_width = {25, 0.3}},
+  layout = {default_direction = "prefer_left", max_width = {28, 0.3}},
   icons = {Collapsed = " >"},
   highlight_on_jump = false,
   attach_mode = "window",

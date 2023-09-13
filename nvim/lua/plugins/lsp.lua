@@ -52,6 +52,15 @@ local function base_attach(client, bufnr)
   keymap("n", "gi", telescope_builtin.lsp_implementations, {buffer = bufnr})
   keymap("n", "gr", telescope_builtin.lsp_references, {buffer = bufnr})
 
+  keymap("n", "<C-LeftMouse>", function()
+    lib.norm("<LeftMouse>")
+    vim.lsp.buf.definition()
+  end, {buffer = bufnr})
+  keymap("n", "<C-RightMouse>", function()
+    lib.norm("<LeftMouse>")
+    vim.lsp.buf.references()
+  end, {buffer = bufnr})
+
   -- if false then vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end end
 
   client.server_capabilities.documentFormattingProvider = false

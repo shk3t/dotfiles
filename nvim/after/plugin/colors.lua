@@ -55,6 +55,13 @@ local function setup_telescope_colors()
   highlight("TelescopeSelectionCaret", {blend = 0})
 end
 
+local normal = get_highlight("Normal")
+local g_fg, g_bg = normal.fg, normal.bg
+local function setup_harpoon_colors()
+  highlight("HarpoonWindow", {bg = g_bg})
+  highlight("HarpoonBorder", {bg = g_bg})
+end
+
 local function setup_mark_colors() highlight("MarkSignNumHL", {link = "NONE"}) end
 
 local function define_diagnostic_signs()
@@ -90,6 +97,7 @@ local colorscheme_setups = {
     define_dap_signs()
     setup_mark_colors()
     setup_telescope_colors()
+    setup_harpoon_colors()
   end,
   -- ["rose-pine"] = function() require("rose-pine").setup({disable_italics = true}) end,
   ["calvera"] = function() vim.g.calvera_borders = true end,
@@ -103,9 +111,7 @@ local function setup_colors()
       break
     end
   end
-  if consts.ICONS_ENABLED then
-    require("nvim-web-devicons").setup()
-  end
+  if consts.ICONS_ENABLED then require("nvim-web-devicons").setup() end
 end
 
 autocmd({"Colorscheme", "SourcePost"}, {callback = setup_colors})

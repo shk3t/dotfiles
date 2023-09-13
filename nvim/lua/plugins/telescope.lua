@@ -5,11 +5,14 @@ local lga_actions = require("telescope-live-grep-args.actions")
 local undo_actions = require("telescope-undo.actions")
 local dap = require("dap")
 local keymap = vim.keymap.set
-local tsclib = require("lib.telescope")
+local lib = require("lib.main")
+local telelib = require("lib.telescope")
 local consts = require("lib.consts")
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
+
 keymap("n", "<C-F>", ":Telescope find_files<CR>") -- frecency bug
+keymap("x", "<C-F>", telelib.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
 keymap("x", "<C-G>", function()
   require("telescope-live-grep-args.shortcuts").grep_visual_selection({
@@ -19,7 +22,7 @@ keymap("x", "<C-G>", function()
   })
 end)
 keymap("n", "<C-P>", builtin.resume)
-keymap("n", "<S-Tab>", builtin.buffers)
+keymap("n", "g<Tab>", builtin.buffers)
 keymap("n", "<Space>th", builtin.help_tags)
 keymap("n", "<Space>tk", builtin.keymaps)
 keymap("n", "<Space>tp", builtin.registers)
@@ -31,8 +34,8 @@ keymap("n", "<Space>gb", builtin.git_branches)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
 keymap("n", "<Space>tq", builtin.quickfix)
 keymap("n", [[<Space>"]], builtin.marks)
-keymap("n", [[<Space>']], tsclib.custom_quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
-keymap("n", "<Space>tb", tsclib.custom_quickfix_picker("Breakpoints", function()
+keymap("n", [[<Space>']], telelib.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
+keymap("n", "<Space>tb", telelib.quickfix_picker("Breakpoints", function()
   vim.cmd.copen()
   dap.list_breakpoints()
 end))
@@ -64,13 +67,20 @@ local telescope_config = {
         ["<C-K>"] = actions.move_selection_previous,
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
-        ["<C-V>"] = tsclib.paste_action,
+        ["<C-V>"] = telelib.paste_action,
         ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+        ["<RightMouse>"] = actions.close,
+        ["<LeftMouse>"] = actions.select_default,
+        ["<ScrollWheelDown>"] = actions.move_selection_next,
+        ["<ScrollWheelUp>"] = actions.move_selection_previous,
       },
       n = {
         ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
         ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["0"] = function() lib.norm("0w") end,
+        ["^"] = function() lib.norm("0w") end,
       },
     },
     vimgrep_arguments = {
@@ -126,7 +136,7 @@ local telescope_config = {
           ["<C-S>"] = lga_actions.quote_prompt(),
           ["<C-G>"] = function(prompt_bufnr)
             lga_actions.quote_prompt({postfix = " --iglob ****"})(prompt_bufnr)
-            vim.cmd("normal! 2h")
+            lib.norm("2h")
           end,
         },
       },
@@ -146,7 +156,7 @@ local telescope_config = {
     },
   },
 }
-tsclib.adjust_iconpath_display(telescope_config, {"find_files", "buffers"}, {
+telelib.adjust_iconpath_display(telescope_config, {"find_files", "buffers"}, {
   "live_grep_args",
 })
 telescope.setup(telescope_config)

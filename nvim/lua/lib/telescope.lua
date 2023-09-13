@@ -10,7 +10,13 @@ M.paste_action = function(_)
   end
 end
 
-M.custom_quickfix_picker = function(title, callback)
+M.get_visual_selection = function()
+  local _, ls, cs = unpack(vim.fn.getpos("v"))
+  local _, le, ce = unpack(vim.fn.getpos("."))
+  return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+end
+
+M.quickfix_picker = function(title, callback)
   return function()
     if not pcall(function() callback() end) then return end
     local cur_win = vim.api.nvim_get_current_win()
@@ -26,6 +32,21 @@ M.adjust_iconpath_display = function(config, pickers, ext_pickers)
   local function adjusted_diplay(opts, path) return " " .. path end
   for _, picker in pairs(pickers) do config.pickers[picker].path_display = adjusted_diplay end
   for _, picker in pairs(ext_pickers) do config.extensions[picker].path_display = adjusted_diplay end
+end
+
+M.visual_picker = function(picker)
+  return function()
+    local visual = M.get_visual_selection()
+    local text = visual[1] or ""
+    picker({default_text = text})
+  end
+end
+
+M.cword_picker = function(picker)
+  return function()
+    local word_under_cursor = vim.fn.expand("<cword>")
+    picker({default_text = word_under_cursor})
+  end
 end
 
 return M

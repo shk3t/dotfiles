@@ -74,11 +74,17 @@ autocmd("BufEnter", {
 -- Telescope
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
-  command = "setlocal number | setlocal wrap",
+  command = "setlocal number | setlocal wrap | setlocal cursorline",
 })
-
 -- Aerial
 autocmd("FileType", {
   pattern = "aerial",
-  command = "set cursorlineopt=line",
+  command = "setlocal cursorlineopt=line",
+})
+-- Harpoon
+autocmd("FileType", {pattern = "harpoon", command = "setlocal cursorline"})
+-- Git blame
+autocmd("FileType", {
+  pattern = "blame",
+  command = "setlocal nonumber | setlocal signcolumn=no | setlocal nowrap | setlocal cursorlineopt=line",
 })

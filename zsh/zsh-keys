@@ -60,8 +60,8 @@ function autosuggest-accept-line() {
     zle accept-line
 }
 zle -N autosuggest-accept-line
-bindkey "^[[13;5u" autosuggest-accept-line
-# bindkey "^[[13;5u" autosuggest-accept
+# bindkey "^[[13;5u" autosuggest-accept-line
+bindkey "^[[13;5u" autosuggest-accept
 bindkey "^[[13;2u" accept-and-hold
 
 # Yank to the system clipboard

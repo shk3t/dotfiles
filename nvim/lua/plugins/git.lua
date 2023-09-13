@@ -1,4 +1,4 @@
-local custom_quickfix_picker = require("lib.telescope").custom_quickfix_picker
+local custom_quickfix_picker = require("lib.telescope").quickfix_picker
 
 local keymap = vim.keymap.set
 
@@ -21,10 +21,10 @@ require("gitsigns").setup {
   current_line_blame_opts = {
     virt_text = true,
     virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
-    delay = 100,
+    delay = 0,
     ignore_whitespace = false,
   },
-  current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+  current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d>: <summary> (<abbrev_sha>)",
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
@@ -85,13 +85,16 @@ require("gitsigns").setup {
 
     bufmap("n", "<Space>GA", gs.stage_buffer)
     bufmap("n", "<Space>GR", gs.reset_buffer)
-    bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
+    -- bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
     bufmap("n", "<Space>GP", gs.toggle_deleted)
 
     -- Text object
     bufmap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
   end,
 }
+
+require('blame').setup({width = 35})
+keymap("n", "<Space>GB", vim.cmd.ToggleBlame)
 
 local actions = require("diffview.actions")
 require("diffview").setup({
