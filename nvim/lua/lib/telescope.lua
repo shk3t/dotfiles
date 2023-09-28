@@ -2,18 +2,13 @@ local M = {}
 
 local builtin = require("telescope.builtin")
 local consts = require("lib.consts")
+local lib = require("lib.main")
 
 M.paste_action = function(_)
   local selection = vim.fn.getreg("\"") or ""
   if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
     vim.api.nvim_paste(selection, true, -1)
   end
-end
-
-M.get_visual_selection = function()
-  local _, ls, cs = unpack(vim.fn.getpos("v"))
-  local _, le, ce = unpack(vim.fn.getpos("."))
-  return vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
 end
 
 M.quickfix_picker = function(title, callback)
@@ -36,9 +31,8 @@ end
 
 M.visual_picker = function(picker)
   return function()
-    local visual = M.get_visual_selection()
-    local text = visual[1] or ""
-    picker({default_text = text})
+    local visual = lib.get_visual()
+    picker({default_text = visual})
   end
 end
 

@@ -9,30 +9,31 @@ local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 require("mason").setup()
 require("mason-lspconfig").setup({
-  ensure_installed = {
-    "bashls",
-    "clangd",
-    "cssls",
-    "html",
-    "jsonls",
-    "lua_ls",
-    "pyright",
-    "jedi_language_server",
-    "pylsp",
-    "sqls",
-    "texlab",
-    "tsserver",
-    "gopls",
-  },
+  -- ensure_installed = {
+  --   "bashls",
+  --   "clangd",
+  --   "html",
+  --   "cssls",
+  --   "cssmodules_ls",
+  --   "jsonls",
+  --   "lua_ls",
+  --   "pyright",
+  --   "jedi_language_server",
+  --   "pylsp",
+  --   "sqls",
+  --   "texlab",
+  --   "tsserver",
+  --   "gopls",
+  -- },
 })
 require("mason-null-ls").setup({
-  ensure_installed = {
-    "black",
-    "clang-format",
-    "luaformatter",
-    "prettier",
-    "pylint",
-  },
+  -- ensure_installed = {
+  --   "black",
+  --   "clang-format",
+  --   "luaformatter",
+  --   "prettier",
+  --   "pylint",
+  -- },
 })
 
 local function base_init(client)
@@ -139,6 +140,7 @@ local servers = {
   },
   html = true,
   cssls = true,
+  cssmodules_ls = true,
   jsonls = true,
   clangd = {
     cmd = {

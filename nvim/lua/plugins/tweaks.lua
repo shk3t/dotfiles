@@ -16,12 +16,12 @@ local function toggle_spider_keymaps()
       })
     end
   else
-    for _, key in pairs({"w", "e", "b", "ge"}) do vim.keymap.set({"n", "o", "x"}, key, key) end
+    for _, key in pairs({"w", "e", "b", "ge"}) do keymap({"n", "o", "x"}, key, key) end
   end
   vim.g.spider_mappings = not vim.g.spider_mappings
   print("Spider mappings: " .. tostring(vim.g.spider_mappings))
 end
-vim.keymap.set({"n", "o", "x"}, "<S-Space>", toggle_spider_keymaps)
+keymap({"n", "o", "x"}, "<S-Space>", toggle_spider_keymaps)
 
 require("nvim-surround").setup({
   keymaps = {

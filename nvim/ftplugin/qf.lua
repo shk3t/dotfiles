@@ -1,8 +1,11 @@
 local norm = require("lib.main").norm
+local keymap = vim.keymap.set
 -- vim.g.prev_qflist = nil
 -- vim.g.prev_qfpos = nil
 
-vim.keymap.set("n", "dd", function()
+keymap("n", "<CR>", "<CR>", {buffer = true})
+
+keymap("n", "dd", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local qflist = vim.fn.getqflist()
   vim.g.prev_qflist = qflist
@@ -14,7 +17,7 @@ vim.keymap.set("n", "dd", function()
   end
 end, {buffer = true})
 
-vim.keymap.set("x", "d", function()
+keymap("x", "d", function()
   norm("<Esc>")
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local start_line = vim.fn.line("'<")
@@ -30,7 +33,7 @@ vim.keymap.set("x", "d", function()
   end
 end, {buffer = true})
 
-vim.keymap.set("n", "u", function()
+keymap("n", "u", function()
   if not vim.g.prev_qflist then return end
   vim.fn.setqflist(vim.g.prev_qflist, "r")
   pcall(function() vim.api.nvim_win_set_cursor(0, vim.g.prev_qfpos) end)

@@ -1,7 +1,7 @@
 ## IMPORTANT TODOS
 
 ### Later: 1 october
-- [-] make external keyboard usb port available on boot
+- [-] make external keyboard usb port available on boot: https://github.com/qmk/qmk_firmware/issues/19593
 - [ ] jump to error line in stack trace
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
@@ -16,6 +16,7 @@
         - fast increment-decrement node selections
 - [ ] js/ts debugger
 - [ ] neogit
+- [ ] command line rename (:s) autocomplete
 
 # TODOS
 - [-?] auto signcolumn toggling delay

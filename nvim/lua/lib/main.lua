@@ -20,6 +20,13 @@ M.vc_cmd = function(vimcmd)
   for i = 1, vim.v.count - 1 do vimcmd() end
 end
 
+M.get_visual = function()
+  local _, ls, cs = unpack(vim.fn.getpos("v"))
+  local _, le, ce = unpack(vim.fn.getpos("."))
+  local visual = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+  return visual[1] or ""
+end
+
 M.save_jump = function() vim.cmd("normal! m'") end
 M.center_win = function() vim.cmd("normal! zz") end
 

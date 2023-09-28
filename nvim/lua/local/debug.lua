@@ -14,18 +14,15 @@ M.local_configs = {
         program = vim.fn.getcwd() .. "/s11main.py",
         console = "externalTerminal",
       }),
+      vim.tbl_extend("force", python_default_config,
+                     {
+        name = "Update policies",
+        program = vim.fn.getcwd() .. "/update_policies.py",
+      }),
       vim.tbl_extend("force", python_default_config, {
-        name = "ASOV 3",
-        program = vim.fn.getcwd() .. "/Exchange/ExportMedicalHistoriesPacketDeliveryRequest.py",
-        args = {
-          "-u", "dbuser",
-          "-P", "dbpassword",
-          "-t", "2023-08-18T14:45:49",
-          "-a", "b15",
-          "-p", "3306",
-          "-d", "s11",
-          "-D", "/home/ashket/repos/s11/result/",
-        },
+        name = "Update policies external terminal",
+        program = vim.fn.getcwd() .. "/update_policies.py",
+        console = "externalTerminal",
       }),
     },
     ["PharmacyServer"] = {
@@ -42,9 +39,14 @@ M.local_configs = {
       }),
     },
     ["gogame/backend"] = {
-      vim.tbl_extend("force", python_default_config, {
+      vim.tbl_extend("force", python_default_config,
+                     {
         name = "GoGame FastApi",
         program = vim.fn.getcwd() .. "/rundev.py",
+      }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Default",
+        program = "${file}",
       }),
     },
   },
