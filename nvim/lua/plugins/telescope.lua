@@ -10,6 +10,7 @@ local telelib = require("lib.telescope")
 local consts = require("lib.consts")
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
+
 keymap("n", "<C-F>", ":Telescope find_files<CR>") -- frecency bug
 keymap("x", "<C-F>", telelib.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
@@ -160,7 +161,7 @@ telelib.adjust_iconpath_display(telescope_config, {"find_files", "buffers"}, {
 })
 telescope.setup(telescope_config)
 
-pcall(function() telescope.load_extension("fzf") end)
+telescope.load_extension("fzf")
 telescope.load_extension("live_grep_args")
 telescope.load_extension("undo")
 
