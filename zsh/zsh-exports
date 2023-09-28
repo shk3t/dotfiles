@@ -8,6 +8,7 @@ SAVEHIST=10000
 
 # Path
 PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+PATH="/data/data/com.termux/files/usr/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/bin"
 PATH="$PATH:$HOME/.cargo/bin"
