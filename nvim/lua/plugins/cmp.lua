@@ -25,10 +25,8 @@ cmp.setup({
     ["<C-D>"] = cmp.mapping.scroll_docs(4),
     ["<C-B>"] = cmp.mapping.scroll_docs(-8),
     ["<C-F>"] = cmp.mapping.scroll_docs(8),
-    -- ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-E>"] = cmp.mapping.close(),
-    -- ["<C-H>"] = cmp.mapping.abort(),
-    -- ["<C-L>"] = confirm_complete,
+    ["<C-Space>"] = confirm_complete,
     ["<C-CR>"] = confirm_complete,
     ["<C-K>"] = cmp.mapping(cmp.mapping.select_prev_item({
       behavior = cmp.SelectBehavior.Insert,
@@ -38,13 +36,9 @@ cmp.setup({
     }), {"i", "c"}),
     ["<C-P>"] = cmp.mapping.select_prev_item(),
     ["<C-N>"] = cmp.mapping.select_next_item(),
-    -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    -- ["<Tab>"] = cmp.mapping.select_next_item(),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if luasnip.jumpable(1) then
         luasnip.jump(1)
-        -- if luasnip.expand_or_jumpable() then
-        --     luasnip.expand_or_jump()
       elseif cmp.visible() then
         cmp.select_next_item()
       else
@@ -66,9 +60,8 @@ cmp.setup({
     {name = "luasnip"},
     {name = "nvim_lsp"},
     {name = "path"},
-    {name = "buffer", option = {keyword_pattern = [[\k\+]]}}, -- I should think about it
+    {name = "buffer", option = {keyword_pattern = [[\k\+]]}},
     {name = "nvim_lsp_signature_help"},
-    -- { name = "cmp_tabnine" },
   }),
   formatting = {
     format = function(entry, vim_item)
@@ -78,7 +71,6 @@ cmp.setup({
       if consts.ICONS_ENABLED then
         vim_item.kind = string.format("%s %s", consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
       end
-      -- vim_item.dup = ({buffer = 0, luasnip = 0})[entry.source.name]
       return vim_item
     end,
   },
@@ -94,6 +86,3 @@ cmp.setup.filetype({"dap-repl", "dapui_watches", "dapui_hover"}, {
 require("luasnip.loaders.from_vscode").lazy_load()
 
 luasnip.filetype_extend("htmldjango", {"html"})
-
--- load snippets from path/of/your/nvim/config/my-cool-snippets
--- require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./my-cool-snippets" } })

@@ -50,7 +50,7 @@ vim.opt.undofile = true
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shadas/" .. vim.fn.getcwd():gsub("/", "%%")
 
 -- Navigation
-vim.opt.jumpoptions = "stack"
+-- vim.opt.jumpoptions = "stack"
 
 -- Explorer
 vim.g.netrw_list_hide = [[^\./$]]

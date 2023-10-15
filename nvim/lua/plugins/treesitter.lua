@@ -3,7 +3,7 @@ local keymap = vim.keymap.set
 require("nvim-treesitter.configs").setup({
   -- ensure_installed = "all",
   highlight = {enable = true, disable = {"sql", "asm"}},
-  indent = {enable = true, disable = {"python", "css", "c", "cpp", "lua"}},
+  indent = {enable = true, disable = {"css", "c", "cpp", "lua"}},
   incremental_selection = {
     enable = true,
     keymaps = {

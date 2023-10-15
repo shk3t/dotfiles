@@ -1,6 +1,7 @@
 ## IMPORTANT TODOS
 
-### Later: 1 october
+### Later: 1 november
+- [ ] js/ts debugger
 - [-] make external keyboard usb port available on boot: https://github.com/qmk/qmk_firmware/issues/19593
 - [ ] jump to error line in stack trace
 - [ ] treesitter better text objects 
@@ -14,7 +15,6 @@
         - correct lua function
         - key, value, triple quotes
         - fast increment-decrement node selections
-- [ ] js/ts debugger
 - [ ] neogit
 - [ ] command line rename (:s) autocomplete
 

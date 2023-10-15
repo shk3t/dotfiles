@@ -23,13 +23,6 @@ local function toggle_fixed_signcolumn()
     vim.opt.signcolumn = "auto:1-2"
   end
 end
-local function current_file_in_explorer()
-  local filename = vim.fn.expand("%:t")
-  vim.cmd.Ex()
-  local searchreg = vim.fn.getreg("/")
-  lib.norm("/" .. filename .. "<CR>")
-  vim.fn.setreg("/", searchreg)
-end
 local function prev_insert_pos()
   pcall(function()
     local next_row = unpack(vim.api.nvim_win_get_cursor(0))
@@ -82,16 +75,6 @@ keymap({"n", "x"}, "<C-Z>", "<Nop>")
 -- Visual actions
 keymap("x", "P", [["0p]])
 
--- Focus
--- keymap({"n", "x"}, "<C-D>", "<C-D>zz")
--- keymap({"n", "x"}, "<C-U>", "<C-U>zz")
--- keymap({"n", "x"}, "<C-O>", "<C-O>zz")
--- keymap({"n", "x"}, "<C-I>", "<C-I>zz")
--- keymap({"n", "x"}, "#", "#zz")
--- keymap({"n", "x"}, "*", "*zz")
--- keymap({"n", "x"}, "n", [['Nn'[v:searchforward] . 'zz']], {expr = true})
--- keymap({"n", "x"}, "N", [['nN'[v:searchforward] . 'zz']], {expr = true})
-
 -- Search
 keymap({"n", "x"}, "n", "'Nn'[v:searchforward]", {expr = true})
 keymap({"n", "x"}, "N", "'nN'[v:searchforward]", {expr = true})
@@ -110,8 +93,8 @@ keymap({"n", "x"}, "<Space>", "<Nop>")
 keymap("i", "<C-Space>", "<Nop>")
 keymap({"n", "x"}, "<Space>y", [["+y]])
 keymap({"n", "x"}, "<Space>Y", yank_all_sys_clip)
-keymap({"n", "x"}, "<Space>p", [["0p]])
-keymap({"n", "x"}, "<Space>P", [["0P]])
+keymap({"n", "x"}, "<Space>p", [["+p]])
+keymap({"n", "x"}, "<Space>P", [["+P]])
 keymap({"n", "x"}, "<Space>?", "<Cmd>set hlsearch!<CR>")
 keymap({"n", "x"}, "<Space>I", "<Cmd>set ignorecase!<CR>")
 keymap({"n", "x"}, "<Space>LN", toggle_line_numeration)
@@ -130,11 +113,10 @@ keymap("x", "<Space>S", function()
   vim.cmd([[%s/]] .. lib.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
   lib.norm([[<Esc><C-O>]])
 end)
--- keymap("n", "<Space>e", current_file_in_explorer)
 vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)
 keymap({"n", "x"}, "<Space>LR", vim.cmd.LspRestart)
 keymap({"n", "x"}, "<Space>LI", vim.cmd.LspInfo)
-keymap({"n", "x"}, "<Space>PM", vim.cmd.MarkdownPreviewToggle)
+keymap({"n", "x"}, "<Space>MP", vim.cmd.MarkdownPreviewToggle)
 keymap({"n", "x"}, "<Space>BD", function()
   vim.cmd("%bd")
   lib.norm("<C-O>")
@@ -166,7 +148,6 @@ keymap({"n", "x"}, "<C-W>Q", vim.cmd.tabclose)
 keymap({"n", "x"}, "<C-W>n", rename_tab)
 keymap({"n", "x"}, "<C-W><C-N>", rename_tab)
 keymap({"n", "x"}, "<C-W>M", "gT<Cmd>Tabmerge right<CR><C-W>l")
--- keymap({"n", "x"}, "<S-Tab>", "g<Tab>")
 keymap({"n", "x"}, "<Space><Tab>", "g<Tab>")
 keymap({"n", "x"}, "<C-W>p", "g<Tab>")
 
@@ -196,7 +177,6 @@ for i = 1, #buffer_marks do
   local mark = buffer_marks:sub(i, i)
   keymap({"n", "x"}, "m" .. mark, "m" .. mark:upper())
   keymap({"n", "x"}, "'" .. mark, "'" .. mark:upper())
-  -- keymap({"n", "x"}, "'" .. mark, "'" .. mark:upper() .. "zz")
   keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
   keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
 end
@@ -209,23 +189,6 @@ keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap("i", "<C-Z>", "<C-O>u")
 keymap("i", "<C-S-Z>", "<C-O><C-R>")
 keymap({"n", "x"}, "<Tab>", "<C-^>")
--- keymap({"n", "x"}, "<C-,>", vim.cmd.tabprevious)
--- keymap({"n", "x"}, "<C-.>", vim.cmd.tabnext)
--- keymap({"n", "x"}, "<Tab>", function()
---   if not pcall(function()
---     local bufnrs = require("lib.main").get_recent_buffers()
---     local prev_buffer, prev_prev_buffer = bufnrs[2], bufnrs[3]
---     if vim.api.nvim_buf_get_option(prev_buffer, "filetype") == "netrw" then
---       vim.api.nvim_set_current_buf(prev_prev_buffer)
---     else
---       vim.api.nvim_set_current_buf(prev_buffer)
---     end
---   end) then lib.norm("<C-^>") end
--- end)
-
--- Custom jumps
--- keymap("n", "[i", [[m'<Cmd>call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>]], {silent = true})
--- keymap("n", "]i", [[m'<Cmd>call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>]], {silent = true})
 
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")

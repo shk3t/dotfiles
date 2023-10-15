@@ -55,6 +55,7 @@ require("lazy").setup({
   'antosha417/nvim-lsp-file-operations',
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
+  "mxsdev/nvim-dap-vscode-js",
   "goerz/jupytext.vim",
   {"dccsillag/magma-nvim", build = ":UpdateRemotePlugins"},
   -- "hkupty/iron.nvim",
@@ -93,7 +94,7 @@ require("lazy").setup({
   -- Indentation improve
   "lukas-reineke/indent-blankline.nvim",
   "gpanders/editorconfig.nvim",
-  "Vimjas/vim-python-pep8-indent",
+  -- "Vimjas/vim-python-pep8-indent",
   -- "MaxMEllon/vim-jsx-pretty",
 
   -- Interface

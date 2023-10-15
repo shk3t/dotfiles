@@ -21,7 +21,8 @@ local function toggle_spider_keymaps()
   vim.g.spider_mappings = not vim.g.spider_mappings
   print("Spider mappings: " .. tostring(vim.g.spider_mappings))
 end
-keymap({"n", "o", "x"}, "<S-Space>", toggle_spider_keymaps)
+keymap({"n", "o", "x"}, "<Space><Space>", toggle_spider_keymaps)
+toggle_spider_keymaps()
 
 require("nvim-surround").setup({
   keymaps = {
@@ -63,7 +64,6 @@ require("recorder").setup({
 local marks = require("marks")
 marks.setup({
   default_mappings = false,
-  -- force_write_shada = true,
   mappings = {
     toggle = "m;",
     prev = "[m",

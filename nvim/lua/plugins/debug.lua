@@ -17,13 +17,6 @@ dap.listeners.after.event_stopped["steal_focus"] = function()
   vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. tmux_window_id)
 end
 
--- dap.listeners.after.event_initialized["auto_open_close"] = function() dapui.open() end
--- dap.listeners.before.event_terminated["auto_open_close"] = function() dapui.close() end
--- dap.listeners.before.event_exited["auto_open_close"] = function() dapui.close() end
-
--- local input_file = function() return vim.fn.getcwd() .. "/" .. vim.fn.input("File: ") end
--- local input_args = function() return split_string(vim.fn.input("Args: ")) end
-
 local dapui_config = {
   controls = {enabled = false, element = "stacks"},
   icons = {collapsed = ">", current_frame = ">", expanded = "v"},
@@ -130,10 +123,32 @@ dap.adapters.python = {
   command = dlib.python_path,
   args = {"-m", "debugpy.adapter"},
 }
-dap.adapters.lldb = {
+dap.adapters.cppdbg = {
+  id = "cppdbg",
   type = "executable",
-  command = "/usr/bin/lldb-vscode",
-  name = "lldb",
+  command = vim.env.HOME .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
+}
+-- require("dap-vscode-js").setup({
+--   -- https://github.com/mxsdev/nvim-dap-vscode-js/issues/58
+--   -- https://www.reddit.com/r/neovim/comments/y7dvva/typescript_debugging_in_neovim_with_nvimdap/
+--   debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
+--   debugger_cmd = {"js-debug-adapter"},
+--   adapters = {
+--     "pwa-node",
+--     "pwa-chrome",
+--     "pwa-msedge",
+--     "node-terminal",
+--     "pwa-extensionHost",
+--   },
+-- })
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "localhost",
+  port = "${port}",
+  executable = {
+    command = vim.env.HOME .. "/.local/share/nvim/mason/bin/js-debug-adapter",
+    args = {"${port}"},
+  },
 }
 
 dap.configurations.python = {}
@@ -159,14 +174,31 @@ end
 
 dap.configurations.c = {
   {
-    name = "Launch",
-    type = "lldb",
+    name = "Default",
+    type = "cppdbg",
     request = "launch",
     program = function() return vim.fn.getcwd() .. "/c.out" end,
     cwd = "${workspaceFolder}",
-    stopOnEntry = false,
-    args = {function() return vim.fn.input("Args: ") end},
+    stopAtEntry = false,
+    -- args = {function() return vim.fn.input("Args: ") end},
   },
 }
 dap.configurations.cpp = dap.configurations.c
 dap.configurations.rust = dap.configurations.c
+
+dap.configurations.javascript = {
+  {
+    name = "Default",
+    type = "pwa-node",
+    request = "launch",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+}
+
+local typescript_configurations = vim.deepcopy(dap.configurations.javascript)
+for _, config in ipairs(typescript_configurations) do config.runtimeArgs = {
+  "-r",
+  "ts-node/register",
+} end
+dap.configurations.typescript = typescript_configurations
