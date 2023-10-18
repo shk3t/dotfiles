@@ -1,26 +1,33 @@
 local api = require("nvim-tree.api")
 local keymap = vim.keymap.set
 
+local function my_on_attach(bufnr)
+  local function opts(desc)
+    return {
+      desc = "nvim-tree: " .. desc,
+      buffer = bufnr,
+      noremap = true,
+      silent = true,
+      nowait = true,
+    }
+  end
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  keymap("n", "%", api.fs.rename, opts("Create"))
+  keymap("n", "d", api.fs.rename, opts("Create"))
+  keymap("n", "y", api.fs.copy.node, opts("Copy"))
+  keymap("n", "D", api.fs.trash, opts("Trash"))
+  keymap("n", "R", api.fs.rename, opts("Rename"))
+end
+
 require("nvim-tree").setup({
+  on_attach = my_on_attach,
   hijack_cursor = true,
   hijack_netrw = true,
   sync_root_with_cwd = true,
   sort_by = "case_sensitive",
-  view = {
-    adaptive_size = true,
-    width = 10,
-    signcolumn = "no",
-    mappings = {
-      list = {
-        -- {key = "l", action = "edit"},
-        -- {key = "h", action = "close_node"},
-        {key = {"r", "R"}, action = "rename"},
-        {key = {"%", "a", "d"}, action = "create"},
-        {key = "D", action = "trash"},
-        {key = {"c", "y"}, action = "copy"},
-      },
-    },
-  },
+  view = {adaptive_size = true, width = 10, signcolumn = "no"},
   renderer = {
     root_folder_label = false,
     indent_markers = {
