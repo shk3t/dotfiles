@@ -94,7 +94,6 @@ require("lazy").setup({
   -- Indentation improve
   "lukas-reineke/indent-blankline.nvim",
   "gpanders/editorconfig.nvim",
-  -- "Vimjas/vim-python-pep8-indent",
   -- "MaxMEllon/vim-jsx-pretty",
 
   -- Interface
