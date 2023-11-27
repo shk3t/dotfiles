@@ -24,6 +24,7 @@ M.python_default_config = {
   type = "python",
   request = "launch",
   pythonPath = M.python_path,
+  justMyCode = true,
 }
 
 return M

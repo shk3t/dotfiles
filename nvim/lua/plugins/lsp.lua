@@ -159,7 +159,11 @@ local servers = {
   lua_ls = {
     settings = {
       Lua = {
-        workspace = {checkThirdParty = false},
+        runtime = {path = lib.split_string(vim.env.LUA_PATH, ";")},
+        workspace = {
+          checkThirdParty = false,
+          library = {"/usr/share/lua/5.4/", "/usr/share/lua/5.1/"},
+        },
         diagnostics = {severity = {["missing-fields"] = "Hint!"}},
       },
     },
@@ -201,4 +205,4 @@ null_ls.setup({
   },
 })
 
-require("neodev").setup()
+-- require("neodev").setup()

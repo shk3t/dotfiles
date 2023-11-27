@@ -90,6 +90,7 @@ end)
 
 -- Space mappings
 keymap({"n", "x"}, "<Space>", "<Nop>")
+keymap({"n", "x"}, "<S-Space>", "<Space>", {remap = true})
 keymap("i", "<C-Space>", "<Nop>")
 keymap({"n", "x"}, "<Space>y", [["+y]])
 keymap({"n", "x"}, "<Space>Y", yank_all_sys_clip)

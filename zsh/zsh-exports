@@ -32,6 +32,13 @@ PATH="$PATH:/usr/local/go/bin"
 export NODE_PATH="/usr/local/lib/node_modules"
 #export GOPATH="$HOME/.go"
 
+# Lua
+LUA_VERSION="5.4"
+LP="/usr/share/lua/$LUA_VERSION"
+LCP="/lib/lua/$LUA_VERSION"
+export LUA_PATH="?.lua;?/init.lua;$LP/?.lua;$LP/?/init.lua"
+export LUA_CPATH="$LCP/?.so"
+
 # Man
 export MANPAGER='nvim +Man!'
 
@@ -42,4 +49,4 @@ eval "$(zoxide init zsh)"
 EDITOR="nvim"
 TERMINAL="alacritty"
 BROWSER="firefox"
-TERMINAL_BLUR_ENABLED=0
+TERMINAL_BLUR_ENABLED=1

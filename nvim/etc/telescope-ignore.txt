@@ -14,11 +14,16 @@ lazy-lock.json
 .idea/
 .editorconfig
 # requirements.txt
+mime.types
 
 # Build
 #!makefile
 build/
 *.o
+*.compiled
+
+# Log
+logs/
 
 # Images
 *.png
@@ -37,7 +42,7 @@ media/
 # Python
 .venv/
 __pycache__/
-# migrations/
+migrations/
 # __init__.py
 pyrightconfig.json
 manage.py
@@ -48,9 +53,10 @@ manage.py
 .trash/
 
 # JavaScript
+dist/
 node_modules/
 package-lock.json
-bootstrap.min.css
 staticfiles/
 static/
+bootstrap.min.css
 .prettierrc.json

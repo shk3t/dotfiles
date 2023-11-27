@@ -41,23 +41,6 @@ local dapui_config = {
   render = {indent = 2},
 }
 
-local max_win_height = vim.api.nvim_win_get_height(0)
-local scopes_widget_width = dapui_config.layouts[1].size
-local scopes_widget_height = math.floor(lib.find(function(v) return v.id == "scopes" end,
-                                                 dapui_config.layouts[1].elements).size * max_win_height)
-local scopes_widget_winid = 0
-local function open_custom_dapui()
-  dapui.open()
-  lib.norm("<C-W>l<C-W>k<C-W>j")
-  _, scopes_widget_winid = widgets.sidebar(widgets.scopes).open()
-  lib.norm("<C-W>q" .. scopes_widget_width .. "<C-W>|" .. scopes_widget_height .. "<C-W>_<C-W>k<C-W>h")
-end
-local function close_custom_dapui()
-  dapui.close()
-  vim.api.nvim_win_close(scopes_widget_winid, false)
-  scopes_widget_winid = 0
-end
-
 local function breakpoint_jump(find_func)
   local cur_row, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
   local cur_buf = vim.api.nvim_get_current_buf()
@@ -97,18 +80,7 @@ keymap("n", "]s", dap.up)
 keymap("n", "<Space>dc", dap.repl.open)
 keymap("n", "<Space>dr", dap.run_last)
 keymap("n", "<Space>ds", function() widgets.sidebar(widgets.scopes).open() end)
-keymap("n", "<Space>dd", function()
-  if scopes_widget_winid == 0 then
-    open_custom_dapui()
-  else
-    local is_opened, scopes_widget_tabid =
-      pcall(function() return vim.api.nvim_win_get_tabpage(scopes_widget_winid) end)
-    if not is_opened then open_custom_dapui() end
-    local current_tabid = vim.api.nvim_get_current_tabpage()
-    close_custom_dapui()
-    if current_tabid ~= scopes_widget_tabid then open_custom_dapui() end
-  end
-end)
+keymap("n", "<Space>dd", dapui.toggle)
 keymap({"n", "x"}, "<Space>de", widgets.hover)
 
 dap.defaults.fallback.external_terminal = {

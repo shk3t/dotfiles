@@ -14,8 +14,8 @@ local function my_on_attach(bufnr)
 
   api.config.mappings.default_on_attach(bufnr)
 
-  keymap("n", "%", api.fs.rename, opts("Create"))
-  keymap("n", "d", api.fs.rename, opts("Create"))
+  keymap("n", "%", api.fs.create, opts("Create"))
+  keymap("n", "d", api.fs.create, opts("Create"))
   keymap("n", "y", api.fs.copy.node, opts("Copy"))
   keymap("n", "D", api.fs.trash, opts("Trash"))
   keymap("n", "R", api.fs.rename, opts("Rename"))

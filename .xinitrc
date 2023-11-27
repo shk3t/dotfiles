@@ -2,8 +2,8 @@
 
 # dwm or plasma
 SESSION="plasma"
-LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
-DEFAULT_LAYOUT="normie"
+LAYOUT_PATH="$HOME/bin/temp/layout-shket.txt"
+DEFAULT_LAYOUT="base"
 
 echo $DEFAULT_LAYOUT > $LAYOUT_PATH
 

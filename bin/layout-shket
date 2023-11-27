@@ -2,15 +2,16 @@
 
 show_help_message() {
     cat << END
-Usage: layout-ash [OPTIONS]
+Usage: layout-shket [OPTIONS]
 Switch between specific layout presets
 
 Options:
     -h, --help          show help message
     -n, --normie        for normal user
+    -b, --base          like "normie", but switching layout on alt+space
     -d, --double-ctrl   double ctrl
-    -a, --ashket        best keyboard layout
-    -t, --toggle        toggle between `ashket` and desired
+    -s, --shket         best keyboard layout
+    -t, --toggle        toggle between `shket` and desired
 END
 }
 
@@ -22,14 +23,22 @@ use_normie() {
     echo "normie" > $LAYOUT_PATH
 }
 
-use_ashket() {
+use_base() {
+    setxkbmap -option
+    setxkbmap \
+        -option grp:win_space_toggle \
+        -option grp:alt_space_toggle
+    echo "base" > $LAYOUT_PATH
+}
+
+use_shket() {
     setxkbmap -option
     setxkbmap \
         -option grp:win_space_toggle\
         -option grp:alt_space_toggle \
         -option caps:escape \
         -option ctrl:swap_lwin_lctl
-    echo "ashket" > $LAYOUT_PATH
+    echo "shket" > $LAYOUT_PATH
 }
 
 use_double_control() {
@@ -43,7 +52,7 @@ use_double_control() {
 }
 
 
-LAYOUT_PATH="$HOME/bin/temp/layout-ash.txt"
+LAYOUT_PATH="$HOME/bin/temp/layout-shket.txt"
 layout=$(cat $LAYOUT_PATH)
 
 if [[ $# == 0 ]]; then
@@ -56,16 +65,18 @@ if [[ " $@ " =~ ( -h | --help ) ]]; then
     exit
 fi
 
-if [[ $layout != "ashket" && " $@ " =~ ( -t | --toggle ) ]]; then
-    use_ashket
+if [[ $layout != "base" && " $@ " =~ ( -t | --toggle ) ]]; then
+    use_base
     exit
 fi
 
 case $1 in
     -n | --normie)
         use_normie;;
+    -b | --base)
+        use_base;;
     -d | --double-ctrl)
         use_double_control;;
-    -a | --ashket | *)
-        use_ashket;;
+    -s | --shket | *)
+        use_shket;;
 esac

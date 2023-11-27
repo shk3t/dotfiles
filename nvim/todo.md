@@ -30,9 +30,6 @@
 - [ ] go formatter: https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#gofmt
 - [ ] go dap: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#go-using-delve-directly
 ### Dap
-- [ ] debug python libraries (breakpoint rejected)
-    - Frame skipped from debugging during step-in.
-    Note: may have been skipped because of "justMyCode" option (default == true). Try setting "justMyCode": false in the debug configuration (e.g., launch.json).
 - [-] hover without borders
 ### Telescope
 - [ ] `<C-Q>` to add all telescope entries to QF if no selection
@@ -58,6 +55,7 @@
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
 - magma proper save/load, export to `.ipynb`
 - telescope mouse support: https://github.com/nvim-telescope/telescope.nvim/issues/2213
+- pyright autoimport relative
 ### Features
 - [ ] yank history
 - [-] highlight `f` jumps
