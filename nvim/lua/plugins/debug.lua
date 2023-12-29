@@ -126,22 +126,10 @@ dap.adapters["pwa-node"] = {
 dap.configurations.python = {}
 for path, config in pairs(local_configs.python) do
   if lib.cwd_contains(path) then
-    dap.configurations.python = config
-    break
+    for _, config_entry in ipairs(config) do
+      table.insert(dap.configurations.python, config_entry)
+    end
   end
-end
-if lib.is_empty(dap.configurations.python) then
-  dap.configurations.python = {
-    vim.tbl_extend("force", dlib.python_default_config, {
-      name = "Default",
-      program = "${file}",
-    }),
-    -- vim.tbl_extend("force", python_default_config, {
-    --   name = "Specify file and args",
-    --   program = input_file,
-    --   args = input_args,
-    -- }),
-  }
 end
 
 dap.configurations.c = {

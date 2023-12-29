@@ -50,7 +50,7 @@ require("lazy").setup({
   "rafamadriz/friendly-snippets",
 
   -- Integration
-  "aserowy/tmux.nvim",
+  -- "aserowy/tmux.nvim",
   "iamcco/markdown-preview.nvim",
   'antosha417/nvim-lsp-file-operations',
   "mfussenegger/nvim-dap",

@@ -110,7 +110,7 @@ for _, path in ipairs(pylsp_paths) do if lib.cwd_contains(path) then use_pylsp =
 local servers = {
   pyright = not use_pylsp and {
     on_attach = attach(function(client, bufnr)
-      keymap("n", "<Space>o", vim.cmd.PyrightOrganizeImports, {buffer = bufnr})
+      keymap("n", "<Space>O", vim.cmd.PyrightOrganizeImports, {buffer = bufnr})
     end),
   },
   pylsp = use_pylsp and {

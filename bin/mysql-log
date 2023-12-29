@@ -13,4 +13,4 @@ MARIADB="mariadb --user=$DB_USER --password=$DB_PASS"
 
 eval "$MARIADB --execute=\"SET GLOBAL general_log_file = '$LOG_FILE';\""
 eval "$MARIADB --execute='SET GLOBAL general_log = 'ON';'"
-sudo tail -f -n300 $LOG_FILE
+sudo tail -f -n100 $LOG_FILE

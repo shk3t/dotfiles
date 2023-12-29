@@ -42,11 +42,11 @@ media/
 # Python
 .venv/
 __pycache__/
-migrations/
-# __init__.py
-pyrightconfig.json
-manage.py
 *.pyc
+#migrations/
+# __init__.py
+# pyrightconfig.json
+# manage.py
 
 # Markdown
 .obsidian/
@@ -60,3 +60,6 @@ staticfiles/
 static/
 bootstrap.min.css
 .prettierrc.json
+
+# Local
+fakedata/

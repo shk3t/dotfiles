@@ -1,6 +1,7 @@
 ## IMPORTANT TODOS
 
 ### Later: 1 november
+- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] js/ts debugger
 - [-] make external keyboard usb port available on boot: https://github.com/qmk/qmk_firmware/issues/19593
 - [ ] jump to error line in stack trace
@@ -10,6 +11,7 @@
     - https://github.com/chrisgrieser/nvim-various-textobjs
     - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
     - [ ] Features
+        - `q` to select any quote
         - jump to class/function name, not keyword
         - dot-repeat
         - correct lua function
@@ -17,6 +19,10 @@
         - fast increment-decrement node selections
 - [ ] neogit
 - [ ] command line rename (:s) autocomplete
+- [ ] text editing through ssh
+- [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
+- [ ] jupyter: https://github.com/kiyoon/jupynium.nvim
+    - [ ] iron: jupyter support: https://www.maxwellrules.com/misc/nvim_jupyter.html
 
 # TODOS
 - [-?] auto signcolumn toggling delay
@@ -51,7 +57,6 @@
 - `<C-D>`/`<C-U>` scroll quick doc
 - spider russian language support
 - git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
-- xkbswitch-nvim fixes: https://github.com/ivanesmantovich/xkbswitch.nvim
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
 - magma proper save/load, export to `.ipynb`
 - telescope mouse support: https://github.com/nvim-telescope/telescope.nvim/issues/2213
@@ -70,7 +75,6 @@
 - [ ] typescript utils:
     - https://github.com/jose-elias-alvarez/typescript.nvim
     - https://github.com/pmizio/typescript-tools.nvim
-- [ ] iron: jupyter support: https://www.maxwellrules.com/misc/nvim_jupyter.html
 - [ ] copilot.lua
 - [ ] heirline
 - [ ] nvim-bqf

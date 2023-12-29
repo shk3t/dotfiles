@@ -7,6 +7,7 @@ M.replace_termcodes = function(str) return vim.api.nvim_replace_termcodes(str, t
 M.print_table = function(tbl) for k, v in pairs(tbl) do print(k, v) end end
 
 M.split_string = function(inputstr, sep)
+  if inputstr == nil then inputstr = "" end
   if sep == nil then sep = "%s" end
   local t = {}
   for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do table.insert(t, str) end
