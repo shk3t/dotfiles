@@ -1,15 +1,15 @@
 ## IMPORTANT TODOS
 
 ### Later: 1 november
-- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
-- [ ] js/ts debugger
 - [-] make external keyboard usb port available on boot: https://github.com/qmk/qmk_firmware/issues/19593
+- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
     - https://github.com/RRethy/nvim-treesitter-textsubjects
     - https://github.com/chrisgrieser/nvim-various-textobjs
     - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
+    - https://neovim.discourse.group/t/autocmd-to-keep-cursor-position-on-yank/2982/2
     - [ ] Features
         - `q` to select any quote
         - jump to class/function name, not keyword
@@ -18,14 +18,14 @@
         - key, value, triple quotes
         - fast increment-decrement node selections
 - [ ] neogit
-- [ ] command line rename (:s) autocomplete
-- [ ] text editing through ssh
 - [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
 - [ ] jupyter: https://github.com/kiyoon/jupynium.nvim
     - [ ] iron: jupyter support: https://www.maxwellrules.com/misc/nvim_jupyter.html
 
 # TODOS
 - [-?] auto signcolumn toggling delay
+- [ ] text editing through ssh
+- [ ] command line rename (:s) autocomplete
 ### Keys
 - [ ] visual dot-repeat
 ### LSP
@@ -37,6 +37,7 @@
 - [ ] go dap: https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#go-using-delve-directly
 ### Dap
 - [-] hover without borders
+- [ ] js/ts debugger
 ### Telescope
 - [ ] `<C-Q>` to add all telescope entries to QF if no selection
     - [ ] fast global rename

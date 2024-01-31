@@ -52,7 +52,7 @@ require("lazy").setup({
   -- Integration
   -- "aserowy/tmux.nvim",
   "iamcco/markdown-preview.nvim",
-  'antosha417/nvim-lsp-file-operations',
+  "antosha417/nvim-lsp-file-operations",
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
   "mxsdev/nvim-dap-vscode-js",
@@ -105,16 +105,13 @@ require("lazy").setup({
   -- Colorschemes
   "rose-pine/neovim",
   "catppuccin/nvim",
-  -- "folke/tokyonight.nvim",
-  -- "bluz71/vim-nightfly-guicolors",
-  -- "EdenEast/nightfox.nvim",
-  -- "tiagovla/tokyodark.nvim",
-  -- "bkegley/gloombuddy",
-  -- "yashguptaz/calvera-dark.nvim",
-  -- "shaunsingh/moonlight.nvim",
-  -- "shaunsingh/oxocarbon.nvim",
-  -- "ellisonleao/gruvbox.nvim",
-  -- "rebelot/kanagawa.nvim",
+  "Shatur/neovim-ayu",
+  "folke/tokyonight.nvim",
+  "EdenEast/nightfox.nvim",
+  "bkegley/gloombuddy",
+  "shaunsingh/oxocarbon.nvim",
+  "ellisonleao/gruvbox.nvim",
+  "rebelot/kanagawa.nvim",
 }, {defaults = {lazy = false}})
 
 require("plugins")

@@ -46,6 +46,7 @@ end
 local function longjump_back() longjump("<C-O>") end
 local function longjump_forward() longjump("<C-I>") end
 local function yank_all_sys_clip()
+  lib.norm("my")
   vim.cmd("%y y")
   vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
 end
@@ -57,7 +58,11 @@ vim.cmd([[command! Cdc cd %:p:h]])
 keymap({"n", "x"}, "<C-C>", "<Esc>")
 keymap("i", "<C-C>", "<Esc>")
 keymap("i", "<C-Del>", "<C-O>de")
-keymap({"i", "c"}, "<C-V>", "<C-R>\"")
+-- keymap({"i", "c"}, "<C-V>", "<C-R>\"")
+keymap({"i", "c"}, "<C-V>", function()
+  local joined_clipboard = vim.fn.getreg("\""):gsub("[\n\r]", " "):gsub("%s+", " ")
+  vim.api.nvim_put({joined_clipboard}, "", false, true)
+end)
 keymap({"n", "x"}, "<BS>", "s")
 keymap("x", "$", "g_")
 keymap("n", "J", function()
@@ -71,9 +76,14 @@ keymap({"n", "x"}, "<C-S-C>", [["+y]])
 keymap({"n", "x"}, "<M-Left>", "<C-O>")
 keymap({"n", "x"}, "<M-Right>", "<C-I>")
 keymap({"n", "x"}, "<C-Z>", "<Nop>")
+keymap({"n", "x"}, "y", "myy")
+keymap({"n", "x"}, "p", "p`]")
+keymap({"n", "x"}, "P", "P`]")
 
 -- Visual actions
 keymap("x", "P", [["0p]])
+
+-- Text objects
 
 -- Search
 keymap({"n", "x"}, "n", "'Nn'[v:searchforward]", {expr = true})
@@ -92,7 +102,7 @@ end)
 keymap({"n", "x"}, "<Space>", "<Nop>")
 keymap({"n", "x"}, "<S-Space>", "<Space>", {remap = true})
 keymap("i", "<C-Space>", "<Nop>")
-keymap({"n", "x"}, "<Space>y", [["+y]])
+keymap({"n", "x"}, "<Space>y", [[my"+y]])
 keymap({"n", "x"}, "<Space>Y", yank_all_sys_clip)
 keymap({"n", "x"}, "<Space>p", [["+p]])
 keymap({"n", "x"}, "<Space>P", [["+P]])
@@ -186,8 +196,8 @@ for i = 1, #buffer_marks do
   local mark = buffer_marks:sub(i, i)
   keymap({"n", "x"}, "m" .. mark, "m" .. mark:upper())
   keymap({"n", "x"}, "'" .. mark, "'" .. mark:upper())
-  keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
-  keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
+  -- keymap("n", "dm" .. mark, function() vim.cmd.delmarks(mark:upper()) end)
+  -- keymap("n", "dm" .. mark:upper(), function() vim.cmd.delmarks(mark:upper()) end)
 end
 keymap("n", "dM", function() vim.cmd.delmarks("a-zA-Z") end)
 

@@ -22,7 +22,7 @@ local function toggle_spider_keymaps()
   print("Spider mappings: " .. tostring(vim.g.spider_mappings))
 end
 keymap({"n", "o", "x"}, "<Space><Space>", toggle_spider_keymaps)
-toggle_spider_keymaps()
+-- toggle_spider_keymaps()
 
 require("nvim-surround").setup({
   keymaps = {
@@ -68,7 +68,7 @@ marks.setup({
     toggle = "m;",
     prev = "[m",
     next = "]m",
-    delete_line = "dm;",
+    delete_line = "dm",
     preview = "m:",
   },
 })

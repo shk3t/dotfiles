@@ -29,8 +29,8 @@ local function set_transparent_bg()
 end
 
 local function set_wide_border()
-  local vert_split_fg = vim.api.nvim_get_hl(0, {name = "VertSplit"}).fg
-  highlight("VertSplit", {bg = vert_split_fg})
+  local vert_split_fg = vim.api.nvim_get_hl(0, {name = "WinSeparator"}).fg
+  highlight("WinSeparator", {bg = vert_split_fg})
 end
 
 local function setup_telescope_colors()
@@ -45,7 +45,7 @@ local function setup_telescope_colors()
   highlight("TelescopePreviewNormal", {bg = bg})
   highlight("TelescopePreviewTitle", {fg = bg, bg = green, blend = 0})
   highlight("TelescopePromptBorder", {fg = bg_alt, bg = bg_alt, blend = 0})
-  highlight("TelescopePromptNormal", {fg = fg, bg = bg_alt, blend = 0})
+  highlight("TelescopePromptNormal", {fg = fg, bg = bg_alt, blend = 0, link = 0})
   highlight("TelescopePromptPrefix", {fg = red, bg = bg_alt, blend = 0})
   highlight("TelescopePromptTitle", {fg = bg, bg = red, blend = 0})
   highlight("TelescopeResultsBorder", {fg = bg, bg = bg})
@@ -99,7 +99,7 @@ local colorscheme_setups = {
     setup_telescope_colors()
     setup_harpoon_colors()
   end,
-  ["rose-pine"] = function() require("rose-pine").setup({disable_italics = true}) end,
+  ["rose-pine"] = function() end,
   ["calvera"] = function() vim.g.calvera_borders = true end,
 }
 

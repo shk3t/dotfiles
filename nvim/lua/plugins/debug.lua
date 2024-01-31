@@ -124,13 +124,12 @@ dap.adapters["pwa-node"] = {
 }
 
 dap.configurations.python = {}
-for path, config in pairs(local_configs.python) do
+for path, config in lib.sorted_pairs(local_configs.python) do
   if lib.cwd_contains(path) then
-    for _, config_entry in ipairs(config) do
-      table.insert(dap.configurations.python, config_entry)
-    end
+    for _, config_entry in ipairs(config) do table.insert(dap.configurations.python, config_entry) end
   end
 end
+-- table.sort(dap.configurations.python)
 
 dap.configurations.c = {
   {

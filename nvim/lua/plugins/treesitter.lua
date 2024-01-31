@@ -103,6 +103,7 @@ tsj.setup({
     python = {
       argument_list = spaceless_dict_preset(),
       parameters = spaceless_dict_preset(),
+      tuple = spaceless_dict_preset(),
     },
     javascript = js_ts_lang_preset,
     typescript = js_ts_lang_preset,

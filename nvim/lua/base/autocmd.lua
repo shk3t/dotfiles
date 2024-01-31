@@ -37,6 +37,16 @@ autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank({timeout = 100}) end,
 })
 
+-- Yank preserve position
+autocmd("TextYankPost", {
+  callback = function()
+    if vim.v.event.operator == "y" then
+      lib.norm("`y")
+      vim.cmd.delmarks("y")
+    end
+  end,
+})
+
 -- Do not restore deleted marks
 autocmd("VimLeavePre", {command = "wshada!"})
 
@@ -55,7 +65,7 @@ autocmd("FileType", {
       local current_buffer = vim.api.nvim_win_get_buf(0)
       local count = vim.api.nvim_buf_line_count(current_buffer)
       if row == count then
-        lib.norm("<Insert><CR>")
+        vim.api.nvim_input("<Insert><CR>")
       else
         require("dap.ui").trigger_actions({mode = "first"})
       end
