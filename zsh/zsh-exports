@@ -6,18 +6,6 @@ HISTCONTROL=ignoredups
 HISTSIZE=10000
 SAVEHIST=10000
 
-# Path
-PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
-PATH="$PATH:/data/data/com.termux/files/usr/bin"
-PATH="$PATH:$HOME/.local/bin"
-PATH="$PATH:$HOME/bin"
-PATH="$PATH:$HOME/.cargo/bin"
-# PATH="$PATH:$HOME/.local/share/lua-language-server/bin"
-#PATH="$PATH:$HOME/.local/share/deno/bin"
-PATH="$PATH:/usr/local/go/bin"
-# PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
-#PATH="$PATH:$HOME/.go/bin"
-
 # Python
 # export PYENV_ROOT="$HOME/.pyenv"
 # command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
@@ -30,7 +18,7 @@ PATH="$PATH:/usr/local/go/bin"
 
 # Packages
 export NODE_PATH="/usr/local/lib/node_modules"
-#export GOPATH="$HOME/.go"
+export GOPATH="$HOME/go"
 
 # Lua
 LUA_VERSION="5.4"
@@ -38,6 +26,14 @@ LP="/usr/share/lua/$LUA_VERSION"
 LCP="/lib/lua/$LUA_VERSION"
 export LUA_PATH="?.lua;?/init.lua;$LP/?.lua;$LP/?/init.lua"
 export LUA_CPATH="$LCP/?.so"
+
+# Path
+PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
+PATH="$PATH:/data/data/com.termux/files/usr/bin"
+PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:$GOPATH/bin"
 
 # Man
 export MANPAGER='nvim +Man!'
@@ -48,5 +44,5 @@ eval "$(zoxide init zsh)"
 # Environment variables set everywhere
 EDITOR="nvim"
 TERMINAL="alacritty"
-BROWSER="firefox"
+BROWSER="google-chrome-stable"
 TERMINAL_BLUR_ENABLED=0

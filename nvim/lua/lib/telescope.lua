@@ -13,7 +13,7 @@ end
 
 M.quickfix_picker = function(title, callback)
   return function()
-    if not pcall(function() callback() end) then return end
+    if not pcall(callback) then return end
     local cur_win = vim.api.nvim_get_current_win()
     builtin.quickfix({prompt_title = title})
     vim.api.nvim_win_close(cur_win, false)

@@ -9,7 +9,8 @@ vim.opt.cinoptions = "g0,(0,Ws,l,L0"
 -- Lines
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 16
+vim.opt.sidescrolloff = 32
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.breakindent = true
@@ -34,7 +35,7 @@ vim.opt.signcolumn = "yes"
 -- Controls
 vim.opt.timeoutlen = 10000
 vim.opt.mouse = "a"
-vim.cmd("set cpoptions-=_")
+vim.opt.cpoptions:remove("_")
 
 -- Sounds
 vim.opt.errorbells = false
@@ -65,4 +66,9 @@ vim.g.XkbSwitchNLayout = "us" -- better telescope support
 vim.opt.keymap = "russian-jcukenwin"
 vim.opt.iminsert = 0
 vim.opt.imsearch = -1
-vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.langmap =
+  "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+
+-- Spell
+vim.opt.spell = false
+vim.opt.spelllang = {"en_us", "ru_ru"}

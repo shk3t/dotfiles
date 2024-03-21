@@ -37,6 +37,8 @@ alias z=z_alias
 alias zi=zi_alias
 alias fcdf='cd $(find . -type d -print | fzf)'
 
-# alias lxс='firefox'
-# alias lхс="docker run -p 888:80 nextcloud; echo $@"
-# alias ssh="clear;lxc exec Belozubov -- bash; echo $@"
+# Clipboard
+alias clip='xclip -selection clipboard'
+function cpass {
+    echo -n $(pass $@) | xclip -selection clipboard
+}
