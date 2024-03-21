@@ -33,6 +33,13 @@ local function set_wide_border()
   highlight("WinSeparator", {bg = vert_split_fg})
 end
 
+local function clear_spell_check_highlights()
+  highlight("SpellBad", {undercurl = false})
+  highlight("SpellCap", {undercurl = false})
+  highlight("SpellRare", {undercurl = false})
+  highlight("SpellLocal", {undercurl = false})
+end
+
 local function setup_telescope_colors()
   local normal = get_highlight("Normal")
   local fg, bg = normal.fg, normal.bg
@@ -98,6 +105,7 @@ local colorscheme_setups = {
     setup_mark_colors()
     setup_telescope_colors()
     setup_harpoon_colors()
+    clear_spell_check_highlights()
   end,
   ["rose-pine"] = function() end,
   ["calvera"] = function() vim.g.calvera_borders = true end,

@@ -15,10 +15,16 @@ autocmd("BufEnter", {
 })
 
 -- Don't add the comment prefix when I hit o/O on a comment line.
-autocmd("FileType", {command = "setlocal formatoptions+=r formatoptions-=co"})
+autocmd("FileType", {
+  callback = function()
+    vim.opt_local.formatoptions:append("r")
+    vim.opt_local.formatoptions:remove("c")
+    vim.opt_local.formatoptions:remove("o")
+  end,
+})
 autocmd("FileType", {
   pattern = "markdown",
-  command = "setlocal formatoptions-=r",
+  callback = function() vim.opt_local.formatoptions:remove("r") end,
 })
 
 -- Easy Window closing
@@ -41,8 +47,10 @@ autocmd("TextYankPost", {
 autocmd("TextYankPost", {
   callback = function()
     if vim.v.event.operator == "y" then
-      lib.norm("`y")
-      vim.cmd.delmarks("y")
+      pcall(function()
+        lib.norm("`m")
+        vim.cmd.delmarks("m")
+      end)
     end
   end,
 })
@@ -72,29 +80,91 @@ autocmd("FileType", {
     end, {buffer = true, remap = true})
   end,
 })
-autocmd("BufEnter", {
-  pattern = "dap-scopes*",
+autocmd("FileType", {
+  pattern = "dap-repl",
   callback = function()
-    keymap("n", "<2-LeftMouse>", function() require("dap.ui").trigger_actions({
-      mode = "first",
-    }) end, {buffer = true})
+    keymap("i", "<C-K>", "<C-W>k", {buffer = true})
+    keymap("i", "<C-L>", "<C-W>k", {buffer = true})
+    keymap("i", "<C-Q>", "<C-W>k", {buffer = true})
+    keymap("i", "<C-W>", "<C-O>db<BS>", {buffer = true})
+    keymap("i", "<C-P>", "<Up><End>", {buffer = true, remap = true})
+    keymap("i", "<C-N>", "<Down><End>", {buffer = true, remap = true})
+    keymap("n", "<CR>", function()
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      local current_buffer = vim.api.nvim_win_get_buf(0)
+      local count = vim.api.nvim_buf_line_count(current_buffer)
+      if row == count then
+        vim.api.nvim_input("<Insert><CR>")
+      else
+        require("dap.ui").trigger_actions({mode = "first"})
+      end
+    end, {buffer = true, remap = true})
+  end,
+})
+autocmd("BufEnter", {
+  pattern = "DAP Watches",
+  callback = function() keymap("i", "<C-W>", "<C-O>db<BS>", {buffer = true}) end,
+})
+
+-- Sql
+autocmd("FileType", {
+  pattern = {"sql", "mysql", "plsql"},
+  callback = function()
+    keymap({"n"}, "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)<Esc>`m:delmarks m", {
+      buffer = true,
+    })
+    keymap({"x"}, "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)`m:delmarks m", {
+      buffer = true,
+    })
+    keymap({"n", "x"}, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", {
+      buffer = true,
+    })
+  end,
+})
+autocmd("FileType", {
+  pattern = "dbui",
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    keymap({"n", "x"}, "D", "<Plug>(DBUI_DeleteLine)", {buffer = true})
+  end,
+})
+autocmd("FileType", {
+  pattern = "dbout",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.wrap = false
+    vim.opt_local.cursorlineopt = "line"
+    vim.diagnostic.disable()
   end,
 })
 
 -- Telescope
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
-  command = "setlocal number | setlocal wrap | setlocal cursorline",
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.wrap = true
+    vim.opt_local.cursorline = true
+  end,
 })
 -- Aerial
 autocmd("FileType", {
   pattern = "aerial",
-  command = "setlocal cursorlineopt=line",
+  callback = function() vim.opt_local.cursorlineopt = "line" end,
 })
 -- Harpoon
-autocmd("FileType", {pattern = "harpoon", command = "setlocal cursorline"})
+autocmd("FileType", {
+  pattern = "harpoon",
+  callback = function() vim.opt_local.cursorline = true end,
+})
 -- Git blame
 autocmd("FileType", {
   pattern = "blame",
-  command = "setlocal nonumber | setlocal signcolumn=no | setlocal nowrap | setlocal cursorlineopt=line",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.wrap = false
+    vim.opt_local.cursorlineopt = "line"
+  end,
 })

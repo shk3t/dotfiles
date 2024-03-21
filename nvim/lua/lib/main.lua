@@ -10,7 +10,7 @@ M.split_string = function(inputstr, sep)
   if inputstr == nil then inputstr = "" end
   if sep == nil then sep = "%s" end
   local t = {}
-  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do table.insert(t, str) end
+  for str in inputstr:gmatch("([^" .. sep .. "]+)") do table.insert(t, str) end
   return t
 end
 
@@ -24,6 +24,8 @@ end
 M.get_visual = function()
   local _, ls, cs = unpack(vim.fn.getpos("v"))
   local _, le, ce = unpack(vim.fn.getpos("."))
+  if ls > le then ls, le = le, ls end
+  if cs > ce then cs, ce = ce, ls end
   local visual = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
   return visual[1] or ""
 end
@@ -31,7 +33,7 @@ end
 M.save_jump = function() vim.cmd("normal! m'") end
 M.center_win = function() vim.cmd("normal! zz") end
 
-M.cwd_contains = function(str) return string.find(vim.fn.getcwd(), str) end
+M.cwd_contains = function(str) return vim.fn.getcwd():find(str) end
 
 M.get_highlight = function(name) return vim.api.nvim_get_hl(0, {name = name}) end
 

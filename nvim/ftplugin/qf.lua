@@ -12,9 +12,10 @@ keymap("n", "dd", function()
   vim.g.prev_qfpos = {row, col}
   table.remove(qflist, row)
   vim.fn.setqflist(qflist, "r")
-  if not pcall(function() vim.api.nvim_win_set_cursor(0, {row, col}) end) then
-    vim.api.nvim_win_set_cursor(0, {row - 1, col})
-  end
+  if not pcall(vim.api.nvim_win_set_cursor, 0, {row, col}) then vim.api.nvim_win_set_cursor(0, {
+    row - 1,
+    col,
+  }) end
 end, {buffer = true})
 
 keymap("x", "d", function()
@@ -28,14 +29,14 @@ keymap("x", "d", function()
   for line = start_line, end_line do table.remove(qflist, start_line) end
   vim.fn.setqflist(qflist, "r")
   local actual_row = row - (end_line - start_line) + 1
-  if not pcall(function() vim.api.nvim_win_set_cursor(0, {actual_row, col}) end) then
-    pcall(function() vim.api.nvim_win_set_cursor(0, {start_line - 1, col}) end)
+  if not pcall(vim.api.nvim_win_set_cursor, 0, {actual_row, col}) then
+    pcall(vim.api.nvim_win_set_cursor, 0, {start_line - 1, col})
   end
 end, {buffer = true})
 
 keymap("n", "u", function()
   if not vim.g.prev_qflist then return end
   vim.fn.setqflist(vim.g.prev_qflist, "r")
-  pcall(function() vim.api.nvim_win_set_cursor(0, vim.g.prev_qfpos) end)
+  pcall(vim.api.nvim_win_set_cursor, 0, vim.g.prev_qfpos)
   vim.g.prev_qflist = nil
 end, {buffer = true})

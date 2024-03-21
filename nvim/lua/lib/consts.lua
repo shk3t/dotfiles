@@ -30,6 +30,7 @@ M.CMP_KIND_ICONS = {
   Event = "",
   Operator = "󰆕",
   TypeParameter = "󰅲",
+  Database = "󰆼",
 }
 
 return M

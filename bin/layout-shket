@@ -1,6 +1,6 @@
 #!/bin/bash
 
-show_help_message() {
+function show_help_message {
     cat << END
 Usage: layout-shket [OPTIONS]
 Switch between specific layout presets
@@ -15,7 +15,7 @@ Options:
 END
 }
 
-use_normie() {
+function use_normie {
     setxkbmap -option
     setxkbmap \
         -option grp:win_space_toggle \
@@ -23,7 +23,7 @@ use_normie() {
     echo "normie" > $LAYOUT_PATH
 }
 
-use_base() {
+function use_base {
     setxkbmap -option
     setxkbmap \
         -option grp:win_space_toggle \
@@ -31,7 +31,7 @@ use_base() {
     echo "base" > $LAYOUT_PATH
 }
 
-use_shket() {
+function use_shket {
     setxkbmap -option
     setxkbmap \
         -option grp:win_space_toggle\
@@ -41,7 +41,7 @@ use_shket() {
     echo "shket" > $LAYOUT_PATH
 }
 
-use_double_control() {
+function use_double_control {
     setxkbmap -option
     setxkbmap \
         -option grp:win_space_toggle\

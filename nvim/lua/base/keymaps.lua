@@ -17,7 +17,7 @@ local function rename_tab()
   if tabname then vim.cmd("TabRename " .. tabname) end
 end
 local function toggle_fixed_signcolumn()
-  if string.find(vim.o.signcolumn, "auto") then
+  if vim.o.signcolumn:find("auto") then
     vim.opt.signcolumn = "yes"
   else
     vim.opt.signcolumn = "auto:1-2"
@@ -46,7 +46,7 @@ end
 local function longjump_back() longjump("<C-O>") end
 local function longjump_forward() longjump("<C-I>") end
 local function yank_all_sys_clip()
-  lib.norm("my")
+  lib.norm("mm")
   vim.cmd("%y y")
   vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
 end
@@ -58,11 +58,11 @@ vim.cmd([[command! Cdc cd %:p:h]])
 keymap({"n", "x"}, "<C-C>", "<Esc>")
 keymap("i", "<C-C>", "<Esc>")
 keymap("i", "<C-Del>", "<C-O>de")
--- keymap({"i", "c"}, "<C-V>", "<C-R>\"")
-keymap({"i", "c"}, "<C-V>", function()
+keymap("i", "<C-V>", function()
   local joined_clipboard = vim.fn.getreg("\""):gsub("[\n\r]", " "):gsub("%s+", " ")
   vim.api.nvim_put({joined_clipboard}, "", false, true)
 end)
+keymap("c", "<C-V>", "<C-R>\"")
 keymap({"n", "x"}, "<BS>", "s")
 keymap("x", "$", "g_")
 keymap("n", "J", function()
@@ -72,18 +72,20 @@ keymap("n", "J", function()
 end)
 keymap("c", "<C-J>", "<C-N>")
 keymap("c", "<C-K>", "<C-P>")
-keymap({"n", "x"}, "<C-S-C>", [["+y]])
+keymap({"n", "x"}, "<C-S-C>", [[mm"+y]])
 keymap({"n", "x"}, "<M-Left>", "<C-O>")
 keymap({"n", "x"}, "<M-Right>", "<C-I>")
 keymap({"n", "x"}, "<C-Z>", "<Nop>")
-keymap({"n", "x"}, "y", "myy")
+keymap({"n", "x"}, "y", "mmy")
 keymap({"n", "x"}, "p", "p`]")
 keymap({"n", "x"}, "P", "P`]")
 
 -- Visual actions
 keymap("x", "P", [["0p]])
 
--- Text objects
+-- Navigation
+keymap({"n", "x"}, "ZL", "zL")
+keymap({"n", "x"}, "ZH", "zH")
 
 -- Search
 keymap({"n", "x"}, "n", "'Nn'[v:searchforward]", {expr = true})
@@ -102,7 +104,8 @@ end)
 keymap({"n", "x"}, "<Space>", "<Nop>")
 keymap({"n", "x"}, "<S-Space>", "<Space>", {remap = true})
 keymap("i", "<C-Space>", "<Nop>")
-keymap({"n", "x"}, "<Space>y", [[my"+y]])
+keymap({"n", "x"}, "<Space>y", [[mm"+y]])
+keymap("n", "<Space>yy", [[mm0vg_"+y]])
 keymap({"n", "x"}, "<Space>Y", yank_all_sys_clip)
 keymap({"n", "x"}, "<Space>p", [["+p]])
 keymap({"n", "x"}, "<Space>P", [["+P]])
@@ -117,7 +120,8 @@ keymap({"n", "x"}, "<Space>C", toggle_fixed_signcolumn)
 keymap("n", "<Space>s", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("n", "<Space>S", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("x", "<Space>s", function()
-  vim.cmd("s/" .. lib.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
+  local replacement = vim.fn.input("New: ")
+  if replacement ~= "" then vim.cmd("s/" .. lib.get_visual() .. "/" .. replacement .. "/g") end
   lib.norm([[<Esc>]])
 end)
 keymap("x", "<Space>S", function()
@@ -202,12 +206,17 @@ end
 keymap("n", "dM", function() vim.cmd.delmarks("a-zA-Z") end)
 
 -- Fast actions
-keymap({"n", "x"}, "<C-Q>", function() pcall(function() lib.norm("<C-W>q") end) end)
+keymap({"n", "x"}, "<C-Q>", function() pcall(lib.norm, "<C-W>q") end)
 keymap({"n", "x"}, "<C-S>", ":<C-U>write<CR>", {silent = true})
 keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", {silent = true})
 keymap("i", "<C-Z>", "<C-O>u")
 keymap("i", "<C-S-Z>", "<C-O><C-R>")
 keymap({"n", "x"}, "<Tab>", "<C-^>")
+
+-- Mouse
+local horizontal_scroll = lib.split_string(lib.split_string(vim.o.mousescroll, ",")[2], ":")[2]
+keymap({"n", "x"}, "<S-ScrollWheelUp>", horizontal_scroll .. "zh")
+keymap({"n", "x"}, "<S-ScrollWheelDown>", horizontal_scroll .. "zl")
 
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")

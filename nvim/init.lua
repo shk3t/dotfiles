@@ -20,19 +20,23 @@ require("lazy").setup({
   "kkharji/sqlite.lua",
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
+  "nvim-neotest/nvim-nio",
 
   -- Lsp
   "neovim/nvim-lspconfig",
   "hrsh7th/nvim-cmp",
   "hrsh7th/cmp-nvim-lsp",
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
+  "nvimtools/none-ls-extras.nvim",
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "jay-babu/mason-null-ls.nvim",
+  "ray-x/go.nvim",
 
   -- Completions
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
+  "f3fora/cmp-spell",
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "rcarriga/cmp-dap",
@@ -49,28 +53,31 @@ require("lazy").setup({
   "L3MON4D3/LuaSnip",
   "rafamadriz/friendly-snippets",
 
-  -- Integration
-  -- "aserowy/tmux.nvim",
-  "iamcco/markdown-preview.nvim",
-  "antosha417/nvim-lsp-file-operations",
+  -- Debug
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
   "mxsdev/nvim-dap-vscode-js",
-  "goerz/jupytext.vim",
-  {"dccsillag/magma-nvim", build = ":UpdateRemotePlugins"},
-  -- "hkupty/iron.nvim",
-  -- "kana/vim-textobj-user",
-  -- "GCBallesteros/vim-textobj-hydrogen",
 
   -- Git
   "lewis6991/gitsigns.nvim",
   "FabijanZulj/blame.nvim",
   "sindrets/diffview.nvim",
 
-  -- Navigation
-  "kyazdani42/nvim-tree.lua",
-  "stevearc/aerial.nvim",
-  "ThePrimeagen/harpoon",
+  -- SQL
+  "tpope/vim-dadbod",
+  "kristijanhusak/vim-dadbod-completion",
+  "kristijanhusak/vim-dadbod-ui",
+  "pbogut/vim-dadbod-ssh",
+
+  -- Other integrations
+  -- "aserowy/tmux.nvim",
+  "iamcco/markdown-preview.nvim",
+  "antosha417/nvim-lsp-file-operations",
+  "goerz/jupytext.vim",
+  {"dccsillag/magma-nvim", build = ":UpdateRemotePlugins"},
+  -- "hkupty/iron.nvim",
+  -- "kana/vim-textobj-user",
+  -- "GCBallesteros/vim-textobj-hydrogen",
 
   -- Telescope
   {"nvim-telescope/telescope.nvim", lazy = true},
@@ -78,6 +85,11 @@ require("lazy").setup({
   -- "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
   "debugloop/telescope-undo.nvim",
+
+  -- Navigation
+  "kyazdani42/nvim-tree.lua",
+  "stevearc/aerial.nvim",
+  "ThePrimeagen/harpoon",
 
   -- Tweaks
   "lyokha/vim-xkbswitch",
