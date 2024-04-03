@@ -31,6 +31,7 @@ M.CMP_KIND_ICONS = {
   Operator = "󰆕",
   TypeParameter = "󰅲",
   Database = "󰆼",
+  Codeium = "󰘦"
 }
 
 return M

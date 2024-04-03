@@ -35,6 +35,7 @@ vim.opt.signcolumn = "yes"
 -- Controls
 vim.opt.timeoutlen = 10000
 vim.opt.mouse = "a"
+vim.opt.mousescroll = "ver:3,hor:12"
 vim.opt.cpoptions:remove("_")
 
 -- Sounds

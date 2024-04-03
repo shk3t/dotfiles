@@ -1,10 +1,10 @@
 ## IMPORTANT TODOS
 
-### First
-- [ ] graptql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
-- [ ] HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
-- [ ] discord presence: https://github.com/andweeb/presence.nvim
-- [ ] horizontal scroll not focused window
+- [ ] PYTHON LSP
+
+- [ ] continue scrolloff even if you reach the end of the file
+
+- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
@@ -44,11 +44,21 @@
 - [ ] interesting telescope pickers
 ### Optimize
 - [ ] remove unused builtin vim modules
+### Try AI
+- [x] https://github.com/Exafunction/codeium.nvim
+- [ ] https://github.com/David-Kunz/gen.nvim
+- [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
+    - https://github.com/TabbyML/tabby/tree/main/clients/vim
+- [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
+
 
 <br>
 
 ## Plugins
 ### Waiting for update
+- HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
+- codeium chat bot: https://github.com/Exafunction/codeium.nvim/issues/162#issue-2203852863
+- discord presence: https://github.com/andweeb/presence.nvim
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 - cmp replace only on confirm
 - duplicate entries for cmp-buffer (clangd, pylsp)
@@ -74,7 +84,6 @@
 - [ ] typescript utils:
     - https://github.com/jose-elias-alvarez/typescript.nvim
     - https://github.com/pmizio/typescript-tools.nvim
-- [ ] copilot.lua
 - [ ] heirline
 - [ ] nvim-bqf
 - [ ] trouble
