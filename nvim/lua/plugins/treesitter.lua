@@ -2,8 +2,11 @@ local keymap = vim.keymap.set
 
 require("nvim-treesitter.configs").setup({
   -- ensure_installed = "all",
-  highlight = {enable = true},
-  indent = {enable = true, disable = {"css", "c", "cpp", "lua"}},
+  highlight = { enable = true },
+  indent = {
+    enable = true,
+    -- disable = {"css", "c", "cpp", "lua"},
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -22,13 +25,13 @@ require("nvim-treesitter.configs").setup({
         ["]c"] = "@class.outer",
         ["]a"] = "@parameter.inner",
       },
-      goto_next_end = {["]F"] = "@function.outer", ["]C"] = "@class.outer"},
+      goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
       goto_previous_start = {
         ["[f"] = "@function.outer",
         ["[c"] = "@class.outer",
         ["[a"] = "@parameter.inner",
       },
-      goto_previous_end = {["[F"] = "@function.outer", ["[C"] = "@class.outer"},
+      goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
     },
     select = {
       enable = true,
@@ -62,7 +65,7 @@ require("nvim-treesitter.configs").setup({
     },
     swap = {
       enable = true,
-      swap_next = {["c>a"] = "@parameter.inner", ["c>f"] = "@function.outer"},
+      swap_next = { ["c>a"] = "@parameter.inner", ["c>f"] = "@function.outer" },
       swap_previous = {
         ["c<a"] = "@parameter.inner",
         ["c<f"] = "@funciton.outer",
@@ -79,18 +82,18 @@ local function set_preset(preset)
     return require("treesj.langs.utils").set_default_preset(override)
   end
 end
-local tsj = require("treesj")
 local lang_utils = require("treesj.langs.utils")
+local tsj = require("treesj")
 
 local spaceless_dict_preset = set_preset({
-  both = {separator = ","},
-  split = {last_separator = true},
+  both = { separator = "," },
+  split = { last_separator = true },
 })
-local lua_rec_ignore = {recursive_ignore = {"arguments", "parameters"}}
-local js_ts_rec_ignore = {recursive_ignore = {"arguments", "formal_parameters"}}
+local lua_rec_ignore = { recursive_ignore = { "arguments", "parameters" } }
+local js_ts_rec_ignore = { recursive_ignore = { "arguments", "formal_parameters" } }
 local js_ts_lang_preset = {
-  object = spaceless_dict_preset({split = js_ts_rec_ignore}),
-  object_pattern = spaceless_dict_preset({both = js_ts_rec_ignore}),
+  object = spaceless_dict_preset({ split = js_ts_rec_ignore }),
+  object_pattern = spaceless_dict_preset({ both = js_ts_rec_ignore }),
 }
 
 tsj.setup({
@@ -107,7 +110,7 @@ tsj.setup({
     },
     javascript = js_ts_lang_preset,
     typescript = js_ts_lang_preset,
-    lua = {table_constructor = spaceless_dict_preset({split = lua_rec_ignore})},
+    lua = { table_constructor = spaceless_dict_preset({ split = lua_rec_ignore }) },
   },
   dot_repeat = true,
 })

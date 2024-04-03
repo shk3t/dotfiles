@@ -30,7 +30,7 @@ cmp.setup({
     ["<C-B>"] = cmp.mapping.scroll_docs(-8),
     ["<C-F>"] = cmp.mapping.scroll_docs(8),
     ["<C-E>"] = cmp.mapping.close(),
-    ["<C-Space>"] = confirm_complete,
+    ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-CR>"] = confirm_complete,
     ["<C-K>"] = cmp.mapping(
       cmp.mapping.select_prev_item({
@@ -69,6 +69,7 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
+    -- { name = "codeium" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "path" },
@@ -84,6 +85,9 @@ cmp.setup({
       if consts.ICONS_ENABLED then
         vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
       end
+      if vim_item.kind:find("Codeium") then
+        vim_item.kind_hl_group = "Error"
+      end
       return vim_item
     end,
   },
@@ -91,6 +95,13 @@ cmp.setup({
     return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
   preselect = cmp.PreselectMode.None,
+  performance = {
+    fetching_timeout = 50,
+    -- max_view_entries = 20,
+  },
+  experimental = {
+    ghost_text = false, -- this feature conflict with copilot.vim's preview.
+  },
 })
 
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
@@ -105,11 +116,11 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   }),
   formatting = {
     format = function(entry, vim_item)
+      if consts.ICONS_ENABLED then
+        vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
+      end
       if vim_item.menu == "[DB]" then
         vim_item.kind = "Database"
-        if consts.ICONS_ENABLED then
-          vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
-        end
         vim_item.kind_hl_group = "Keyword"
         vim_item.menu = ""
       end
@@ -120,4 +131,6 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
-luasnip.filetype_extend("htmldjango", { "html" })
+-- require("codeium").setup({
+--   -- enable_chat = true,
+-- })

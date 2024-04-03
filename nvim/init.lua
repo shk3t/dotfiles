@@ -21,6 +21,7 @@ require("lazy").setup({
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
   "nvim-neotest/nvim-nio",
+   -- "vhyrro/luarocks.nvim",
 
   -- Lsp
   "neovim/nvim-lspconfig",
@@ -40,6 +41,7 @@ require("lazy").setup({
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "rcarriga/cmp-dap",
+  -- "Exafunction/codeium.nvim",
 
   -- Syntax tree
   "nvim-treesitter/nvim-treesitter",
@@ -74,15 +76,17 @@ require("lazy").setup({
   "iamcco/markdown-preview.nvim",
   "antosha417/nvim-lsp-file-operations",
   "goerz/jupytext.vim",
-  {"dccsillag/magma-nvim", build = ":UpdateRemotePlugins"},
+  { "dccsillag/magma-nvim", build = ":UpdateRemotePlugins" },
   -- "hkupty/iron.nvim",
   -- "kana/vim-textobj-user",
   -- "GCBallesteros/vim-textobj-hydrogen",
+  -- "rest-nvim/rest.nvim",
+  -- "andweeb/presence.nvim",
 
   -- Telescope
-  {"nvim-telescope/telescope.nvim", lazy = true},
-  {"nvim-telescope/telescope-fzf-native.nvim", build = "make"},
-  -- "prochri/telescope-all-recent.nvim",
+  { "nvim-telescope/telescope.nvim", lazy = true },
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
   "debugloop/telescope-undo.nvim",
 
@@ -124,6 +128,6 @@ require("lazy").setup({
   "shaunsingh/oxocarbon.nvim",
   "ellisonleao/gruvbox.nvim",
   "rebelot/kanagawa.nvim",
-}, {defaults = {lazy = false}})
+}, { defaults = { lazy = false } })
 
 require("plugins")
