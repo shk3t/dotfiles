@@ -1,7 +1,7 @@
 {
 	"aururl": "https://aur.archlinux.org",
 	"aurrpcurl": "https://aur.archlinux.org/rpc?",
-	"buildDir": "/home/ashket/.cache/yay",
+	"buildDir": "/home/shket/.cache/yay",
 	"editor": "",
 	"editorflags": "",
 	"makepkgbin": "makepkg",
