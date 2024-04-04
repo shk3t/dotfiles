@@ -1,4 +1,4 @@
-import = ["/home/ashket/.config/alacritty/colors/rose-pine.toml", "/home/ashket/.config/alacritty/extended-keys.toml"]
+import = ["/home/shket/.config/alacritty/colors/rose-pine.toml", "/home/shket/.config/alacritty/extended-keys.toml"]
 
 [cursor]
 thickness = 0.2
