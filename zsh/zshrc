@@ -32,7 +32,6 @@ source "$ZDOTDIR/zsh-aliases"
 source "$ZDOTDIR/zsh-prompt"
 source "$ZDOTDIR/zsh-keys"
 source "$ZDOTDIR/zsh-colors"
-source "$ZDOTDIR/zsh-private"
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"

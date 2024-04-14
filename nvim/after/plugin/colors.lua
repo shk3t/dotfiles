@@ -17,6 +17,7 @@ local function set_transparent_bg()
 
   vim.opt.pumblend = consts.TRANSPARENCY
   vim.opt.winblend = consts.TRANSPARENCY
+  highlight("Pmenu", {blend = consts.TRANSPARENCY})
   highlight("PmenuSel", {blend = 0})
   highlight("FloatBorder", {blend = consts.TRANSPARENCY})
 
