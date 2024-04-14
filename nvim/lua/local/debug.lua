@@ -56,18 +56,18 @@ M.local_configs = {
         program = vim.fn.getcwd() .. "/bin/try.py",
         justMyCode = false,
       }),
-      vim.tbl_extend("force", python_default_config, {
-        name = "Deep debug makemigrations",
-        program = vim.fn.getcwd() .. "/manage.py",
-        args = { "makemigrations", "stats", "users" },
-        justMyCode = false,
-      }),
-      vim.tbl_extend("force", python_default_config, {
-        name = "Deep debug migrate",
-        program = vim.fn.getcwd() .. "/manage.py",
-        args = { "migrate" },
-        justMyCode = false,
-      }),
+      -- vim.tbl_extend("force", python_default_config, {
+      --   name = "Deep debug makemigrations",
+      --   program = vim.fn.getcwd() .. "/manage.py",
+      --   args = { "makemigrations", "stats", "users" },
+      --   justMyCode = false,
+      -- }),
+      -- vim.tbl_extend("force", python_default_config, {
+      --   name = "Deep debug migrate",
+      --   program = vim.fn.getcwd() .. "/manage.py",
+      --   args = { "migrate" },
+      --   justMyCode = false,
+      -- }),
     },
     ["/modeling/simpy_coursework"] = {
       vim.tbl_extend("force", python_default_config, {

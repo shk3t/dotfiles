@@ -2,11 +2,13 @@ local urllib = require("lib.url")
 
 local M = {}
 
+local user = vim.env.USER
+
 M.local_configs = {
-  { name = "wb_local", url = "postgres://ashket:1think1dump@localhost:5432/wb" },
+  { name = "wb_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/wb" },
   {
     name = "itr_local",
-    url = "mysql://ashket:1think1dump@localhost:3306/itresume",
+    url = "mysql://" .. user .. ":1think1dump@localhost:3306/itresume",
   },
 
   {

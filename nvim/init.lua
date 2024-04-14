@@ -21,7 +21,7 @@ require("lazy").setup({
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
   "nvim-neotest/nvim-nio",
-   -- "vhyrro/luarocks.nvim",
+  -- "vhyrro/luarocks.nvim",
 
   -- Lsp
   "neovim/nvim-lspconfig",

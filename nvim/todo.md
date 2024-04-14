@@ -1,8 +1,7 @@
 ## IMPORTANT TODOS
 
+- [ ] dap: close debug widgets on closing main buffer
 - [ ] PYTHON LSP
-
-- [ ] continue scrolloff even if you reach the end of the file
 
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace

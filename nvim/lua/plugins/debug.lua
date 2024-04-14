@@ -5,6 +5,7 @@ local lib = require("lib.main")
 local widgets = require("dap.ui.widgets")
 local local_configs = require("local.debug").local_configs
 local keymap = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -224,3 +225,57 @@ dap.configurations.go = {
   --   program = "./${relativeFileDirname}"
   -- }
 }
+
+-- autocmd("BufWritePost", {
+--   callback = function()
+--     vim.cmd("silent lua require('dap').restart()")
+--   end,
+-- })
+autocmd("FileType", {
+  pattern = "dap-repl",
+  callback = function()
+    keymap("i", "<C-K>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-L>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-Q>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
+    keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
+    keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
+    keymap("n", "<CR>", function()
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      local current_buffer = vim.api.nvim_win_get_buf(0)
+      local count = vim.api.nvim_buf_line_count(current_buffer)
+      if row == count then
+        vim.api.nvim_input("<Insert><CR>")
+      else
+        require("dap.ui").trigger_actions({ mode = "first" })
+      end
+    end, { buffer = true, remap = true })
+  end,
+})
+autocmd("FileType", {
+  pattern = "dap-repl",
+  callback = function()
+    keymap("i", "<C-K>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-L>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-Q>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
+    keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
+    keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
+    keymap("n", "<CR>", function()
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      local current_buffer = vim.api.nvim_win_get_buf(0)
+      local count = vim.api.nvim_buf_line_count(current_buffer)
+      if row == count then
+        vim.api.nvim_input("<Insert><CR>")
+      else
+        require("dap.ui").trigger_actions({ mode = "first" })
+      end
+    end, { buffer = true, remap = true })
+  end,
+})
+autocmd("BufEnter", {
+  pattern = "DAP Watches",
+  callback = function()
+    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
+  end,
+})

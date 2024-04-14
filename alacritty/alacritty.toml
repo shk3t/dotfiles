@@ -29,22 +29,22 @@ dynamic_padding = true
 opacity = 1
 
 [[keyboard.bindings]]
-chars = "\u001B[67;6u"
-key = "C"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
 action = "Copy"
 key = "C"
 mods = "Control|Shift"
 
 [[keyboard.bindings]]
 chars = "\u001B[67;6u"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
 key = "С"
 mods = "Control|Shift"
 
 [[keyboard.bindings]]
-action = "Copy"
+chars = "\u001B[67;6u"
 key = "С"
 mods = "Control|Shift"
 
