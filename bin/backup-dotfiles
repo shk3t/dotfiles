@@ -2,16 +2,12 @@
 
 source $(dirname $0)/helpers/backup-dirs
 
-curdir=$PWD
-
 if [[ $1 == "" ]]; then
     echo "Please, specify commit message"
     exit
 fi
 
-
 mkdir -p $DOTDIR
-
 find $DOTDIR -mindepth 1 -maxdepth 1 ! -regex ".*\.git.*" | xargs rm -rf
 
 for filepath in ${home_files[@]}; do
@@ -23,6 +19,7 @@ for filepath in ${dotconf_files[@]}; do
     cp -Tr $HOME/.config/$filepath $DOTDIR/.config/$filepath
 done
 
+curdir=$PWD
 cd $DOTDIR
 git add .
 git commit -m "$1"
