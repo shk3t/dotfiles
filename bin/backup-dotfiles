@@ -1,11 +1,8 @@
 #!/bin/bash
 
-curdir=$PWD
-DOTDIR=$HOME/backup/dotfiles
+source $(dirname $0)/helpers/backup-dirs
 
-dotconf_files=(alacritty zsh tmux nvim mpv yay fontconfig sxhkd user-dirs.dirs chrome-flags.conf)
-home_files=(bin .vimrc .zshenv .xinitrc .gdbinit .password-store .gnupg/gpg-agent.conf)
-sys_files=(/usr/share/X11/xorg.conf.d)
+curdir=$PWD
 
 if [[ $1 == "" ]]; then
     echo "Please, specify commit message"
@@ -16,17 +13,17 @@ mkdir -p $DOTDIR
 
 find $DOTDIR -mindepth 1 -maxdepth 1 ! -regex ".*\.git.*" | xargs rm -rf
 
-for file in ${dotconf_files[@]}; do
-    mkdir -p $DOTDIR/.config/$(dirname $file)
-    cp -Tru $HOME/.config/$file $DOTDIR/.config/$file
+for filepath in ${sys_files[@]}; do
+    mkdir -p $DOTDIR/rootdir/$(dirname $filepath)
+    cp -Tr $filepath $DOTDIR/rootdir/$filepath
 done
-for file in ${home_files[@]}; do
-    mkdir -p $DOTDIR/$(dirname $file)
-    cp -Tru $HOME/$file $DOTDIR/$file
+for filepath in ${home_files[@]}; do
+    mkdir -p $DOTDIR/$(dirname $filepath)
+    cp -Tr $HOME/$filepath $DOTDIR/$filepath
 done
-for file in ${sys_files[@]}; do
-    mkdir -p $DOTDIR/rootdir/$(dirname $file)
-    cp -Tru $file $DOTDIR/rootdir/$file
+for filepath in ${dotconf_files[@]}; do
+    mkdir -p $DOTDIR/.config/$(dirname $filepath)
+    cp -Tr $HOME/.config/$filepath $DOTDIR/.config/$filepath
 done
 
 cd $DOTDIR

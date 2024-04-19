@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source $(dirname $0)/helpers/backup-dirs
+
+mkdir -p $DOTDIR
+
+for filepath in ${home_files[@]}; do
+    rm -rf $HOME/$filepath
+    mkdir -p $HOME/$(dirname $filepath)
+    cp -Tr $DOTDIR/$filepath $HOME/$filepath
+done
+for filepath in ${dotconf_files[@]}; do
+    rm -rf $HOME/.config/$filepath
+    mkdir -p $HOME/.config/$(dirname $filepath)
+    cp -Tr $DOTDIR/.config/$filepath $HOME/.config/$filepath
+done

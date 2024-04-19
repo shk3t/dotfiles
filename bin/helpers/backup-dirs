@@ -1,0 +1,8 @@
+#!/bin/bash
+
+
+DOTDIR=$HOME/backup/dotfiles
+
+sys_files=(/usr/share/X11/xorg.conf.d)
+home_files=(bin .vimrc .zshenv .xinitrc .gdbinit .password-store .gnupg/gpg-agent.conf)
+dotconf_files=(alacritty zsh tmux nvim mpv yay fontconfig sxhkd user-dirs.dirs chrome-flags.conf)
