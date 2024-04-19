@@ -156,15 +156,16 @@ dap.adapters.delve = {
   },
 }
 
-dap.configurations.python = {}
-for path, config in lib.sorted_pairs(local_configs.python) do
-  if lib.cwd_contains(path) then
-    for _, config_entry in ipairs(config) do
-      table.insert(dap.configurations.python, config_entry)
+for _, language in pairs({ "python", "go" }) do
+  dap.configurations[language] = {}
+  for path, config in lib.sorted_pairs(local_configs[language]) do
+    if lib.cwd_contains(path) then
+      for _, config_entry in pairs(config) do
+        table.insert(dap.configurations[language], config_entry)
+      end
     end
   end
 end
--- table.sort(dap.configurations.python)
 
 dap.configurations.c = {
   {
@@ -193,38 +194,13 @@ dap.configurations.javascript = {
 }
 
 local typescript_configurations = vim.deepcopy(dap.configurations.javascript)
-for _, config in ipairs(typescript_configurations) do
+for _, config in pairs(typescript_configurations) do
   config.runtimeArgs = {
     "-r",
     "ts-node/register",
   }
 end
 dap.configurations.typescript = typescript_configurations
-
--- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
-dap.configurations.go = {
-  {
-    type = "delve",
-    name = "Default",
-    request = "launch",
-    program = "${file}",
-  },
-  -- {
-  --   type = "delve",
-  --   name = "Debug test", -- configuration for debugging test files
-  --   request = "launch",
-  --   mode = "test",
-  --   program = "${file}"
-  -- },
-  -- -- works with go.mod packages and sub packages
-  -- {
-  --   type = "delve",
-  --   name = "Debug test (go.mod)",
-  --   request = "launch",
-  --   mode = "test",
-  --   program = "./${relativeFileDirname}"
-  -- }
-}
 
 -- autocmd("BufWritePost", {
 --   callback = function()

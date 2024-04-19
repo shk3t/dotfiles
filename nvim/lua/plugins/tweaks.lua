@@ -80,8 +80,3 @@ keymap("n", "]m", function()
   lib.save_jump()
   marks.next()
 end)
-
-local harpoon_ui = require("harpoon.ui")
-keymap("n", "<Space>ah", require("harpoon.mark").add_file)
-keymap("n", "<Space>h", harpoon_ui.toggle_quick_menu)
-for i = 1, 9 do keymap("n", "'" .. i, function() harpoon_ui.nav_file(i) end) end
