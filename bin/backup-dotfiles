@@ -6,6 +6,7 @@ curdir=$PWD
 
 if [[ $1 == "" ]]; then
     echo "Please, specify commit message"
+    exit
 fi
 
 
