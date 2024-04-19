@@ -138,6 +138,8 @@ local telescope_config = {
         "package",
         "module",
         "property",
+        "constant",
+        "field"
       },
       sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
     },

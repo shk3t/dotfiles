@@ -1,4 +1,5 @@
 local python_default_config = require("lib.debug").python_default_config
+local go_default_config = require("lib.debug").go_default_config
 
 local M = {}
 
@@ -69,11 +70,37 @@ M.local_configs = {
       --   justMyCode = false,
       -- }),
     },
-    ["/modeling/simpy_coursework"] = {
-      vim.tbl_extend("force", python_default_config, {
-        name = "Main",
-        program = vim.fn.getcwd() .. "/main.py",
+  },
+  -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+  go = {
+    ["/"] = {
+      vim.tbl_extend("force", go_default_config, {
+        name = "Default",
+        program = "${file}",
       }),
+      vim.tbl_extend("force", go_default_config, {
+        name = "Main",
+        program = "main.go",
+      }),
+      vim.tbl_extend("force", go_default_config, {
+        name = "Src main",
+        program = "src/main.go",
+      }),
+      -- {
+      --   type = "delve",
+      --   name = "Debug test", -- configuration for debugging test files
+      --   request = "launch",
+      --   mode = "test",
+      --   program = "${file}"
+      -- },
+      -- -- works with go.mod packages and sub packages
+      -- {
+      --   type = "delve",
+      --   name = "Debug test (go.mod)",
+      --   request = "launch",
+      --   mode = "test",
+      --   program = "./${relativeFileDirname}"
+      -- }
     },
   },
 }

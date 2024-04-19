@@ -11,7 +11,7 @@ alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
 alias vl='nvim -c "execute \"normal! \<C-O>\""'
-alias vd="nvim -c 'DBUIToggle'"
+alias vdb="nvim -c 'DBUIToggle'"
 
 # Tmux
 alias t='tmux'

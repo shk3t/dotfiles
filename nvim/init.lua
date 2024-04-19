@@ -93,7 +93,6 @@ require("lazy").setup({
   -- Navigation
   "kyazdani42/nvim-tree.lua",
   "stevearc/aerial.nvim",
-  "ThePrimeagen/harpoon",
 
   -- Tweaks
   "lyokha/vim-xkbswitch",

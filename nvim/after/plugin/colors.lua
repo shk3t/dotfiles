@@ -65,10 +65,6 @@ end
 
 local normal = get_highlight("Normal")
 local g_fg, g_bg = normal.fg, normal.bg
-local function setup_harpoon_colors()
-  highlight("HarpoonWindow", {bg = g_bg})
-  highlight("HarpoonBorder", {bg = g_bg})
-end
 
 local function setup_mark_colors() highlight("MarkSignNumHL", {link = "NONE"}) end
 
@@ -105,7 +101,6 @@ local colorscheme_setups = {
     define_dap_signs()
     setup_mark_colors()
     setup_telescope_colors()
-    setup_harpoon_colors()
     clear_spell_check_highlights()
   end,
   ["rose-pine"] = function() end,

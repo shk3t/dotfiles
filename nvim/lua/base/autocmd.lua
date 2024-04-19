@@ -129,13 +129,6 @@ autocmd("FileType", {
     vim.opt_local.cursorlineopt = "line"
   end,
 })
--- Harpoon
-autocmd("FileType", {
-  pattern = "harpoon",
-  callback = function()
-    vim.opt_local.cursorline = true
-  end,
-})
 -- Git blame
 autocmd("FileType", {
   pattern = "blame",
