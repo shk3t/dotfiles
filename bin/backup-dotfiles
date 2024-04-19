@@ -1,0 +1,36 @@
+#!/bin/bash
+
+curdir=$PWD
+DOTDIR=$HOME/backup/dotfiles
+
+dotconf_files=(alacritty zsh tmux nvim mpv yay fontconfig sxhkd user-dirs.dirs chrome-flags.conf)
+home_files=(bin .vimrc .zshenv .xinitrc .gdbinit .password-store .gnupg/gpg-agent.conf)
+sys_files=(/usr/share/X11/xorg.conf.d)
+
+if [[ $1 == "" ]]; then
+    echo "Please, specify commit message"
+fi
+
+
+mkdir -p $DOTDIR
+
+find $DOTDIR -mindepth 1 -maxdepth 1 ! -regex ".*\.git.*" | xargs rm -rf
+
+for file in ${dotconf_files[@]}; do
+    mkdir -p $DOTDIR/.config/$(dirname $file)
+    cp -Tru $HOME/.config/$file $DOTDIR/.config/$file
+done
+for file in ${home_files[@]}; do
+    mkdir -p $DOTDIR/$(dirname $file)
+    cp -Tru $HOME/$file $DOTDIR/$file
+done
+for file in ${sys_files[@]}; do
+    mkdir -p $DOTDIR/rootdir/$(dirname $file)
+    cp -Tru $file $DOTDIR/rootdir/$file
+done
+
+cd $DOTDIR
+git add .
+git commit -m "$1"
+git push
+cd $curdir

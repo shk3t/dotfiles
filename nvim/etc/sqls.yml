@@ -1,5 +1,0 @@
-lowercaseKeywords: false
-connections:
-  - alias: psql_local
-    dataSourceName: "host=127.0.0.1 port=5432 user=shket password=1think1dump dbname=ashket"
-    driver: postgresql
