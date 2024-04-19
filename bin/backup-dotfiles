@@ -14,10 +14,6 @@ mkdir -p $DOTDIR
 
 find $DOTDIR -mindepth 1 -maxdepth 1 ! -regex ".*\.git.*" | xargs rm -rf
 
-for filepath in ${sys_files[@]}; do
-    mkdir -p $DOTDIR/rootdir/$(dirname $filepath)
-    cp -Tr $filepath $DOTDIR/rootdir/$filepath
-done
 for filepath in ${home_files[@]}; do
     mkdir -p $DOTDIR/$(dirname $filepath)
     cp -Tr $HOME/$filepath $DOTDIR/$filepath
