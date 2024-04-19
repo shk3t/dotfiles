@@ -1,8 +1,12 @@
 #!/bin/bash
 
 source $(dirname $0)/helpers/backup-dirs
+DOTDIR=$(realpath $(dirname $(dirname $0)))
 
-mkdir -p $DOTDIR
+if [[ $DOTDIR == $HOME ]]; then
+    echo "You can not use it from here"
+    exit
+fi
 
 for filepath in ${home_files[@]}; do
     rm -rf $HOME/$filepath
