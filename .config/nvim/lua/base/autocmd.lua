@@ -78,8 +78,6 @@ autocmd("TextYankPost", {
 -- Do not restore deleted marks
 autocmd("VimLeavePre", { command = "wshada!" })
 
--- Dap
-
 -- Sql
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
