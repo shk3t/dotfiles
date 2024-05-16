@@ -5,6 +5,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
 vim.opt.cinoptions = "g0,(0,Ws,l,L0"
+vim.opt.cindent = true
 
 -- Lines
 vim.opt.number = true

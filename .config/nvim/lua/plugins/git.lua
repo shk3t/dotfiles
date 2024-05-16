@@ -94,7 +94,7 @@ require("gitsigns").setup {
 }
 
 require("blame").setup({width = 35, date_format = "%H:%M %d.%m.%Y"})
-keymap("n", "<Space>GB", vim.cmd.ToggleBlame)
+keymap("n", "<Space>GB", vim.cmd.BlameToggle)
 
 local actions = require("diffview.actions")
 require("diffview").setup({
