@@ -66,7 +66,7 @@ local telescope_config = {
       width = 0.9,
       preview_width = 0.55,
     },
-    winblend = consts.TRANSPARENCY,
+    -- winblend = consts.TRANSPARENCY,
     border = true,
     borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
     results_title = "",

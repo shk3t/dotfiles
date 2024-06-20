@@ -119,14 +119,24 @@ require("lazy").setup({
 
   -- Colorschemes
   "rose-pine/neovim",
-  "catppuccin/nvim",
-  "Shatur/neovim-ayu",
-  "folke/tokyonight.nvim",
-  "EdenEast/nightfox.nvim",
-  "bkegley/gloombuddy",
-  "shaunsingh/oxocarbon.nvim",
-  "ellisonleao/gruvbox.nvim",
-  "rebelot/kanagawa.nvim",
+  -- "catppuccin/nvim",
+  -- "Shatur/neovim-ayu",
+  -- "folke/tokyonight.nvim",
+  -- "EdenEast/nightfox.nvim",
+  -- "nyoom-engineering/oxocarbon.nvim",
+  -- "ellisonleao/gruvbox.nvim",
+  -- "rebelot/kanagawa.nvim",
+  -- "projekt0n/github-nvim-theme",
+  -- "Mofiqul/vscode.nvim",
+  -- "marko-cerovac/material.nvim",
+  -- "jthvai/lavender.nvim",
+  -- "Mofiqul/dracula.nvim",
+  -- "kdheepak/monochrome.nvim",
+  -- "kvrohit/substrata.nvim",
+  -- "tiagovla/tokyodark.nvim",
+  -- "cpea2506/one_monokai.nvim",
+  -- "maxmx03/fluoromachine.nvim",
+  -- "slugbyte/lackluster.nvim",
 }, { defaults = { lazy = false } })
 
 require("plugins")
