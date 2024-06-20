@@ -41,6 +41,7 @@ media/
 
 # Python
 .venv/
+venv/
 __pycache__/
 *.pyc
 migrations/
@@ -61,5 +62,5 @@ static/
 bootstrap.min.css
 .prettierrc.json
 
-# Local
-fakedata/
+# Documentation
+docs/

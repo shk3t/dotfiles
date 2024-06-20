@@ -96,7 +96,7 @@ local colorscheme_setups = {
   ["default"] = function()
     set_wide_border()
     highlight("CursorLineNr", {bold = true})
-    set_transparent_bg()
+    -- set_transparent_bg()
     define_diagnostic_signs()
     define_dap_signs()
     setup_mark_colors()

@@ -63,12 +63,12 @@ M.local_configs = {
       --   args = { "makemigrations", "stats", "users" },
       --   justMyCode = false,
       -- }),
-      -- vim.tbl_extend("force", python_default_config, {
-      --   name = "Deep debug migrate",
-      --   program = vim.fn.getcwd() .. "/manage.py",
-      --   args = { "migrate" },
-      --   justMyCode = false,
-      -- }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Deep debug migrate",
+        program = vim.fn.getcwd() .. "/manage.py",
+        args = { "migrate" },
+        justMyCode = false,
+      }),
     },
   },
   -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md

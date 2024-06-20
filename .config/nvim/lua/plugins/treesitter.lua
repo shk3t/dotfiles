@@ -1,18 +1,19 @@
 local keymap = vim.keymap.set
+local lib = require("lib.main")
 
 require("nvim-treesitter.configs").setup({
   -- ensure_installed = "all",
   highlight = { enable = true },
   indent = {
     enable = true,
-    -- disable = {"css", "c", "cpp", "lua"},
+    disable = {"css", "c", "cpp", "lua"},
   },
   incremental_selection = {
     enable = true,
     keymaps = {
       -- init_selection = "<M-w>", -- maps in normal mode to init the node/scope selection
-      node_incremental = "an", -- increment to the upper named parent
-      node_decremental = "in", -- decrement to the previous node
+      -- node_incremental = "n", -- increment to the upper named parent
+      -- node_decremental = "N", -- decrement to the previous node
       -- scope_incremental = "as", -- increment to the upper scope (as defined in locals.scm),
     },
   },
@@ -37,23 +38,23 @@ require("nvim-treesitter.configs").setup({
       enable = true,
       lookahead = true,
       keymaps = {
-        ["af"] = "@function.outer",
         ["if"] = "@function.inner",
+        ["af"] = "@function.outer",
 
-        ["aC"] = "@class.outer",
         ["iC"] = "@class.inner",
+        ["aC"] = "@class.outer",
 
-        ["aa"] = "@parameter.outer",
         ["ia"] = "@parameter.inner",
+        ["aa"] = "@parameter.outer",
 
-        ["ac"] = "@call.outer",
         ["ic"] = "@call.inner",
+        ["ac"] = "@call.outer",
 
-        ["ab"] = "@block.outer",
         ["ib"] = "@block.inner",
+        ["ab"] = "@block.outer",
 
-        ["as"] = "@statement.outer",
         ["is"] = "@statement.outer",
+        ["as"] = "@statement.outer",
       },
       selection_modes = {
         ["@function.outer"] = "V",
@@ -115,6 +116,14 @@ tsj.setup({
   dot_repeat = true,
 })
 
+keymap("x", "n", function()
+  require("nvim-treesitter.incremental_selection").node_incremental()
+  lib.norm("o")
+end)
+keymap("x", "N", function()
+  require("nvim-treesitter.incremental_selection").node_decremental()
+  lib.norm("o")
+end)
 keymap("n", "gJ", tsj.join)
 keymap("n", "gS", tsj.split)
 keymap("n", "U", tsj.toggle)

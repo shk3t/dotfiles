@@ -89,8 +89,8 @@ keymap({ "n", "x" }, "<M-Left>", "<C-O>")
 keymap({ "n", "x" }, "<M-Right>", "<C-I>")
 keymap({ "n", "x" }, "<C-Z>", "<Nop>")
 keymap({ "n", "x" }, "y", "mmy")
-keymap({ "n", "x" }, "p", "p`]")
-keymap({ "n", "x" }, "P", "P`]")
+-- keymap({ "n", "x" }, "p", "p`]")
+-- keymap({ "n", "x" }, "P", "P`]")
 
 -- Visual actions
 keymap("x", "P", [["0p]])
@@ -168,8 +168,8 @@ keymap({ "n", "x" }, "<C-J>", "<C-W>j")
 keymap({ "n", "x" }, "<C-K>", "<C-W>k")
 keymap({ "n", "x" }, "<C-L>", "<C-W>l")
 keymap({ "n", "x" }, "<C-S-H>", "3<C-W><")
-keymap({ "n", "x" }, "<C-S-J>", "3<C-W>-")
-keymap({ "n", "x" }, "<C-S-K>", "3<C-W>+")
+keymap({ "n", "x" }, "<C-S-J>", "<C-W>-")
+keymap({ "n", "x" }, "<C-S-K>", "<C-W>+")
 keymap({ "n", "x" }, "<C-S-L>", "3<C-W>>")
 
 -- Tabs
@@ -242,34 +242,8 @@ keymap("i", "<C-S-Z>", "<C-O><C-R>")
 keymap({ "n", "x" }, "<Tab>", "<C-^>")
 
 -- Mouse
-local function sidescroll(direction)
-  direction = direction == "left" and "h" or "l"
-  local sidescroll_span = lib.split_string(lib.split_string(vim.o.mousescroll, ",")[2], ":")[2]
-  local scroll_cmd = "norm! " .. sidescroll_span .. "z" .. direction
-  local function scroll()
-    vim.cmd(scroll_cmd)
-  end
-
-  return function()
-    local current_scrolloff = vim.o.scrolloff
-    local current_sidescrolloff = vim.o.sidescrolloff
-    local current_window = vim.api.nvim_get_current_win()
-    local current_cursor_position = vim.api.nvim_win_get_cursor(current_window)
-    vim.opt.scrolloff = 0
-    vim.opt.sidescrolloff = 0
-    lib.norm("<LeftMouse>")
-    local target_window = vim.api.nvim_get_current_win()
-    if current_window == target_window then
-      vim.api.nvim_win_set_cursor(current_window, current_cursor_position)
-    end
-    scroll()
-    vim.api.nvim_set_current_win(current_window)
-    vim.opt.scrolloff = current_scrolloff
-    vim.opt.sidescrolloff = current_sidescrolloff
-  end
-end
-keymap({ "n", "x" }, "<S-ScrollWheelUp>", sidescroll("left"))
-keymap({ "n", "x" }, "<S-ScrollWheelDown>", sidescroll("right"))
+keymap({ "n", "x" }, "<S-ScrollWheelUp>", "<ScrollWheelLeft>")
+keymap({ "n", "x" }, "<S-ScrollWheelDown>", "<ScrollWheelRight>")
 
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")

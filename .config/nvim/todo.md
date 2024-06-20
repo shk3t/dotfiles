@@ -1,7 +1,7 @@
 ## IMPORTANT TODOS
 
 - [ ] dap: close debug widgets on closing main buffer
-- [ ] PYTHON LSP
+- [ ] PYTHON LSP (ruff + pylyzer / pylsp)
 
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace
@@ -12,7 +12,8 @@
     - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
     - https://neovim.discourse.group/t/autocmd-to-keep-cursor-position-on-yank/2982/2
     - [ ] Features
-        - `q` to select any quote
+        - `q` to select any nearest quote
+        - select any nearest bracket
         - jump to class/function name, not keyword
         - dot-repeat
         - correct lua function
