@@ -40,6 +40,7 @@ export MANPAGER='nvim +Man!'
 
 # God's tools
 eval "$(zoxide init zsh)"
+FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 # Environment variables set everywhere
 EDITOR="nvim"

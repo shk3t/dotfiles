@@ -63,10 +63,32 @@ M.local_configs = {
       --   args = { "makemigrations", "stats", "users" },
       --   justMyCode = false,
       -- }),
+      -- vim.tbl_extend("force", python_default_config, {
+      --   name = "Deep debug migrate",
+      --   program = vim.fn.getcwd() .. "/manage.py",
+      --   args = { "migrate" },
+      --   justMyCode = false,
+      -- }),
+    },
+    ["/itresume/sok"] = {
       vim.tbl_extend("force", python_default_config, {
-        name = "Deep debug migrate",
-        program = vim.fn.getcwd() .. "/manage.py",
-        args = { "migrate" },
+        name = "Django",
+        program = vim.fn.getcwd() .. "/server/manage.py",
+        args = { "runserver", "--noreload" },
+      }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Django deep debug",
+        program = vim.fn.getcwd() .. "/server/manage.py",
+        args = { "runserver", "--noreload" },
+        justMyCode = false,
+      }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Try Django script",
+        program = vim.fn.getcwd() .. "/scripts/try.py",
+      }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Try Django script deep",
+        program = vim.fn.getcwd() .. "/scripts/try.py",
         justMyCode = false,
       }),
     },

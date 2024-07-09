@@ -2,7 +2,7 @@
 #alias g='lazygit'
 alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 alias nvimrc='nvim ~/.config/nvim/'
-alias duh='du -had1 | sort -rh'
+alias duh='du -had1 | sort -hr'
 
 # Neovim
 alias v='nvim'
@@ -36,7 +36,7 @@ function zi_alias {
 }
 alias z=z_alias
 alias zi=zi_alias
-alias fcdf='cd $(find . -type d -print | fzf)'
+alias cdf='cd $(dirname $(fzf))'
 
 # Clipboard
 alias clip='xclip -selection clipboard'

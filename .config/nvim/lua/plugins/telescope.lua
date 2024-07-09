@@ -66,7 +66,7 @@ local telescope_config = {
       width = 0.9,
       preview_width = 0.55,
     },
-    -- winblend = consts.TRANSPARENCY,
+    winblend = consts.TRANSPARENCY,
     border = true,
     borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
     results_title = "",
@@ -139,7 +139,7 @@ local telescope_config = {
         "module",
         "property",
         "constant",
-        "field"
+        "field",
       },
       sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
     },
@@ -162,7 +162,7 @@ local telescope_config = {
     undo = {
       use_delta = true,
       side_by_side = false,
-      diff_context_lines = 5,
+      vim_diff_opts = { ctxlen = 5 },
       entry_format = "state #$ID, $STAT, $TIME",
       mappings = {
         i = {

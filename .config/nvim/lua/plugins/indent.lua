@@ -1,1 +1,1 @@
-require("ibl").setup {indent = {char = "⎸"}, scope = {enabled = false}}
+require("ibl").setup({ indent = { char = "▎" }, scope = { enabled = false } })
