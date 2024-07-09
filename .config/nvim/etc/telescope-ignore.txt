@@ -12,7 +12,9 @@ lazy-lock.json
 *.sqlite3
 # metadata.json
 .idea/
+.vscode/
 .editorconfig
+public/
 # requirements.txt
 mime.types
 
@@ -45,7 +47,7 @@ venv/
 __pycache__/
 *.pyc
 migrations/
-# __init__.py
+__init__.py
 # pyrightconfig.json
 # manage.py
 
