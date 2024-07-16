@@ -1,7 +1,8 @@
 ## IMPORTANT TODOS
 
+- [X] PYTHON LSP (ruff + pylyzer / pylsp)
 - [ ] dap: close debug widgets on closing main buffer
-- [ ] PYTHON LSP (ruff + pylyzer / pylsp)
+- [ ] HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
 
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace
@@ -56,7 +57,6 @@
 
 ## Plugins
 ### Waiting for update
-- HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
 - codeium chat bot: https://github.com/Exafunction/codeium.nvim/issues/162#issue-2203852863
 - discord presence: https://github.com/andweeb/presence.nvim
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445

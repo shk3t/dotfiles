@@ -8,11 +8,9 @@ null_ls.setup({
     null_ls.builtins.formatting.prettier.with({
       extra_args = { "--config", NVIM_ETC .. "/prettier.json" },
     }),
-    null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
+    -- null_ls.builtins.formatting.black.with({ extra_args = { "--fast" } }),
     -- null_ls.builtins.formatting.pyink.with({ extra_args = { "--fast" } }),
-    -- null_ls.builtins.formatting.ruff,
-    -- null_ls.builtins.formatting.ruff_format,
-    null_ls.builtins.formatting.isort.with({ extra_args = { "--profile", "black" } }),
+    -- null_ls.builtins.formatting.isort.with({ extra_args = { "--profile", "black" } }),
     -- null_ls.builtins.formatting.luaformatter.with({
     --   extra_args = {"--config", NVIM_ETC .. "/lua-format.yaml"},
     -- }),
