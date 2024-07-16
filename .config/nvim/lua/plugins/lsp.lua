@@ -1,30 +1,10 @@
+local lib = require("lib.main")
 local lspconfig = require("lspconfig")
 local telescope_builtin = require("telescope.builtin")
-local lib = require("lib.main")
 local keymap = vim.keymap.set
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 require("mason").setup()
-require("mason-lspconfig").setup({
-  -- ensure_installed = {
-  --   "bashls",
-  --   "clangd",
-  --   "html",
-  --   "cssls",
-  --   "cssmodules_ls",
-  --   "jsonls",
-  --   "lua_ls",
-  --   "pyright",
-  --   "jedi_language_server",
-  --   "sqls",
-  --   "texlab",
-  --   "tsserver",
-  --   "gopls",
-  -- },
-})
--- require("mason-null-ls").setup({
---   ensure_installed = {"black", "clang-format", "luaformatter", "prettier"},
--- })
 
 local function base_init(client)
   client.config.flags = client.config.flags or {}
@@ -61,8 +41,12 @@ end
 local function attach(custom_attach)
   return function(client, bufnr)
     base_attach(client, bufnr)
-    custom_attach(client, bufnr)
+    pcall(custom_attach, client, bufnr)
   end
+end
+
+local function enable_formatter_attach(client, bufnr)
+  client.server_capabilities.documentFormattingProvider = true
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -82,7 +66,7 @@ local function setup_server(server, config)
 
   config = vim.tbl_deep_extend("force", {
     on_init = base_init,
-    on_attach = base_attach,
+    on_attach = attach(config.custom_attach),
     capabilities = updated_capabilities,
     flags = { debounce_text_changes = nil },
   }, config)
@@ -100,7 +84,42 @@ local tss_settings = {
   },
 }
 local servers = {
-  pyright = true,
+  -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md
+  pyright = {
+    settings = {
+      pyright = {
+        disableOrganizeImports = true,
+        disableTaggedHints = true,
+      },
+      python = {
+        analysis = {
+          diagnosticSeverityOverrides = {
+            -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
+            reportUndefinedVariable = "none",
+          },
+        },
+      },
+    },
+  },
+  ruff_lsp = {
+    init_options = {
+      settings = {
+        -- https://github.com/astral-sh/ruff-lsp/issues/384
+        lint = {
+          enable = true,
+        },
+      },
+    },
+    custom_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = true
+      keymap({ "n", "x" }, "<Space>I", function()
+        vim.lsp.buf.code_action({
+          context = { only = { "source.organizeImports" } },
+          apply = true,
+        })
+      end, { buffer = bufnr })
+    end,
+  },
   -- https://github.com/typescript-language-server/typescript-language-server
   tsserver = {
     init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },

@@ -23,5 +23,5 @@ curdir=$PWD
 cd $DOTDIR
 git add .
 git commit -m "$1"
-git push
+git push --force
 cd $curdir
