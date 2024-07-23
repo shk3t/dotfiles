@@ -7,6 +7,7 @@ local user = vim.env.USER
 M.local_configs = {
   { name = "wb_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/wb" },
   { name = "sok_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/sok" },
+  { name = "lms_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/lms" },
   -- {
   --   name = "itr_local",
   --   url = "mysql://" .. user .. ":1think1dump@localhost:3306/itresume",
@@ -22,12 +23,12 @@ M.local_configs = {
     name = "sok_dev",
     url = "ssh://itresume-dev:postgres://sok_admin:qweasd963@localhost:5432/sok",
   },
-  {
-    name = "lms_dev",
-    url = "ssh://itresume-dev:postgres://lms_admin:"
-      .. urllib.urlencode([[WFmk6b3c%wDKXT^X&SUU#*y^@JmsptdnDFpLiAdV]])
-      .. "@localhost:5432/lms_db",
-  },
+  -- {
+  --   name = "lms_dev",
+  --   url = "ssh://itresume-dev:postgres://lms_admin:"
+  --     .. urllib.urlencode([[WFmk6b3c%wDKXT^X&SUU#*y^@JmsptdnDFpLiAdV]])
+  --     .. "@localhost:5432/lms_db",
+  -- },
   {
     name = "salesify",
     url = "ssh://salesify:postgres://wb_admin:"
