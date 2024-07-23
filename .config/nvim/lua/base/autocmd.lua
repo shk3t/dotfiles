@@ -28,6 +28,13 @@ autocmd("BufEnter", {
   end,
 })
 
+-- Reset mapping for Cmd window
+autocmd("CmdwinEnter", {
+  callback = function()
+    keymap("n", "<CR>", "<CR>", {buffer = true})
+  end,
+})
+
 -- Don't add the comment prefix when I hit o/O on a comment line.
 autocmd("FileType", {
   callback = function()

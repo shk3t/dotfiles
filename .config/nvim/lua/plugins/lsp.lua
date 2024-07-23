@@ -105,9 +105,8 @@ local servers = {
     init_options = {
       settings = {
         -- https://github.com/astral-sh/ruff-lsp/issues/384
-        lint = {
-          enable = true,
-        },
+        args = { "--ignore=F403,F405" },
+        lint = { enable = true },
       },
     },
     custom_attach = function(client, bufnr)

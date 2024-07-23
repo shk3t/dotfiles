@@ -46,7 +46,7 @@ media/
 venv/
 __pycache__/
 *.pyc
-migrations/
+# migrations/
 __init__.py
 # pyrightconfig.json
 # manage.py
@@ -66,3 +66,6 @@ bootstrap.min.css
 
 # Documentation
 docs/
+
+# Specific
+docker/languages/sql/
