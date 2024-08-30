@@ -18,7 +18,8 @@ if [[ " $@ " =~ ( --wb ) ]]; then
         SERVERNAME="salesify"
     fi
 elif [[ " $@ " =~ ( --lms ) ]]; then
-    DB_NAME="lms"
+    DB_NAME="lms_db"
+    LOCAL_DB_NAME="lms"
     DB_USER="lms_admin"
     WORKDIR="lms-server"
     if [[ $server == "prod" ]]; then
@@ -30,25 +31,36 @@ else
     exit
 fi
 
-
 FULLPATH="$LOCAL_DUMP_PATH/${DB_NAME}-${server}.sql"
-
+if ! [[ -n LOCAL_DB_NAME ]]; then
+    LOCAL_DB_NAME=$DB_NAME
+fi
 
 if ! [[ " $@ " =~ ( -l | --local-dump ) ]]; then
     echo "Enter password for ${SERVERNAME^^} ${DB_NAME^^} database"
     ssh $SERVERNAME "pg_dump -h localhost -U $DB_USER -d $DB_NAME -W | gzip -9" > "$FULLPATH.gz"
 fi
 
+
 if [[ " $@ " =~ ( -u | --update ) ]]; then
     gzip -dkf "$FULLPATH.gz"
     sudo -u postgres psql << EOF
-        DROP DATABASE $DB_NAME;
-        CREATE DATABASE $DB_NAME;
+        DROP DATABASE $LOCAL_DB_NAME;
+        CREATE DATABASE $LOCAL_DB_NAME;
 EOF
-    psql -d $DB_NAME < $FULLPATH
+    psql -d $LOCAL_DB_NAME < $FULLPATH
     rm -f "$FULLPATH"
 
+    if [[ " $@ " =~ ( --lms ) ]]; then
+        bash ~/repos/itresume/$WORKDIR/scripts/rename_apps.sh
+    fi
     ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/manage.py migrate
+    if [[ " $@ " =~ ( --lms ) ]]; then
+        bash ~/repos/itresume/$WORKDIR/scripts/fill_data_before_transfer.sh
+        cd ~/repos/itresume/$WORKDIR
+        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_data.py
+        bash ~/repos/itresume/$WORKDIR/scripts/fill_data_after_transfer.sh
+    fi
 fi
 
 

@@ -2,7 +2,15 @@
 #alias g='lazygit'
 alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 alias nvimrc='nvim ~/.config/nvim/'
-alias duh='du -had1 | sort -hr'
+function duh {
+    du -had1 $1 | sort -h
+}
+function duh2 {
+    du -had2 $1 | sort -h
+}
+function duh3 {
+    du -had3 $1 | sort -h
+}
 
 # Neovim
 alias v='nvim'
@@ -36,13 +44,16 @@ function zi_alias {
 }
 alias z=z_alias
 alias zi=zi_alias
-alias cdf='cd $(dirname $(fzf))'
+alias cdf='cd $(dirname "$(fzf)")'
 
 # Clipboard
 alias clip='xclip -selection clipboard'
 function cpass {
     echo -n $(pass $@) | xclip -selection clipboard
 }
+
+# Package manager
+alias autoremove='pacman -Qdtq | sudo pacman -Rs -'
 
 # Python
 alias ipy=ipython

@@ -42,6 +42,8 @@ require("lazy").setup({
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "rcarriga/cmp-dap",
   -- "Exafunction/codeium.nvim",
+  "David-Kunz/gen.nvim",
+  "tzachar/cmp-ai",
 
   -- Syntax tree
   "nvim-treesitter/nvim-treesitter",
@@ -89,6 +91,7 @@ require("lazy").setup({
   "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
   "debugloop/telescope-undo.nvim",
+  "nvim-telescope/telescope-ui-select.nvim",
 
   -- Navigation
   "kyazdani42/nvim-tree.lua",

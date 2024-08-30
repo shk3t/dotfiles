@@ -172,6 +172,13 @@ local telescope_config = {
         },
       },
     },
+    ["ui-select"] = {
+      layout_config = {
+        height = 0.25,
+        prompt_position = "top",
+        width = 0.25,
+      },
+    },
   },
 }
 telelib.adjust_iconpath_display(telescope_config, { "find_files", "buffers" }, {
@@ -182,7 +189,9 @@ telescope.setup(telescope_config)
 telescope.load_extension("fzf")
 telescope.load_extension("live_grep_args")
 telescope.load_extension("undo")
+telescope.load_extension("ui-select")
 
+-- https://github.com/prochri/telescope-all-recent.nvim?tab=readme-ov-file#installation
 local pickers_frecency_opts = { disable = false, use_cwd = false, sorting = "frecency" }
 require("telescope-all-recent").setup({
   database = { max_timestamps = 4 },

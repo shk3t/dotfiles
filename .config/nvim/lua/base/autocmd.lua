@@ -31,7 +31,7 @@ autocmd("BufEnter", {
 -- Reset mapping for Cmd window
 autocmd("CmdwinEnter", {
   callback = function()
-    keymap("n", "<CR>", "<CR>", {buffer = true})
+    keymap("n", "<CR>", "<CR>", { buffer = true })
   end,
 })
 
@@ -116,7 +116,8 @@ autocmd("FileType", {
     vim.opt_local.signcolumn = "no"
     vim.opt_local.wrap = false
     vim.opt_local.cursorlineopt = "line"
-    vim.diagnostic.disable()
+    vim.opt_local.foldenable = false
+    vim.diagnostic.enable(false)
   end,
 })
 

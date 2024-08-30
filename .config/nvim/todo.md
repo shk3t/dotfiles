@@ -1,11 +1,10 @@
 ## IMPORTANT TODOS
 
-- [X] PYTHON LSP (ruff + pylyzer / pylsp)
-- [ ] dap: close debug widgets on closing main buffer
-- [ ] HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
-
+- [ ] TRY AI
+- [ ] nvim-ufo (folding) | alternatives
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] jump to error line in stack trace
+- [ ] dap: close debug widgets on closing main buffer
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
     - https://github.com/RRethy/nvim-treesitter-textsubjects
@@ -47,16 +46,20 @@
 - [ ] remove unused builtin vim modules
 ### Try AI
 - [x] https://github.com/Exafunction/codeium.nvim
-- [ ] https://github.com/David-Kunz/gen.nvim
+- [X] https://github.com/tzachar/cmp-ai
+- [X] https://github.com/David-Kunz/gen.nvim
 - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
     - https://github.com/TabbyML/tabby/tree/main/clients/vim
+- [ ] https://github.com/frankroeder/parrot.nvim
 - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
+- [ ] https://github.com/sourcegraph/sg.nvim
 
 
 <br>
 
 ## Plugins
 ### Waiting for update
+- HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
 - codeium chat bot: https://github.com/Exafunction/codeium.nvim/issues/162#issue-2203852863
 - discord presence: https://github.com/andweeb/presence.nvim
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
@@ -98,7 +101,6 @@
 - [ ] lspsaga
 - [ ] neoclip
 - [ ] neorg
-- [ ] nvim-ufo (folding)
 - [ ] hop / leap / flash
 - [ ] whichkey
 - [ ] lazygit (integration)
