@@ -105,7 +105,7 @@ local servers = {
     init_options = {
       settings = {
         -- https://github.com/astral-sh/ruff-lsp/issues/384
-        args = { "--ignore=F403,F405" },
+        args = { "--ignore=E402,F403,F405" },
         lint = { enable = true },
       },
     },
