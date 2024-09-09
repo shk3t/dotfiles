@@ -20,6 +20,7 @@ local function set_transparent_bg()
   highlight("Pmenu", { blend = consts.TRANSPARENCY })
   highlight("PmenuSel", { blend = 0 })
   highlight("FloatBorder", { blend = consts.TRANSPARENCY })
+  highlight("NormalFloat", { blend = consts.TRANSPARENCY })
 
   highlight("GitSignsUntracked", { bg = "NONE" })
   highlight("GitSignsTopdelete", { bg = "NONE" })

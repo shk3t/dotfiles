@@ -7,35 +7,40 @@ local user = vim.env.USER
 M.local_configs = {
   { name = "lms_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/lms" },
   {
-    name = "itr_local",
-    url = "mysql://shket:1think1dump@localhost:3306/itrapi",
-  },
-  -- { name = "sok_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/sok" },
-  -- { name = "wb_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/wb" },
-  -- {
-  --   name = "itr_local",
-  --   url = "mysql://" .. user .. ":1think1dump@localhost:3306/itresume",
-  -- },
-
-  {
     name = "lms_dev",
     url = "ssh://itresume-dev:postgres://lms_admin:"
       .. urllib.urlencode([[WFmk6b3c%wDKXT^X&SUU#*y^@JmsptdnDFpLiAdV]])
       .. "@localhost:5432/lms_db",
   },
+  { name = "sok_local_docker", url = "postgres://postgres:qweasd963@localhost:2345/analysis" },
+  { name = "sok_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/sok" },
+  {
+    name = "sok_dev",
+    url = "ssh://itresume-dev:postgres://sok_admin:qweasd963@localhost:5432/sok",
+  },
+  {
+    name = "sok_prod",
+    url = "ssh://itresume-prod:mysql://root:qweasd963@localhost:3306/sok",
+  },
+
+  {
+    name = "itr_local",
+    url = "mysql://shket:1think1dump@localhost:3306/itrapi",
+  },
   {
     name = "itr_dev",
     url = "ssh://itresume-dev:mysql://root:qweasd963@localhost:3306/itresume",
   },
+
+  { name = "wb_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/wb" },
+
+  { name = "mp", url = "postgres://postgres:pass@localhost:2345/postgres" },
+
   -- {
   --   name = "wb_dev",
   --   url = "ssh://itresume-dev:postgres://wb_admin:" .. urllib.urlencode(
   --     [[w1V|6y66<"biSzI-L)*,@xe#GV08Sof3S1A}$m1yE4-p2wl2ia]]
   --   ) .. "@localhost:5432/wb",
-  -- },
-  -- {
-  --   name = "sok_dev",
-  --   url = "ssh://itresume-dev:postgres://sok_admin:qweasd963@localhost:5432/sok",
   -- },
   -- {
   --   name = "salesify",

@@ -30,7 +30,7 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias ls='ls -Av --group-directories-first --color=auto'
-alias l='ls -lApthvr --group-directories-first --color=auto'
+alias l='ls -lApth'
 
 # Navigation
 function cd {
@@ -44,7 +44,7 @@ function zi_alias {
 }
 alias z=z_alias
 alias zi=zi_alias
-alias cdf='cd $(dirname "$(fzf)")'
+alias cdf='cd "$(fzf | xargs -0 dirname)"'
 
 # Clipboard
 alias clip='xclip -selection clipboard'

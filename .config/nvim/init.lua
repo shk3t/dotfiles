@@ -74,7 +74,7 @@ require("lazy").setup({
   "pbogut/vim-dadbod-ssh",
 
   -- Other integrations
-  -- "aserowy/tmux.nvim",
+  "aserowy/tmux.nvim",
   "iamcco/markdown-preview.nvim",
   "antosha417/nvim-lsp-file-operations",
   "goerz/jupytext.vim",
