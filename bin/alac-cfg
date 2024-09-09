@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ALAC_YML="$HOME/.config/alacritty/alacritty.yml"
+ALAC_TOML="$HOME/.config/alacritty/alacritty.toml"
 ZSH_EXPORTS="$HOME/.config/zsh/zsh-exports"
 FLOAT_RE='^[+-]?[0-9]+\.?[0-9]*$'
 POS_INT_RE='[0-9]+'
@@ -10,24 +10,24 @@ while [[ $1 ]]; do
     case $1 in
         -c | --color)
             if [[ $2 =~ $NOT_OPTION ]]; then
-                sed -Ei "s/(alacritty\/colors).*$/\1\/$2\.yml/" $ALAC_YML
+                sed -Ei "s/(alacritty\/colors).*$/\1\/$2\.yml/" $ALAC_TOML
                 shift
             else
-                cat $ALAC_YML | grep 'alacritty/colors'
+                cat $ALAC_TOML | grep 'alacritty/colors'
             fi;;
         -o | --opacity)
             if [[ $2 =~ $FLOAT_RE ]]; then
-                sed -Ei "s/(opacity:).*$/\1 $2/" $ALAC_YML
+                sed -Ei "s/(opacity = ).*$/\1 $2/" $ALAC_TOML
                 shift
             else
-                cat $ALAC_YML | grep opacity 
+                cat $ALAC_TOML | grep opacity 
             fi;;
         -s | --scale)
             if [[ $2 =~ $POS_INT_RE ]]; then
-                sed -Ei "s/(size:).*$/\1 $2/" $ALAC_YML
+                sed -Ei "s/(size = ).*$/\1 $2/" $ALAC_TOML
                 shift
             else
-                cat $ALAC_YML | grep size 
+                cat $ALAC_TOML | grep size 
             fi;;
         -b | --blur)
             sed -Ei "s/(TERMINAL_BLUR_ENABLED=).*$/\11/" $ZSH_EXPORTS;;

@@ -42,14 +42,16 @@ local function prev_insert_pos()
   end)
 end
 local function longjump(key)
-  local prime_buf = vim.api.nvim_get_current_buf()
-  local next_row = -1
-  repeat
-    local prev_row = next_row
-    lib.norm(key)
-    next_row = unpack(vim.api.nvim_win_get_cursor(0))
-  until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
-  -- lib.center_win()
+  pcall(function()
+    local prime_buf = vim.api.nvim_get_current_buf()
+    local next_row = -1
+    repeat
+      local prev_row = next_row
+      lib.norm(key)
+      next_row = unpack(vim.api.nvim_win_get_cursor(0))
+    until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
+    -- lib.center_win()
+  end)
 end
 local function longjump_back()
   longjump("<C-O>")

@@ -103,6 +103,7 @@ cmp.setup({
   experimental = {
     ghost_text = false, -- this feature conflict with copilot.vim's preview.
   },
+  -- window =vim
 })
 
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
