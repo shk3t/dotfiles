@@ -1,10 +1,20 @@
 ## IMPORTANT TODOS
 
+- [X] jupyter | molten-nvim: https://github.com/benlubas/molten-nvim
 - [ ] TRY AI
-- [ ] nvim-ufo (folding) | alternatives
-- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
-- [ ] jump to error line in stack trace
+- [ ] Custom sql snippets
 - [ ] dap: close debug widgets on closing main buffer
+- [ ] Config existing plugins
+    - [ ] dadbod-ui
+    - [ ] tree
+    - [ ] aerials
+    - [ ] diffview
+- [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
+- [ ] nvim-ufo (folding) | alternatives
+- [ ] jump to error line in stack trace
+
+### Keys
+- [ ] keys repetition nvimtools/hydra.nvim
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
     - https://github.com/RRethy/nvim-treesitter-textsubjects
@@ -19,20 +29,12 @@
         - correct lua function
         - key, value, triple quotes
         - fast increment-decrement node selections
-- [ ] better autocompletion with SQL LSP
+### Integrations
 - [ ] neogit
-- [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
-- [ ] jupyter: https://github.com/kiyoon/jupynium.nvim
-    - [ ] iron: jupyter support: https://www.maxwellrules.com/misc/nvim_jupyter.html
-    - [ ] nvim-ipy: https://github.com/bfredl/nvim-ipy
-    - [ ] molten-nvim migration: https://github.com/benlubas/molten-nvim
-- [ ] git status delta: https://github.com/nvim-telescope/telescope.nvim/issues/605
-
-# TODOS
-- [ ] text editing through ssh
-- [ ] command line rename (:s) autocomplete
-### Keys
-- [ ] visual dot-repeat
+- [ ] molten-nvim for `.ipynb` files
+### Lsp
+- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
+- [ ] better autocompletion with SQL LSP
 ### Dap
 - [-] hover without borders
 - [ ] js/ts debugger
@@ -42,6 +44,8 @@
 ### Explore
 - [ ] terminal mode
 - [ ] interesting telescope pickers
+- [ ] text editing through ssh
+- [ ] command line rename (:s) autocomplete
 ### Optimize
 - [ ] remove unused builtin vim modules
 ### Try AI
@@ -70,7 +74,6 @@
 - spider russian language support
 - git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
-- magma proper save/load, export to `.ipynb`
 - telescope mouse support: https://github.com/nvim-telescope/telescope.nvim/issues/2213
 - pyright autoimport relative
 ### Features
@@ -122,3 +125,12 @@
 ## Another software
 - [ ] pbcopy
 - [ ] lf
+
+
+```python
+print("Hello")
+```
+
+```python
+print("Nice")
+```

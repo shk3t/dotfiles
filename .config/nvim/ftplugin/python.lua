@@ -17,3 +17,6 @@ keymap("n", "gct", function()
   end
   vim.api.nvim_set_current_line(current_line)
 end, {buffer = true})
+
+-- Jupyter integration
+keymap({ "n", "x" }, "<F5>", vim.cmd.MoltenOpenInBrowser, { buffer = true })

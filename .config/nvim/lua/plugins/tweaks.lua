@@ -1,5 +1,4 @@
 local keymap = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
 local lib = require("lib.main")
 
 require("Comment").setup()

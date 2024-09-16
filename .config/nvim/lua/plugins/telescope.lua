@@ -192,7 +192,7 @@ telescope.load_extension("undo")
 telescope.load_extension("ui-select")
 
 -- https://github.com/prochri/telescope-all-recent.nvim?tab=readme-ov-file#installation
-local pickers_frecency_opts = { disable = false, use_cwd = false, sorting = "frecency" }
+local pickers_frecency_opts = { disable = false, use_cwd = true, sorting = "frecency" }
 require("telescope-all-recent").setup({
   database = { max_timestamps = 4 },
   scoring = {
@@ -202,7 +202,7 @@ require("telescope-all-recent").setup({
       [3] = { age = 720, value = 30 }, -- past 12 hours
       [4] = { age = 2880, value = 15 }, -- past 2 days
       [5] = { age = 10080, value = 5 }, -- past week
-      [6] = { age = 43200, value = 2 }, -- past month
+      [6] = { age = 43200, value = 0 }, -- past month
     },
     -- how much the score of a recent item will be improved.
     boost_factor = 0.0001,

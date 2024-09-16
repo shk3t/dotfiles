@@ -6,7 +6,7 @@ require("nvim-treesitter.configs").setup({
   highlight = { enable = true },
   indent = {
     enable = true,
-    disable = {"css", "c", "cpp", "lua"},
+    disable = { "css", "c", "cpp", "lua" },
   },
   incremental_selection = {
     enable = true,
@@ -25,12 +25,14 @@ require("nvim-treesitter.configs").setup({
         ["]f"] = "@function.outer",
         ["]c"] = "@class.outer",
         ["]a"] = "@parameter.inner",
+        ["]j"] = "@code_cell.inner",
       },
       goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
       goto_previous_start = {
         ["[f"] = "@function.outer",
         ["[c"] = "@class.outer",
         ["[a"] = "@parameter.inner",
+        ["[j"] = "@code_cell.inner",
       },
       goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
     },
@@ -55,6 +57,9 @@ require("nvim-treesitter.configs").setup({
 
         ["is"] = "@statement.outer",
         ["as"] = "@statement.outer",
+
+        ["ij"] = "@code_cell.inner",
+        ["aj"] = "@code_cell.outer",
       },
       selection_modes = {
         ["@function.outer"] = "V",
@@ -66,10 +71,15 @@ require("nvim-treesitter.configs").setup({
     },
     swap = {
       enable = true,
-      swap_next = { ["c>a"] = "@parameter.inner", ["c>f"] = "@function.outer" },
+      swap_next = {
+        ["c>a"] = "@parameter.inner",
+        ["c>f"] = "@function.outer",
+        ["c>j"] = "@code_cell.outer",
+      },
       swap_previous = {
         ["c<a"] = "@parameter.inner",
         ["c<f"] = "@funciton.outer",
+        ["c<j"] = "@code_cell.outer",
       },
     },
   },

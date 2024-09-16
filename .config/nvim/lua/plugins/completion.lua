@@ -1,6 +1,7 @@
 local cmp = require("cmp")
 local consts = require("lib.consts")
 local luasnip = require("luasnip")
+local autocmd = vim.api.nvim_create_autocmd
 
 local confirm_complete = function()
   if cmp.visible() then
@@ -10,7 +11,7 @@ local confirm_complete = function()
   end
 end
 
-vim.api.nvim_create_autocmd("InsertLeave", {
+autocmd("InsertLeave", {
   callback = function()
     if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
       luasnip.unlink_current()

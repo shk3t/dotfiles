@@ -96,6 +96,7 @@ local servers = {
           diagnosticSeverityOverrides = {
             -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md#type-check-diagnostics-settings
             reportUndefinedVariable = "none",
+            reportUnusedExpression = "none",
           },
         },
       },
@@ -105,7 +106,7 @@ local servers = {
     init_options = {
       settings = {
         -- https://github.com/astral-sh/ruff-lsp/issues/384
-        args = { "--ignore=E402,F403,F405" },
+        args = { "--ignore=E402,F403,F405,F841" },
         lint = { enable = true },
       },
     },
@@ -120,7 +121,7 @@ local servers = {
     end,
   },
   -- https://github.com/typescript-language-server/typescript-language-server
-  tsserver = {
+  ts_ls = {
     init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
     settings = { javascript = tss_settings, typescript = tss_settings },
   },

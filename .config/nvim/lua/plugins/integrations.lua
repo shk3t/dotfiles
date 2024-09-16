@@ -1,48 +1,117 @@
 local keymap = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
+local jlib = require("lib.jupyter")
+local quarto = require("quarto")
 
--- jupytext
-vim.g.jupytext_fmt = "py"
+-- Image rendering support
+require("image").setup({
+  backend = "ueberzug", -- Kitty will provide the best experience, but you need a compatible terminal
+  integrations = {}, -- do whatever you want with image.nvim's integrations
+  max_width = 100, -- tweak to preference
+  max_height = 18, -- ^
+  max_height_window_percentage = math.huge, -- this is necessary for a good experience
+  max_width_window_percentage = math.huge,
+  window_overlap_clear_enabled = true,
+  window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
+})
 
--- Magma.nvim
-keymap("x", "<Space>j", ":<C-U>MagmaEvaluateVisual<CR>")
-keymap("n", "<Space>jl", vim.cmd.MagmaEvaluateLine)
-keymap("n", "<Space>jr", vim.cmd.MagmaReevaluateCell)
-keymap("n", "<Space>jd", vim.cmd.MagmaDelete)
-keymap("n", "<Space>jk", vim.cmd.MagmaShowOutput)
+-- Molten.nvim
+local opts = { silent = true }
 
-keymap("n", "<Space>JD", vim.cmd.MagmaDeinit)
-keymap("n", "<Space>JR", vim.cmd.MagmaRestart)
-keymap("n", "<Space>JQ", vim.cmd.MagmaInterrupt)
-keymap("n", "<Space>JS", vim.cmd.MagmaSave)
-keymap("n", "<Space>JL", vim.cmd.MagmaLoad)
+keymap("x", "<Space>j", ":<C-U>MoltenEvaluateVisual<CR>", opts)
+keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
+keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
+keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)
+keymap("n", "<Space>jk", vim.cmd.MoltenShowOutput, opts)
+keymap("n", "<Space>jh", vim.cmd.MoltenHideOutput, opts)
+
+keymap("n", "<Space>JI", vim.cmd.MoltenInit, opts)
+keymap("n", "<Space>JD", vim.cmd.MoltenDeinit, opts)
+keymap("n", "<Space>JR", vim.cmd.MoltenRestart, opts)
+keymap("n", "<Space>JQ", vim.cmd.MoltenInterrupt, opts)
+keymap("n", "<Space>JS", vim.cmd.MoltenSave, opts)
+keymap("n", "<Space>JL", vim.cmd.MoltenLoad, opts)
 
 vim.g.magma_automatically_open_output = true
 vim.g.magma_output_window_borders = false
-vim.g.magma_image_provider = "kitty"
+vim.g.molten_auto_open_output = false
+vim.g.molten_image_provider = "image.nvim"
+vim.g.molten_wrap_output = true
+vim.g.molten_virt_text_output = true
+vim.g.molten_virt_lines_off_by_1 = true
 
--- -- The setup config table shows all available config options with their default values:
--- require("presence").setup({
---   -- General options
---   auto_update = true, -- Update activity based on autocmd events (if `false`, map or manually execute `:lua package.loaded.presence:update()`)
---   neovim_image_text = "The One True Text Editor", -- Text displayed when hovered over the Neovim image
---   main_image = "neovim", -- Main image display (either "neovim" or "file")
---   client_id = nil, -- Use your own Discord application client id (not recommended)
---   log_level = "debug", -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
---   debounce_timeout = 10, -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
---   enable_line_number = false, -- Displays the current line number instead of the current project
---   blacklist = {}, -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
---   buttons = true, -- Configure Rich Presence button(s), either a boolean to enable/disable, a static table (`{{ label = "<label>", url = "<url>" }, ...}`, or a function(buffer: string, repo_url: string|nil): table)
---   file_assets = {}, -- Custom file asset definitions keyed by file names and extensions (see default config at `lua/presence/file_assets.lua` for reference)
---   show_time = true, -- Show the timer
---
---   -- Rich Presence text options
---   editing_text = "Editing %s", -- Format string rendered when an editable file is loaded in the buffer (either string or function(filename: string): string)
---   file_explorer_text = "Browsing %s", -- Format string rendered when browsing a file explorer (either string or function(file_explorer_name: string): string)
---   git_commit_text = "Committing changes", -- Format string rendered when committing changes in git (either string or function(filename: string): string)
---   plugin_manager_text = "Managing plugins", -- Format string rendered when managing plugins (either string or function(plugin_manager_name: string): string)
---   reading_text = "Reading %s", -- Format string rendered when a read-only or unmodifiable file is loaded in the buffer (either string or function(filename: string): string)
---   workspace_text = "Working on %s", -- Format string rendered when in a git repository (either string or function(project_name: string|nil, filename: string): string)
---   line_number_text = "Line %s out of %s", -- Format string rendered when `enable_line_number` is set to true (either string or function(line_number: number, line_count: number): string)
--- })
+-- Jupyter notebook `.ipynb` files conversion
+require("jupytext").setup({
+  style = "markdown",
+  output_extension = "md",
+  force_ft = "markdown",
+})
 
+-- Quarto: Molten LSP integration
+quarto.setup({
+  lspFeatures = {
+    -- NOTE: put whatever languages you want here:
+    languages = { "r", "python", "rust" },
+    chunks = "all",
+    diagnostics = {
+      enabled = true,
+      triggers = { "BufWritePost" },
+    },
+    completion = {
+      enabled = true,
+    },
+  },
+  keymap = {
+    -- NOTE: setup your own keymaps:
+    hover = "H",
+    definition = "gd",
+    rename = "<leader>rn",
+    references = "gr",
+    format = "<leader>gf",
+  },
+  codeRunner = {
+    enabled = true,
+    default_method = "molten",
+  },
+})
+-- activate LSP on entering markdown buffer
+autocmd("FileType", {
+  pattern = "markdown",
+  callback = quarto.activate,
+})
+-- automatically import output chunks from a jupyter notebook
+autocmd("BufAdd", {
+  pattern = { "*.ipynb" },
+  callback = jlib.init_molten_buffer,
+})
+-- we have to do this as well so that we catch files opened like nvim ./hi.ipynb
+autocmd("BufEnter", {
+  pattern = { "*.ipynb" },
+  callback = function(e)
+    if vim.api.nvim_get_vvar("vim_did_enter") ~= 1 then
+      jlib.init_molten_buffer(e)
+      vim.bo.filetype = "markdown"
+    end
+  end,
+})
+-- automatically export output chunks to a jupyter notebook on write
+autocmd("BufWritePost", {
+  pattern = { "*.ipynb" },
+  callback = function()
+    if require("molten.status").initialized() == "Molten" then
+      vim.cmd("MoltenExportOutput!")
+    end
+  end,
+})
+-- local runner = require("quarto.runner")
+-- vim.keymap.set("n", "<Space>qc", runner.run_cell, opts)
+-- vim.keymap.set("n", "<Space>qa", runner.run_above, opts)
+-- vim.keymap.set("n", "<Space>qA", runner.run_all, opts)
+-- vim.keymap.set("n", "<Space>ql", runner.run_line, opts)
+-- vim.keymap.set("x", "<Space>q", runner.run_range, opts)
+-- vim.keymap.set("n", "<Space>QA", function()
+--   runner.run_all(true)
+-- end, opts)
+
+-- Markdown preview
 vim.g.mkdp_auto_close = 0

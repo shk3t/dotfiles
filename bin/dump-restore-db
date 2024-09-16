@@ -57,7 +57,8 @@ EOF
     ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/manage.py migrate
     if [[ " $@ " =~ ( --lms ) ]]; then
         cd ~/repos/itresume/$WORKDIR
-        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_data.py
+        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_materials.py
+        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_progress.py
     fi
 fi
 
