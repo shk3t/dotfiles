@@ -1,6 +1,6 @@
 local M = {}
 
-M.TRANSPARENCY = 15  -- 15
+M.TRANSPARENCY = 0  -- 15
 M.VERTICAL_BORDERS = {"", "", "", " ", "", "", "", " "}
 M.DIAGNOSTIC_SIGNS = {error = "󰚌", warn = "󰐼", hint = "󰌵", info = ""}
 M.ICONS_ENABLED = vim.F.npcall(require, "nvim-web-devicons") and true

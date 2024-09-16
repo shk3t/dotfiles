@@ -21,7 +21,11 @@ require("lazy").setup({
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
   "nvim-neotest/nvim-nio",
-  -- "vhyrro/luarocks.nvim",
+  {
+    "vhyrro/luarocks.nvim",
+    opts = { rocks = { "magick" } },
+  },
+  "3rd/image.nvim",
 
   -- Lsp
   "neovim/nvim-lspconfig",
@@ -33,6 +37,7 @@ require("lazy").setup({
   "williamboman/mason-lspconfig.nvim",
   "jay-babu/mason-null-ls.nvim",
   "ray-x/go.nvim",
+  "jmbuhr/otter.nvim",
 
   -- Completions
   "hrsh7th/cmp-buffer",
@@ -54,7 +59,7 @@ require("lazy").setup({
 
   -- Snippets
   "saadparwaiz1/cmp_luasnip",
-  "L3MON4D3/LuaSnip",
+  { "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
   "rafamadriz/friendly-snippets",
 
   -- Debug
@@ -73,17 +78,17 @@ require("lazy").setup({
   "kristijanhusak/vim-dadbod-ui",
   "pbogut/vim-dadbod-ssh",
 
-  -- Other integrations
+  -- Integrations
   "aserowy/tmux.nvim",
   "iamcco/markdown-preview.nvim",
   "antosha417/nvim-lsp-file-operations",
-  "goerz/jupytext.vim",
-  { "dccsillag/magma-nvim", build = ":UpdateRemotePlugins" },
+  "GCBallesteros/jupytext.nvim",
+  { "benlubas/molten-nvim", build = ":UpdateRemotePlugins" },
+  "quarto-dev/quarto-nvim",
   -- "hkupty/iron.nvim",
   -- "kana/vim-textobj-user",
   -- "GCBallesteros/vim-textobj-hydrogen",
   -- "rest-nvim/rest.nvim",
-  -- "andweeb/presence.nvim",
 
   -- Telescope
   { "nvim-telescope/telescope.nvim", lazy = true },

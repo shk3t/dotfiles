@@ -46,4 +46,4 @@ export FZF_DEFAULT_COMMAND='ag --depth 8 --hidden --ignore .git -g ""'
 EDITOR="nvim"
 TERMINAL="alacritty"
 BROWSER="google-chrome-stable"
-TERMINAL_BLUR_ENABLED=1
+TERMINAL_BLUR_ENABLED=0
