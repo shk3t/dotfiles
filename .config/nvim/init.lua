@@ -15,16 +15,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- Dependencies
+  {
+    "vhyrro/luarocks.nvim",
+    opts = { rocks = { "magick" } },
+  },
   "nvim-lua/plenary.nvim",
   "nvim-lua/popup.nvim",
   "kkharji/sqlite.lua",
   "echasnovski/mini.nvim",
   "folke/neodev.nvim",
   "nvim-neotest/nvim-nio",
-  {
-    "vhyrro/luarocks.nvim",
-    opts = { rocks = { "magick" } },
-  },
   "3rd/image.nvim",
 
   -- Lsp
@@ -56,6 +56,7 @@ require("lazy").setup({
   "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-context",
   "Wansmer/treesj",
+  -- rest-nvim/tree-sitter-http,
 
   -- Snippets
   "saadparwaiz1/cmp_luasnip",
@@ -85,10 +86,7 @@ require("lazy").setup({
   "GCBallesteros/jupytext.nvim",
   { "benlubas/molten-nvim", build = ":UpdateRemotePlugins" },
   "quarto-dev/quarto-nvim",
-  -- "hkupty/iron.nvim",
-  -- "kana/vim-textobj-user",
-  -- "GCBallesteros/vim-textobj-hydrogen",
-  -- "rest-nvim/rest.nvim",
+  "rest-nvim/rest.nvim",
 
   -- Telescope
   { "nvim-telescope/telescope.nvim", lazy = true },

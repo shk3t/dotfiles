@@ -24,7 +24,7 @@ elif [[ " $@ " =~ ( --lms ) ]]; then
     WORKDIR="lms-server"
     if [[ $server == "prod" ]]; then
         DB_NAME="lms"
-        SERVERNAME="itresume-corp"
+        SERVERNAME="itresume-prod"
     fi
 else
     echo "DB was not selected, exiting"
@@ -32,9 +32,7 @@ else
 fi
 
 FULLPATH="$LOCAL_DUMP_PATH/${DB_NAME}-${server}.sql"
-if ! [[ -v LOCAL_DB_NAME ]]; then
-    LOCAL_DB_NAME=$DB_NAME
-fi
+! [[ -v LOCAL_DB_NAME ]] && LOCAL_DB_NAME=$DB_NAME
 
 if ! [[ " $@ " =~ ( -l | --local-dump ) ]]; then
     echo "Enter password for ${SERVERNAME^^} ${DB_NAME^^} database"
@@ -51,15 +49,7 @@ EOF
     psql -d $LOCAL_DB_NAME < $FULLPATH
     rm -f "$FULLPATH"
 
-    if [[ " $@ " =~ ( --lms ) ]]; then
-        bash ~/repos/itresume/$WORKDIR/scripts/rename_apps.sh
-    fi
     ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/manage.py migrate
-    if [[ " $@ " =~ ( --lms ) ]]; then
-        cd ~/repos/itresume/$WORKDIR
-        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_materials.py
-        ~/repos/itresume/$WORKDIR/.venv/bin/python ~/repos/itresume/$WORKDIR/scripts/transfer_progress.py
-    fi
 fi
 
 

@@ -12,6 +12,12 @@ M.local_configs = {
       .. urllib.urlencode([[WFmk6b3c%wDKXT^X&SUU#*y^@JmsptdnDFpLiAdV]])
       .. "@localhost:5432/lms_db",
   },
+  {
+    name = "lms_corp",
+    url = "ssh://itresume-corp:postgres://lms_admin:"
+      .. urllib.urlencode([[H4D6dB6YNnb7VirrFsz&mzqfhLYKh6oR%g35Z*eX]])
+      .. "@localhost:5432/lms",
+  },
   { name = "sok_local_docker", url = "postgres://postgres:qweasd963@localhost:2345/analysis" },
   { name = "sok_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/sok" },
   {
@@ -21,6 +27,10 @@ M.local_configs = {
   {
     name = "sok_prod",
     url = "ssh://itresume-prod:mysql://root:qweasd963@localhost:3306/sok",
+  },
+  {
+    name = "sok_corp",
+    url = "ssh://itresume-corp:mysql://root:@localhost:3306/sok",
   },
 
   {
