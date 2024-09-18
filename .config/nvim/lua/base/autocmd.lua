@@ -3,18 +3,19 @@ local keymap = vim.keymap.set
 local lib = require("lib.main")
 
 -- Line numeration toggle
-autocmd({ "FocusLost", "WinLeave" }, { command = "set norelativenumber" })
-autocmd({ "FocusGained", "WinEnter", "BufEnter" }, {
+autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
+autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
   callback = function()
     if vim.o.number then
-      vim.opt.relativenumber = true
+      vim.opt_local.relativenumber = true
     end
   end,
 })
-autocmd({ "FocusGained", "WinEnter", "BufEnter", "WinResized" }, {
+-- Dynamic autoscroll near window edges
+autocmd({ "VimEnter", "WinEnter", "WinResized" }, {
   callback = function()
-    vim.o.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
-    vim.o.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
+    vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
+    vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
   end,
 })
 
@@ -91,22 +92,20 @@ autocmd("VimLeavePre", { command = "wshada!" })
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
-    keymap({ "n" }, "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", {
-      buffer = true,
-    })
-    keymap({ "x" }, "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", {
-      buffer = true,
-    })
-    keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", {
-      buffer = true,
-    })
+    keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap("x", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
+    keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
+    keymap({ "n", "x" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
   end,
 })
 autocmd("FileType", {
   pattern = "dbui",
   callback = function()
     vim.opt_local.shiftwidth = 2
-    keymap({ "n", "x" }, "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
+    keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
+    keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
+    keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
   end,
 })
 autocmd("FileType", {

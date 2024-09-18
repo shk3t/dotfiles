@@ -2,18 +2,20 @@
 
 - [X] jupyter | molten-nvim: https://github.com/benlubas/molten-nvim
 - [ ] TRY AI
+- [ ] tmux use sessions
 - [ ] Custom sql snippets
 - [ ] dap: close debug widgets on closing main buffer
 - [ ] Config existing plugins
-    - [ ] dadbod-ui
-    - [ ] tree
-    - [ ] aerials
+    - [X] dadbod-ui
+    - [X] tree
+    - [X] aerials
     - [ ] diffview
 - [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
 - [ ] nvim-ufo (folding) | alternatives
 - [ ] jump to error line in stack trace
 
 ### Keys
+- [ ] preserve window camera location
 - [ ] keys repetition nvimtools/hydra.nvim
 - [ ] treesitter better text objects 
     - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
@@ -29,9 +31,9 @@
         - correct lua function
         - key, value, triple quotes
         - fast increment-decrement node selections
+        - jupyter code cells
 ### Integrations
 - [ ] neogit
-- [ ] molten-nvim for `.ipynb` files
 ### Lsp
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] better autocompletion with SQL LSP

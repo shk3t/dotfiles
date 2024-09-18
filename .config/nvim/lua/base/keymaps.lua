@@ -65,9 +65,6 @@ local function yank_all_sys_clip()
   vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
 end
 
--- Commands
-vim.cmd([[command! Cdc cd %:p:h]])
-
 -- Default behaviour
 keymap({ "n", "x" }, "<C-C>", "<Esc>")
 keymap("i", "<C-C>", "<Esc>")
