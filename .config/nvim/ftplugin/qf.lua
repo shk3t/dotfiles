@@ -40,3 +40,5 @@ keymap("n", "u", function()
   pcall(vim.api.nvim_win_set_cursor, 0, vim.g.prev_qfpos)
   vim.g.prev_qflist = nil
 end, {buffer = true})
+
+keymap("n", "<Space>s", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]])
