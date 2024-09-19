@@ -60,7 +60,7 @@ local function map_easy_closing()
 end
 autocmd("CmdwinEnter", { callback = map_easy_closing })
 autocmd("FileType", {
-  pattern = { "help", "dap-float" },
+  pattern = { "help", "dap-float", "qf" },
   callback = map_easy_closing,
 })
 

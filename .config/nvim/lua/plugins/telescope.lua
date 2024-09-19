@@ -20,6 +20,12 @@ local fzf_opts = {
 keymap("n", "<C-F>", function()
   builtin.find_files()
 end)
+keymap("x", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
+keymap("n", "<Space>p", builtin.registers)
+keymap("x", "<Space>p", function()
+  lib.norm("d")
+  builtin.registers()
+end)
 keymap("x", "<C-F>", telelib.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
 keymap("x", "<C-G>", function()
@@ -32,9 +38,13 @@ end)
 keymap("n", "<C-P>", builtin.resume)
 keymap("n", "g<Tab>", builtin.buffers)
 keymap("n", "<Space>th", builtin.help_tags)
+keymap("n", "<Space>tm", builtin.man_pages)
 keymap("n", "<Space>tk", builtin.keymaps)
-keymap("n", "<Space>tp", builtin.registers)
-keymap("n", "<Space>l", builtin.lsp_document_symbols)
+keymap("n", "<Space>ts", builtin.spell_suggest)
+keymap("n", "<Space><C-O>", function()
+  builtin.jumplist({ show_line = false, trim_text = true })
+end)
+-- keymap("n", "<Space>l", builtin.lsp_document_symbols)
 keymap("n", "<Space>w", function()
   builtin.lsp_dynamic_workspace_symbols()
 end)
@@ -43,7 +53,10 @@ keymap("n", "<Space>gs", builtin.git_status)
 keymap("n", "<Space>gc", builtin.git_commits)
 keymap("n", "<Space>gb", builtin.git_branches)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
-keymap("n", "<Space>tq", builtin.quickfix)
+keymap("n", "<Space>q", builtin.quickfix)
+keymap("n", "<Space>Q", builtin.quickfixhistory)
+keymap("n", "<Space>:", builtin.command_history)
+keymap("n", "<Space>?", builtin.search_history)
 keymap("n", [[<Space>"]], builtin.marks)
 keymap("n", [[<Space>']], telelib.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
 keymap(
@@ -83,8 +96,7 @@ local telescope_config = {
         ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<C-V>"] = telelib.paste_action,
-        ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
         ["<C-F>"] = actions.to_fuzzy_refine,
 
         ["<RightMouse>"] = actions.close,
@@ -93,8 +105,7 @@ local telescope_config = {
         ["<ScrollWheelUp>"] = actions.move_selection_previous,
       },
       n = {
-        ["<C-Q>"] = actions.send_to_qflist + actions.open_qflist,
-        ["<C-S-Q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
         ["0"] = function()
           lib.norm("0w")
         end,

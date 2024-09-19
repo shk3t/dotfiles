@@ -5,15 +5,12 @@
 - [ ] tmux use sessions
 - [ ] Custom sql snippets
 - [ ] dap: close debug widgets on closing main buffer
-- [ ] Config existing plugins
-    - [X] dadbod-ui
-    - [X] tree
-    - [X] aerials
-    - [ ] diffview
 - [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
-- [ ] nvim-ufo (folding) | alternatives
 - [ ] jump to error line in stack trace
+- [ ] open help here
 
+### Config existing plugins
+- [ ] diffview
 ### Keys
 - [ ] preserve window camera location
 - [ ] keys repetition nvimtools/hydra.nvim
@@ -33,23 +30,13 @@
         - fast increment-decrement node selections
         - jupyter code cells
 ### Integrations
-- [ ] neogit
-### Lsp
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] better autocompletion with SQL LSP
 ### Dap
 - [-] hover without borders
 - [ ] js/ts debugger
-### Telescope
-- [ ] `<C-Q>` to add all telescope entries to QF if no selection
-    - [ ] fast global rename
 ### Explore
 - [ ] terminal mode
-- [ ] interesting telescope pickers
-- [ ] text editing through ssh
-- [ ] command line rename (:s) autocomplete
-### Optimize
-- [ ] remove unused builtin vim modules
 ### Try AI
 - [x] https://github.com/Exafunction/codeium.nvim
 - [X] https://github.com/tzachar/cmp-ai
@@ -65,9 +52,7 @@
 
 ## Plugins
 ### Waiting for update
-- HTTP client instead of Insomnia (https://github.com/rest-nvim/rest.nvim)
 - codeium chat bot: https://github.com/Exafunction/codeium.nvim/issues/162#issue-2203852863
-- discord presence: https://github.com/andweeb/presence.nvim
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 - cmp replace only on confirm
 - duplicate entries for cmp-buffer (clangd, pylsp)
@@ -79,6 +64,9 @@
 - telescope mouse support: https://github.com/nvim-telescope/telescope.nvim/issues/2213
 - pyright autoimport relative
 ### Features
+- [ ] fast global rename
+- [ ] command line rename (:s) autocomplete
+- [ ] text editing through ssh
 - [ ] yank history
 - [-] highlight `f` jumps
 - [ ] better visualblock mode
@@ -88,10 +76,9 @@
 - [ ] dot-repeat previous jump
 - [?] bookmarks
 ### Instances
+- [ ] neogit
+- [ ] nvim-ufo (folding) | alternatives
 - [ ] refactoring: https://github.com/ThePrimeagen/refactoring.nvim
-- [ ] typescript utils:
-    - https://github.com/jose-elias-alvarez/typescript.nvim
-    - https://github.com/pmizio/typescript-tools.nvim
 - [ ] heirline
 - [ ] nvim-bqf
 - [ ] trouble

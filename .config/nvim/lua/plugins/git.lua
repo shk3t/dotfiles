@@ -1,21 +1,21 @@
-local custom_quickfix_picker = require("lib.telescope").quickfix_picker
+local telelib = require("lib.telescope")
 
 local keymap = vim.keymap.set
 
-require("gitsigns").setup {
+require("gitsigns").setup({
   signs = {
-    add = {text = "█"},
-    change = {text = "█"},
-    delete = {text = "▄"},
-    topdelete = {text = "▀"},
-    changedelete = {text = "▐"},
-    untracked = {text = "▚"},
+    add = { text = "█" },
+    change = { text = "█" },
+    delete = { text = "▄" },
+    topdelete = { text = "▀" },
+    changedelete = { text = "▐" },
+    untracked = { text = "▚" },
   },
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
   numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
   linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  watch_gitdir = {follow_files = true},
+  watch_gitdir = { follow_files = true },
   attach_to_untracked = true,
   current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
   current_line_blame_opts = {
@@ -49,38 +49,56 @@ require("gitsigns").setup {
 
     -- Navigation
     bufmap("n", "]g", function()
-      if vim.wo.diff then return "]g" end
-      vim.schedule(function() gs.next_hunk() end)
+      if vim.wo.diff then
+        return "]g"
+      end
+      vim.schedule(function()
+        gs.next_hunk()
+      end)
       return "<Ignore>"
-    end, {expr = true})
+    end, { expr = true })
 
     bufmap("n", "[g", function()
-      if vim.wo.diff then return "[g" end
-      vim.schedule(function() gs.prev_hunk() end)
+      if vim.wo.diff then
+        return "[g"
+      end
+      vim.schedule(function()
+        gs.prev_hunk()
+      end)
       return "<Ignore>"
-    end, {expr = true})
+    end, { expr = true })
 
     -- Actions
     bufmap("n", "<Space>ga", gs.stage_hunk)
-    bufmap("v", "<Space>ga", function() gs.stage_hunk {
-      vim.fn.line("."),
-      vim.fn.line("v"),
-    } end)
+    bufmap("v", "<Space>ga", function()
+      gs.stage_hunk({
+        vim.fn.line("."),
+        vim.fn.line("v"),
+      })
+    end)
     bufmap("n", "<Space>gu", gs.undo_stage_hunk)
     bufmap("n", "<Space>gr", gs.reset_hunk)
-    bufmap("v", "<Space>gr", function() gs.reset_hunk {
-      vim.fn.line("."),
-      vim.fn.line("v"),
-    } end)
+    bufmap("v", "<Space>gr", function()
+      gs.reset_hunk({
+        vim.fn.line("."),
+        vim.fn.line("v"),
+      })
+    end)
     bufmap("n", "<Space>gk", gs.preview_hunk)
-    keymap("n", "<Space>gh", custom_quickfix_picker("Git Hunks", function()
-      gs.setqflist("all")
-      for i = 1, 50 do
-        vim.cmd.sleep("20m") -- FIXME (later)
-        if vim.api.nvim_buf_get_option(0, "filetype") == "qf" then return end
-      end
-      error("Git hunks load timeout")
-    end))
+    keymap(
+      "n",
+      "<Space>gh",
+      telelib.quickfix_picker("Git Hunks", function()
+        gs.setqflist("all")
+        for i = 1, 50 do
+          vim.cmd.sleep("20m") -- FIXME (later)
+          if vim.api.nvim_buf_get_option(0, "filetype") == "qf" then
+            return
+          end
+        end
+        error("Git hunks load timeout")
+      end)
+    )
 
     bufmap("n", "<Space>GA", gs.stage_buffer)
     bufmap("n", "<Space>GR", gs.reset_buffer)
@@ -88,16 +106,16 @@ require("gitsigns").setup {
     bufmap("n", "<Space>GP", gs.toggle_deleted)
 
     -- Text object
-    bufmap({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    bufmap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
   end,
-}
+})
 
-require("blame").setup({width = 35, date_format = "%H:%M %d.%m.%Y"})
+require("blame").setup({ width = 35, date_format = "%H:%M %d.%m.%Y" })
 keymap("n", "<Space>GB", vim.cmd.BlameToggle)
 
 local actions = require("diffview.actions")
 require("diffview").setup({
   use_icons = false,
-  signs = {fold_closed = ">", fold_open = "v", done = "√"},
+  signs = { fold_closed = ">", fold_open = "v", done = "√" },
 })
-keymap({"n", "x"}, "<Space>GD", vim.cmd.DiffviewOpen)
+keymap({ "n", "x" }, "<Space>GD", vim.cmd.DiffviewOpen)
