@@ -19,11 +19,10 @@ autocmd({ "VimEnter", "WinEnter", "WinResized" }, {
   end,
 })
 
--- Open help in vertical split
+-- Open help | man in vertical split
 autocmd("BufEnter", {
-  pattern = "*.txt",
   callback = function()
-    if vim.o.buftype == "help" then
+    if vim.bo.buftype == "help" or vim.bo.filetype == "man" then
       vim.cmd.wincmd("L")
     end
   end,

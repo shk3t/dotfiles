@@ -6,6 +6,7 @@ local widgets = require("dap.ui.widgets")
 local local_configs = require("local.debug").local_configs
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
+local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
 local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
@@ -28,7 +29,7 @@ local dapui_config = {
     watches = { remove = "D", edit = "C", repl = "S" },
   },
   expand_lines = false,
-  floating = { border = "single" },
+  floating = { border = VERTICAL_BORDERS },
   layouts = {
     {
       elements = {
@@ -109,7 +110,9 @@ keymap("n", "<Space>ds", function()
   widgets.sidebar(widgets.scopes).open()
 end)
 keymap("n", "<Space>dg", dapui.toggle)
-keymap({ "n", "x" }, "<Space>de", widgets.hover)
+keymap({ "n", "x" }, "<Space>de", function(expr)
+  widgets.hover(expr, { border = VERTICAL_BORDERS })
+end)
 
 dap.defaults.fallback.external_terminal = {
   command = "/usr/bin/alacritty",
@@ -231,30 +234,30 @@ autocmd("FileType", {
     end, { buffer = true, remap = true })
   end,
 })
-autocmd("FileType", {
-  pattern = "dap-repl",
-  callback = function()
-    keymap("i", "<C-K>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-L>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-Q>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
-    keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
-    keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
-    keymap("n", "<CR>", function()
-      local row = unpack(vim.api.nvim_win_get_cursor(0))
-      local current_buffer = vim.api.nvim_win_get_buf(0)
-      local count = vim.api.nvim_buf_line_count(current_buffer)
-      if row == count then
-        vim.api.nvim_input("<Insert><CR>")
-      else
-        require("dap.ui").trigger_actions({ mode = "first" })
-      end
-    end, { buffer = true, remap = true })
-  end,
-})
 autocmd("BufEnter", {
   pattern = "DAP Watches",
   callback = function()
     keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
+  end,
+})
+
+local dap_filetypes = lib.set({ "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" })
+
+-- Close all dap widgets if the main window was closed
+autocmd("BufEnter", {
+  callback = function()
+    print(vim.bo.filetype)
+    if not dap_filetypes[vim.bo.filetype] then
+      return
+    end
+    for _, win_id in ipairs(vim.api.nvim_list_wins()) do
+      local buf_id = vim.api.nvim_win_get_buf(win_id)
+      local filetype = vim.api.nvim_buf_get_option(buf_id, "filetype")
+      if not dap_filetypes[filetype] then
+        return
+      end
+    end
+
+    vim.cmd.quit()
   end,
 })

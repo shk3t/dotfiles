@@ -159,6 +159,14 @@ aerial.setup({
     ["j"] = actions.next,
     ["K"] = actions.prev_up,
     ["J"] = actions.next_up,
+    ["<C-K>"] = function()
+      aerial.prev_up()
+      aerial.next()
+    end,
+    ["<C-J>"] = function()
+      aerial.next_up()
+      aerial.prev()
+    end,
     ["H"] = function()
       aerial.tree_close({ recurse = true })
     end,
@@ -167,10 +175,7 @@ aerial.setup({
     end,
     ["W"] = actions.tree_close_all,
     ["E"] = actions.tree_open_all,
-    ["<C-P>"] = function()
-      aerial.tree_close()
-      aerial.tree_open()
-    end,
+    ["<C-P>"] = actions.prev_up,
     ["<C-O>"] = close_restore_prev_pos,
   },
   close_on_select = true,

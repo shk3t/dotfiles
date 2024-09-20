@@ -3,11 +3,6 @@
 LOCAL_DUMP_PATH=~/backup/dumps
 
 [[ " $@ " =~ ( -p | --prod | --production ) ]] && server="prod" || server="dev"
-if [[ $server == "dev" ]]; then
-    SERVERNAME="itresume-dev"
-else
-    SERVERNAME="itresume-prod"
-fi
 
 
 if [[ " $@ " =~ ( --wb ) ]]; then
@@ -24,7 +19,7 @@ elif [[ " $@ " =~ ( --lms ) ]]; then
     WORKDIR="lms-server"
     if [[ $server == "prod" ]]; then
         DB_NAME="lms"
-        SERVERNAME="itresume-prod"
+        SERVERNAME="itresume-corp"
     fi
 else
     echo "DB was not selected, exiting"
