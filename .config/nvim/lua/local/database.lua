@@ -41,6 +41,10 @@ M.local_configs = {
     name = "itr_dev",
     url = "ssh://itresume-dev:mysql://root:qweasd963@localhost:3306/itresume",
   },
+  {
+    name = "itr_prod",
+    url = "ssh://itresume-prod:mysql://root:qweasd963@localhost:3306/production",
+  },
 
   { name = "wb_local", url = "postgres://" .. user .. ":1think1dump@localhost:5432/wb" },
 
@@ -59,10 +63,6 @@ M.local_configs = {
   --     .. "@localhost:5432/wb",
   -- },
   -- { name = "goto", url = "postgres://" .. user .. ":1think1dump@localhost:5432/goto" },
-  -- {
-  --   name = "itr_prod",
-  --   url = "ssh://itresume-prod:mysql://root:qweasd963@localhost:3306/production",
-  -- },
   -- {
   --   name = "geekbrains",
   --   url = "ssh://geekbrains:postgres://autotests_admin:" .. urllib.urlencode(

@@ -20,8 +20,9 @@ local function base_attach(client, bufnr)
 
   keymap("n", "gd", telescope_builtin.lsp_definitions, { buffer = bufnr })
   keymap("n", "gD", telescope_builtin.lsp_type_definitions, { buffer = bufnr })
-  keymap("n", "gi", telescope_builtin.lsp_implementations, { buffer = bufnr })
+  keymap("n", "gI", telescope_builtin.lsp_implementations, { buffer = bufnr })
   keymap("n", "gr", telescope_builtin.lsp_references, { buffer = bufnr })
+  keymap("n", "gi", telescope_builtin.lsp_incoming_calls, { buffer = bufnr })
   keymap("n", "go", telescope_builtin.lsp_outgoing_calls, { buffer = bufnr })
 
   keymap("n", "<C-LeftMouse>", function()

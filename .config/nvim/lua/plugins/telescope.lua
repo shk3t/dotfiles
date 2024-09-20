@@ -97,12 +97,10 @@ local telescope_config = {
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<C-V>"] = telelib.paste_action,
         ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        ["<C-F>"] = actions.to_fuzzy_refine,
+        -- ["<C-F>"] = actions.to_fuzzy_refine,
 
-        ["<RightMouse>"] = actions.close,
-        ["<LeftMouse>"] = actions.select_default,
-        ["<ScrollWheelDown>"] = actions.move_selection_next,
-        ["<ScrollWheelUp>"] = actions.move_selection_previous,
+        ["<S-ScrollWheelUp>"] = actions.move_selection_previous,
+        ["<S-ScrollWheelDown>"] = actions.move_selection_next,
       },
       n = {
         ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,

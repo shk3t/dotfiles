@@ -85,20 +85,15 @@ require("gitsigns").setup({
       })
     end)
     bufmap("n", "<Space>gk", gs.preview_hunk)
-    keymap(
-      "n",
-      "<Space>gh",
-      telelib.quickfix_picker("Git Hunks", function()
-        gs.setqflist("all")
-        for i = 1, 50 do
-          vim.cmd.sleep("20m") -- FIXME (later)
-          if vim.api.nvim_buf_get_option(0, "filetype") == "qf" then
-            return
-          end
-        end
-        error("Git hunks load timeout")
-      end)
-    )
+    keymap("n", "<Space>gh", function()
+      gs.setqflist(
+        "all",
+        {},
+        telelib.quickfix_picker("Git Hunks", function()
+          return
+        end)
+      )
+    end)
 
     bufmap("n", "<Space>GA", gs.stage_buffer)
     bufmap("n", "<Space>GR", gs.reset_buffer)
