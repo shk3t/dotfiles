@@ -1,3 +1,4 @@
+local autocmd = vim.api.nvim_create_autocmd
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local dap = require("dap")
@@ -20,7 +21,7 @@ local fzf_opts = {
 keymap("n", "<C-F>", function()
   builtin.find_files()
 end)
-keymap("x", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
+-- keymap("x", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
 keymap("n", "<Space>p", builtin.registers)
 keymap("x", "<Space>p", function()
   lib.norm("d")
@@ -223,4 +224,13 @@ require("telescope-all-recent").setup({
     find_files = pickers_frecency_opts,
     lsp_dynamic_workspace_symbols = pickers_frecency_opts,
   },
+})
+
+autocmd("User", {
+  pattern = "TelescopePreviewerLoaded",
+  callback = function()
+    vim.opt_local.number = true
+    vim.opt_local.wrap = true
+    vim.opt_local.cursorline = true
+  end,
 })

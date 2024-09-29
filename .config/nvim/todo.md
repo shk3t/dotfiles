@@ -9,18 +9,18 @@
 - [X] telescope spellchecker
 - [X] tree-nvim open recursive current
 - [X] dap: fix duplicate entries
-- [ ] dap: close debug widgets on closing main buffer
-- [ ] dap: watches keys
+- [X] dap: close debug widgets on closing main buffer
+- [X] dap: watches keys (i, u)
 - [X] dap: hover without borders
-- [ ] tmux use sessions
-- [ ] Custom sql snippets
+- [X] tmux use sessions
+- [X] sql snippets
+- [X] dbui config settings
+- [X] more comfortable tmux config: modes switch (page up, select without last character)
 - [ ] TRY AI
     - [x] https://github.com/Exafunction/codeium.nvim
-    - [X] https://github.com/tzachar/cmp-ai
     - [X] https://github.com/David-Kunz/gen.nvim
     - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
         - https://github.com/TabbyML/tabby/tree/main/clients/vim
-    - [ ] https://github.com/frankroeder/parrot.nvim
     - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
     - [ ] https://github.com/sourcegraph/sg.nvim
 
@@ -47,10 +47,15 @@
         - fast increment-decrement node selections
         - jupyter code cells
 ### LSP
+- [ ] repair neodev
+- [ ] neovim debugger
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] better autocompletion with SQL LSP
 ### Explore
 - [ ] terminal mode
+- [ ] custom snippets (sql)
+### Global
+- [ ] oh my zsh
 
 
 <br>
@@ -110,9 +115,7 @@
 - [ ] openvpn
 - [ ] restore tmux + nvim sessions
 ### ZSH
-- [ ] pass keys to zsh via tmux (like vim)
-    - [ ] optimize vim passing (regex)
-- [ ] zsh suggest prediction (`cd` e.g.)
+- [ ] better vim motions: `visual select inside double quotes`
 ### KDE
 - [ ] note widgets on desktop
 

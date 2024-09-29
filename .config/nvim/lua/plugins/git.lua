@@ -1,3 +1,4 @@
+local autocmd = vim.api.nvim_create_autocmd
 local telelib = require("lib.telescope")
 
 local keymap = vim.keymap.set
@@ -107,6 +108,15 @@ require("gitsigns").setup({
 
 require("blame").setup({ width = 35, date_format = "%H:%M %d.%m.%Y" })
 keymap("n", "<Space>GB", vim.cmd.BlameToggle)
+autocmd("FileType", {
+  pattern = "blame",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.wrap = false
+    vim.opt_local.cursorlineopt = "line"
+  end,
+})
 
 local actions = require("diffview.actions")
 require("diffview").setup({

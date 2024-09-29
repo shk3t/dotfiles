@@ -1,3 +1,4 @@
+local autocmd = vim.api.nvim_create_autocmd
 local api = require("nvim-tree.api")
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
@@ -32,8 +33,10 @@ local function my_on_attach(bufnr)
   keymap("n", "L", api.tree.expand_all, opts("Expand All"))
   keymap("n", "K", api.node.navigate.sibling.prev, opts("Previous Sibling"))
   keymap("n", "J", api.node.navigate.sibling.next, opts("Next Sibling"))
-  keymap("n", "<C-K>", api.node.navigate.sibling.first, opts("FirstSibling"))
-  keymap("n", "<C-J>", api.node.navigate.sibling.last, opts("Last Sibling"))
+  -- keymap("n", "<C-K>", api.node.navigate.sibling.first, opts("FirstSibling"))
+  -- keymap("n", "<C-J>", api.node.navigate.sibling.last, opts("Last Sibling"))
+  keymap({ "n", "x" }, "<C-K>", "<C-W>k", opts("go N windows up"))
+  keymap({ "n", "x" }, "<C-J>", "<C-W>j", opts("go N windows down"))
   keymap("n", "<C-P>", api.node.navigate.parent, opts("Parent directory"))
 
   keymap("n", "gk", api.node.show_info_popup, opts("Info"))
@@ -104,7 +107,10 @@ require("nvim-tree").setup({
       },
     },
   },
-  filters = { dotfiles = false },
+  filters = {
+    git_ignored = false,
+    dotfiles = false,
+  },
   git = {
     enable = true,
     show_on_open_dirs = false,
@@ -159,14 +165,16 @@ aerial.setup({
     ["j"] = actions.next,
     ["K"] = actions.prev_up,
     ["J"] = actions.next_up,
-    ["<C-K>"] = function()
-      aerial.prev_up()
-      aerial.next()
-    end,
-    ["<C-J>"] = function()
-      aerial.next_up()
-      aerial.prev()
-    end,
+    -- ["<C-K>"] = "<C-W>k",
+    -- ["<C-J>"] = "<C-W>j",
+    -- ["<C-K>"] = function()
+    --   aerial.prev_up()
+    --   aerial.next()
+    -- end,
+    -- ["<C-J>"] = function()
+    --   aerial.next_up()
+    --   aerial.prev()
+    -- end,
     ["H"] = function()
       aerial.tree_close({ recurse = true })
     end,
@@ -194,3 +202,9 @@ aerial.setup({
   autojump = true,
 })
 keymap("n", "gs", "mm:AerialOpen<CR>")
+autocmd("FileType", {
+  pattern = "aerial",
+  callback = function()
+    vim.opt_local.cursorlineopt = "line"
+  end,
+})

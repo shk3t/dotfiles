@@ -24,18 +24,27 @@ end
 local dapui_config = {
   controls = { enabled = false, element = "stacks" },
   icons = { collapsed = ">", current_frame = ">", expanded = "v" },
+  mappings = {
+    add = "A",
+    edit = "C",
+    expand = { "<CR>", "<2-LeftMouse>", "o" },
+    open = "O",
+    remove = "D",
+    repl = "r",
+    toggle = "t",
+  },
   element_mappings = {
-    stacks = { open = { "<CR>", "<2-LeftMouse>" }, expand = { "o", "O" } },
-    watches = { remove = "D", edit = "C", repl = "S" },
+    stacks = { open = { "<CR>", "<2-LeftMouse>", "o" } },
+    -- breakpoints = { open = { "<CR>", "<2-LeftMouse>", "o" } },
   },
   expand_lines = false,
   floating = { border = VERTICAL_BORDERS },
   layouts = {
     {
       elements = {
-        { id = "watches", size = 0.1 },
-        { id = "scopes", size = 0.75 },
         { id = "stacks", size = 0.15 },
+        { id = "scopes", size = 0.60 },
+        { id = "watches", size = 0.25 },
       },
       position = "right",
       size = 65,
@@ -162,7 +171,7 @@ dap.adapters.delve = {
   },
 }
 
-for _, language in pairs({ "python", "go" }) do
+for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript" }) do
   dap.configurations[language] = {}
   for path, config in lib.sorted_pairs(local_configs[language]) do
     if lib.cwd_contains(path) then
@@ -172,41 +181,6 @@ for _, language in pairs({ "python", "go" }) do
     end
   end
 end
-
-dap.configurations.c = {
-  {
-    name = "Default",
-    type = "cppdbg",
-    request = "launch",
-    program = function()
-      return vim.fn.getcwd() .. "/c.out"
-    end,
-    cwd = "${workspaceFolder}",
-    stopAtEntry = false,
-    -- args = {function() return vim.fn.input("Args: ") end},
-  },
-}
-dap.configurations.cpp = dap.configurations.c
-dap.configurations.rust = dap.configurations.c
-
-dap.configurations.javascript = {
-  {
-    name = "Default",
-    type = "pwa-node",
-    request = "launch",
-    program = "${file}",
-    cwd = "${workspaceFolder}",
-  },
-}
-
-local typescript_configurations = vim.deepcopy(dap.configurations.javascript)
-for _, config in pairs(typescript_configurations) do
-  config.runtimeArgs = {
-    "-r",
-    "ts-node/register",
-  }
-end
-dap.configurations.typescript = typescript_configurations
 
 -- autocmd("BufWritePost", {
 --   callback = function()
@@ -238,15 +212,13 @@ autocmd("BufEnter", {
   pattern = "DAP Watches",
   callback = function()
     keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
+    keymap("n", "u", vim.cmd.undo, { buffer = true })
   end,
 })
-
-local dap_filetypes = lib.set({ "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" })
-
 -- Close all dap widgets if the main window was closed
-autocmd("BufEnter", {
+local dap_filetypes = lib.set({ "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" })
+autocmd("WinEnter", {
   callback = function()
-    print(vim.bo.filetype)
     if not dap_filetypes[vim.bo.filetype] then
       return
     end
@@ -257,7 +229,6 @@ autocmd("BufEnter", {
         return
       end
     end
-
-    vim.cmd.quit()
+    vim.cmd("qa!")
   end,
 })
