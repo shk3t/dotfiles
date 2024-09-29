@@ -19,7 +19,7 @@ tmux.setup({
     -- sets resize steps for x axis
     resize_step_x = 3,
     -- sets resize steps for y axis
-    resize_step_y = 3,
+    resize_step_y = 1,
   },
 })
 

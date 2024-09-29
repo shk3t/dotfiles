@@ -123,10 +123,10 @@ local servers = {
     end,
   },
   -- https://github.com/typescript-language-server/typescript-language-server
-  ts_ls = {
-    init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
-    settings = { javascript = tss_settings, typescript = tss_settings },
-  },
+  -- ts_ls = {
+  --   init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
+  --   settings = { javascript = tss_settings, typescript = tss_settings },
+  -- },
   html = true,
   cssls = true,
   cssmodules_ls = true,

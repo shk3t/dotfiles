@@ -125,6 +125,40 @@ M.local_configs = {
       -- }
     },
   },
+  c = {
+    {
+      name = "Default",
+      type = "cppdbg",
+      request = "launch",
+      program = function()
+        return vim.fn.getcwd() .. "/c.out"
+      end,
+      cwd = "${workspaceFolder}",
+      stopAtEntry = false,
+      -- args = {function() return vim.fn.input("Args: ") end},
+    },
+  },
+  javascript = {
+    {
+      name = "Default",
+      type = "pwa-node",
+      request = "launch",
+      program = "${file}",
+      cwd = "${workspaceFolder}",
+    },
+  },
 }
+
+M.local_configs.cpp = M.local_configs.c
+M.local_configs.rust = M.local_configs.c
+
+local typescript_configurations = vim.deepcopy(M.local_configs.javascript)
+for _, config in pairs(typescript_configurations) do
+  config.runtimeArgs = {
+    "-r",
+    "ts-node/register",
+  }
+end
+M.local_configs.typescript = typescript_configurations
 
 return M

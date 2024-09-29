@@ -11,6 +11,25 @@ local confirm_complete = function()
   end
 end
 
+local select_jump_prev_mappping = cmp.mapping(function(fallback)
+  if luasnip.jumpable(-1) then
+    luasnip.jump(-1)
+  elseif cmp.visible() then
+    cmp.select_prev_item()
+  else
+    fallback()
+  end
+end, { "i", "s" })
+local select_jump_next_mapping = cmp.mapping(function(fallback)
+  if luasnip.jumpable(1) then
+    luasnip.jump(1)
+  elseif cmp.visible() then
+    cmp.select_next_item()
+  else
+    fallback()
+  end
+end, { "i", "s" })
+
 autocmd("InsertLeave", {
   callback = function()
     if luasnip.session.current_nodes[vim.api.nvim_get_current_buf()] and not luasnip.session.jump_active then
@@ -18,6 +37,20 @@ autocmd("InsertLeave", {
     end
   end,
 })
+
+local function trim_redundant(vim_item)
+  for _, redundant_pattern in pairs({ "%(.*%)", "~", "?" }) do
+    vim_item.abbr = vim_item.abbr:gsub(redundant_pattern, "")
+  end
+  return vim_item
+end
+
+local function add_icon(vim_item)
+  if consts.ICONS_ENABLED then
+    vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
+  end
+  return vim_item
+end
 
 cmp.setup({
   snippet = {
@@ -33,6 +66,7 @@ cmp.setup({
     ["<C-E>"] = cmp.mapping.close(),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-CR>"] = confirm_complete,
+    ["<C-Y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
     ["<C-K>"] = cmp.mapping(
       cmp.mapping.select_prev_item({
         select = false,
@@ -47,26 +81,10 @@ cmp.setup({
       }),
       { "i", "c" }
     ),
-    ["<C-P>"] = cmp.mapping.select_prev_item(),
-    ["<C-N>"] = cmp.mapping.select_next_item(),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
-        luasnip.jump(1)
-      elseif cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      elseif cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
+    ["<C-P>"] = select_jump_prev_mappping,
+    ["<C-N>"] = select_jump_next_mapping,
+    ["<S-Tab>"] = select_jump_prev_mappping,
+    ["<Tab>"] = select_jump_next_mapping,
   }),
 
   sources = cmp.config.sources({
@@ -81,15 +99,11 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      for _, redundant_pattern in pairs({ "%(.*%)", "~", "?" }) do
-        vim_item.abbr = vim_item.abbr:gsub(redundant_pattern, "")
-      end
-      if consts.ICONS_ENABLED then
-        vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
-      end
-      if vim_item.kind:find("Codeium") then
-        vim_item.kind_hl_group = "Error"
-      end
+      vim_item = trim_redundant(vim_item)
+      vim_item = add_icon(vim_item)
+      -- if vim_item.kind:find("Codeium") then
+      --   vim_item.kind_hl_group = "Error"
+      -- end
       return vim_item
     end,
   },
@@ -107,21 +121,37 @@ cmp.setup({
   -- window =vim
 })
 
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = "path" },
+    { name = "cmdline" },
+  }),
+  matching = { disallow_symbol_nonprefix_matching = false },
+})
+
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   sources = cmp.config.sources({ { name = "dap" } }),
 })
 
 cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   sources = cmp.config.sources({
+    { name = "luasnip" },
     { name = "vim-dadbod-completion" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     -- {name = "spell"},
   }),
   formatting = {
     format = function(entry, vim_item)
-      if consts.ICONS_ENABLED then
-        vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
-      end
+      vim_item = trim_redundant(vim_item)
+      vim_item = add_icon(vim_item)
       if vim_item.menu == "[DB]" then
         vim_item.kind = "Database"
         vim_item.kind_hl_group = "Keyword"

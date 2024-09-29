@@ -1,7 +1,7 @@
 #!/bin/sh
 #alias g='lazygit'
 alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
-alias nvimrc='nvim ~/.config/nvim/'
+
 function duh {
     du -had1 $1 | sort -h
 }
@@ -19,11 +19,11 @@ alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
 alias vl='nvim -c "execute \"normal! \<C-O>\""'
-alias vdb="nvim -c 'DBUIToggle'"
+alias vdb="tmux rename-window DB; nvim -c 'DBUIToggle'"
 
 # Tmux
 alias t='tmux'
-alias ta='tmux a -t 0'
+alias ta='tmux attach'
 
 # Colorize output (good for log files)
 alias grep='grep --color=auto'
@@ -57,3 +57,18 @@ alias autoremove='pacman -Qdtq | sudo pacman -Rs -'
 
 # Python
 alias ipy=ipython
+
+# Git
+function gacp {
+    git add .
+    git commit -m "$@"
+    git push
+}
+
+# Quick access
+function todo {
+    NOTE_DIR=~/projects/markdown/main-notes
+    TODO_FILE="TODOTODAY.md"
+    cd $NOTE_DIR
+    nvim $TODO_FILE
+}

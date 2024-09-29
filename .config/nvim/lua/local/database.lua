@@ -35,7 +35,7 @@ M.local_configs = {
 
   {
     name = "itr_local",
-    url = "mysql://shket:1think1dump@localhost:3306/itrapi",
+    url = "mysql://ashket:1think1dump@localhost:3306/itrapi",
   },
   {
     name = "itr_dev",
