@@ -123,10 +123,10 @@ local servers = {
     end,
   },
   -- https://github.com/typescript-language-server/typescript-language-server
-  -- ts_ls = {
-  --   init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
-  --   settings = { javascript = tss_settings, typescript = tss_settings },
-  -- },
+  ts_ls = {
+    init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
+    settings = { javascript = tss_settings, typescript = tss_settings },
+  },
   html = true,
   cssls = true,
   cssmodules_ls = true,
@@ -158,6 +158,10 @@ local servers = {
     },
   },
   gopls = true,
+  tabby_ml = {
+    filetypes = { "python" },
+  },
+  -- tabby_ml = true,
 }
 
 for server, config in pairs(servers) do

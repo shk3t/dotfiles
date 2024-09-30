@@ -17,12 +17,15 @@
 - [X] dbui config settings
 - [X] more comfortable tmux config: modes switch (page up, select without last character)
 - [ ] TRY AI
-    - [x] https://github.com/Exafunction/codeium.nvim
+    - [X] https://github.com/Exafunction/codeium.nvim
     - [X] https://github.com/David-Kunz/gen.nvim
-    - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
+    - [X] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
         - https://github.com/TabbyML/tabby/tree/main/clients/vim
-    - [ ] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
-    - [ ] https://github.com/sourcegraph/sg.nvim
+    - [-] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
+    - [-] https://github.com/sourcegraph/sg.nvim
+    - [ ] https://github.com/olimorris/codecompanion.nvim
+    - [-] https://github.com/SilasMarvin/lsp-ai
+    - [-] https://github.com/supermaven-inc/supermaven-nvim
 
 ## Important
 ### Config existing plugins
