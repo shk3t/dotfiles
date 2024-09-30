@@ -67,8 +67,42 @@ function gacp {
 
 # Quick access
 function todo {
-    NOTE_DIR=~/projects/markdown/main-notes
-    TODO_FILE="TODOTODAY.md"
-    cd $NOTE_DIR
-    nvim $TODO_FILE
+    DIR=~/projects/markdown/main-notes
+    FILE="TODOTODAY.md"
+    cd $DIR
+    tmux rename-window TODO
+    nvim $FILE
 }
+function nvimcfg {
+    DIR=~/.config/nvim
+    cd $DIR
+    tmux rename-window NVIM
+    vf
+}
+
+# LLM
+function webui-start {
+    docker run -d --gpus all \
+        -e PORT=1144 --network=host \
+        -v open-webui:/app/backend/data \
+        --name open-webui \
+        ghcr.io/open-webui/open-webui:cuda
+}
+function webui-stop {
+    docker rm -f open-webui 2> /dev/null
+}
+function tabby-start {
+    docker run -dt --gpus all \
+        -e TABBY_WEBSERVER_JWT_TOKEN_SECRET='6a335735-3e9c-4afc-919d-e1e31c9b66e6' \
+        -p 7488:8080 -v $HOME/.tabby:/data \
+        --name tabby-ml \
+        registry.tabbyml.com/tabbyml/tabby \
+        serve --model CodeQwen-7B --device cuda
+}
+function tabby-attach {
+    docker attach tabby-ml
+}
+function tabby-stop {
+    docker rm -f tabby-ml 2> /dev/null
+}
+# --restart always \

@@ -13,11 +13,6 @@
 # alacritty --print-events
 
 [[keyboard.bindings]]
-chars = "\u001B[13;5u"
-key = "Return"
-mods = "Control"
-
-[[keyboard.bindings]]
 chars = "\u001B[104;5u"
 key = "H"
 mods = "Control"
@@ -703,6 +698,11 @@ key = "Slash"
 mods = "Alt|Shift"
 
 [[keyboard.bindings]]
+chars = "\u001B[13;5u"
+key = "Return"
+mods = "Control"
+
+[[keyboard.bindings]]
 chars = "\u001B[13;2u"
 key = "Return"
 mods = "Shift"
@@ -713,12 +713,17 @@ key = "Space"
 mods = "Shift"
 
 [[keyboard.bindings]]
-chars = "\u001B[27;5;9~"
+chars = "\u001B[9;5u"
 key = "Tab"
 mods = "Control"
 
 [[keyboard.bindings]]
-chars = "\u001B[27;6;9~"
+chars = "\u001B[9;2u"
+key = "Tab"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[9;6u"
 key = "Tab"
 mods = "Control|Shift"
 
