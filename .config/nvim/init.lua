@@ -48,7 +48,8 @@ require("lazy").setup({
   "rcarriga/cmp-dap",
   -- "Exafunction/codeium.nvim",
   -- "David-Kunz/gen.nvim",
-  "tzachar/cmp-ai",
+  "olimorris/codecompanion.nvim",
+  -- "tzachar/cmp-ai",
 
   -- Syntax tree
   "nvim-treesitter/nvim-treesitter",

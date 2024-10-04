@@ -24,6 +24,7 @@ M.local_configs = {
     name = "sok_dev",
     url = "ssh://itresume-dev:postgres://sok_admin:qweasd963@localhost:5432/sok",
   },
+  { name = "sok_dev_docker", url = "ssh://itresume-dev:postgres://postgres:qweasd963@localhost:2345/analysis" },
   {
     name = "sok_prod",
     url = "ssh://itresume-prod:mysql://root:qweasd963@localhost:3306/sok",
@@ -35,7 +36,7 @@ M.local_configs = {
 
   {
     name = "itr_local",
-    url = "mysql://ashket:1think1dump@localhost:3306/itrapi",
+    url = "mysql://shket:1think1dump@localhost:3306/itrapi",
   },
   {
     name = "itr_dev",
