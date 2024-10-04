@@ -5,4 +5,4 @@ DOTDIR=$HOME/backup/dotfiles
 
 sys_files=(/usr/share/X11/xorg.conf.d)
 home_files=(bin .vimrc .zshenv .xinitrc .gdbinit .password-store .gnupg/gpg-agent.conf .ssh/config)
-dotconf_files=(alacritty zsh tmux nvim mpv yay fontconfig sxhkd user-dirs.dirs chrome-flags.conf yt-dlp discord)
+dotconf_files=(alacritty zsh tmux nvim mpv yay fontconfig sxhkd user-dirs.dirs chrome-flags.conf yt-dlp discord/settings.json)
