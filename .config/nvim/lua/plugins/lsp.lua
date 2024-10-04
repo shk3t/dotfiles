@@ -158,10 +158,9 @@ local servers = {
     },
   },
   gopls = true,
-  tabby_ml = {
-    filetypes = { "python" },
-  },
-  -- tabby_ml = true,
+  -- tabby_ml = {
+  --   filetypes = { "python" },
+  -- },
 }
 
 for server, config in pairs(servers) do

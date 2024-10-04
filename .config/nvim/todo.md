@@ -16,16 +16,22 @@
 - [X] sql snippets
 - [X] dbui config settings
 - [X] more comfortable tmux config: modes switch (page up, select without last character)
+- [X] Tmux Ctrl + scroll
+- [X] `<C-P>` prev history in cmd
 - [ ] TRY AI
-    - [X] https://github.com/Exafunction/codeium.nvim
     - [X] https://github.com/David-Kunz/gen.nvim
+    - [ ] https://github.com/olimorris/codecompanion.nvim
     - [X] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
-        - https://github.com/TabbyML/tabby/tree/main/clients/vim
+    - [-] https://github.com/tzachar/cmp-ai
+    - [-] https://github.com/SilasMarvin/lsp-ai
+    - [ ] https://github.com/yetone/avante.nvim
+    - [ ] https://github.com/gsuuon/model.nvim
+    - [ ] https://github.com/Robitx/gp.nvim
+- [ ] Proprietary AI
+    - [X] https://github.com/Exafunction/codeium.nvim
     - [-] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
     - [-] https://github.com/sourcegraph/sg.nvim
-    - [ ] https://github.com/olimorris/codecompanion.nvim
-    - [-] https://github.com/SilasMarvin/lsp-ai
-    - [-] https://github.com/supermaven-inc/supermaven-nvim
+    - [ ] https://github.com/supermaven-inc/supermaven-nvim
 
 ## Important
 ### Config existing plugins
@@ -56,7 +62,6 @@
 - [ ] better autocompletion with SQL LSP
 ### Explore
 - [ ] terminal mode
-- [ ] custom snippets (sql)
 ### Global
 - [ ] oh my zsh
 
@@ -74,6 +79,7 @@
 - spider russian language support
 - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
 - pyright autoimport relative
+- tmux continue search from current position (not from random starting point)
 ### Features
 - [ ] preserve window camera location
 - [ ] fast global rename
@@ -117,6 +123,7 @@
 - [ ] CHEATSH: https://github.com/chubin/cheat.sh
 - [ ] openvpn
 - [ ] restore tmux + nvim sessions
+- [-] Tmux Ctrl + Tab
 ### ZSH
 - [ ] better vim motions: `visual select inside double quotes`
 ### KDE

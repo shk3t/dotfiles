@@ -91,8 +91,8 @@ cmp.setup({
   sources = cmp.config.sources({
     -- { name = "codeium" },
     -- { name = "cmp_ai" },
-    { name = "nvim_lsp" },
     { name = "luasnip" },
+    { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     -- {name = "spell"},
@@ -100,10 +100,10 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      if entry.source.source.client and entry.source.source.client.name == "tabby_ml" then
-        vim_item.kind_hl_group = "Error"
-        vim_item.kind = "Tabby"
-      end
+      -- if entry.source.source.client and entry.source.source.client.name == "tabby_ml" then
+      --   vim_item.kind_hl_group = "Error"
+      --   vim_item.kind = "Tabby"
+      -- end
       -- if vim_item.kind:find("Codeium") then
       --   vim_item.kind_hl_group = "Error"
       -- end
@@ -118,7 +118,7 @@ cmp.setup({
   preselect = cmp.PreselectMode.None,
   performance = {
     fetching_timeout = 50,
-    max_view_entries = 20,
+    -- max_view_entries = 20,
   },
   experimental = {
     ghost_text = false, -- this feature conflict with copilot.vim's preview.
@@ -127,7 +127,14 @@ cmp.setup({
 })
 
 cmp.setup.cmdline("/", {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ["<C-n>"] = {
+      c = false,
+    },
+    ["<C-p>"] = {
+      c = false,
+    },
+  }),
   sources = {
     { name = "buffer" },
   },
@@ -137,7 +144,14 @@ cmp.setup.cmdline("/", {
 })
 
 cmp.setup.cmdline(":", {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ["<C-n>"] = {
+      c = false,
+    },
+    ["<C-p>"] = {
+      c = false,
+    },
+  }),
   sources = cmp.config.sources({
     { name = "path" },
     { name = "cmdline" },
@@ -204,20 +218,69 @@ require("local.snippets")
 -- })
 -- vim.keymap.set({ "n", "x" }, "<Space>a", ":Gen<CR>")
 --
--- -- require("cmp_ai.config"):setup({
--- --   max_lines = 100,
--- --   provider = "Ollama",
--- --   provider_options = {
--- --     model = "codellama:7b-code",
--- --   },
--- --   notify = true,
--- --   notify_callback = function(msg)
--- --     vim.notify(msg)
--- --   end,
--- --   run_on_every_keystroke = true,
--- --   ignored_file_types = {
--- --     -- default is not to ignore
--- --     -- uncomment to ignore in lua:
--- --     -- lua = true
--- --   },
--- -- })
+
+-- require("cmp_ai.config"):setup({
+--   max_lines = 1000,
+--   provider = "Tabby",
+--   notify = true,
+--   provider_options = {
+--     -- These are optional
+--     -- user = 'yourusername',
+--     -- temperature = 0.2,
+--     -- seed = 'randomstring',
+--   },
+--   notify_callback = function(msg)
+--     vim.notify(msg)
+--   end,
+--   run_on_every_keystroke = true,
+--   ignored_file_types = {
+--     -- default is not to ignore
+--     -- uncomment to ignore in lua:
+--     -- lua = true
+--   },
+-- })
+
+require("codecompanion").setup({
+  strategies = {
+    chat = {
+      adapter = "qwen25",
+    },
+    inline = {
+      adapter = "qwen25",
+    },
+    agent = {
+      adapter = "qwen25",
+    },
+  },
+  adapters = {
+    qwen25 = function()
+      return require("codecompanion.adapters").extend("ollama", {
+        name = "qwen25",
+        schema = {
+          model = {
+            default = "qwen2.5-coder:latest",
+          },
+          num_ctx = {
+            default = 16384,
+          },
+          num_predict = {
+            default = -1,
+          },
+        },
+      })
+    end,
+  },
+})
+-- require("codecompanion").setup({
+--   strategies = {
+--     chat = {
+--       adapter = "ollama",
+--     },
+--     inline = {
+--       adapter = "ollama",
+--     },
+--     agent = {
+--       adapter = "ollama",
+--     },
+--   },
+-- })
