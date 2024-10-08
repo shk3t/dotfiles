@@ -16,7 +16,7 @@ local function base_attach(client, bufnr)
   -- keymap("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = bufnr})
   keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = bufnr })
   keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
-  keymap({ "n", "x" }, "<Space>F", vim.lsp.buf.format, { buffer = bufnr })
+  keymap({ "n", "v" }, "<Space>F", vim.lsp.buf.format, { buffer = bufnr })
 
   keymap("n", "gd", telescope_builtin.lsp_definitions, { buffer = bufnr })
   keymap("n", "gD", telescope_builtin.lsp_type_definitions, { buffer = bufnr })
@@ -104,17 +104,18 @@ local servers = {
       },
     },
   },
+  -- https://github.com/astral-sh/ruff-lsp/issues/384
   ruff_lsp = {
     init_options = {
       settings = {
-        -- https://github.com/astral-sh/ruff-lsp/issues/384
-        args = { "--ignore=E402,F403,F405,F841" },
+        -- https://docs.astral.sh/ruff/rules/#pyflakes-f
+        args = { "--ignore=E402,F403,F405" },
         lint = { enable = true },
       },
     },
     custom_attach = function(client, bufnr)
       client.server_capabilities.documentFormattingProvider = true
-      keymap({ "n", "x" }, "<Space>I", function()
+      keymap({ "n", "v" }, "<Space>I", function()
         vim.lsp.buf.code_action({
           context = { only = { "source.organizeImports" } },
           apply = true,

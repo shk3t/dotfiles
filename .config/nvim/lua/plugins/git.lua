@@ -102,7 +102,7 @@ require("gitsigns").setup({
     bufmap("n", "<Space>GP", gs.toggle_deleted)
 
     -- Text object
-    bufmap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    bufmap({ "o", "v" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
   end,
 })
 
@@ -123,4 +123,4 @@ require("diffview").setup({
   use_icons = false,
   signs = { fold_closed = ">", fold_open = "v", done = "√" },
 })
-keymap({ "n", "x" }, "<Space>GD", vim.cmd.DiffviewOpen)
+keymap({ "n", "v" }, "<Space>GD", vim.cmd.DiffviewOpen)

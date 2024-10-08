@@ -126,11 +126,11 @@ tsj.setup({
   dot_repeat = true,
 })
 
-keymap("x", "n", function()
+keymap("v", "n", function()
   require("nvim-treesitter.incremental_selection").node_incremental()
   lib.norm("o")
 end)
-keymap("x", "N", function()
+keymap("v", "N", function()
   require("nvim-treesitter.incremental_selection").node_decremental()
   lib.norm("o")
 end)

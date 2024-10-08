@@ -5,7 +5,7 @@ local quarto = require("quarto")
 
 local opts = { silent = true }
 
-keymap("x", "<Space>j", ":<C-U>MoltenEvaluateVisual<CR>", opts)
+keymap("v", "<Space>j", ":<C-U>MoltenEvaluateVisual<CR>", opts)
 keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
 keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
 keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)
@@ -95,7 +95,7 @@ autocmd("BufWritePost", {
 -- vim.keymap.set("n", "<Space>qa", runner.run_above, opts)
 -- vim.keymap.set("n", "<Space>qA", runner.run_all, opts)
 -- vim.keymap.set("n", "<Space>ql", runner.run_line, opts)
--- vim.keymap.set("x", "<Space>q", runner.run_range, opts)
+-- vim.keymap.set("v", "<Space>q", runner.run_range, opts)
 -- vim.keymap.set("n", "<Space>QA", function()
 --   runner.run_all(true)
 -- end, opts)

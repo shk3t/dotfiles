@@ -1,4 +1,5 @@
 local M = {}
+local autocmd = vim.api.nvim_create_autocmd
 
 -- automatically import output chunks from a jupyter notebook
 -- tries to find a kernel that matches the kernel in the jupyter notebook
@@ -72,5 +73,16 @@ M.new_notebook = function(filename)
     print("Error: Could not open new notebook file for writing.")
   end
 end
+
+autocmd("FileType", {
+  pattern = "TelescopePrompt",
+  callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local picker = require("telescope.actions.state").get_current_picker(bufnr)
+    if picker.prompt_title == "Please select a kernel" then
+      vim.api.nvim_input("<CR>")
+    end
+  end,
+})
 
 return M

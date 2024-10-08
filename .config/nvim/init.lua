@@ -47,7 +47,6 @@ require("lazy").setup({
   "hrsh7th/cmp-nvim-lsp-signature-help",
   "rcarriga/cmp-dap",
   -- "Exafunction/codeium.nvim",
-  -- "David-Kunz/gen.nvim",
   "olimorris/codecompanion.nvim",
   -- "tzachar/cmp-ai",
 

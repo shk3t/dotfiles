@@ -1,37 +1,5 @@
 ## TODAY
-- [X] molten-nvim
-- [X] config aerial
-- [X] config dadbod ui
-- [X] config tree
-- [X] telescope more prickers
-- [X] telescope mouse support: https://github.com/nvim-telescope/telescope.nvim/issues/2213
-- [X] git hunks run sync: https://github.com/lewis6991/gitsigns.nvim/issues/791
-- [X] telescope spellchecker
-- [X] tree-nvim open recursive current
-- [X] dap: fix duplicate entries
-- [X] dap: close debug widgets on closing main buffer
-- [X] dap: watches keys (i, u)
-- [X] dap: hover without borders
-- [X] tmux use sessions
-- [X] sql snippets
-- [X] dbui config settings
-- [X] more comfortable tmux config: modes switch (page up, select without last character)
-- [X] Tmux Ctrl + scroll
-- [X] `<C-P>` prev history in cmd
-- [ ] TRY AI
-    - [X] https://github.com/David-Kunz/gen.nvim
-    - [ ] https://github.com/olimorris/codecompanion.nvim
-    - [X] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#tabby_ml
-    - [-] https://github.com/tzachar/cmp-ai
-    - [-] https://github.com/SilasMarvin/lsp-ai
-    - [ ] https://github.com/yetone/avante.nvim
-    - [ ] https://github.com/gsuuon/model.nvim
-    - [ ] https://github.com/Robitx/gp.nvim
-- [ ] Proprietary AI
-    - [X] https://github.com/Exafunction/codeium.nvim
-    - [-] https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#sourcery
-    - [-] https://github.com/sourcegraph/sg.nvim
-    - [ ] https://github.com/supermaven-inc/supermaven-nvim
+- [ ] Ask about multiple kernels for molten-nvim
 
 ## Important
 ### Config existing plugins

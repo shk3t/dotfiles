@@ -35,8 +35,8 @@ local function my_on_attach(bufnr)
   keymap("n", "J", api.node.navigate.sibling.next, opts("Next Sibling"))
   -- keymap("n", "<C-K>", api.node.navigate.sibling.first, opts("FirstSibling"))
   -- keymap("n", "<C-J>", api.node.navigate.sibling.last, opts("Last Sibling"))
-  keymap({ "n", "x" }, "<C-K>", "<C-W>k", opts("go N windows up"))
-  keymap({ "n", "x" }, "<C-J>", "<C-W>j", opts("go N windows down"))
+  keymap({ "n", "v" }, "<C-K>", "<C-W>k", opts("go N windows up"))
+  keymap({ "n", "v" }, "<C-J>", "<C-W>j", opts("go N windows down"))
   keymap("n", "<C-P>", api.node.navigate.parent, opts("Parent directory"))
 
   keymap("n", "gk", api.node.show_info_popup, opts("Info"))
@@ -201,7 +201,7 @@ aerial.setup({
   -- filter_kind = false,
   autojump = true,
 })
-keymap("n", "gs", "mm:AerialOpen<CR>")
+keymap("n", "<Space>s", "mm:AerialOpen<CR>")
 autocmd("FileType", {
   pattern = "aerial",
   callback = function()

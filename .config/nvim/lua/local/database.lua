@@ -33,6 +33,10 @@ M.local_configs = {
     name = "sok_corp",
     url = "ssh://itresume-corp:mysql://root:@localhost:3306/sok",
   },
+  {
+    name = "sok_skillfactory",
+    url = "ssh://skillfactory:mysql://root:@localhost:3306/sok",
+  },
 
   {
     name = "itr_local",
