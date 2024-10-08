@@ -21,15 +21,15 @@ local fzf_opts = {
 keymap("n", "<C-F>", function()
   builtin.find_files()
 end)
--- keymap("x", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
+-- keymap("v", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
 keymap("n", "<Space>p", builtin.registers)
-keymap("x", "<Space>p", function()
+keymap("v", "<Space>p", function()
   lib.norm("d")
   builtin.registers()
 end)
-keymap("x", "<C-F>", telelib.visual_picker(builtin.find_files))
+keymap("v", "<C-F>", telelib.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
-keymap("x", "<C-G>", function()
+keymap("v", "<C-G>", function()
   require("telescope-live-grep-args.shortcuts").grep_visual_selection({
     postfix = "",
     quote = false,
@@ -49,7 +49,7 @@ end)
 keymap("n", "<Space>w", function()
   builtin.lsp_dynamic_workspace_symbols()
 end)
-keymap("x", "<Space>w", telelib.visual_picker(builtin.lsp_dynamic_workspace_symbols))
+keymap("v", "<Space>w", telelib.visual_picker(builtin.lsp_dynamic_workspace_symbols))
 keymap("n", "<Space>gs", builtin.git_status)
 keymap("n", "<Space>gc", builtin.git_commits)
 keymap("n", "<Space>gb", builtin.git_branches)
@@ -71,6 +71,7 @@ keymap(
 
 local telescope_config = {
   defaults = {
+    initial_mode = "insert",
     sorting_strategy = "ascending",
     layout_config = {
       height = 0.9,

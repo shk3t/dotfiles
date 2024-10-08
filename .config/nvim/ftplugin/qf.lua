@@ -18,7 +18,7 @@ keymap("n", "dd", function()
   }) end
 end, {buffer = true})
 
-keymap("x", "d", function()
+keymap("v", "d", function()
   norm("<Esc>")
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local start_line = vim.fn.line("'<")
@@ -41,4 +41,4 @@ keymap("n", "u", function()
   vim.g.prev_qflist = nil
 end, {buffer = true})
 
-keymap("n", "<Space>s", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]])
+keymap("n", "\\s", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]])

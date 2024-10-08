@@ -8,17 +8,17 @@ autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
     keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap("x", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
-    keymap({ "n", "x" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
+    keymap("v", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
+    keymap({ "n", "v" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
   end,
 })
 autocmd("FileType", {
   pattern = "dbui",
   callback = function()
     vim.opt_local.shiftwidth = 2
-    keymap({ "n", "x" }, "<C-K>", "<C-W>k", { buffer = true })
-    keymap({ "n", "x" }, "<C-J>", "<C-W>j", { buffer = true })
+    keymap({ "n", "v" }, "<C-K>", "<C-W>k", { buffer = true })
+    keymap({ "n", "v" }, "<C-J>", "<C-W>j", { buffer = true })
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
     keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
     keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
