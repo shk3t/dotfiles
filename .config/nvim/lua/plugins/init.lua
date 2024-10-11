@@ -1,5 +1,6 @@
 require("plugins.git")
 require("plugins.completion")
+require("plugins.ai")
 require("plugins.lsp")
 require("plugins.diagnostic")
 require("plugins.debug")

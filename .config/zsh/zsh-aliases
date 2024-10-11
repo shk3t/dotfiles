@@ -81,7 +81,8 @@ function nvimcfg {
 }
 
 # LLM
-function webui-start {
+function webui-restart {
+    docker rm -f open-webui 2> /dev/null
     docker run -d --gpus all \
         -e PORT=1144 --network=host \
         -v open-webui:/app/backend/data \

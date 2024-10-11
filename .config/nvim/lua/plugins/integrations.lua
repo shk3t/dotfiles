@@ -1,3 +1,7 @@
+local keymap = vim.keymap.set
+local nabla = require("nabla")
+local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
+
 -- Image rendering support
 require("image").setup({
   backend = "ueberzug", -- Kitty will provide the best experience, but you need a compatible terminal
@@ -12,3 +16,7 @@ require("image").setup({
 
 -- Markdown preview
 vim.g.mkdp_auto_close = 0
+
+-- Latex preview
+keymap("n", "<Space>lk", function() nabla.popup({ border = VERTICAL_BORDERS}) end)
+keymap("n", "<Space>LK", nabla.toggle_virt)
