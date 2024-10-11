@@ -74,6 +74,7 @@ M.new_notebook = function(filename)
   end
 end
 
+-- BUG
 autocmd("FileType", {
   pattern = "TelescopePrompt",
   callback = function()

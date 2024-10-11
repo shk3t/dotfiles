@@ -1,5 +1,7 @@
 ## TODAY
+- [X] nabla.nvim
 - [ ] Ask about multiple kernels for molten-nvim
+- [ ] Visual mode another scrolloff
 
 ## Important
 ### Config existing plugins

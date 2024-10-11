@@ -159,6 +159,7 @@ local servers = {
     },
   },
   gopls = true,
+  jdtls = true,
   -- tabby_ml = {
   --   filetypes = { "python" },
   -- },

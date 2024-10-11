@@ -81,12 +81,18 @@ require("lazy").setup({
 
   -- Integrations
   "aserowy/tmux.nvim",
-  "iamcco/markdown-preview.nvim",
+  {
+    "iamcco/markdown-preview.nvim",
+    build = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
   "antosha417/nvim-lsp-file-operations",
   "GCBallesteros/jupytext.nvim",
   { "benlubas/molten-nvim", build = ":UpdateRemotePlugins" },
   "quarto-dev/quarto-nvim",
   "rest-nvim/rest.nvim",
+  "jbyuki/nabla.nvim",
 
   -- Telescope
   { "nvim-telescope/telescope.nvim", lazy = true },

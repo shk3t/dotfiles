@@ -19,4 +19,4 @@ keymap("n", "gct", function()
 end, {buffer = true})
 
 -- Jupyter integration
-keymap({ "n", "v" }, "<F5>", vim.cmd.MoltenOpenInBrowser, { buffer = true })
+-- keymap({ "n", "v" }, "<F5>", vim.cmd.MoltenOpenInBrowser, { buffer = true })

@@ -1,9 +1,7 @@
 local cmp = require("cmp")
 local consts = require("lib.consts")
-local lib = require("lib.main")
 local luasnip = require("luasnip")
 local autocmd = vim.api.nvim_create_autocmd
-local keymap = vim.keymap.set
 
 local confirm_complete = function()
   if cmp.visible() then
@@ -216,56 +214,3 @@ require("local.snippets")
 --     -- lua = true
 --   },
 -- })
-
-require("codecompanion").setup({
-  display = {
-    action_palette = {
-      provider = "telescope",
-    },
-  },
-  strategies = {
-    chat = {
-      adapter = "qwen25",
-    },
-    inline = {
-      adapter = "qwen25",
-    },
-    agent = {
-      adapter = "qwen25",
-    },
-  },
-  adapters = {
-    qwen25 = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "qwen25",
-        schema = {
-          model = {
-            default = "qwen2.5-coder:latest",
-          },
-          num_ctx = {
-            default = 16384,
-          },
-          num_predict = {
-            default = -1,
-          },
-        },
-      })
-    end,
-  },
-})
-
--- https://github.com/olimorris/codecompanion.nvim?tab=readme-ov-file#gear-configuration
-keymap({ "n", "v" }, "<Space>ai", function()
-  vim.cmd([[CodeCompanionChat Toggle]])
-end)
-keymap("n", "<Space>ac", vim.cmd.CodeCompanionActions)
-keymap("v", "<Space>ac", function()
-  vim.cmd.CodeCompanionActions()
-  vim.api.nvim_input("<Insert>") -- BUG
-end)
-keymap("v", "ad", function()
-  vim.cmd([[CodeCompanionChat Add]])
-end)
-
--- Expand 'cc' into 'CodeCompanion' in the command line
-vim.cmd([[abbreviate cc CodeCompanion]])
