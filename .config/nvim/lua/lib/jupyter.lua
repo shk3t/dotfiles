@@ -1,10 +1,9 @@
 local M = {}
-local autocmd = vim.api.nvim_create_autocmd
 
 -- automatically import output chunks from a jupyter notebook
 -- tries to find a kernel that matches the kernel in the jupyter notebook
 -- falls back to a kernel that matches the name of the active venv (if any)
-M.init_molten_buffer = function(e)
+M.init_molten_buffer = function(e) -- init molten buffer
   vim.schedule(function()
     local kernels = vim.fn.MoltenAvailableKernels()
     local try_kernel_name = function()
@@ -14,12 +13,13 @@ M.init_molten_buffer = function(e)
     local ok, kernel_name = pcall(try_kernel_name)
     if not ok or not vim.tbl_contains(kernels, kernel_name) then
       kernel_name = nil
-      local venv = os.getenv("VIRTUAL_ENV")
+      local venv = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
       if venv ~= nil then
         kernel_name = string.match(venv, "/.+/(.+)")
       end
     end
     if kernel_name ~= nil and vim.tbl_contains(kernels, kernel_name) then
+      print(kernel_name)
       vim.cmd(("MoltenInit %s"):format(kernel_name))
     end
     vim.cmd("MoltenImportOutput")
@@ -73,17 +73,5 @@ M.new_notebook = function(filename)
     print("Error: Could not open new notebook file for writing.")
   end
 end
-
--- BUG
-autocmd("FileType", {
-  pattern = "TelescopePrompt",
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local picker = require("telescope.actions.state").get_current_picker(bufnr)
-    if picker.prompt_title == "Please select a kernel" then
-      vim.api.nvim_input("<CR>")
-    end
-  end,
-})
 
 return M

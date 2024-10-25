@@ -2,6 +2,8 @@ local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local jlib = require("lib.jupyter")
 local quarto = require("quarto")
+local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
+local lib = require("lib.main")
 
 local opts = { silent = true }
 
@@ -9,13 +11,22 @@ keymap("v", "<Space>j", ":<C-U>MoltenEvaluateVisual<CR>", opts)
 keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
 keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
 keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)
-keymap("n", "<Space>jk", vim.cmd.MoltenShowOutput, opts)
-keymap("n", "<Space>jh", vim.cmd.MoltenHideOutput, opts)
+keymap("n", "<Space>jk", function()
+  vim.cmd("noautocmd MoltenEnterOutput")
+  lib.map_easy_closing()
+end, opts)
+keymap("n", "<Space>jq", vim.cmd.MoltenInterrupt, opts)
+keymap("n", "<Space>jj", function()
+  lib.norm("mm")
+  lib.rnorm("vij")
+  lib.norm(":<C-U>MoltenEvaluateVisual<CR>`m")
+  vim.cmd.delmarks("m")
+end, { silent = true, remap = true })
 
+keymap("n", "<Space>JA", vim.cmd.MoltenReevaluateAll, opts)
 keymap("n", "<Space>JI", vim.cmd.MoltenInit, opts)
 keymap("n", "<Space>JD", vim.cmd.MoltenDeinit, opts)
 keymap("n", "<Space>JR", vim.cmd.MoltenRestart, opts)
-keymap("n", "<Space>JQ", vim.cmd.MoltenInterrupt, opts)
 keymap("n", "<Space>JS", vim.cmd.MoltenSave, opts)
 keymap("n", "<Space>JL", vim.cmd.MoltenLoad, opts)
 
@@ -26,6 +37,14 @@ vim.g.molten_image_provider = "image.nvim"
 vim.g.molten_wrap_output = true
 vim.g.molten_virt_text_output = true
 vim.g.molten_virt_lines_off_by_1 = true
+vim.g.molten_output_win_border = "none"
+vim.g.molten_enter_output_behavior = "open_and_enter"
+vim.g.molten_tick_rate = 200
+
+-- Use venv packages by default
+if lib.python_path ~= lib.DEFAULT_PYTHON_PATH then
+  vim.g.python3_host_prog = lib.python_path
+end
 
 -- Jupyter notebook `.ipynb` files conversion
 require("jupytext").setup({
@@ -40,21 +59,13 @@ quarto.setup({
     -- NOTE: put whatever languages you want here:
     languages = { "r", "python", "rust" },
     chunks = "all",
-    diagnostics = {
-      enabled = true,
-      triggers = { "BufWritePost" },
-    },
-    completion = {
-      enabled = true,
-    },
-  },
-  keymap = {
-    -- NOTE: setup your own keymaps:
-    hover = "H",
-    definition = "gd",
-    rename = "<leader>rn",
-    references = "gr",
-    format = "<leader>gf",
+    -- diagnostics = {
+    --   enabled = true,
+    --   triggers = { "InsertLeave", "TextChanged" },
+    -- },
+    -- completion = {
+    --   enabled = true,
+    -- },
   },
   codeRunner = {
     enabled = true,
@@ -78,24 +89,41 @@ autocmd("BufEnter", {
     if vim.api.nvim_get_vvar("vim_did_enter") ~= 1 then
       jlib.init_molten_buffer(e)
       vim.bo.filetype = "markdown"
+      keymap("n", "<Space>JS", function()
+        vim.cmd("MoltenExportOutput!")
+      end, opts)
+      keymap("n", "<Space>JL", vim.cmd.MoltenImportOutput, opts)
     end
   end,
 })
 -- automatically export output chunks to a jupyter notebook on write
-autocmd("BufWritePost", {
-  pattern = { "*.ipynb" },
+-- autocmd("BufWritePost", {
+--   pattern = { "*.ipynb" },
+--   callback = function()
+--     if require("molten.status").initialized() == "Molten" then
+--       vim.cmd("MoltenExportOutput!")
+--     end
+--   end,
+-- })
+
+vim.api.nvim_create_user_command("NewNotebook", function(opts)
+  jlib.new_notebook(opts.args)
+end, {
+  nargs = 1,
+  complete = "file",
+})
+
+-- BUG
+autocmd("FileType", {
+  pattern = "TelescopePrompt",
   callback = function()
-    if require("molten.status").initialized() == "Molten" then
-      vim.cmd("MoltenExportOutput!")
+    local bufnr = vim.api.nvim_get_current_buf()
+    local picker = require("telescope.actions.state").get_current_picker(bufnr)
+    if picker.prompt_title == "Please select a kernel" then
+      vim.schedule(function()
+        vim.cmd.sleep("1m")
+        vim.api.nvim_input("<CR>")
+      end)
     end
   end,
 })
--- local runner = require("quarto.runner")
--- vim.keymap.set("n", "<Space>qc", runner.run_cell, opts)
--- vim.keymap.set("n", "<Space>qa", runner.run_above, opts)
--- vim.keymap.set("n", "<Space>qA", runner.run_all, opts)
--- vim.keymap.set("n", "<Space>ql", runner.run_line, opts)
--- vim.keymap.set("v", "<Space>q", runner.run_range, opts)
--- vim.keymap.set("n", "<Space>QA", function()
---   runner.run_all(true)
--- end, opts)

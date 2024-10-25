@@ -40,6 +40,9 @@ require("codecompanion").setup({
           model = {
             default = "qwen2.5-coder:7b-instruct",
           },
+          num_ctx = {
+            default = 16384,
+          },
         },
       })
     end,
@@ -49,6 +52,9 @@ require("codecompanion").setup({
         schema = {
           model = {
             default = "qwen2.5:7b",
+          },
+          num_ctx = {
+            default = 16384,
           },
         },
       })
@@ -60,6 +66,9 @@ require("codecompanion").setup({
           model = {
             default = "deepseek-coder-v2:16b-lite-instruct-q4_0",
           },
+          num_ctx = {
+            default = 16384,
+          },
         },
       })
     end,
@@ -69,6 +78,9 @@ require("codecompanion").setup({
         schema = {
           model = {
             default = "yi-coder:9b",
+          },
+          num_ctx = {
+            default = 16384,
           },
         },
       })
@@ -81,11 +93,8 @@ keymap({ "n", "v" }, "<Space>ai", function()
   vim.cmd([[CodeCompanionChat Toggle]])
 end)
 keymap("n", "<Space>ac", vim.cmd.CodeCompanionActions)
-keymap("v", "<Space>ac", function()
-  vim.cmd.CodeCompanionActions()
-  vim.api.nvim_input("<Insert>") -- BUG
-end)
-keymap("v", "ad", function()
+keymap("v", "<Space>ac", vim.cmd.CodeCompanionActions)
+keymap("v", "<Space>aa", function()
   vim.cmd([[CodeCompanionChat Add]])
 end)
 
@@ -99,3 +108,7 @@ autocmd("FileType", {
     quarto.activate()
   end,
 })
+
+-- require("codeium").setup({
+--   enable_chat = false,
+-- })

@@ -40,7 +40,7 @@ export MANPAGER='nvim +Man!'
 
 # God's tools
 eval "$(zoxide init zsh)"
-export FZF_DEFAULT_COMMAND='ag --depth 12 --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --depth 16 --hidden --ignore .git -g ""'
 # export TABBY_API_KEY='auth_6446f7ff4a9642a680d195b1f1b66c82'
 
 # Environment variables set everywhere

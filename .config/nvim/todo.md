@@ -1,4 +1,7 @@
 ## TODAY
+- [X] `o` debug preview always opens
+- [ ] `<C-Space>` complete force reopen
+- [ ] `vl` `<C-O>` until no error (skip debug widgets)
 - [X] nabla.nvim
 - [ ] Ask about multiple kernels for molten-nvim
 - [ ] Visual mode another scrolloff
@@ -41,7 +44,6 @@
 ## Other
 ### Waiting for update
 - presence.nvim
-- codeium chat bot: https://github.com/Exafunction/codeium.nvim/issues/162#issue-2203852863
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 - cmp replace only on confirm
 - duplicate entries for cmp-buffer (clangd, pylsp)

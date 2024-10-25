@@ -11,6 +11,9 @@ local function base_init(client)
   client.config.flags.allow_incremental_sync = true
 end
 
+keymap({ "n", "v" }, "<Space>LR", vim.cmd.LspRestart)
+keymap({ "n", "v" }, "<Space>LI", vim.cmd.LspInfo)
+
 local function base_attach(client, bufnr)
   keymap("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
   -- keymap("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = bufnr})
@@ -34,8 +37,6 @@ local function base_attach(client, bufnr)
     vim.lsp.buf.references()
   end, { buffer = bufnr })
 
-  -- if false then vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end end
-
   client.server_capabilities.documentFormattingProvider = false
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
 end
@@ -45,10 +46,6 @@ local function attach(custom_attach)
     base_attach(client, bufnr)
     pcall(custom_attach, client, bufnr)
   end
-end
-
-local function enable_formatter_attach(client, bufnr)
-  client.server_capabilities.documentFormattingProvider = true
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -109,7 +106,7 @@ local servers = {
     init_options = {
       settings = {
         -- https://docs.astral.sh/ruff/rules/#pyflakes-f
-        args = { "--ignore=E402,F403,F405" },
+        args = { "--ignore=E402,E741,F403,F405" },
         lint = { enable = true },
       },
     },
@@ -160,6 +157,7 @@ local servers = {
   },
   gopls = true,
   jdtls = true,
+  marksman = true,
   -- tabby_ml = {
   --   filetypes = { "python" },
   -- },

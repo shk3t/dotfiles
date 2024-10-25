@@ -27,14 +27,22 @@ require("nvim-treesitter.configs").setup({
         ["]a"] = "@parameter.inner",
         ["]j"] = "@code_cell.inner",
       },
-      goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer" },
+      goto_next_end = {
+        ["]F"] = "@function.outer",
+        ["]C"] = "@class.outer",
+        ["]J"] = "@code_cell.inner",
+      },
       goto_previous_start = {
         ["[f"] = "@function.outer",
         ["[c"] = "@class.outer",
         ["[a"] = "@parameter.inner",
         ["[j"] = "@code_cell.inner",
       },
-      goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer" },
+      goto_previous_end = {
+        ["[F"] = "@function.outer",
+        ["[C"] = "@class.outer",
+        ["[J"] = "@code_cell.inner",
+      },
     },
     select = {
       enable = true,
@@ -66,6 +74,8 @@ require("nvim-treesitter.configs").setup({
         ["@function.inner"] = "V",
         ["@class.outer"] = "V",
         ["@class.inner"] = "V",
+        ["@code_cell.outer"] = "V",
+        ["@code_cell.inner"] = "V",
       },
       include_surrounding_whitespace = false,
     },

@@ -1,6 +1,5 @@
 local dap = require("dap")
 local dapui = require("dapui")
-local dlib = require("lib.debug")
 local lib = require("lib.main")
 local widgets = require("dap.ui.widgets")
 local local_configs = require("local.debug").local_configs
@@ -132,7 +131,7 @@ dapui.setup(dapui_config)
 
 dap.adapters.python = {
   type = "executable",
-  command = dlib.python_path,
+  command = lib.python_path,
   args = { "-m", "debugpy.adapter" },
 }
 dap.adapters.cppdbg = {
@@ -205,6 +204,14 @@ autocmd("FileType", {
       else
         require("dap.ui").trigger_actions({ mode = "first" })
       end
+    end, { buffer = true, remap = true })
+  end,
+})
+autocmd("FileType", {
+  pattern = "dap-float",
+  callback = function()
+    keymap("n", "o", function()
+      require("dap.ui").trigger_actions({ mode = "first" })
     end, { buffer = true, remap = true })
   end,
 })

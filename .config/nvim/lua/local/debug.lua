@@ -22,6 +22,11 @@ M.local_configs = {
         name = "Default",
         program = "${file}",
       }),
+      vim.tbl_extend("force", python_default_config, {
+        name = "Default deep",
+        program = "${file}",
+        justMyCode = false,
+      }),
     },
     ["/gogame/backend"] = {
       vim.tbl_extend("force", python_default_config, {
@@ -45,16 +50,17 @@ M.local_configs = {
       }),
     },
     ["/itresume/lms"] = { django_cfg, django_deep_debug_cfg },
-    ["/itresume/wb%-backend"] = {
+    ["/car%-price%-prediction/ml%-service"] = { django_cfg },
+    ["/itresume/analytics"] = {
       django_cfg,
       django_deep_debug_cfg,
       vim.tbl_extend("force", python_default_config, {
         name = "Try Django script",
-        program = vim.fn.getcwd() .. "/bin/try.py",
+        program = vim.fn.getcwd() .. "/scripts/try.py",
       }),
       vim.tbl_extend("force", python_default_config, {
         name = "Try Django script deep",
-        program = vim.fn.getcwd() .. "/bin/try.py",
+        program = vim.fn.getcwd() .. "/scripts/try.py",
         justMyCode = false,
       }),
       -- vim.tbl_extend("force", python_default_config, {
@@ -101,8 +107,8 @@ M.local_configs = {
         program = "${file}",
       }),
       vim.tbl_extend("force", go_default_config, {
-        name = "Main",
-        program = "main.go",
+        name = "Cmd main",
+        program = "cmd/main.go",
       }),
       vim.tbl_extend("force", go_default_config, {
         name = "Src main",

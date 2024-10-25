@@ -1,15 +1,19 @@
 local cmp = require("cmp")
 local consts = require("lib.consts")
+local lib = require("lib.main")
 local luasnip = require("luasnip")
 local autocmd = vim.api.nvim_create_autocmd
 
-local confirm_complete = function()
+local confirm_complete = cmp.mapping(function(fallback)
   if cmp.visible() then
     cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+    if vim.fn.mode() == "c" then
+      vim.api.nvim_input("<CR>")
+    end
   else
     cmp.complete()
   end
-end
+end, { "i", "c" })
 
 local select_jump_prev_mappping = cmp.mapping(function(fallback)
   if luasnip.jumpable(-1) then
@@ -89,7 +93,7 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-    -- { name = "codeium" },
+    { name = "codeium" },
     -- { name = "cmp_ai" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
@@ -104,16 +108,16 @@ cmp.setup({
       --   vim_item.kind_hl_group = "Error"
       --   vim_item.kind = "Tabby"
       -- end
-      -- if vim_item.kind:find("Codeium") then
-      --   vim_item.kind_hl_group = "Error"
-      -- end
+      if vim_item.kind:find("Codeium") then
+        vim_item.kind_hl_group = "Error"
+      end
       vim_item = trim_redundant(vim_item)
       vim_item = add_icon(vim_item)
       return vim_item
     end,
   },
   enabled = function()
-    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+    return vim.bo.buftype ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
   preselect = cmp.PreselectMode.None,
   performance = {
@@ -189,10 +193,6 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("local.snippets")
-
--- require("codeium").setup({
---   -- enable_chat = true,
--- })
 
 -- require("cmp_ai.config"):setup({
 --   max_lines = 1000,

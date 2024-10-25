@@ -1,5 +1,7 @@
 local M = {}
 
+local keymap = vim.keymap.set
+
 M.is_empty = function(tbl)
   return next(tbl) == nil
 end
@@ -30,6 +32,10 @@ end
 
 M.norm = function(command)
   vim.cmd("normal! " .. M.replace_termcodes(command))
+end
+
+M.rnorm = function(command)
+  vim.cmd("normal " .. M.replace_termcodes(command))
 end
 
 M.vc_cmd = function(vimcmd)
@@ -139,5 +145,31 @@ M.set = function(list)
   end
   return set
 end
+
+M.map_easy_closing = function()
+  keymap("n", "q", ":q<CR>", {
+    buffer = true,
+    silent = true,
+  })
+end
+
+M.DEFAULT_PYTHON_PATH = "/usr/bin/python"
+
+M.python_path = (function()
+  local workdir = vim.fn.getcwd()
+  local venvdirs = { "venv", ".venv" }
+
+  repeat
+    for _, venvdir in pairs(venvdirs) do
+      local pybin = workdir .. "/" .. venvdir .. "/bin/python"
+      if vim.fn.executable(pybin) == 1 then
+        return pybin
+      end
+    end
+    workdir = vim.fn.fnamemodify(workdir, ":h")
+  until workdir == vim.fn.expand("~")
+
+  return M.DEFAULT_PYTHON_PATH
+end)()
 
 return M

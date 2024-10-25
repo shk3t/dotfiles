@@ -51,16 +51,10 @@ autocmd("FileType", {
 })
 
 -- Easy Window closing
-local function map_easy_closing()
-  keymap("n", "q", ":q<CR>", {
-    buffer = true,
-    silent = true,
-  })
-end
-autocmd("CmdwinEnter", { callback = map_easy_closing })
+autocmd("CmdwinEnter", { callback = lib.map_easy_closing })
 autocmd("FileType", {
   pattern = { "help", "dap-float", "qf" },
-  callback = map_easy_closing,
+  callback = lib.map_easy_closing,
 })
 
 -- Highlight yank

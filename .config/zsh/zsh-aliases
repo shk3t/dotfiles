@@ -107,3 +107,9 @@ function tabby-stop {
     docker rm -f tabby-ml 2> /dev/null
 }
 # --restart always \
+
+function jupyter-venv {
+    python -m venv .venv
+    source .venv/bin/activate
+    pip install pynvim jupyter_client nbformat ipykernel cairosvg plotly kaleido pnglatex pyperclip
+}
