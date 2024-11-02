@@ -1,9 +1,12 @@
 ## TODAY
+- [ ] cmd completion on replace
+- [ ] here is some code when add block codecompanion
+- [ ] `<C-S>` and other redindings for codecompanion
+- [ ] config codecompanion
 - [X] `o` debug preview always opens
 - [ ] `<C-Space>` complete force reopen
 - [ ] `vl` `<C-O>` until no error (skip debug widgets)
 - [X] nabla.nvim
-- [ ] Ask about multiple kernels for molten-nvim
 - [ ] Visual mode another scrolloff
 
 ## Important

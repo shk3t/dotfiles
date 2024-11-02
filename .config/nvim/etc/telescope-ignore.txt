@@ -69,3 +69,5 @@ docs/
 
 # Specific
 docker/languages/sql/
+model_weights/
+data/

@@ -50,7 +50,7 @@ M.local_configs = {
       }),
     },
     ["/itresume/lms"] = { django_cfg, django_deep_debug_cfg },
-    ["/car%-price%-prediction/ml%-service"] = { django_cfg },
+    ["/car%-price%-prediction/ml%-service"] = { django_cfg, django_deep_debug_cfg },
     ["/itresume/analytics"] = {
       django_cfg,
       django_deep_debug_cfg,
@@ -79,12 +79,12 @@ M.local_configs = {
     ["/itresume/sok"] = {
       vim.tbl_extend("force", python_default_config, {
         name = "Django",
-        program = vim.fn.getcwd() .. "/server/manage.py",
+        program = vim.fn.getcwd() .. "/manage.py",
         args = { "runserver", "--noreload" },
       }),
       vim.tbl_extend("force", python_default_config, {
         name = "Django deep debug",
-        program = vim.fn.getcwd() .. "/server/manage.py",
+        program = vim.fn.getcwd() .. "/manage.py",
         args = { "runserver", "--noreload" },
         justMyCode = false,
       }),
@@ -96,6 +96,14 @@ M.local_configs = {
         name = "Try Django script deep",
         program = vim.fn.getcwd() .. "/scripts/try.py",
         justMyCode = false,
+      }),
+    },
+    ["/sok/docker"] = {
+      vim.tbl_extend("force", python_default_config, {
+        name = "UNREAL DEBUG",
+        program = vim.fn.getcwd() .. "/start.py",
+        args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "603", "None" },
+        -- args = { "mysolutionsql.txt", "SQL", "Submit", "unit-tests/tests", "61", "None" },
       }),
     },
   },

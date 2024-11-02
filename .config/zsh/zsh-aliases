@@ -73,6 +73,13 @@ function todo {
     tmux rename-window TODO
     nvim $FILE
 }
+function todow {
+    DIR=~/projects/markdown/main-notes
+    FILE="work/todo.md"
+    cd $DIR
+    tmux rename-window TODO
+    nvim $FILE
+}
 function nvimcfg {
     DIR=~/.config/nvim
     cd $DIR

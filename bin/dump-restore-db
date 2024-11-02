@@ -5,15 +5,9 @@ LOCAL_DUMP_PATH=~/backup/dumps
 [[ " $@ " =~ ( -p | --prod | --production ) ]] && server="prod" || server="dev"
 
 
-if [[ " $@ " =~ ( --wb ) ]]; then
-    DB_NAME="wb"
-    DB_USER="wb_admin"
-    WORKDIR="wb-backend"
-    if [[ $server == "prod" ]]; then
-        SERVERNAME="salesify"
-    fi
-elif [[ " $@ " =~ ( --lms ) ]]; then
+if [[ " $@ " =~ ( --lms ) ]]; then
     DB_NAME="lms_db"
+    SERVERNAME="itresume-dev"
     LOCAL_DB_NAME="lms"
     DB_USER="lms_admin"
     WORKDIR="lms-server"
@@ -52,3 +46,7 @@ fi
 #     if [[ $use_local == 0 ]]; then
 #         ssh itresume-prod "mysqldump --single-transaction --skip-lock-tables -u root -p production | gzip -9" > "$LOCAL_DUMP_PATH/itresume-prod.sql.gz"
 #     fi
+
+# https://github.com/ClickHouse/ClickHouse/discussions/51346
+# clickhouse-client -h 95.163.241.236 -u default --password zhgpuoDQkLZdMWL2qFRn -q 'select * from sandbox.nyc_taxi format csvWithNamesAndTypes' > nyc_taxi.csv
+# clickhouse-client -d sandbox -q "create table nyc Engine=Memory as select * from file('nyc_taxi.csv', CSVWithNamesAndTypes)"

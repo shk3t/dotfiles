@@ -161,6 +161,7 @@ aerial.setup({
   highlight_on_jump = false,
   attach_mode = "window",
   keymaps = {
+    ["o"] = actions.jump,
     ["k"] = actions.prev,
     ["j"] = actions.next,
     ["K"] = actions.prev_up,

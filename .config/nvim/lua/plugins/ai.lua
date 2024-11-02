@@ -72,21 +72,9 @@ require("codecompanion").setup({
         },
       })
     end,
-    yicoder = function()
-      return require("codecompanion.adapters").extend("ollama", {
-        name = "yicoder",
-        schema = {
-          model = {
-            default = "yi-coder:9b",
-          },
-          num_ctx = {
-            default = 16384,
-          },
-        },
-      })
-    end,
   },
 })
+-- aya-expanse:8b-q6_K
 
 -- https://github.com/olimorris/codecompanion.nvim?tab=readme-ov-file#gear-configuration
 keymap({ "n", "v" }, "<Space>ai", function()
@@ -104,11 +92,14 @@ vim.cmd([[abbreviate cc CodeCompanion]])
 autocmd("FileType", {
   pattern = "codecompanion",
   callback = function()
+    keymap({ "n" }, "<C-CR>", function()
+      vim.api.nvim_input("<Esc><CR>")
+    end, { buffer = true })
     keymap({ "n", "v" }, "<F5>", vim.cmd.MarkdownPreviewToggle, { buffer = true })
     quarto.activate()
   end,
 })
 
--- require("codeium").setup({
---   enable_chat = false,
--- })
+require("codeium").setup({
+  enable_chat = false,
+})
