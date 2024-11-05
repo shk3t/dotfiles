@@ -96,16 +96,6 @@ autocmd("BufEnter", {
     end
   end,
 })
--- automatically export output chunks to a jupyter notebook on write
--- autocmd("BufWritePost", {
---   pattern = { "*.ipynb" },
---   callback = function()
---     if require("molten.status").initialized() == "Molten" then
---       vim.cmd("MoltenExportOutput!")
---     end
---   end,
--- })
-
 vim.api.nvim_create_user_command("NewNotebook", function(opts)
   jlib.new_notebook(opts.args)
 end, {

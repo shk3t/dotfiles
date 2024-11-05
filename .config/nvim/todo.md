@@ -1,4 +1,5 @@
 ## TODAY
+- [ ] image.nvim make images bigger in molten_output
 - [ ] cmd completion on replace
 - [ ] here is some code when add block codecompanion
 - [ ] `<C-S>` and other redindings for codecompanion

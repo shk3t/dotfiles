@@ -9,3 +9,8 @@ ls.add_snippets("sql", {
   -- select all
   s("sa", fmt("select * from {}", { i(1) })),
 })
+
+ls.add_snippets("markdown", {
+  -- select all
+  s("pj", fmt("```python\n{}\n```", { i(1) })),
+})
