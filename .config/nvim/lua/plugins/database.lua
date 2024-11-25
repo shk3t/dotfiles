@@ -17,8 +17,8 @@ autocmd("FileType", {
   pattern = "dbui",
   callback = function()
     vim.opt_local.shiftwidth = 2
-    keymap({ "n", "v" }, "<C-K>", "<C-W>k", { buffer = true })
-    keymap({ "n", "v" }, "<C-J>", "<C-W>j", { buffer = true })
+    vim.keymap.del("n", "<C-K>", { buffer = true })
+    vim.keymap.del("n", "<C-J>", { buffer = true })
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
     keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
     keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })

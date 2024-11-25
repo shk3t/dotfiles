@@ -1,10 +1,12 @@
 local consts = require("lib.consts")
+local lualine = require("lualine")
+local autocmd = vim.api.nvim_create_autocmd
 
 local function filetype()
   return vim.bo.filetype
 end
 
-require("lualine").setup({
+lualine.setup({
   options = {
     icons_enabled = consts.ICONS_ENABLED,
     theme = "auto",
@@ -14,7 +16,7 @@ require("lualine").setup({
     ignore_focus = {},
     always_divide_middle = true,
     globalstatus = false,
-    refresh = { statusline = 1000, tabline = 1000, winbar = 1000 },
+    refresh = { statusline = 100, tabline = 100, winbar = 100 },
   },
   sections = {
     lualine_a = { "mode" },
@@ -58,4 +60,8 @@ require("lualine").setup({
   winbar = {},
   inactive_winbar = {},
   extensions = {},
+})
+
+autocmd({ "ModeChanged", "BufWritePost" }, {
+  callback = lualine.refresh,
 })

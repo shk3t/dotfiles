@@ -3,6 +3,7 @@ local api = require("nvim-tree.api")
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
 local lib = require("lib.main")
+local tmux = require("tmux")
 
 local function my_on_attach(bufnr)
   local function opts(desc)
@@ -35,8 +36,7 @@ local function my_on_attach(bufnr)
   keymap("n", "J", api.node.navigate.sibling.next, opts("Next Sibling"))
   -- keymap("n", "<C-K>", api.node.navigate.sibling.first, opts("FirstSibling"))
   -- keymap("n", "<C-J>", api.node.navigate.sibling.last, opts("Last Sibling"))
-  keymap({ "n", "v" }, "<C-K>", "<C-W>k", opts("go N windows up"))
-  keymap({ "n", "v" }, "<C-J>", "<C-W>j", opts("go N windows down"))
+  vim.keymap.del("n", "<C-K>", { buffer = bufnr })
   keymap("n", "<C-P>", api.node.navigate.parent, opts("Parent directory"))
 
   keymap("n", "gk", api.node.show_info_popup, opts("Info"))
@@ -62,7 +62,10 @@ require("nvim-tree").setup({
   hijack_cursor = true,
   hijack_netrw = true,
   sync_root_with_cwd = true,
-  sort_by = "case_sensitive",
+  sort_by = function(nodes)
+    table.sort(nodes, lib.natural_cmp)
+  end,
+
   view = { adaptive_size = true, width = 10, signcolumn = "auto" },
   renderer = {
     root_folder_label = false,
@@ -166,8 +169,10 @@ aerial.setup({
     ["j"] = actions.next,
     ["K"] = actions.prev_up,
     ["J"] = actions.next_up,
-    -- ["<C-K>"] = "<C-W>k",
-    -- ["<C-J>"] = "<C-W>j",
+    ["<C-K>"] = false,
+    ["<C-J>"] = false,
+    -- ["<C-K>"] = function() tmux.move_top() end,
+    -- ["<C-J>"] = function() tmux.move_bottom() end,
     -- ["<C-K>"] = function()
     --   aerial.prev_up()
     --   aerial.next()

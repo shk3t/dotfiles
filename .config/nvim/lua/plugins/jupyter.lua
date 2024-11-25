@@ -7,21 +7,20 @@ local lib = require("lib.main")
 
 local opts = { silent = true }
 
-keymap("v", "<Space>j", ":<C-U>MoltenEvaluateVisual<CR>", opts)
+keymap("v", "<Space>j", lib.preserve_location(":<C-U>MoltenEvaluateVisual<CR>"), { silent = true })
 keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
 keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
 keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)
 keymap("n", "<Space>jk", function()
+  lib.norm("zt")
   vim.cmd("noautocmd MoltenEnterOutput")
   lib.map_easy_closing()
 end, opts)
 keymap("n", "<Space>jq", vim.cmd.MoltenInterrupt, opts)
 keymap("n", "<Space>jj", function()
-  lib.norm("mm")
   lib.rnorm("vij")
-  lib.norm(":<C-U>MoltenEvaluateVisual<CR>`m")
-  vim.cmd.delmarks("m")
-end, { silent = true, remap = true })
+  lib.norm(":<C-U>MoltenEvaluateVisual<CR>")
+end, { silent = true })
 
 keymap("n", "<Space>JA", vim.cmd.MoltenReevaluateAll, opts)
 keymap("n", "<Space>JI", vim.cmd.MoltenInit, opts)
@@ -34,9 +33,10 @@ vim.g.magma_automatically_open_output = true
 vim.g.magma_output_window_borders = false
 vim.g.molten_auto_open_output = false
 vim.g.molten_image_provider = "image.nvim"
+vim.g.molten_image_location = "float"
 vim.g.molten_wrap_output = true
 vim.g.molten_virt_text_output = true
-vim.g.molten_virt_lines_off_by_1 = true
+vim.g.molten_virt_lines_off_by_1 = false
 vim.g.molten_output_win_border = "none"
 vim.g.molten_enter_output_behavior = "open_and_enter"
 vim.g.molten_tick_rate = 200

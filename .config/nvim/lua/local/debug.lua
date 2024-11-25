@@ -102,7 +102,7 @@ M.local_configs = {
       vim.tbl_extend("force", python_default_config, {
         name = "UNREAL DEBUG",
         program = vim.fn.getcwd() .. "/start.py",
-        args = { "mysolution.txt", "SQL", "Submit", "unit-tests/tests", "610", "student_1" },
+        args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "715", "None" },
       }),
     },
   },

@@ -12,8 +12,8 @@ require("nvim-treesitter.configs").setup({
     enable = true,
     keymaps = {
       -- init_selection = "<M-w>", -- maps in normal mode to init the node/scope selection
-      -- node_incremental = "n", -- increment to the upper named parent
-      -- node_decremental = "N", -- decrement to the previous node
+      node_incremental = "n", -- increment to the upper named parent
+      node_decremental = "N", -- decrement to the previous node
       -- scope_incremental = "as", -- increment to the upper scope (as defined in locals.scm),
     },
   },
@@ -136,14 +136,14 @@ tsj.setup({
   dot_repeat = true,
 })
 
-keymap("v", "n", function()
-  require("nvim-treesitter.incremental_selection").node_incremental()
-  lib.norm("o")
-end)
-keymap("v", "N", function()
-  require("nvim-treesitter.incremental_selection").node_decremental()
-  lib.norm("o")
-end)
+-- keymap("v", "n", function()
+--   require("nvim-treesitter.incremental_selection").node_incremental()
+--   lib.norm("o")
+-- end)
+-- keymap("v", "N", function()
+--   require("nvim-treesitter.incremental_selection").node_decremental()
+--   lib.norm("o")
+-- end)
 keymap("n", "gJ", tsj.join)
 keymap("n", "gS", tsj.split)
 keymap("n", "U", tsj.toggle)

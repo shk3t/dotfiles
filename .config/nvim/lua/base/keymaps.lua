@@ -166,10 +166,6 @@ keymap({ "n", "v" }, "<C-H>", "<C-W>h")
 keymap({ "n", "v" }, "<C-J>", "<C-W>j")
 keymap({ "n", "v" }, "<C-K>", "<C-W>k")
 keymap({ "n", "v" }, "<C-L>", "<C-W>l")
--- keymap({ "n", "v" }, "<C-S-H>", "3<C-W><")
--- keymap({ "n", "v" }, "<C-S-J>", "<C-W>-")
--- keymap({ "n", "v" }, "<C-S-K>", "<C-W>+")
--- keymap({ "n", "v" }, "<C-S-L>", "3<C-W>>")
 
 -- Tabs
 keymap({ "n", "v" }, "<C-W>c", "<C-W><Esc>")

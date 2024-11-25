@@ -71,3 +71,4 @@ docs/
 docker/languages/sql/
 model_weights/
 data/
+*.csv

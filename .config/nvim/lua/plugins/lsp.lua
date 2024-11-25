@@ -102,7 +102,7 @@ local servers = {
     },
   },
   -- https://github.com/astral-sh/ruff-lsp/issues/384
-  ruff_lsp = {
+  ruff = {
     init_options = {
       settings = {
         -- https://docs.astral.sh/ruff/rules/#pyflakes-f

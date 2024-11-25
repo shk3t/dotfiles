@@ -1,9 +1,10 @@
 local M = {}
 
+M.PRESERVE_MARK = "m"
 M.TRANSPARENCY = 0  -- 15
 M.VERTICAL_BORDERS = {"", "", "", " ", "", "", "", " "}
 M.DIAGNOSTIC_SIGNS = {error = "󰚌", warn = "󰐼", hint = "󰌵", info = ""}
-M.ICONS_ENABLED = vim.F.npcall(require, "nvim-web-devicons") and true
+M.ICONS_ENABLED = true
 M.CMP_KIND_ICONS = {
   Text = "",
   Method = "󰆧",
