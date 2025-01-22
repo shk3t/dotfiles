@@ -4,6 +4,8 @@ local M = {}
 
 local keymap = vim.keymap.set
 
+local filetype_priorities = { directory = 1, file = 2, link = -1 }
+
 M.is_empty = function(tbl)
   return next(tbl) == nil
 end
@@ -171,7 +173,13 @@ M.map_easy_closing = function()
   })
 end
 
-M.natural_cmp = function(left, right)
+M.natural_with_filetype_cmp = function(left, right)
+  local left_ft_priority = filetype_priorities[left.type]
+  local right_ft_priority = filetype_priorities[right.type]
+  if left_ft_priority ~= -1 and right_ft_priority ~= -1 and left_ft_priority ~= right_ft_priority then
+    return left_ft_priority < right_ft_priority
+  end
+
   left = left.name:lower()
   right = right.name:lower()
 

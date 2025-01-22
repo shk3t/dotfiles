@@ -105,9 +105,11 @@ local servers = {
   ruff = {
     init_options = {
       settings = {
-        -- https://docs.astral.sh/ruff/rules/#pyflakes-f
-        args = { "--ignore=E402,E741,F403,F405" },
-        lint = { enable = true },
+        configuration = vim.fn.stdpath("config") .. "/etc/ruff.toml",
+        configurationPreference = "filesystemFirst",
+        lint = {
+          enable = true,
+        },
       },
     },
     custom_attach = function(client, bufnr)

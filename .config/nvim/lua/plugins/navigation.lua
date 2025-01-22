@@ -63,7 +63,7 @@ require("nvim-tree").setup({
   hijack_netrw = true,
   sync_root_with_cwd = true,
   sort_by = function(nodes)
-    table.sort(nodes, lib.natural_cmp)
+    table.sort(nodes, lib.natural_with_filetype_cmp)
   end,
 
   view = { adaptive_size = true, width = 10, signcolumn = "auto" },

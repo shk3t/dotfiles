@@ -169,11 +169,16 @@ dap.adapters.delve = {
     args = { "dap", "-l", "127.0.0.1:${port}" },
   },
 }
+dap.adapters.bashdb = {
+  type = "executable",
+  command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
+  name = "bashdb",
+}
 
-for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript" }) do
+for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
   dap.configurations[language] = {}
   for path, config in lib.sorted_pairs(local_configs[language]) do
-    if lib.cwd_contains(path) then
+    if type(path) == "number" or type(path) == "string" and lib.cwd_contains(path) then
       for _, config_entry in pairs(config) do
         table.insert(dap.configurations[language], config_entry)
       end

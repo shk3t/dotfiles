@@ -1,4 +1,5 @@
 ## TODAY
+- [ ] jupynium
 - [ ] cmd completion on replace
 - [ ] here is some code when add block codecompanion
 - [ ] `vl` `<C-O>` until no error (skip debug widgets)
@@ -89,6 +90,7 @@
 - [ ] whichkey
 - [ ] lazygit (integration)
 - [ ] ssr
+- [ ] sniprun
 
 <br>
 

@@ -167,11 +167,14 @@ cmp.setup.cmdline(":", {
 })
 
 cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  sources = cmp.config.sources({ { name = "dap" } }),
+  sources = cmp.config.sources({
+    { name = "dap" },
+  }),
 })
 
 cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   sources = cmp.config.sources({
+    { name = "codeium" },
     { name = "luasnip" },
     { name = "vim-dadbod-completion" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
@@ -179,13 +182,16 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   }),
   formatting = {
     format = function(entry, vim_item)
-      vim_item = trim_redundant(vim_item)
-      vim_item = add_icon(vim_item)
+      if vim_item.kind:find("Codeium") then
+        vim_item.kind_hl_group = "Error"
+      end
       if vim_item.menu == "[DB]" then
         vim_item.kind = "Database"
         vim_item.kind_hl_group = "Keyword"
         vim_item.menu = ""
       end
+      vim_item = trim_redundant(vim_item)
+      vim_item = add_icon(vim_item)
       return vim_item
     end,
   },

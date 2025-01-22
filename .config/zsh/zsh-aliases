@@ -19,7 +19,7 @@ alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
 alias vl='nvim -c "execute \"normal! \<C-O>\""'
-alias vdb="tmux rename-window DB; nvim -c 'DBUIToggle'"
+alias vdb="cd ~/projects/draft; tmux rename-window DB; nvim -c 'DBUIToggle'"
 alias vai="tmux rename-window DB; nvim -c 'CodeCompanionFullscreen'"
 
 # Tmux
@@ -34,8 +34,13 @@ alias ls='ls -Av --group-directories-first --color=auto'
 alias l='ls -lApth'
 
 # Navigation
+# function cd {
+#     builtin cd "$@" && ls
+# }
 function cd {
-    builtin cd "$@" && ls
+    builtin cd "$@"
+    BASEPATH=${BASEPATH:-$PATH}
+    PATH="$BASEPATH:$PWD"
 }
 function z_alias {
     __zoxide_z "$@" && ls

@@ -100,6 +100,6 @@ autocmd("FileType", {
   end,
 })
 
-require("codeium").setup({
-  enable_chat = false,
-})
+-- require("codeium").setup({
+--   enable_chat = false,
+-- })
