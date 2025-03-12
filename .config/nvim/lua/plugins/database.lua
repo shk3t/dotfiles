@@ -4,6 +4,7 @@ local urllib = require("lib.url")
 local local_configs = require("local.database").local_configs
 
 keymap("n", "<Space>db", vim.cmd.DBUIToggle)
+keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
@@ -22,7 +23,7 @@ autocmd("FileType", {
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
     keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
     keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
-    keymap("n", "R", "<Plug>(DBUI_RenameLine)", { buffer = true })
+    keymap("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
   end,
 })
 
@@ -66,7 +67,7 @@ vim.g.db_ui_icons = {
   tables = "󰖼 ",
   buffers = "󱉯 ",
   add_connection = "󱘖 ",
-  connection_ok = "󰩐",
+  connection_ok = "󰩐 ",
   connection_error = "󰯇 ",
 }
 

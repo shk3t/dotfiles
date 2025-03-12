@@ -1,13 +1,33 @@
+local keymap = vim.keymap.set
 local consts = require("lib.consts")
+local state = require("lib.state")
 
 local M = {}
 
-local keymap = vim.keymap.set
-
 local filetype_priorities = { directory = 1, file = 2, link = -1 }
+
+M.is_in_list = function(target, list)
+  for _, value in ipairs(list) do
+    if target == value then
+      return true
+    end
+  end
+  return false
+end
 
 M.is_empty = function(tbl)
   return next(tbl) == nil
+end
+
+M.fallback = function(...)
+  local args = { ... }
+  local default = table.remove(args)
+  local ok, result = pcall(unpack(args))
+  return ok and result or default
+end
+
+M.require_or = function(module, default)
+  return M.fallback(require, module, default)
 end
 
 M.replace_termcodes = function(str)
@@ -40,6 +60,11 @@ end
 
 M.rnorm = function(command)
   vim.cmd("normal " .. M.replace_termcodes(command))
+end
+
+M.tnorm = function(command)
+  vim.api.nvim_input("<C-\\><C-O>")
+  vim.cmd("normal! " .. M.replace_termcodes(command))
 end
 
 M.preserve_location = function(callback)
@@ -85,8 +110,8 @@ M.center_win = function()
   vim.cmd("normal! zz")
 end
 
-M.cwd_contains = function(str)
-  return vim.fn.getcwd():find(str)
+M.contains = function(str, sub)
+  return string.find(str, sub) ~= nil
 end
 
 M.get_highlight = function(name)
@@ -112,13 +137,6 @@ M.get_recent_buffers = function()
   return bufnrs
 end
 
-M.find = function(condition, items)
-  for _, v in pairs(items) do
-    if condition(v) then
-      return v
-    end
-  end
-end
 M.filter = function(condition, items)
   local result = {}
   for _, v in pairs(items) do
@@ -222,5 +240,40 @@ M.python_path = (function()
 
   return M.DEFAULT_PYTHON_PATH
 end)()
+
+M.term = function(command)
+  -- Create buf if not exists
+  if not vim.api.nvim_buf_is_valid(state.main_term.buf) then
+    state.main_term.buf = vim.api.nvim_create_buf(false, true)
+  end
+
+  -- Create win if not exists
+  if not vim.api.nvim_win_is_valid(state.main_term.win) then
+    state.main_term.win = vim.api.nvim_open_win(state.main_term.buf, true, {
+      split = "below",
+      height = 16,
+    })
+  else
+    vim.api.nvim_set_current_win(state.main_term.win)
+  end
+
+  -- Use buf as terminal if it is not
+  if vim.bo.filetype ~= "terminal" then
+    vim.cmd.terminal()
+    vim.cmd.sleep("50m")
+  end
+
+  vim.fn.chansend(vim.bo.channel, { command .. "\r\n" })
+end
+
+M.is_auxiliary_buffer = function(buf)
+  buf = buf or 0
+  local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
+  local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
+
+  return M.is_in_list(buf_name, consts.AUXILIARY.FILENAMES)
+    or M.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
+    or buf_filetype == "terminal"
+end
 
 return M

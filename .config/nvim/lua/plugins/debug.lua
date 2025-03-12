@@ -1,23 +1,23 @@
+local consts = require("lib.consts")
 local dap = require("dap")
 local dapui = require("dapui")
 local lib = require("lib.main")
 local widgets = require("dap.ui.widgets")
 local local_configs = require("local.debug").local_configs
+local state = require("lib.state")
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
-local terminal_window_id = vim.fn.system([[xdotool getactivewindow]])
-local tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
 dap.listeners.after.event_initialized["steal_focus"] = function()
   print("Debugger is active!")
 end
 dap.listeners.after.event_continued["steal_focus"] = function()
-  tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
+  state.system.tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
 end
 dap.listeners.after.event_stopped["steal_focus"] = function()
-  vim.fn.system("xdotool windowactivate " .. terminal_window_id)
-  vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. tmux_window_id)
+  vim.fn.system("xdotool windowactivate " .. state.system.terminal_window_id)
+  vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. state.system.tmux_window_id)
 end
 
 local dapui_config = {
@@ -178,7 +178,7 @@ dap.adapters.bashdb = {
 for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
   dap.configurations[language] = {}
   for path, config in lib.sorted_pairs(local_configs[language]) do
-    if type(path) == "number" or type(path) == "string" and lib.cwd_contains(path) then
+    if type(path) == "number" or type(path) == "string" and lib.contains(vim.fn.getcwd(), path) then -- TODO: TEST
       for _, config_entry in pairs(config) do
         table.insert(dap.configurations[language], config_entry)
       end
@@ -225,22 +225,5 @@ autocmd("BufEnter", {
   callback = function()
     keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
     keymap("n", "u", vim.cmd.undo, { buffer = true })
-  end,
-})
--- Close all dap widgets if the main window was closed
-local dap_filetypes = lib.set({ "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" })
-autocmd("WinEnter", {
-  callback = function()
-    if not dap_filetypes[vim.bo.filetype] then
-      return
-    end
-    for _, win_id in ipairs(vim.api.nvim_list_wins()) do
-      local buf_id = vim.api.nvim_win_get_buf(win_id)
-      local filetype = vim.api.nvim_buf_get_option(buf_id, "filetype")
-      if not dap_filetypes[filetype] then
-        return
-      end
-    end
-    vim.cmd("qa!")
   end,
 })

@@ -41,6 +41,9 @@ media/
 .ccls
 .ccls-cache/
 
+# Rust
+target/
+
 # Python
 .venv/
 venv/

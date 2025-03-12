@@ -1,4 +1,3 @@
-
 [cursor]
 thickness = 0.2
 
@@ -8,16 +7,19 @@ WINIT_X11_SCALE_FACTOR = "1.0"
 
 [font]
 size = 14
+# Monocraft = 13.5
+# Ubuntu Mono = 14
+# FiraCode = 12
+
+[font.normal]
+family = "Ubuntu Mono"
+style = "Regular"
 
 [font.bold]
 style = "Bold"
 
 [font.italic]
-style = "Regular"
-
-[font.normal]
-family = "Ubuntu Mono"
-style = "Regular"
+style = "Italic"
 
 [scrolling]
 history = 10000
@@ -26,31 +28,6 @@ history = 10000
 decorations = "full"
 dynamic_padding = true
 opacity =  1
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "C"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-chars = "\u001B[67;6u"
-key = "C"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "Copy"
-key = "С"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-chars = "\u001B[67;6u"
-key = "С"
-mods = "Control|Shift"
-
-[[keyboard.bindings]]
-action = "Paste"
-key = "М"
-mods = "Control|Shift"
 
 [general]
 import = ["~/.config/alacritty/colors/rose-pine.toml", "~/.config/alacritty/extended-keys.toml"]

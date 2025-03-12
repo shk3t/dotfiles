@@ -36,7 +36,8 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "jay-babu/mason-null-ls.nvim",
-  "ray-x/go.nvim",
+  -- "ray-x/go.nvim",
+  -- "mrcjkb/rustaceanvim",
   "jmbuhr/otter.nvim",
 
   -- Completions
@@ -56,7 +57,6 @@ require("lazy").setup({
   "nvim-treesitter/playground",
   "nvim-treesitter/nvim-treesitter-context",
   "Wansmer/treesj",
-  -- rest-nvim/tree-sitter-http,
 
   -- Snippets
   "saadparwaiz1/cmp_luasnip",
@@ -91,7 +91,7 @@ require("lazy").setup({
   "GCBallesteros/jupytext.nvim",
   { "benlubas/molten-nvim", build = ":UpdateRemotePlugins" },
   "quarto-dev/quarto-nvim",
-  "rest-nvim/rest.nvim",
+  "mistweaverco/kulala.nvim",
   "jbyuki/nabla.nvim",
 
   -- Telescope

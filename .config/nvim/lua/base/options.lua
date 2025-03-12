@@ -10,8 +10,6 @@ vim.opt.cindent = true
 -- Lines
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.scrolloff = 16
-vim.opt.sidescrolloff = 32
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.breakindent = true
@@ -74,3 +72,10 @@ vim.opt.langmap =
 -- Spell
 vim.opt.spell = false
 vim.opt.spelllang = {"en_us", "ru_ru"}
+
+-- Additional filetype mappings
+vim.filetype.add({
+  extension = {
+    http = "http",
+  },
+})

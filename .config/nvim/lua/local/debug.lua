@@ -106,6 +106,13 @@ M.local_configs = {
         args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "717", "None" },
       }),
     },
+    ["/sok_old/docker"] = {
+      vim.tbl_extend("force", python_default_config, {
+        name = "UNREAL DEBUG",
+        program = vim.fn.getcwd() .. "/start.py",
+        args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "717", "None" },
+      }),
+    },
   },
   -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
   go = {

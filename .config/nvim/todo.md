@@ -1,18 +1,16 @@
 ## TODAY
-- [ ] jupynium
-- [ ] cmd completion on replace
-- [ ] here is some code when add block codecompanion
-- [ ] `vl` `<C-O>` until no error (skip debug widgets)
-- [ ] Visual mode another scrolloff
-- [ ] preserve location refactoring yanks
-- [ ] dadbod reconnect db
-- [ ] image.nvim make images bigger in molten_output
+- restart neovim
+- git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
+- jupynium
+- cmd completion on replace
+- here is some code when add block codecompanion
+- image.nvim make images bigger in molten_output
+- remove auxiliary buffer when skip-jump (`vl`)
 
 ## Important
 ### Config existing plugins
 - [ ] diffview
 ### Keys
-- [ ] better xkbswitch: https://github.com/ivanesmantovich/xkbswitch.nvim
 - [ ] jump to error line in stack trace
 - [ ] keys repetition nvimtools/hydra.nvim
 - [ ] treesitter better text objects 
@@ -35,8 +33,8 @@
 - [ ] neovim debugger
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] better autocompletion with SQL LSP
-### Explore
-- [ ] terminal mode
+- [ ] config rustaceanvim
+- [ ] config x-ray/go
 ### Global
 - [ ] oh my zsh
 
@@ -45,7 +43,7 @@
 
 ## Other
 ### Waiting for update
-- presence.nvim
+- thin cursor in terminal mode
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 - cmp replace only on confirm
 - duplicate entries for cmp-buffer (clangd, pylsp)

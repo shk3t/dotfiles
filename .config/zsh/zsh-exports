@@ -28,11 +28,13 @@ export LUA_PATH="?.lua;?/init.lua;$LP/?.lua;$LP/?/init.lua"
 export LUA_CPATH="$LCP/?.so"
 
 # Path
-PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
-PATH="$PATH:/data/data/com.termux/files/usr/bin"
-PATH="$PATH:$HOME/.local/bin"
+PATH=""
+PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/.local/bin"
+
 PATH="$PATH:$HOME/.cargo/bin"
+PATH="$PATH:/usr/lib/rustup/bin"
 PATH="$PATH:$GOPATH/bin"
 
 # Man

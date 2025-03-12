@@ -26,7 +26,7 @@ bindkey -M menuselect "^H" vi-backward-char
 bindkey -M menuselect "^L" vi-forward-char
 bindkey -M menuselect "^[[Z" vi-up-line-or-history
 bindkey -M menuselect "^M" .accept-line
-bindkey -M menuselect "^[[13;5u" accept-line
+# bindkey -M menuselect "^[[13;5u" accept-line
 bindkey -M menuselect "^[" vi-cmd-mode
 
 # Vim bindings

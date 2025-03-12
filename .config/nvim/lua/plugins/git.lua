@@ -102,7 +102,8 @@ require("gitsigns").setup({
     bufmap("n", "<Space>GP", gs.toggle_deleted)
 
     -- Text object
-    bufmap({ "o", "v" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+    bufmap({ "o", "v" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
+    bufmap({ "o", "v" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
   end,
 })
 

@@ -1,69 +1,6 @@
 local keymap = vim.keymap.set
+local klib = require("lib.keymaps")
 local lib = require("lib.main")
-
-local function toggle_line_numeration()
-  vim.opt.number = not vim.o.number
-  vim.opt.relativenumber = vim.o.number
-end
-local function toggle_relative_numeration()
-  if vim.o.number then
-    vim.opt.relativenumber = not vim.o.relativenumber
-  end
-end
-local function toggle_tab_width()
-  vim.opt.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
-  vim.opt.tabstop = vim.o.shiftwidth
-  vim.opt.softtabstop = vim.o.shiftwidth
-end
-local function toggle_line_wrap()
-  vim.opt.wrap = not vim.o.wrap
-end
-local function rename_tab()
-  local tabname = vim.fn.input("New tab name: ")
-  if tabname then
-    vim.cmd("TabRename " .. tabname)
-  end
-end
-local function toggle_fixed_signcolumn()
-  if vim.o.signcolumn:find("auto") then
-    vim.opt.signcolumn = "yes"
-  else
-    vim.opt.signcolumn = "auto:1-2"
-  end
-end
-local function prev_insert_pos()
-  pcall(function()
-    local next_row = unpack(vim.api.nvim_win_get_cursor(0))
-    repeat
-      local prev_row = next_row
-      lib.norm("g;")
-      next_row = unpack(vim.api.nvim_win_get_cursor(0))
-    until prev_row ~= next_row
-  end)
-end
-local function longjump(key)
-  pcall(function()
-    local prime_buf = vim.api.nvim_get_current_buf()
-    local next_row = -1
-    repeat
-      local prev_row = next_row
-      lib.norm(key)
-      next_row = unpack(vim.api.nvim_win_get_cursor(0))
-    until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
-    -- lib.center_win()
-  end)
-end
-local function longjump_back()
-  longjump("<C-O>")
-end
-local function longjump_forward()
-  longjump("<C-I>")
-end
-local function yank_all_sys_clip()
-  lib.norm("mm")
-  vim.cmd("%y y")
-  vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
-end
 
 -- Default behaviour
 keymap({ "n", "v" }, "<C-C>", "<Esc>")
@@ -126,17 +63,16 @@ keymap({ "n", "v" }, "<S-Space>", "<Space>", { remap = true })
 keymap("i", "<C-Space>", "<Nop>")
 keymap({ "n", "v" }, "<Space>y", [[mm"+y]])
 keymap("n", "<Space>yy", [[mm0vg_"+y]])
-keymap({ "n", "v" }, "<Space>Y", yank_all_sys_clip)
+keymap({ "n", "v" }, "<Space>Y", klib.yank_all_sys_clip)
 -- keymap({ "n", "v" }, "<Space>p", [["+p]])
 -- keymap({ "n", "v" }, "<Space>P", [["+P]])
 keymap({ "n", "v" }, "<Space>?", "<Cmd>set hlsearch!<CR>")
 keymap({ "n", "v" }, "<Space>I", "<Cmd>set ignorecase!<CR>")
-keymap({ "n", "v" }, "<Space>LN", toggle_line_numeration)
-keymap({ "n", "v" }, "<Space>RN", toggle_relative_numeration)
-keymap({ "n", "v" }, "<Space>TW", toggle_tab_width)
-keymap({ "n", "v" }, "<Space>LW", toggle_line_wrap)
-keymap("n", "<Space>D", [[:%s/\s\+$//e<CR>/<Up><Up><CR><C-O>]])
-keymap({ "n", "v" }, "<Space>C", toggle_fixed_signcolumn)
+keymap({ "n", "v" }, "<Space>TN", klib.toggle_line_numeration)
+keymap({ "n", "v" }, "<Space>TR", klib.toggle_relative_numeration)
+keymap({ "n", "v" }, "<Space>TT", klib.toggle_tab_width)
+keymap({ "n", "v" }, "<Space>TW", klib.toggle_line_wrap)
+keymap({ "n", "v" }, "<Space>C", klib.toggle_fixed_signcolumn)
 keymap("n", "\\s", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("n", "\\S", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("v", "\\s", function()
@@ -183,8 +119,8 @@ end
 keymap({ "n", "v" }, "<C-W><", "<Cmd>-tabmove<CR>")
 keymap({ "n", "v" }, "<C-W>>", "<Cmd>+tabmove<CR>")
 keymap({ "n", "v" }, "<C-W>Q", vim.cmd.tabclose)
-keymap({ "n", "v" }, "<C-W>n", rename_tab)
-keymap({ "n", "v" }, "<C-W><C-N>", rename_tab)
+keymap({ "n", "v" }, "<C-W>n", klib.rename_tab)
+keymap({ "n", "v" }, "<C-W><C-N>", klib.rename_tab)
 keymap({ "n", "v" }, "<C-W>M", "gT<Cmd>Tabmerge right<CR><C-W>l")
 keymap({ "n", "v" }, "<Space><Tab>", "g<Tab>")
 keymap({ "n", "v" }, "<C-W>p", "g<Tab>")
@@ -202,11 +138,11 @@ keymap({ "n", "v" }, "j", [[(v:count > 1 ? "m'" . v:count . 'j' : 'gj')]], {
 keymap({ "n", "v" }, "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {
   expr = true,
 })
-keymap("n", "g;", prev_insert_pos)
-keymap("n", "g<C-O>", longjump_back)
-keymap("n", "g<C-I>", longjump_forward)
-keymap("n", "<C-M-Left>", longjump_back)
-keymap("n", "<C-M-Right>", longjump_forward)
+keymap("n", "g;", klib.prev_insert_pos)
+keymap("n", "g<C-O>", klib.longjump_back)
+keymap("n", "g<C-I>", klib.longjump_forward)
+keymap("n", "<C-M-Left>", klib.longjump_back)
+keymap("n", "<C-M-Right>", klib.longjump_forward)
 
 -- Quickfix list
 keymap({ "n", "v" }, "gq", vim.cmd.copen)
@@ -227,8 +163,8 @@ keymap("n", "dM", function()
 end)
 
 -- Fast actions
-keymap({ "n", "v" }, "<C-Q>", function()
-  pcall(lib.norm, "<C-W>q")
+keymap({ "n", "v", "t" }, "<C-Q>", function()
+  pcall(vim.cmd.quit)
 end)
 keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR>", { silent = true })
 keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", { silent = true })
@@ -236,9 +172,23 @@ keymap("i", "<C-Z>", "<C-O>u")
 keymap("i", "<C-S-Z>", "<C-O><C-R>")
 keymap({ "n", "v" }, "<Tab>", "<C-^>")
 
+-- Terminal mode
+keymap("n", "<Space>\\", vim.cmd.terminal)
+keymap("t", "<Esc>", vim.cmd.stopinsert)
+keymap("t", ":", "<C-\\><C-O><:")
+keymap("t", "<C-H>", "<C-\\><C-O><C-W>h")
+keymap("t", "<C-J>", "<C-\\><C-O><C-W>j")
+keymap("t", "<C-K>", "<C-\\><C-O><C-W>k")
+keymap("t", "<C-L>", "<C-\\><C-O><C-W>l")
+
 -- Mouse
 keymap({ "n", "v" }, "<S-ScrollWheelUp>", "<ScrollWheelLeft>")
 keymap({ "n", "v" }, "<S-ScrollWheelDown>", "<ScrollWheelRight>")
+keymap({ "i", "n", "v" }, "<LeftMouse>", function()
+  vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 20)
+  vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 60)
+  lib.norm("<LeftMouse>")
+end)
 
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")
@@ -247,7 +197,7 @@ keymap("s", "<C-C>", "<Esc>")
 -- Bugfix
 keymap({ "n", "v" }, "<M-Tab>", "<C-I>")
 function longjump_forward()
-  longjump("<M-Tab>")
+  klib.longjump("<M-Tab>")
 end
 keymap("n", "g<M-Tab>", longjump_forward)
 keymap("n", "<C-M-Right>", longjump_forward)

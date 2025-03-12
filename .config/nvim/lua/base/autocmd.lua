@@ -1,6 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
+local klib = require("lib.keymaps")
 local lib = require("lib.main")
+local state = require("lib.state")
 
 -- Line numeration toggle
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
@@ -14,8 +16,13 @@ autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
 -- Dynamic autoscroll near window edges
 autocmd({ "VimEnter", "WinEnter", "WinResized" }, {
   callback = function()
-    vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
-    vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
+    klib.set_default_scrolloff()
+  end,
+})
+autocmd("ModeChanged", {
+  pattern = "[vV]:*", -- After visual selection with mouse
+  callback = function()
+    klib.set_default_scrolloff()
   end,
 })
 
@@ -41,12 +48,6 @@ autocmd("FileType", {
     vim.opt_local.formatoptions:append("r")
     vim.opt_local.formatoptions:remove("c")
     vim.opt_local.formatoptions:remove("o")
-  end,
-})
-autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    vim.opt_local.formatoptions:remove("r")
   end,
 })
 
@@ -76,5 +77,50 @@ autocmd("TextYankPost", {
   end,
 })
 
+-- Close all auxiliary windows if all the main windows were closed
+autocmd("WinEnter", {
+  callback = function()
+    if not lib.is_auxiliary_buffer() then
+      return
+    end
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+      local buf = vim.api.nvim_win_get_buf(win)
+      if not lib.is_auxiliary_buffer(buf) then
+        return
+      end
+    end
+    vim.cmd("qa")
+  end,
+})
+
 -- Do not restore deleted marks
 autocmd("VimLeavePre", { command = "wshada!" })
+
+-- Disable numbers in terminal mode
+autocmd("TermOpen", {
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.relativenumber = false
+    vim.opt_local.scrolloff = 0
+    vim.opt_local.sidescrolloff = 0
+    vim.opt_local.signcolumn = "no"
+    vim.bo.filetype = "terminal"
+    vim.cmd.startinsert()
+  end,
+})
+-- Consistent terminal mode after buffer switch
+autocmd("WinEnter", {
+  callback = function()
+    if vim.bo.filetype == "terminal" and lib.contains(state.main_term.mode, "[tT]") then
+      vim.cmd.startinsert()
+    end
+  end,
+})
+autocmd("WinLeave", {
+  callback = function()
+    if vim.bo.filetype == "terminal" then
+      state.main_term.mode = vim.api.nvim_get_mode().mode
+      vim.cmd.stopinsert()
+    end
+  end,
+})

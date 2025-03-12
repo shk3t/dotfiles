@@ -4,8 +4,6 @@ local get_highlight = require("lib.main").get_highlight
 local highlight = require("lib.main").highlight
 local consts = require("lib.consts")
 
-vim.cmd.colorscheme("rose-pine")
-
 local function set_transparent_bg()
   highlight("Normal", { bg = "NONE" })
   highlight("NormalNC", { bg = "NONE" })
@@ -110,7 +108,13 @@ local colorscheme_setups = {
     setup_telescope_colors()
     clear_spell_check_highlights()
   end,
-  ["rose-pine"] = function() end,
+  ["rose-pine"] = function()
+    require("rose-pine").setup({
+      styles = {
+        italic = false,
+      },
+    })
+  end,
   ["calvera"] = function()
     vim.g.calvera_borders = true
   end,
@@ -119,7 +123,7 @@ local colorscheme_setups = {
 local function setup_colors()
   colorscheme_setups.default()
   for colorscheme, setup in pairs(colorscheme_setups) do
-    if vim.g.colors_name == colorscheme then
+    if colorscheme == consts.COLORSCHEME then
       setup()
       break
     end
@@ -129,4 +133,6 @@ local function setup_colors()
   end
 end
 
-autocmd({ "Colorscheme", "SourcePost" }, { callback = setup_colors })
+autocmd({ "Colorscheme", "SourcePre" }, { callback = setup_colors })
+
+vim.cmd.colorscheme(consts.COLORSCHEME)

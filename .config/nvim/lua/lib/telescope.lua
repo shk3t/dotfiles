@@ -8,7 +8,7 @@ local state = require("telescope.state")
 
 M.paste_action = function(_)
   local selection = vim.fn.getreg('"') or ""
-  if vim.api.nvim_buf_get_option(vim.api.nvim_get_current_buf(), "modifiable") then
+  if vim.api.nvim_get_option_value("modifiable", { buf = vim.api.nvim_get_current_buf() }) then
     vim.api.nvim_paste(selection, true, -1)
   end
 end
