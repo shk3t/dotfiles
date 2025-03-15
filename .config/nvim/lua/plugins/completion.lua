@@ -198,7 +198,7 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
-require("local.snippets")
+require("global.snippets")
 
 -- require("cmp_ai.config"):setup({
 --   max_lines = 1000,

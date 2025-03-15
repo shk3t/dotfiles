@@ -4,10 +4,12 @@ local state = require("lib.state")
 
 local M = {}
 
-local filetype_priorities = { directory = 1, file = 2, link = -1 }
+M.is_empty = function(tbl)
+  return next(tbl) == nil
+end
 
 M.is_in_list = function(target, list)
-  for _, value in ipairs(list) do
+  for _, value in pairs(list) do
     if target == value then
       return true
     end
@@ -15,19 +17,73 @@ M.is_in_list = function(target, list)
   return false
 end
 
-M.is_empty = function(tbl)
-  return next(tbl) == nil
-end
-
-M.fallback = function(...)
-  local args = { ... }
-  local default = table.remove(args)
-  local ok, result = pcall(unpack(args))
+M.fallback = function(action, args, default)
+  local ok, result = pcall(action, unpack(args))
   return ok and result or default
 end
 
+-- sequential get
+M.geget = function(tbl, keyseq)
+  local curval = tbl
+  for _, key in pairs(keyseq) do
+    curval = curval and curval[key]
+  end
+  return curval
+end
+
+-- sequential set
+M.seset = function(tbl, keyseq, value)
+  local last_key = table.remove(keyseq)
+
+  local curval = tbl
+  for _, key in pairs(keyseq) do -- except last key
+    local nextval = curval[key]
+    if not nextval then
+      nextval = {}
+      curval[key] = nextval
+    end
+    curval = nextval
+  end
+
+  curval[last_key] = value
+end
+
+M.cache = function(keyseq, action, args)
+  local value = M.geget(state.cache, keyseq)
+  if value == nil then
+    value = action(unpack(args))
+    M.seset(state.cache, keyseq, value)
+  end
+  return value
+end
+
+M.backward_file_search = function(target)
+  local curdir = vim.fn.getcwd()
+  repeat
+    local target_path = curdir .. "/" .. target
+    if vim.fn.filereadable(target_path) == 1 then
+      return target_path
+    end
+    curdir = vim.fn.fnamemodify(curdir, ":h")
+  until curdir == vim.fn.expand("~")
+end
+M.backward_file_search_c = function(target)
+  return M.cache({ "backward_file_search", vim.fn.getcwd(), target }, M.backward_file_search, { target })
+end
+
 M.require_or = function(module, default)
-  return M.fallback(require, module, default)
+  return M.fallback(require, { module }, default)
+end
+
+M.local_config_or = function(local_keyseq, global_value)
+  local local_config_path = M.backward_file_search_c(consts.LOCAL_CONFIG_FILE)
+  if local_config_path then
+    return M.geget(dofile(local_config_path), local_keyseq)
+  end
+  return global_value
+end
+M.local_config_or_c = function(local_keyseq, global_value)
+  return M.cache({ "local_config", unpack(local_keyseq) }, M.local_config_or, { local_keyseq, global_value })
 end
 
 M.replace_termcodes = function(str)
@@ -41,14 +97,10 @@ M.print_table = function(tbl)
 end
 
 M.split_string = function(inputstr, sep)
-  if inputstr == nil then
-    inputstr = ""
-  end
-  if sep == nil then
-    sep = "%s"
-  end
+  inputstr = inputstr or ""
+  sep = sep or "%s"
   local t = {}
-  for str in inputstr:gmatch("([^" .. sep .. "]+)") do
+  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
     table.insert(t, str)
   end
   return t
@@ -137,7 +189,7 @@ M.get_recent_buffers = function()
   return bufnrs
 end
 
-M.filter = function(condition, items)
+M.filter_list = function(condition, items)
   local result = {}
   for _, v in pairs(items) do
     if condition(v) then
@@ -158,27 +210,30 @@ M.cnext = function()
   end
 end
 
-M.sorted_pairs = function(t, f)
-  local a = {}
-  for n in pairs(t) do
-    table.insert(a, n)
+M.keys = function(tbl)
+  local keys = {}
+  for key in pairs(tbl) do
+    table.insert(keys, key)
   end
-  table.sort(a, f)
-  local i = 0 -- iterator variable
-  local iter = function() -- iterator function
+  return keys
+end
+
+M.sorted_pairs = function(tbl, f)
+  local keys = M.keys(tbl)
+  table.sort(keys, f)
+  local i = 0
+  return function() -- iterator
     i = i + 1
-    if a[i] == nil then
-      return nil
-    else
-      return a[i], t[a[i]]
+    local key = keys[i]
+    if key ~= nil then
+      return key, tbl[key]
     end
   end
-  return iter
 end
 
 M.set = function(list)
   local set = {}
-  for _, l in ipairs(list) do
+  for _, l in pairs(list) do
     set[l] = true
   end
   return set
@@ -191,9 +246,9 @@ M.map_easy_closing = function()
   })
 end
 
-M.natural_with_filetype_cmp = function(left, right)
-  local left_ft_priority = filetype_priorities[left.type]
-  local right_ft_priority = filetype_priorities[right.type]
+M.natural_order_with_filetype_cmp = function(left, right)
+  local left_ft_priority = consts.FILETYPE_PRIORITIES[left.type]
+  local right_ft_priority = consts.FILETYPE_PRIORITIES[right.type]
   if left_ft_priority ~= -1 and right_ft_priority ~= -1 and left_ft_priority ~= right_ft_priority then
     return left_ft_priority < right_ft_priority
   end
@@ -228,15 +283,12 @@ M.python_path = (function()
   local workdir = vim.fn.getcwd()
   local venvdirs = { "venv", ".venv" }
 
-  repeat
-    for _, venvdir in pairs(venvdirs) do
-      local pybin = workdir .. "/" .. venvdir .. "/bin/python"
-      if vim.fn.executable(pybin) == 1 then
-        return pybin
-      end
+  for _, venvdir in pairs(venvdirs) do
+    local pybin = M.backward_file_search(venvdir .. "/bin/python")
+    if pybin and vim.fn.executable(pybin) == 1 then
+      return pybin
     end
-    workdir = vim.fn.fnamemodify(workdir, ":h")
-  until workdir == vim.fn.expand("~")
+  end
 
   return M.DEFAULT_PYTHON_PATH
 end)()

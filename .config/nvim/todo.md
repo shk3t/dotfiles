@@ -1,5 +1,7 @@
 ## TODAY
-- restart neovim
+- search local file config, then global config
+- lazydev
+
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
 - jupynium
 - cmd completion on replace

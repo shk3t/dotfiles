@@ -3,7 +3,7 @@ local dap = require("dap")
 local dapui = require("dapui")
 local lib = require("lib.main")
 local widgets = require("dap.ui.widgets")
-local local_configs = require("local.debug").local_configs
+local debug_configs = require("global.debug").debug_configs
 local state = require("lib.state")
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
@@ -62,7 +62,7 @@ local function breakpoint_jump(find_func)
   local qflist = vim.fn.getqflist()
   vim.cmd.cclose()
   vim.api.nvim_set_current_win(cur_win)
-  qflist = lib.filter(function(v)
+  qflist = lib.filter_list(function(v)
     return v.bufnr == cur_buf
   end, qflist)
   if lib.is_empty(qflist) then
@@ -177,8 +177,8 @@ dap.adapters.bashdb = {
 
 for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
   dap.configurations[language] = {}
-  for path, config in lib.sorted_pairs(local_configs[language]) do
-    if type(path) == "number" or type(path) == "string" and lib.contains(vim.fn.getcwd(), path) then -- TODO: TEST
+  for path, config in lib.sorted_pairs(debug_configs[language]) do
+    if type(path) == "number" or type(path) == "string" and lib.contains(vim.fn.getcwd(), path) then
       for _, config_entry in pairs(config) do
         table.insert(dap.configurations[language], config_entry)
       end

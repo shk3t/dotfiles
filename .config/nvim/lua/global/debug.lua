@@ -15,7 +15,7 @@ local django_deep_debug_cfg = vim.tbl_extend("force", python_default_config, {
   justMyCode = false,
 })
 
-M.local_configs = {
+M.debug_configs = {
   python = {
     ["/"] = {
       vim.tbl_extend("force", python_default_config, {
@@ -191,16 +191,16 @@ M.local_configs = {
   },
 }
 
-M.local_configs.cpp = M.local_configs.c
-M.local_configs.rust = M.local_configs.c
+M.debug_configs.cpp = M.debug_configs.c
+M.debug_configs.rust = M.debug_configs.c
 
-local typescript_configurations = vim.deepcopy(M.local_configs.javascript)
+local typescript_configurations = vim.deepcopy(M.debug_configs.javascript)
 for _, config in pairs(typescript_configurations) do
   config.runtimeArgs = {
     "-r",
     "ts-node/register",
   }
 end
-M.local_configs.typescript = typescript_configurations
+M.debug_configs.typescript = typescript_configurations
 
 return M

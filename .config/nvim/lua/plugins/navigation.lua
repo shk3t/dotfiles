@@ -25,6 +25,7 @@ local function my_on_attach(bufnr)
   keymap("n", "R", api.fs.rename, opts("Rename"))
   keymap("n", "<C-S>", api.node.open.horizontal, opts("Open: Horizontal Split"))
 
+  keymap("n", "b", api.marks.toggle, opts("Toggle Bookmark"))
   keymap("n", "BD", api.marks.bulk.trash, opts("Trash Bookmarked"))
   keymap("n", "BR", api.marks.bulk.move, opts("Move Bookmarked"))
 
@@ -52,7 +53,7 @@ local function my_on_attach(bufnr)
   keymap("n", "<Space>g", api.tree.toggle_git_clean_filter, opts("Toggle Filter: Git Clean"))
   keymap("n", "<Space>h", api.tree.toggle_hidden_filter, opts("Toggle Filter: Dotfiles"))
   keymap("n", "<Space>i", api.tree.toggle_gitignore_filter, opts("Toggle Filter: Git ignore"))
-  keymap("n", "<Space>m", api.tree.toggle_no_bookmark_filter, opts("Toggle Filter: No Bookmark"))
+  keymap("n", "<Space>B", api.tree.toggle_no_bookmark_filter, opts("Toggle Filter: No Bookmark"))
 
   keymap("n", "<Space>l", api.node.open.toggle_group_empty, opts("Toggle Filter: Group empty"))
 end
@@ -63,7 +64,7 @@ require("nvim-tree").setup({
   hijack_netrw = true,
   sync_root_with_cwd = true,
   sort_by = function(nodes)
-    table.sort(nodes, lib.natural_with_filetype_cmp)
+    table.sort(nodes, lib.natural_order_with_filetype_cmp)
   end,
 
   view = { adaptive_size = true, width = 10, signcolumn = "auto" },

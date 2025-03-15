@@ -83,7 +83,7 @@ autocmd("WinEnter", {
     if not lib.is_auxiliary_buffer() then
       return
     end
-    for _, win in ipairs(vim.api.nvim_list_wins()) do
+    for _, win in pairs(vim.api.nvim_list_wins()) do
       local buf = vim.api.nvim_win_get_buf(win)
       if not lib.is_auxiliary_buffer(buf) then
         return

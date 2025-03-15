@@ -1,5 +1,6 @@
-local keymap = vim.keymap.set
+local lib = require("lib.main")
 
-keymap("n", "<C-CR>", ":wa<CR>:exec '!go run' shellescape(@%, 1)<CR>", {
-  buffer = true,
-})
+vim.keymap.set("n", "<C-CR>", function()
+  lib.norm(":wa<CR>")
+  lib.term(lib.local_config_or_c({ "run", "go" }, "go run " .. vim.fn.expand("%")))
+end, { buffer = true })

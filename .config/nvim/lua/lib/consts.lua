@@ -1,5 +1,7 @@
 local M = {}
 
+M.LOCAL_CONFIG_FILE = "nvim.lua"
+M.FILETYPE_PRIORITIES = { directory = 1, file = 2, link = -1 }
 M.COLORSCHEME = "rose-pine"
 M.PRESERVE_MARK = "m"
 M.TRANSPARENCY = 0 -- 15
@@ -48,7 +50,7 @@ M.HTTP = {
   FILENAMES = { "ui" },
 }
 M.AUXILIARY = {
-  FILENAMES = vim.tbl_extend("force", M.DAP.FILENAMES, M.DB.FILENAMES, M.HTTP.FILENAMES)
+  FILENAMES = vim.tbl_extend("force", M.DAP.FILENAMES, M.DB.FILENAMES, M.HTTP.FILENAMES),
 }
 
 return M

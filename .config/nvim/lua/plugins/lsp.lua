@@ -1,5 +1,5 @@
 local lib = require("lib.main")
-local servers = require("local.lsp").servers
+local servers = require("global.lsp").servers
 local lspconfig = require("lspconfig")
 local telescope_builtin = require("telescope.builtin")
 local keymap = vim.keymap.set
