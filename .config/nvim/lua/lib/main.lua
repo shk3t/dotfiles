@@ -75,15 +75,16 @@ M.require_or = function(module, default)
   return M.fallback(require, { module }, default)
 end
 
-M.local_config_or = function(local_keyseq, global_value)
-  local local_config_path = M.backward_file_search_c(consts.LOCAL_CONFIG_FILE)
+M.reload_local_config = function()
+  local local_config_path = M.backward_file_search(consts.LOCAL_CONFIG_FILE)
   if local_config_path then
-    return M.geget(dofile(local_config_path), local_keyseq)
+    state.local_config = dofile(local_config_path)
   end
-  return global_value
 end
-M.local_config_or_c = function(local_keyseq, global_value)
-  return M.cache({ "local_config", unpack(local_keyseq) }, M.local_config_or, { local_keyseq, global_value })
+M.reload_local_config()
+
+M.local_config_or = function(local_keyseq, global_value)
+  return M.geget(state.local_config, local_keyseq) or global_value
 end
 
 M.replace_termcodes = function(str)
@@ -132,13 +133,6 @@ M.preserve_location = function(callback)
     callback()
     M.norm("`" .. consts.PRESERVE_MARK)
     vim.cmd.delmarks(consts.PRESERVE_MARK)
-  end
-end
-
-M.vc_cmd = function(vimcmd)
-  vimcmd()
-  for i = 1, vim.v.count - 1 do
-    vimcmd()
   end
 end
 

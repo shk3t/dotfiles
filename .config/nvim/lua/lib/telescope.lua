@@ -1,10 +1,8 @@
 local M = {}
 
-local actions_state = require("telescope.actions.state")
 local builtin = require("telescope.builtin")
 local consts = require("lib.consts")
 local lib = require("lib.main")
-local state = require("telescope.state")
 
 M.paste_action = function(_)
   local selection = vim.fn.getreg('"') or ""

@@ -96,6 +96,7 @@ cmp.setup({
     { name = "codeium" },
     -- { name = "cmp_ai" },
     { name = "luasnip" },
+    { name = "lazydev" },
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },

@@ -1,7 +1,4 @@
 ## TODAY
-- search local file config, then global config
-- lazydev
-
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
 - jupynium
 - cmd completion on replace
@@ -31,12 +28,12 @@
         - fast increment-decrement node selections
         - jupyter code cells
 ### LSP
-- [ ] repair neodev
+- [ ] lua ls `gd` definition duplication: https://github.com/benlubas/.dotfiles/blob/main/nvim%2Flua%2Fbenlubas%2Flsp_handlers.lua
 - [ ] neovim debugger
-- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 - [ ] better autocompletion with SQL LSP
-- [ ] config rustaceanvim
 - [ ] config x-ray/go
+- [ ] config rustaceanvim
+- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 ### Global
 - [ ] oh my zsh
 

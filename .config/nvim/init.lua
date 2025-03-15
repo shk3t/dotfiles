@@ -23,7 +23,7 @@ require("lazy").setup({
   "nvim-lua/popup.nvim",
   "kkharji/sqlite.lua",
   "echasnovski/mini.nvim",
-  "folke/neodev.nvim",
+  "folke/lazydev.nvim",
   "nvim-neotest/nvim-nio",
   "3rd/image.nvim",
 
