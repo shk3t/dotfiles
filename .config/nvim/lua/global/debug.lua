@@ -49,6 +49,7 @@ M.debug_configs = {
         justMyCode = false,
       }),
     },
+    ["/itresume/vm%-service"] = { django_cfg, django_deep_debug_cfg },
     ["/itresume/lms"] = { django_cfg, django_deep_debug_cfg },
     ["/itresume/wb%-backend"] = { django_cfg, django_deep_debug_cfg },
     ["/car%-price%-prediction/ml%-service"] = { django_cfg, django_deep_debug_cfg },

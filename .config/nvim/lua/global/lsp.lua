@@ -113,9 +113,6 @@ M.servers = {
       client.server_capabilities.documentFormattingProvider = true
     end,
   },
-  -- tabby_ml = {
-  --   filetypes = { "python" },
-  -- },
 }
 
 return M

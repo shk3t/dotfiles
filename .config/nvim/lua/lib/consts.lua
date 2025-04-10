@@ -36,7 +36,6 @@ M.CMP_KIND_ICONS = {
   TypeParameter = "󰅲",
   Database = "󰆼",
   Codeium = "󰘦",
-  Tabby = "󰄛",
 }
 M.DAP = {
   FILETYPES = { "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" },

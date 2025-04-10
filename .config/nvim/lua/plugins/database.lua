@@ -1,4 +1,5 @@
 local keymap = vim.keymap.set
+local keydel = vim.keymap.del
 local autocmd = vim.api.nvim_create_autocmd
 local urllib = require("lib.url")
 local local_configs = require("global.database").local_configs
@@ -8,6 +9,7 @@ keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
+    keydel({ "n", "v" }, "<Leader>S", { buffer = true })
     keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
     keymap("v", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
     keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
@@ -18,8 +20,8 @@ autocmd("FileType", {
   pattern = "dbui",
   callback = function()
     vim.opt_local.shiftwidth = 2
-    vim.keymap.del("n", "<C-K>", { buffer = true })
-    vim.keymap.del("n", "<C-J>", { buffer = true })
+    keydel("n", "<C-K>", { buffer = true })
+    keydel("n", "<C-J>", { buffer = true })
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
     keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
     keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })

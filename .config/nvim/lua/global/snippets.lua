@@ -16,3 +16,7 @@ ls.add_snippets("mysql", sql_generic_snippets)
 ls.add_snippets("markdown", {
   s("jp", fmt("```python\n{}\n```", { i(1) })),
 })
+
+ls.add_snippets("go", {
+  s("fp", fmt("fmt.Println({})", { i(1) })),
+})

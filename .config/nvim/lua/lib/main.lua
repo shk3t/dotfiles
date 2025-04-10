@@ -18,7 +18,7 @@ M.is_in_list = function(target, list)
 end
 
 M.fallback = function(action, args, default)
-  local ok, result = pcall(action, unpack(args))
+  local ok, result = pcall(action, unpack(args or {}))
   return ok and result or default
 end
 
@@ -51,7 +51,7 @@ end
 M.cache = function(keyseq, action, args)
   local value = M.geget(state.cache, keyseq)
   if value == nil then
-    value = action(unpack(args))
+    value = action(unpack(args or {}))
     M.seset(state.cache, keyseq, value)
   end
   return value
@@ -233,6 +233,13 @@ M.set = function(list)
   return set
 end
 
+M.do_in_win = function(win, action, args)
+  local prev_win = vim.api.nvim_get_current_win()
+  vim.api.nvim_set_current_win(win)
+  action(unpack(args or {}))
+  vim.api.nvim_set_current_win(prev_win)
+end
+
 M.map_easy_closing = function()
   keymap("n", "q", ":q<CR>", {
     buffer = true,
@@ -295,31 +302,29 @@ M.term = function(command)
 
   -- Create win if not exists
   if not vim.api.nvim_win_is_valid(state.main_term.win) then
-    state.main_term.win = vim.api.nvim_open_win(state.main_term.buf, true, {
+    state.main_term.win = vim.api.nvim_open_win(state.main_term.buf, false, {
       split = "below",
       height = 16,
     })
-  else
-    vim.api.nvim_set_current_win(state.main_term.win)
   end
 
   -- Use buf as terminal if it is not
-  if vim.bo.filetype ~= "terminal" then
-    vim.cmd.terminal()
+  if vim.bo[state.main_term.buf].filetype ~= "terminal" then
+    M.do_in_win(state.main_term.win, vim.cmd.terminal)
     vim.cmd.sleep("50m")
   end
 
-  vim.fn.chansend(vim.bo.channel, { command .. "\r\n" })
+  vim.fn.chansend(vim.bo[state.main_term.buf].channel, { "\x15" .. command .. "\r\n" })
+  M.do_in_win(state.main_term.win, M.tnorm, { "G" }) -- scroll to the end
 end
 
 M.is_auxiliary_buffer = function(buf)
   buf = buf or 0
   local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
-  local buf_filetype = vim.api.nvim_get_option_value("filetype", { buf = buf })
 
   return M.is_in_list(buf_name, consts.AUXILIARY.FILENAMES)
     or M.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
-    or buf_filetype == "terminal"
+    or vim.bo[buf].filetype == "terminal"
 end
 
 return M

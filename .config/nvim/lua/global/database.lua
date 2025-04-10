@@ -14,6 +14,6 @@ M.local_configs = {
   { name = "wb_local", url = "postgres://" .. user .. ":" .. my_pass .. "@localhost:5432/wb" },
 }
 
-M.local_configs = vim.tbl_extend("force", M.local_configs, private.itr_configs)
+M.local_configs = vim.tbl_extend("keep", M.local_configs, private.itr_configs)
 
 return M

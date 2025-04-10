@@ -1,13 +1,18 @@
 local keymap = vim.keymap.set
+local consts = require("lib.consts")
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 
 keymap("n", "[d", function()
-  vim.diagnostic.goto_prev({
+  vim.diagnostic.jump({
+    count = -1,
+    float = true,
     severity = { min = "WARN" },
   })
 end)
 keymap("n", "]d", function()
-  vim.diagnostic.goto_next({
+  vim.diagnostic.jump({
+    count = 1,
+    float = true,
     severity = { min = "WARN" },
   })
 end)
@@ -18,7 +23,14 @@ keymap("n", "<Space>td", require("telescope.builtin").diagnostics)
 vim.diagnostic.config({
   virtual_text = { severity = { min = "WARN" } },
   underline = { severity = { min = "WARN" } },
-  signs = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = consts.DIAGNOSTIC_SIGNS.error,
+      [vim.diagnostic.severity.WARN] = consts.DIAGNOSTIC_SIGNS.warn,
+      [vim.diagnostic.severity.INFO] = consts.DIAGNOSTIC_SIGNS.info,
+      [vim.diagnostic.severity.HINT] = consts.DIAGNOSTIC_SIGNS.hint,
+    },
+  },
   update_in_insert = false,
   float = { border = VERTICAL_BORDERS },
 })

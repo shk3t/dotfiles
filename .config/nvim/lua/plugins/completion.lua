@@ -6,7 +6,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local confirm_complete = cmp.mapping(function(fallback)
   if cmp.visible() then
-    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace })
+    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
     if vim.fn.mode() == "c" then
       vim.api.nvim_input("<CR>")
     end
@@ -105,10 +105,6 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      -- if entry.source.source.client and entry.source.source.client.name == "tabby_ml" then
-      --   vim_item.kind_hl_group = "Error"
-      --   vim_item.kind = "Tabby"
-      -- end
       if vim_item.kind:find("Codeium") then
         vim_item.kind_hl_group = "Error"
       end
@@ -200,24 +196,3 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("global.snippets")
-
--- require("cmp_ai.config"):setup({
---   max_lines = 1000,
---   provider = "Tabby",
---   notify = true,
---   provider_options = {
---     -- These are optional
---     -- user = 'yourusername',
---     -- temperature = 0.2,
---     -- seed = 'randomstring',
---   },
---   notify_callback = function(msg)
---     vim.notify(msg)
---   end,
---   run_on_every_keystroke = true,
---   ignored_file_types = {
---     -- default is not to ignore
---     -- uncomment to ignore in lua:
---     -- lua = true
---   },
--- })

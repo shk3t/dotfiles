@@ -1,10 +1,12 @@
 ## TODAY
+- avante.nvim
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
 - jupynium
 - cmd completion on replace
 - here is some code when add block codecompanion
 - image.nvim make images bigger in molten_output
 - remove auxiliary buffer when skip-jump (`vl`)
+- markdown formatting
 
 ## Important
 ### Config existing plugins

@@ -69,21 +69,6 @@ local function setup_mark_colors()
   highlight("MarkSignNumHL", { link = "NONE" })
 end
 
-local function define_diagnostic_signs()
-  local diagnostic_signs = {
-    ["DiagnosticSignError"] = consts.DIAGNOSTIC_SIGNS.error,
-    ["DiagnosticSignWarn"] = consts.DIAGNOSTIC_SIGNS.warn,
-    ["DiagnosticSignInfo"] = consts.DIAGNOSTIC_SIGNS.info,
-    ["DiagnosticSignHint"] = consts.DIAGNOSTIC_SIGNS.hint,
-  }
-  for sign, text in pairs(diagnostic_signs) do
-    sign_define(sign, {
-      text = text,
-      texthl = sign,
-    })
-  end
-end
-
 local function define_dap_signs()
   sign_define("DapBreakpoint", { text = "󰪥", texthl = "Error" })
   sign_define("DapStopped", {
@@ -102,7 +87,6 @@ local colorscheme_setups = {
     if consts.TRANSPARENCY > 0 then
       set_transparent_bg()
     end
-    define_diagnostic_signs()
     define_dap_signs()
     setup_mark_colors()
     setup_telescope_colors()

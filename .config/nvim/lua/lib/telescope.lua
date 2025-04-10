@@ -6,7 +6,7 @@ local lib = require("lib.main")
 
 M.paste_action = function(_)
   local selection = vim.fn.getreg('"') or ""
-  if vim.api.nvim_get_option_value("modifiable", { buf = vim.api.nvim_get_current_buf() }) then
+  if vim.bo.modifiable then
     vim.api.nvim_paste(selection, true, -1)
   end
 end
