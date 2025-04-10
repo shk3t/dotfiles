@@ -18,5 +18,5 @@ ls.add_snippets("markdown", {
 })
 
 ls.add_snippets("go", {
-  s("fp", fmt("fmt.Println({})", { i(1) })),
+  s("pl", fmt("fmt.Println({})", { i(1) })),
 })
