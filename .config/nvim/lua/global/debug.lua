@@ -1,7 +1,18 @@
-local python_default_config = require("lib.debug").python_default_config
-local go_default_config = require("lib.debug").go_default_config
-
 local M = {}
+
+local lib = require("lib.main")
+
+local python_default_config = {
+  type = "python",
+  request = "launch",
+  pythonPath = lib.python_path,
+  justMyCode = true,
+  cwd = vim.fn.getcwd(),
+}
+local go_default_config = {
+  type = "delve",
+  request = "launch",
+}
 
 local django_cfg = vim.tbl_extend("force", python_default_config, {
   name = "Django",
@@ -104,14 +115,12 @@ M.debug_configs = {
       vim.tbl_extend("force", python_default_config, {
         name = "UNREAL DEBUG",
         program = vim.fn.getcwd() .. "/start.py",
-        args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "717", "None" },
       }),
     },
     ["/sok_old/docker"] = {
       vim.tbl_extend("force", python_default_config, {
         name = "UNREAL DEBUG",
         program = vim.fn.getcwd() .. "/start.py",
-        args = { "mysolution.txt", "CLICKHOUSE", "Submit", "unit-tests/tests", "717", "None" },
       }),
     },
   },
@@ -122,14 +131,14 @@ M.debug_configs = {
         name = "Default",
         program = "${file}",
       }),
-      vim.tbl_extend("force", go_default_config, {
-        name = "Cmd main",
-        program = "cmd/main.go",
-      }),
-      vim.tbl_extend("force", go_default_config, {
-        name = "Src main",
-        program = "src/main.go",
-      }),
+      -- vim.tbl_extend("force", go_default_config, {
+      --   name = "Cmd main",
+      --   program = "cmd/main.go",
+      -- }),
+      -- vim.tbl_extend("force", go_default_config, {
+      --   name = "Src main",
+      --   program = "src/main.go",
+      -- }),
       -- {
       --   type = "delve",
       --   name = "Debug test", -- configuration for debugging test files

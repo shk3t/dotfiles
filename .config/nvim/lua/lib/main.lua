@@ -76,14 +76,19 @@ M.require_or = function(module, default)
 end
 
 M.reload_local_config = function()
-  local local_config_path = M.backward_file_search(consts.LOCAL_CONFIG_FILE)
+  local local_config_path = M.backward_file_search_c(consts.LOCAL_CONFIG_FILE)
   if local_config_path then
     state.local_config = dofile(local_config_path)
   end
 end
 M.reload_local_config()
 
-M.local_config_or = function(local_keyseq, global_value)
+M.local_config_or = function(local_keyseq, global_value, opts)
+  opts = vim.tbl_deep_extend("keep", opts or {}, { reload = true })
+  if opts.reload then
+    M.reload_local_config()
+  end
+
   return M.geget(state.local_config, local_keyseq) or global_value
 end
 
@@ -158,6 +163,10 @@ end
 
 M.contains = function(str, sub)
   return string.find(str, sub) ~= nil
+end
+
+M.contains_any = function(str, subs)
+  return string.find(str, table.concat(subs, "|")) ~= nil
 end
 
 M.get_highlight = function(name)
@@ -278,8 +287,6 @@ M.natural_order_with_filetype_cmp = function(left, right)
   end
 end
 
-M.DEFAULT_PYTHON_PATH = "/usr/bin/python"
-
 M.python_path = (function()
   local workdir = vim.fn.getcwd()
   local venvdirs = { "venv", ".venv" }
@@ -291,7 +298,7 @@ M.python_path = (function()
     end
   end
 
-  return M.DEFAULT_PYTHON_PATH
+  return consts.DEFAULT_PYTHON_PATH
 end)()
 
 M.term = function(command)

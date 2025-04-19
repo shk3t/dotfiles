@@ -1,4 +1,5 @@
 ## TODAY
+- dap threads fast switching
 - avante.nvim
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
 - jupynium
@@ -38,6 +39,11 @@
 - [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 ### Global
 - [ ] oh my zsh
+### Debug
+- https://github.com/igorlfs/nvim-dap-view
+- https://github.com/theHamsta/nvim-dap-virtual-text
+- https://github.com/t-troebst/perfanno.nvim
+- https://github.com/Weissle/persistent-breakpoints.nvim
 
 
 <br>

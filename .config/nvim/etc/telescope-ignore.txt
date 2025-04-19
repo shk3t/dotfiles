@@ -67,7 +67,7 @@ bootstrap.min.css
 .prettierrc.json
 
 # Documentation
-docs/
+# docs/
 
 # Specific
 docker/languages/sql/

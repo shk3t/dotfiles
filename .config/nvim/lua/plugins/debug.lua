@@ -1,13 +1,15 @@
-local consts = require("lib.consts")
 local dap = require("dap")
+local daplib = require("lib.debug")
 local dapui = require("dapui")
 local lib = require("lib.main")
 local widgets = require("dap.ui.widgets")
 local debug_configs = require("global.debug").debug_configs
-local state = require("lib.state")
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
-local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
+local consts = require("lib.consts")
+local state = require("lib.state")
+
+state.dap.widgets.scopes = widgets.sidebar(widgets.scopes)
 
 dap.listeners.after.event_initialized["steal_focus"] = function()
   print("Debugger is active!")
@@ -18,6 +20,10 @@ end
 dap.listeners.after.event_stopped["steal_focus"] = function()
   vim.fn.system("xdotool windowactivate " .. state.system.terminal_window_id)
   vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. state.system.tmux_window_id)
+end
+
+dap.listeners.after.event_stopped["clear_focused_thread"] = function(session, body)
+  state.dap.focus.thread = {}
 end
 
 local dapui_config = {
@@ -37,7 +43,7 @@ local dapui_config = {
     -- breakpoints = { open = { "<CR>", "<2-LeftMouse>", "o" } },
   },
   expand_lines = false,
-  floating = { border = VERTICAL_BORDERS },
+  floating = { border = consts.VERTICAL_BORDERS },
   layouts = {
     {
       elements = {
@@ -88,6 +94,35 @@ local function bp_find_next(cur_row, qflist)
   return qflist[1].lnum
 end
 
+local function switch_thread_focus(step)
+  if not daplib.update_focused_thread() or step == 0 then
+    return
+  end
+  local threads = dap.session().threads
+  local f_thread = state.dap.focus.thread
+
+  local start, finish = f_thread.id + 1, f_thread.id + #threads - 1
+  if step < 0 then
+    start, finish = finish, start
+  end
+
+  for i = start, finish, step do
+    local thread = threads[(i - 1) % #threads + 1]
+    if not lib.contains_any(thread.name, consts.DAP.RUNTIME_THREADS) then
+      f_thread.id = thread.id
+      f_thread.name = thread.name
+      break
+    end
+  end
+
+  widgets.centered_float(widgets.threads)
+  vim.fn.search("\\V" .. f_thread.name)
+  daplib.trigger_first_action()
+  vim.cmd.sleep("1m")
+  vim.fn.search([[^\(.*\<\(]] .. table.concat(consts.DAP.RUNTIME_THREADS, [[\|]]) .. [[\)\>\)\@!.*$]])
+  daplib.trigger_first_action()
+end
+
 keymap({ "i", "n", "v" }, "<F9>", dap.continue)
 keymap({ "i", "n", "v" }, "<F8>", dap.step_over)
 keymap({ "i", "n", "v" }, "<F7>", dap.step_into)
@@ -107,25 +142,35 @@ end)
 keymap("n", "]b", function()
   breakpoint_jump(bp_find_next)
 end)
-keymap("n", "]s", dap.down)
 keymap("n", "[s", dap.up)
+keymap("n", "]s", dap.down)
+keymap("n", "[t", function()
+  switch_thread_focus(-1)
+end)
+keymap("n", "]t", function()
+  switch_thread_focus(1)
+end)
 keymap("n", "<Space>dc", dap.repl.open)
 keymap("n", "<Space>dr", function()
   vim.cmd.wall()
   dap.run_last()
 end)
 keymap("n", "<Space>ds", function()
-  widgets.sidebar(widgets.scopes).open()
+  state.dap.widgets.scopes.toggle()
+end)
+keymap("n", "<Space>dt", function()
+  widgets.centered_float(widgets.threads)
 end)
 keymap("n", "<Space>dg", dapui.toggle)
 keymap({ "n", "v" }, "<Space>de", function(expr)
-  widgets.hover(expr, { border = VERTICAL_BORDERS })
+  widgets.hover(expr, { border = consts.VERTICAL_BORDERS })
 end)
 
 dap.defaults.fallback.external_terminal = {
   command = "/usr/bin/alacritty",
   args = { "-e" },
 }
+dap.defaults.auto_continue_if_many_stopped = false
 
 dapui.setup(dapui_config)
 
@@ -207,7 +252,7 @@ autocmd("FileType", {
       if row == count then
         vim.api.nvim_input("<Insert><CR>")
       else
-        require("dap.ui").trigger_actions({ mode = "first" })
+        daplib.trigger_first_action()
       end
     end, { buffer = true, remap = true })
   end,
@@ -216,7 +261,7 @@ autocmd("FileType", {
   pattern = "dap-float",
   callback = function()
     keymap("n", "o", function()
-      require("dap.ui").trigger_actions({ mode = "first" })
+      daplib.trigger_first_action()
     end, { buffer = true, remap = true })
   end,
 })

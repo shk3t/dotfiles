@@ -1,6 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
+local dap = require("dap")
 -- local dap = require("dap")
 local lga_actions = require("telescope-live-grep-args.actions")
 local telescope = require("telescope")
@@ -59,15 +60,15 @@ keymap("n", "<Space>Q", builtin.quickfixhistory)
 keymap("n", "<Space>:", builtin.command_history)
 keymap("n", "<Space>?", builtin.search_history)
 keymap("n", [[<Space>"]], builtin.marks)
--- keymap("n", [[<Space>']], telelib.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
--- keymap(
---   "n",
---   "<Space>tb",
---   telelib.quickfix_picker("Breakpoints", function()
---     vim.cmd.copen()
---     dap.list_breakpoints()
---   end)
--- )
+keymap("n", [[<Space>']], telelib.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
+keymap(
+  "n",
+  "<Space>tb",
+  telelib.quickfix_picker("Breakpoints", function()
+    vim.cmd.copen()
+    dap.list_breakpoints()
+  end)
+)
 
 local telescope_config = {
   defaults = {
