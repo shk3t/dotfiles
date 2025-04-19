@@ -10,7 +10,9 @@ M.update_focused_thread = function()
     return false
   end
 
-  state.dap.focus.thread.id = state.dap.focus.thread.id or session.stopped_thread_id
+  local f_thread = state.dap.focus.thread
+  f_thread.id = f_thread.id or session.stopped_thread_id
+  f_thread.name = session.threads[f_thread.id].name
   return true
 end
 

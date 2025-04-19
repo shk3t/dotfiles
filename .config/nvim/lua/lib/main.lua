@@ -4,6 +4,24 @@ local state = require("lib.state")
 
 local M = {}
 
+M.len = function(tbl)
+  local count = 0
+  for _ in pairs(tbl) do
+    count = count + 1
+  end
+  return count
+end
+
+M.compact = function(tbl)
+  local new_tbl = {}
+  local i = 1
+  for _, v in pairs(tbl) do
+    new_tbl[i] = v
+    i = i + 1
+  end
+  return new_tbl
+end
+
 M.is_empty = function(tbl)
   return next(tbl) == nil
 end

@@ -98,10 +98,17 @@ local function switch_thread_focus(step)
   if not daplib.update_focused_thread() or step == 0 then
     return
   end
-  local threads = dap.session().threads
+  local threads = lib.compact(dap.session().threads)
   local f_thread = state.dap.focus.thread
 
-  local start, finish = f_thread.id + 1, f_thread.id + #threads - 1
+  local start
+  for i, v in pairs(threads) do
+    if v.id == f_thread.id then
+      start = i + 1
+      print("i:", i)
+    end
+  end
+  local finish = start + #threads - 2
   if step < 0 then
     start, finish = finish, start
   end

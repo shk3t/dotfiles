@@ -14,7 +14,7 @@ autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
   end,
 })
 -- Dynamic autoscroll near window edges
-autocmd({ "VimEnter", "WinEnter", "WinResized" }, {
+autocmd({ "WinResized", "BufEnter" }, {
   callback = function()
     klib.set_default_scrolloff()
   end,
