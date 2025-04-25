@@ -83,7 +83,7 @@ M.backward_file_search = function(target)
       return target_path
     end
     curdir = vim.fn.fnamemodify(curdir, ":h")
-  until curdir == vim.fn.expand("~")
+  until curdir == "/"
 end
 M.backward_file_search_c = function(target)
   return M.cache({ "backward_file_search", vim.fn.getcwd(), target }, M.backward_file_search, { target })

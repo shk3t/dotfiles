@@ -131,14 +131,6 @@ M.debug_configs = {
         name = "Default",
         program = "${file}",
       }),
-      -- vim.tbl_extend("force", go_default_config, {
-      --   name = "Cmd main",
-      --   program = "cmd/main.go",
-      -- }),
-      -- vim.tbl_extend("force", go_default_config, {
-      --   name = "Src main",
-      --   program = "src/main.go",
-      -- }),
       -- {
       --   type = "delve",
       --   name = "Debug test", -- configuration for debugging test files

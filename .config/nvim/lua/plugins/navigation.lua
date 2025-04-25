@@ -67,7 +67,12 @@ require("nvim-tree").setup({
     table.sort(nodes, lib.natural_order_with_filetype_cmp)
   end,
 
-  view = { adaptive_size = true, width = 10, signcolumn = "auto" },
+  view = {
+    preserve_window_proportions = false,
+    adaptive_size = true,
+    width = 10,
+    signcolumn = "auto",
+  },
   renderer = {
     root_folder_label = false,
     indent_markers = {
@@ -137,7 +142,10 @@ require("nvim-tree").setup({
   live_filter = { always_show_folders = false },
   actions = {
     change_dir = { restrict_above_cwd = true },
-    open_file = { window_picker = { enable = false }, quit_on_open = true },
+    open_file = {
+      window_picker = { enable = false },
+      quit_on_open = true,
+    },
   },
   notify = { threshold = vim.log.levels.ERROR },
   ui = {

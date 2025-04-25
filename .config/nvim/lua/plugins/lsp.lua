@@ -12,6 +12,9 @@ local function base_init(client)
   client.config.flags.allow_incremental_sync = true
 end
 
+for _, default_key in pairs({ "grn", "gra", "grr", "gri" }) do
+  vim.keymap.del("n", default_key)
+end
 keymap({ "n", "v" }, "<Space>LR", vim.cmd.LspRestart)
 keymap({ "n", "v" }, "<Space>LI", vim.cmd.LspInfo)
 

@@ -3,12 +3,14 @@ local lib = require("lib.main")
 
 vim.g.no_python_maps = true
 
-keymap("n", "<C-CR>", ":wa<CR>:exec '!python3' shellescape(@%, 1)<CR>", {
-  buffer = true,
-})
+keymap("n", "<C-CR>", function()
+  lib.norm(":wa<CR>")
+  lib.term(lib.local_config_or({ "run", "python" }, "python " .. vim.fn.expand("%")))
+end, { buffer = true })
 keymap({ "i" }, "<F5>", "<Esc>:wa<CR>:exec '!python3' shellescape(@%, 1)<CR>", {
   buffer = true,
 })
+
 keymap("n", "<Space>JI", ":MagmaInit python3<CR>", { buffer = true })
 keymap("n", "gct", function()
   local ignore_comment = "  # type: ignore"

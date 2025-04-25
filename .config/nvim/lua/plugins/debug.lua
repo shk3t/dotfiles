@@ -229,6 +229,12 @@ dap.adapters.bashdb = {
 
 for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
   dap.configurations[language] = {}
+  local local_configs = lib.local_config_or({ "debug", language })
+  if local_configs then
+    dap.configurations[language] = local_configs
+    goto continue
+  end
+
   for path, config in lib.sorted_pairs(debug_configs[language]) do
     if type(path) == "number" or type(path) == "string" and lib.contains(vim.fn.getcwd(), path) then
       for _, config_entry in pairs(config) do
@@ -236,6 +242,7 @@ for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "ty
       end
     end
   end
+  ::continue::
 end
 
 -- autocmd("BufWritePost", {

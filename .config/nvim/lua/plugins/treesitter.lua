@@ -88,7 +88,7 @@ require("nvim-treesitter.configs").setup({
       },
       swap_previous = {
         ["c<a"] = "@parameter.inner",
-        ["c<f"] = "@funciton.outer",
+        ["c<f"] = "@function.outer",
         ["c<j"] = "@code_cell.outer",
       },
     },
