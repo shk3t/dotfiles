@@ -1,4 +1,4 @@
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 local servers = require("global.lsp").servers
 local lspconfig = require("lspconfig")
 local telescope_builtin = require("telescope.builtin")
@@ -33,11 +33,11 @@ local function base_attach(client, bufnr)
   keymap("n", "go", telescope_builtin.lsp_outgoing_calls, { buffer = bufnr })
 
   keymap("n", "<C-LeftMouse>", function()
-    lib.norm("<LeftMouse>")
+    ulib.norm("<LeftMouse>")
     vim.lsp.buf.definition()
   end, { buffer = bufnr })
   keymap("n", "<C-RightMouse>", function()
-    lib.norm("<LeftMouse>")
+    ulib.norm("<LeftMouse>")
     vim.lsp.buf.references()
   end, { buffer = bufnr })
 

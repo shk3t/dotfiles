@@ -1,5 +1,5 @@
 local consts = require("lib.consts")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 local M = {}
 
@@ -41,7 +41,7 @@ M.prev_insert_pos = function()
     local next_row = unpack(vim.api.nvim_win_get_cursor(0))
     repeat
       local prev_row = next_row
-      lib.norm("g;")
+      ulib.norm("g;")
       next_row = unpack(vim.api.nvim_win_get_cursor(0))
     until prev_row ~= next_row
   end)
@@ -53,10 +53,9 @@ M.longjump = function(key)
     local next_row = -1
     repeat
       local prev_row = next_row
-      lib.norm(key)
+      ulib.norm(key)
       next_row = unpack(vim.api.nvim_win_get_cursor(0))
     until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
-    -- lib.center_win()
   end)
 end
 M.longjump_back = function()
@@ -68,12 +67,12 @@ end
 M.longjump_back_skip_auxiliary = function()
   repeat
     M.longjump("<C-O>")
-  until not lib.is_auxiliary_buffer()
+  until not ulib.is_auxiliary_buffer()
   vim.cmd.stopinsert()
 end
 
 M.yank_all_sys_clip = function()
-  lib.norm("mm")
+  ulib.norm("mm")
   vim.cmd("%y y")
   vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
 end

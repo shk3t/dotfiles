@@ -1,6 +1,6 @@
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 vim.keymap.set("n", "<C-CR>", function()
-  lib.norm(":wa<CR>")
-  lib.term("rustc " .. vim.fn.expand("%") .. [[ -o rust.out && ./rust.out && rm rust.out]])
+  ulib.norm(":wa<CR>")
+  ulib.term("rustc " .. vim.fn.expand("%") .. [[ -o rust.out && ./rust.out && rm rust.out]])
 end, { buffer = true })

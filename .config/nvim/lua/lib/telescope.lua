@@ -2,7 +2,7 @@ local M = {}
 
 local builtin = require("telescope.builtin")
 local consts = require("lib.consts")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 M.paste_action = function(_)
   local selection = vim.fn.getreg('"') or ""
@@ -41,7 +41,7 @@ end
 
 M.visual_picker = function(picker)
   return function()
-    local visual = lib.get_visual()
+    local visual = ulib.get_visual()
     picker({ default_text = visual })
   end
 end

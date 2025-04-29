@@ -123,5 +123,13 @@ local actions = require("diffview.actions")
 require("diffview").setup({
   use_icons = false,
   signs = { fold_closed = ">", fold_open = "v", done = "√" },
+  keymaps = {
+    view = {
+      ["a"] = actions.toggle_stage_entry,
+      ["u"] = actions.toggle_stage_entry,
+      ["A"] = actions.stage_all,
+      ["U"] = actions.unstage_all,
+    },
+  },
 })
 keymap({ "n", "v" }, "<Space>GD", vim.cmd.DiffviewOpen)

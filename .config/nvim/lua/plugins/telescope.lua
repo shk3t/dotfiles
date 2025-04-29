@@ -8,7 +8,7 @@ local telescope = require("telescope")
 local undo_actions = require("telescope-undo.actions")
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 local telelib = require("lib.telescope")
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
 
@@ -25,7 +25,7 @@ end)
 -- keymap("v", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
 keymap("n", "<Space>p", builtin.registers)
 keymap("v", "<Space>p", function()
-  lib.norm("d")
+  ulib.norm("d")
   builtin.registers()
 end)
 keymap("v", "<C-F>", telelib.visual_picker(builtin.find_files))
@@ -108,10 +108,10 @@ local telescope_config = {
       n = {
         ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
         ["0"] = function()
-          lib.norm("0w")
+          ulib.norm("0w")
         end,
         ["^"] = function()
-          lib.norm("0w")
+          ulib.norm("0w")
         end,
       },
     },
@@ -166,7 +166,7 @@ local telescope_config = {
           ["<C-S>"] = lga_actions.quote_prompt(),
           ["<C-G>"] = function(prompt_bufnr)
             lga_actions.quote_prompt({ postfix = " --iglob ****" })(prompt_bufnr)
-            lib.norm("2h")
+            ulib.norm("2h")
           end,
         },
       },

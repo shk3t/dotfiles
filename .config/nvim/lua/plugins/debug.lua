@@ -1,7 +1,9 @@
 local dap = require("dap")
 local daplib = require("lib.debug")
 local dapui = require("dapui")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
+local tlib = require("lib.base.table")
+local slib = require("lib.base.string")
 local widgets = require("dap.ui.widgets")
 local debug_configs = require("global.debug").debug_configs
 local keymap = vim.keymap.set
@@ -52,7 +54,7 @@ local dapui_config = {
         { id = "watches", size = 0.25 },
       },
       position = "right",
-      size = 65,
+      size = 90,
     },
     { elements = { { id = "repl", size = 1 } }, position = "bottom", size = 10 },
   },
@@ -68,13 +70,13 @@ local function breakpoint_jump(find_func)
   local qflist = vim.fn.getqflist()
   vim.cmd.cclose()
   vim.api.nvim_set_current_win(cur_win)
-  qflist = lib.filter_list(function(v)
+  qflist = tlib.filter_list(function(v)
     return v.bufnr == cur_buf
   end, qflist)
-  if lib.is_empty(qflist) then
+  if tlib.is_empty(qflist) then
     return
   end
-  lib.save_jump()
+  ulib.save_jump()
   vim.api.nvim_win_set_cursor(0, { find_func(cur_row, qflist), cur_col })
 end
 local function bp_find_prev(cur_row, qflist)
@@ -98,7 +100,7 @@ local function switch_thread_focus(step)
   if not daplib.update_focused_thread() or step == 0 then
     return
   end
-  local threads = lib.compact(dap.session().threads)
+  local threads = tlib.compact(dap.session().threads)
   local f_thread = state.dap.focus.thread
 
   local start
@@ -115,7 +117,7 @@ local function switch_thread_focus(step)
 
   for i = start, finish, step do
     local thread = threads[(i - 1) % #threads + 1]
-    if not lib.contains_any(thread.name, consts.DAP.RUNTIME_THREADS) then
+    if not slib.contains_any(thread.name, consts.DAP.RUNTIME_THREADS) then
       f_thread.id = thread.id
       f_thread.name = thread.name
       break
@@ -183,7 +185,7 @@ dapui.setup(dapui_config)
 
 dap.adapters.python = {
   type = "executable",
-  command = lib.python_path,
+  command = ulib.python_path,
   args = { "-m", "debugpy.adapter" },
 }
 dap.adapters.cppdbg = {
@@ -229,14 +231,14 @@ dap.adapters.bashdb = {
 
 for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
   dap.configurations[language] = {}
-  local local_configs = lib.local_config_or({ "debug", language })
+  local local_configs = ulib.local_config_or({ "debug", language })
   if local_configs then
     dap.configurations[language] = local_configs
     goto continue
   end
 
-  for path, config in lib.sorted_pairs(debug_configs[language]) do
-    if type(path) == "number" or type(path) == "string" and lib.contains(vim.fn.getcwd(), path) then
+  for path, config in tlib.sorted_pairs(debug_configs[language]) do
+    if type(path) == "number" or type(path) == "string" and slib.contains(vim.fn.getcwd(), path) then
       for _, config_entry in pairs(config) do
         table.insert(dap.configurations[language], config_entry)
       end

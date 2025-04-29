@@ -2,7 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local api = require("nvim-tree.api")
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 local tmux = require("tmux")
 
 local function my_on_attach(bufnr)
@@ -64,7 +64,7 @@ require("nvim-tree").setup({
   hijack_netrw = true,
   sync_root_with_cwd = true,
   sort_by = function(nodes)
-    table.sort(nodes, lib.natural_order_with_filetype_cmp)
+    table.sort(nodes, ulib.natural_order_with_filetype_cmp)
   end,
 
   view = {
@@ -163,7 +163,7 @@ local aerial = require("aerial")
 local function close_restore_prev_pos()
   aerial.close()
   pcall(function()
-    lib.norm("`m")
+    ulib.norm("`m")
     vim.cmd.delmarks("m")
   end)
 end

@@ -1,8 +1,18 @@
 local cmp = require("cmp")
 local consts = require("lib.consts")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 local luasnip = require("luasnip")
 local autocmd = vim.api.nvim_create_autocmd
+local keymap = vim.keymap.set
+
+keymap("n", "<Space>ip", function()
+  ulib.norm("e")
+  vim.cmd.startinsert()
+  vim.schedule(function()
+    cmp.complete()
+    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+  end)
+end, { desc = "Import package" })
 
 local confirm_complete = cmp.mapping(function(fallback)
   if cmp.visible() then

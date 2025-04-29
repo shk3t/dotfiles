@@ -1,5 +1,5 @@
 local keymap = vim.keymap.set
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 require("Comment").setup()
 -- require('xkbswitch').setup()
@@ -72,10 +72,10 @@ marks.setup({
   },
 })
 keymap("n", "[m", function()
-  lib.save_jump()
+  ulib.save_jump()
   marks.prev()
 end)
 keymap("n", "]m", function()
-  lib.save_jump()
+  ulib.save_jump()
   marks.next()
 end)

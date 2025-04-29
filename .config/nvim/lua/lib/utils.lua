@@ -1,76 +1,21 @@
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
 local state = require("lib.state")
+local tlib = require("lib.base.table")
+local slib = require("lib.base.string")
 
 local M = {}
-
-M.len = function(tbl)
-  local count = 0
-  for _ in pairs(tbl) do
-    count = count + 1
-  end
-  return count
-end
-
-M.compact = function(tbl)
-  local new_tbl = {}
-  local i = 1
-  for _, v in pairs(tbl) do
-    new_tbl[i] = v
-    i = i + 1
-  end
-  return new_tbl
-end
-
-M.is_empty = function(tbl)
-  return next(tbl) == nil
-end
-
-M.is_in_list = function(target, list)
-  for _, value in pairs(list) do
-    if target == value then
-      return true
-    end
-  end
-  return false
-end
 
 M.fallback = function(action, args, default)
   local ok, result = pcall(action, unpack(args or {}))
   return ok and result or default
 end
 
--- sequential get
-M.geget = function(tbl, keyseq)
-  local curval = tbl
-  for _, key in pairs(keyseq) do
-    curval = curval and curval[key]
-  end
-  return curval
-end
-
--- sequential set
-M.seset = function(tbl, keyseq, value)
-  local last_key = table.remove(keyseq)
-
-  local curval = tbl
-  for _, key in pairs(keyseq) do -- except last key
-    local nextval = curval[key]
-    if not nextval then
-      nextval = {}
-      curval[key] = nextval
-    end
-    curval = nextval
-  end
-
-  curval[last_key] = value
-end
-
 M.cache = function(keyseq, action, args)
-  local value = M.geget(state.cache, keyseq)
+  local value = tlib.geget(state.cache, keyseq)
   if value == nil then
     value = action(unpack(args or {}))
-    M.seset(state.cache, keyseq, value)
+    tlib.seset(state.cache, keyseq, value)
   end
   return value
 end
@@ -107,27 +52,11 @@ M.local_config_or = function(local_keyseq, global_value, opts)
     M.reload_local_config()
   end
 
-  return M.geget(state.local_config, local_keyseq) or global_value
+  return tlib.geget(state.local_config, local_keyseq) or global_value
 end
 
 M.replace_termcodes = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-M.print_table = function(tbl)
-  for k, v in pairs(tbl) do
-    print(k, v)
-  end
-end
-
-M.split_string = function(inputstr, sep)
-  inputstr = inputstr or ""
-  sep = sep or "%s"
-  local t = {}
-  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
-    table.insert(t, str)
-  end
-  return t
 end
 
 M.norm = function(command)
@@ -179,14 +108,6 @@ M.center_win = function()
   vim.cmd("normal! zz")
 end
 
-M.contains = function(str, sub)
-  return string.find(str, sub) ~= nil
-end
-
-M.contains_any = function(str, subs)
-  return string.find(str, table.concat(subs, "|")) ~= nil
-end
-
 M.get_highlight = function(name)
   return vim.api.nvim_get_hl(0, { name = name })
 end
@@ -210,16 +131,6 @@ M.get_recent_buffers = function()
   return bufnrs
 end
 
-M.filter_list = function(condition, items)
-  local result = {}
-  for _, v in pairs(items) do
-    if condition(v) then
-      result[#result + 1] = v
-    end
-  end
-  return result
-end
-
 M.cprev = function()
   if not pcall(vim.cmd.cprevious) then
     vim.cmd.clast()
@@ -229,35 +140,6 @@ M.cnext = function()
   if not pcall(vim.cmd.cnext) then
     vim.cmd.cfirst()
   end
-end
-
-M.keys = function(tbl)
-  local keys = {}
-  for key in pairs(tbl) do
-    table.insert(keys, key)
-  end
-  return keys
-end
-
-M.sorted_pairs = function(tbl, f)
-  local keys = M.keys(tbl)
-  table.sort(keys, f)
-  local i = 0
-  return function() -- iterator
-    i = i + 1
-    local key = keys[i]
-    if key ~= nil then
-      return key, tbl[key]
-    end
-  end
-end
-
-M.set = function(list)
-  local set = {}
-  for _, l in pairs(list) do
-    set[l] = true
-  end
-  return set
 end
 
 M.do_in_win = function(win, action, args)
@@ -336,7 +218,7 @@ M.term = function(command)
   -- Use buf as terminal if it is not
   if vim.bo[state.main_term.buf].filetype ~= "terminal" then
     M.do_in_win(state.main_term.win, vim.cmd.terminal)
-    vim.cmd.sleep("50m")
+    vim.cmd.sleep("50m") -- Shell initialization time
   end
 
   vim.fn.chansend(vim.bo[state.main_term.buf].channel, { "\x15" .. command .. "\r\n" })
@@ -347,8 +229,8 @@ M.is_auxiliary_buffer = function(buf)
   buf = buf or 0
   local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
 
-  return M.is_in_list(buf_name, consts.AUXILIARY.FILENAMES)
-    or M.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
+  return tlib.is_in_list(buf_name, consts.AUXILIARY.FILENAMES)
+    or slib.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
     or vim.bo[buf].filetype == "terminal"
 end
 

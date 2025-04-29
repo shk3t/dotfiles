@@ -1,6 +1,6 @@
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
-local private = lib.require_or("private.database", { itr_configs = {}, my_db_pass = "def" })
+local private = ulib.require_or("private.database", { itr_configs = {}, my_db_pass = "def" })
 
 local M = {}
 

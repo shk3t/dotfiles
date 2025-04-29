@@ -1,3 +1,5 @@
+local tlib = require("lib.base.table")
+
 local DAP = {
   RUNTIME_THREADS = { "runtime" },
   FILETYPES = { "dap-repl", "dapui_stacks", "dapui_scopes", "dapui_watches" },
@@ -6,9 +8,6 @@ local DAP = {
 }
 local DB = {
   FILENAMES = { "dbui", "dbout" },
-}
-local HTTP = {
-  FILENAMES = { "ui" },
 }
 
 return {
@@ -51,9 +50,8 @@ return {
   },
   DAP = DAP,
   DB = DB,
-  HTTP = HTTP,
   AUXILIARY = {
-    FILENAMES = vim.tbl_extend("keep", DAP.FILENAMES, DB.FILENAMES, HTTP.FILENAMES),
+    FILENAMES = tlib.merge_lists(DAP.FILENAMES, DB.FILENAMES, { "null", "ui", "DiffviewFilePanel" }),
   },
   DEFAULT_PYTHON_PATH = "/usr/bin/python",
 }

@@ -3,23 +3,23 @@ local autocmd = vim.api.nvim_create_autocmd
 local jlib = require("lib.jupyter")
 local quarto = require("quarto")
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 local opts = { silent = true }
 
-keymap("v", "<Space>j", lib.preserve_location(":<C-U>MoltenEvaluateVisual<CR>"), { silent = true })
+keymap("v", "<Space>j", ulib.preserve_location(":<C-U>MoltenEvaluateVisual<CR>"), { silent = true })
 keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
 keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
 keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)
 keymap("n", "<Space>jk", function()
-  lib.norm("zt")
+  ulib.norm("zt")
   vim.cmd("noautocmd MoltenEnterOutput")
-  lib.map_easy_closing()
+  ulib.map_easy_closing()
 end, opts)
 keymap("n", "<Space>jq", vim.cmd.MoltenInterrupt, opts)
 keymap("n", "<Space>jj", function()
-  lib.rnorm("vij")
-  lib.norm(":<C-U>MoltenEvaluateVisual<CR>")
+  ulib.rnorm("vij")
+  ulib.norm(":<C-U>MoltenEvaluateVisual<CR>")
 end, { silent = true })
 
 keymap("n", "<Space>JA", vim.cmd.MoltenReevaluateAll, opts)
@@ -42,8 +42,8 @@ vim.g.molten_enter_output_behavior = "open_and_enter"
 vim.g.molten_tick_rate = 200
 
 -- Use venv packages by default
-if lib.python_path ~= lib.DEFAULT_PYTHON_PATH then
-  vim.g.python3_host_prog = lib.python_path
+if ulib.python_path ~= ulib.DEFAULT_PYTHON_PATH then
+  vim.g.python3_host_prog = ulib.python_path
 end
 
 -- Jupyter notebook `.ipynb` files conversion

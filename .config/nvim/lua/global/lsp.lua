@@ -1,4 +1,5 @@
-local lib = require("lib.main")
+local ulib = require("lib.utils")
+local slib = require("lib.base.string")
 local keymap = vim.keymap.set
 
 local M = {}
@@ -81,7 +82,7 @@ M.servers = {
       Lua = {
         runtime = {
           version = "Lua 5.1",
-          path = lib.split_string(vim.env.LUA_PATH, ";"),
+          path = slib.split(vim.env.LUA_PATH, ";"),
         },
         workspace = {
           checkThirdParty = false,

@@ -1,11 +1,11 @@
 local keymap = vim.keymap.set
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 vim.g.no_python_maps = true
 
 keymap("n", "<C-CR>", function()
-  lib.norm(":wa<CR>")
-  lib.term(lib.local_config_or({ "run", "python" }, "python " .. vim.fn.expand("%")))
+  ulib.norm(":wa<CR>")
+  ulib.term(ulib.local_config_or({ "run", "python" }, "python " .. vim.fn.expand("%")))
 end, { buffer = true })
 keymap({ "i" }, "<F5>", "<Esc>:wa<CR>:exec '!python3' shellescape(@%, 1)<CR>", {
   buffer = true,

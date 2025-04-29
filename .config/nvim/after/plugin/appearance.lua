@@ -1,7 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local sign_define = vim.fn.sign_define
-local get_highlight = require("lib.main").get_highlight
-local highlight = require("lib.main").highlight
+local get_highlight = require("lib.utils").get_highlight
+local highlight = require("lib.utils").highlight
 local consts = require("lib.consts")
 
 local function set_transparent_bg()

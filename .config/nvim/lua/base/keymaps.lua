@@ -1,6 +1,6 @@
 local keymap = vim.keymap.set
 local klib = require("lib.keymaps")
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 -- Default behaviour
 keymap({ "n", "v" }, "<C-C>", "<Esc>")
@@ -53,8 +53,8 @@ keymap({ "n" }, "g<CR>", function()
   vim.fn.setreg("/", vim.fn.expand("<cword>"))
 end)
 keymap({ "v" }, "<CR>", function()
-  vim.fn.setreg("/", lib.get_visual())
-  lib.norm("<Esc>")
+  vim.fn.setreg("/", ulib.get_visual())
+  ulib.norm("<Esc>")
 end)
 
 -- Space mappings
@@ -78,18 +78,18 @@ keymap("n", "\\S", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("v", "\\s", function()
   local replacement = vim.fn.input("New: ")
   if replacement ~= "" then
-    vim.cmd("s/" .. lib.get_visual() .. "/" .. replacement .. "/g")
+    vim.cmd("s/" .. ulib.get_visual() .. "/" .. replacement .. "/g")
   end
-  lib.norm([[<Esc>]])
+  ulib.norm([[<Esc>]])
 end)
 keymap("v", "\\S", function()
-  vim.cmd([[%s/]] .. lib.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
-  lib.norm([[<Esc><C-O>]])
+  vim.cmd([[%s/]] .. ulib.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
+  ulib.norm([[<Esc><C-O>]])
 end)
 vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)
 keymap({ "n", "v" }, "<Space>BD", function()
   vim.cmd("%bd")
-  lib.norm("<C-O>")
+  ulib.norm("<C-O>")
 end)
 
 -- Splits
@@ -146,8 +146,8 @@ keymap("n", "<C-M-Right>", klib.longjump_forward)
 
 -- Quickfix list
 keymap({ "n", "v" }, "gq", vim.cmd.copen)
-keymap({ "n", "v" }, "[q", lib.cprev)
-keymap({ "n", "v" }, "]q", lib.cnext)
+keymap({ "n", "v" }, "[q", ulib.cprev)
+keymap({ "n", "v" }, "]q", ulib.cnext)
 
 -- Marks
 local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
@@ -187,7 +187,7 @@ keymap({ "n", "v" }, "<S-ScrollWheelDown>", "<ScrollWheelRight>")
 keymap({ "i", "n", "v" }, "<LeftMouse>", function()
   vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 20)
   vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 60)
-  lib.norm("<LeftMouse>")
+  ulib.norm("<LeftMouse>")
 end)
 
 -- Snippets

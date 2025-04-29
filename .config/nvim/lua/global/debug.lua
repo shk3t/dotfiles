@@ -1,11 +1,11 @@
 local M = {}
 
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 local python_default_config = {
   type = "python",
   request = "launch",
-  pythonPath = lib.python_path,
+  pythonPath = ulib.python_path,
   justMyCode = true,
   cwd = vim.fn.getcwd(),
 }

@@ -1,5 +1,5 @@
 local keymap = vim.keymap.set
-local lib = require("lib.main")
+local ulib = require("lib.utils")
 
 require("nvim-treesitter.configs").setup({
   -- ensure_installed = "all",
