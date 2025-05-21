@@ -174,7 +174,7 @@ local telescope_config = {
     undo = {
       use_delta = true,
       side_by_side = false,
-      vim_diff_opts = { ctxlen = 5 },
+      vim_diff_opts = { ctxlen = 20 },
       entry_format = "state #$ID, $STAT, $TIME",
       mappings = {
         i = {

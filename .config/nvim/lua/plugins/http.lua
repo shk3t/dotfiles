@@ -1,3 +1,4 @@
+local keymap = vim.keymap.set
 local kulala = require("kulala")
 local kulala_ui = require("kulala.ui")
 
@@ -28,4 +29,14 @@ kulala.setup({
     ["Show report"] = { "4", kulala_ui.show_report },
     ["Show stats"] = { "5", kulala_ui.show_stats },
   },
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "http",
+  callback = function()
+    keymap("n", "<C-CR>", kulala.run, { buffer = true, desc = "Send request" })
+    keymap("n", "<Space>rs", kulala.run, { buffer = true, desc = "Send request" })
+    keymap("n", "<Space>ra", kulala.run_all, { buffer = true, desc = "Send all requests" })
+    keymap("n", "<Space>rr", kulala.replay, { buffer = true, desc = "Replay the last request" })
+  end,
 })

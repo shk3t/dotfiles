@@ -36,7 +36,7 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "jay-babu/mason-null-ls.nvim",
-  -- "ray-x/go.nvim",
+  "ray-x/go.nvim",
   -- "mrcjkb/rustaceanvim",
   "jmbuhr/otter.nvim",
 

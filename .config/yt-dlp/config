@@ -4,5 +4,8 @@
 # Prefer 1080p or lower resolutions
 -f bestvideo[height<=?1080]+bestaudio/best
 
+# Force MP4 container when merging (e.g., for videos with separate audio)
+--merge-output-format mp4
+
 # # Use this proxy
 # --proxy 127.0.0.1:3128

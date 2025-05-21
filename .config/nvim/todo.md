@@ -1,4 +1,5 @@
 ## TODAY
+- nvim spider extend support for cyrillic symbols
 - dap threads fast switching
 - avante.nvim
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
@@ -8,6 +9,7 @@
 - image.nvim make images bigger in molten_output
 - remove auxiliary buffer when skip-jump (`vl`)
 - markdown formatting
+- config go.nvim
 
 ## Important
 ### Config existing plugins
@@ -30,6 +32,7 @@
         - key, value, triple quotes
         - fast increment-decrement node selections
         - jupyter code cells
+- [ ] flash.nvim (highlight `f` jumps)
 ### LSP
 - [ ] lua ls `gd` definition duplication: https://github.com/benlubas/.dotfiles/blob/main/nvim%2Flua%2Fbenlubas%2Flsp_handlers.lua
 - [ ] neovim debugger
@@ -65,7 +68,6 @@
 - [ ] command line rename (:s) autocomplete
 - [ ] text editing through ssh
 - [ ] yank history
-- [-] highlight `f` jumps
 - [ ] better visualblock mode
 - [ ] normal mode in cmd with preview and syntax highlighting
 - [ ] better (modifiable) quickfix buffer
