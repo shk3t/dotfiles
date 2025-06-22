@@ -1,4 +1,7 @@
 ## TODAY
+- multiple cursors on the similar word like emacs
+    - or is it better to use builtin motions?
+- mcphub.nvim
 - nvim spider extend support for cyrillic symbols
 - dap threads fast switching
 - avante.nvim
