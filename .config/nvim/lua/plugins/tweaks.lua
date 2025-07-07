@@ -2,7 +2,6 @@ local keymap = vim.keymap.set
 local ulib = require("lib.utils")
 
 require("Comment").setup()
--- require('xkbswitch').setup()
 
 local spider = require("spider")
 vim.g.spider_mappings = false

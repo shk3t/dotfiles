@@ -1,3 +1,5 @@
+local syslib = require("lib.system")
+
 return {
   main_term = {
     buf = -1,
@@ -5,8 +7,8 @@ return {
     mode = "t",
   },
   system = {
-    terminal_window_id = vim.fn.system([[xdotool getactivewindow]]),
-    tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]]),
+    terminal_window_id = syslib.get_terminal_window(),
+    tmux_window_id = syslib.get_tmux_window(),
   },
   cache = {},
   local_config = {},
@@ -21,4 +23,5 @@ return {
       },
     },
   },
+  insert_layout_idx = 0,
 }

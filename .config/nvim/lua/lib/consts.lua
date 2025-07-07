@@ -54,4 +54,5 @@ return {
     FILENAMES = tlib.merge_lists(DAP.FILENAMES, DB.FILENAMES, { "null", "ui", "DiffviewFilePanel" }),
   },
   DEFAULT_PYTHON_PATH = "/usr/bin/python",
+  LAYOUT = { ENGLISH_IDX = 0 },
 }

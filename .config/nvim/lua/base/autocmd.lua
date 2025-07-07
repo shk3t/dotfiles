@@ -1,9 +1,11 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
+local consts = require("lib.consts")
 local klib = require("lib.keymaps")
-local ulib = require("lib.utils")
 local slib = require("lib.base.string")
 local state = require("lib.state")
+local ulib = require("lib.utils")
+local syslib = require("lib.system")
 
 -- Line numeration toggle
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
@@ -123,5 +125,18 @@ autocmd("WinLeave", {
       state.main_term.mode = vim.api.nvim_get_mode().mode
       vim.cmd.stopinsert()
     end
+  end,
+})
+
+-- Auto layout switch
+autocmd("InsertEnter", {
+  callback = function()
+    syslib.set_layout(state.insert_layout_idx)
+  end,
+})
+autocmd("InsertLeave", {
+  callback = function()
+    state.insert_layout_idx = syslib.get_layout()
+    syslib.set_layout(consts.LAYOUT.ENGLISH_IDX)
   end,
 })

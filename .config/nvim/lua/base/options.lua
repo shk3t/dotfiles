@@ -59,10 +59,6 @@ vim.g.netrw_hide = 1
 -- let b:netrw_lastfile = 1
 
 -- Language
-vim.g.XkbSwitchEnabled = 1
-vim.g.XkbSwitchAssistNKeymap = 0 -- for commands r and f
-vim.g.XkbSwitchNLayout = "us" -- better telescope support
--- vim.g.XkbSwitchIminsertToggleKey = '<C-^>'
 vim.opt.keymap = "russian-jcukenwin"
 vim.opt.iminsert = 0
 vim.opt.imsearch = -1

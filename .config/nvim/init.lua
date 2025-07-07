@@ -107,8 +107,6 @@ require("lazy").setup({
   "stevearc/aerial.nvim",
 
   -- Tweaks
-  "lyokha/vim-xkbswitch",
-  -- "ivanesmantovich/xkbswitch.nvim",
   "numToStr/Comment.nvim",
   "kylechui/nvim-surround",
   "chrisgrieser/nvim-recorder",

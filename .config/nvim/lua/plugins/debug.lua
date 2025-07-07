@@ -1,9 +1,10 @@
 local dap = require("dap")
 local daplib = require("lib.debug")
 local dapui = require("dapui")
-local ulib = require("lib.utils")
-local tlib = require("lib.base.table")
 local slib = require("lib.base.string")
+local syslib = require("lib.system")
+local tlib = require("lib.base.table")
+local ulib = require("lib.utils")
 local widgets = require("dap.ui.widgets")
 local debug_configs = require("global.debug").debug_configs
 local keymap = vim.keymap.set
@@ -17,11 +18,11 @@ dap.listeners.after.event_initialized["steal_focus"] = function()
   print("Debugger is active!")
 end
 dap.listeners.after.event_continued["steal_focus"] = function()
-  state.system.tmux_window_id = vim.fn.system([[tmux display-message -p "#I"]])
+  state.system.tmux_window_id = syslib.get_tmux_window()
 end
 dap.listeners.after.event_stopped["steal_focus"] = function()
-  vim.fn.system("xdotool windowactivate " .. state.system.terminal_window_id)
-  vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. state.system.tmux_window_id)
+  syslib.focus_window(state.system.terminal_window_id)
+  syslib.focus_tmux_window(state.system.tmux_window_id)
 end
 
 dap.listeners.after.event_stopped["clear_focused_thread"] = function(session, body)
