@@ -1,5 +1,5 @@
-local ulib = require("lib.utils")
 local slib = require("lib.base.string")
+local ulib = require("lib.utils")
 local keymap = vim.keymap.set
 
 local M = {}
@@ -32,6 +32,7 @@ M.servers = {
         },
       },
     },
+    enable_formatting = false,
   },
   -- https://github.com/astral-sh/ruff-lsp/issues/384
   ruff = {
@@ -45,7 +46,6 @@ M.servers = {
       },
     },
     custom_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = true
       keymap({ "n", "v" }, "<Space>I", function()
         vim.lsp.buf.code_action({
           context = { only = { "source.organizeImports" } },
@@ -58,11 +58,18 @@ M.servers = {
   ts_ls = {
     init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
     settings = { javascript = tss_settings, typescript = tss_settings },
+    enable_formatting = false,
   },
-  html = true,
-  cssls = true,
+  html = {
+    enable_formatting = false,
+  },
+  cssls = {
+    enable_formatting = false,
+  },
   cssmodules_ls = true,
-  jsonls = true,
+  jsonls = {
+    enable_formatting = false,
+  },
   clangd = {
     cmd = {
       "clangd",
@@ -73,6 +80,8 @@ M.servers = {
       "--header-insertion-decorators=false",
       "--offset-encoding=utf-16",
     },
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+    enable_formatting = false,
   },
   bashls = true,
   texlab = true,
@@ -92,10 +101,15 @@ M.servers = {
         telemetry = { enable = false },
       },
     },
+    enable_formatting = false,
   },
-  gopls = true,
+  gopls = {
+    enable_formatting = false,
+  },
   jdtls = true,
-  marksman = true,
+  marksman = {
+    enable_formatting = false,
+  },
   rust_analyzer = {
     settings = {
       ["rust-analyzer"] = {
@@ -110,10 +124,8 @@ M.servers = {
         },
       },
     },
-    custom_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = true
-    end,
   },
+  buf_ls = true,
 }
 
 return M

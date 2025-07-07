@@ -41,15 +41,7 @@ local function base_attach(client, bufnr)
     vim.lsp.buf.references()
   end, { buffer = bufnr })
 
-  client.server_capabilities.documentFormattingProvider = false
   vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
-end
-
-local function attach(custom_attach)
-  return function(client, bufnr)
-    base_attach(client, bufnr)
-    pcall(custom_attach, client, bufnr)
-  end
 end
 
 local updated_capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -69,7 +61,13 @@ local function setup_server(server, config)
 
   config = vim.tbl_deep_extend("force", {
     on_init = base_init,
-    on_attach = attach(config.custom_attach),
+    on_attach = function(client, bufnr)
+      base_attach(client, bufnr)
+      if config.enable_formatting == false then
+        client.server_capabilities.documentFormattingProvider = false
+      end
+      pcall(config.custom_attach, client, bufnr)
+    end,
     capabilities = updated_capabilities,
     flags = { debounce_text_changes = nil },
   }, config)
