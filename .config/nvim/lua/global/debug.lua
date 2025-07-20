@@ -89,40 +89,6 @@ M.debug_configs = {
       --   justMyCode = false,
       -- }),
     },
-    ["/itresume/sok"] = {
-      vim.tbl_extend("force", python_default_config, {
-        name = "Django",
-        program = vim.fn.getcwd() .. "/manage.py",
-        args = { "runserver", "--noreload" },
-      }),
-      vim.tbl_extend("force", python_default_config, {
-        name = "Django deep debug",
-        program = vim.fn.getcwd() .. "/manage.py",
-        args = { "runserver", "--noreload" },
-        justMyCode = false,
-      }),
-      vim.tbl_extend("force", python_default_config, {
-        name = "Try Django script",
-        program = vim.fn.getcwd() .. "/scripts/try.py",
-      }),
-      vim.tbl_extend("force", python_default_config, {
-        name = "Try Django script deep",
-        program = vim.fn.getcwd() .. "/scripts/try.py",
-        justMyCode = false,
-      }),
-    },
-    ["/sok/docker"] = {
-      vim.tbl_extend("force", python_default_config, {
-        name = "UNREAL DEBUG",
-        program = vim.fn.getcwd() .. "/start.py",
-      }),
-    },
-    ["/sok_old/docker"] = {
-      vim.tbl_extend("force", python_default_config, {
-        name = "UNREAL DEBUG",
-        program = vim.fn.getcwd() .. "/start.py",
-      }),
-    },
   },
   -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
   go = {
@@ -132,16 +98,16 @@ M.debug_configs = {
         program = "${file}",
       }),
       -- {
-      --   type = "delve",
       --   name = "Debug test", -- configuration for debugging test files
+      --   type = "delve",
       --   request = "launch",
       --   mode = "test",
       --   program = "${file}"
       -- },
       -- -- works with go.mod packages and sub packages
       -- {
-      --   type = "delve",
       --   name = "Debug test (go.mod)",
+      --   type = "delve",
       --   request = "launch",
       --   mode = "test",
       --   program = "./${relativeFileDirname}"

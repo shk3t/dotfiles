@@ -2,8 +2,8 @@ local autocmd = vim.api.nvim_create_autocmd
 local api = require("nvim-tree.api")
 local keymap = vim.keymap.set
 local consts = require("lib.consts")
-local ulib = require("lib.utils")
 local tmux = require("tmux")
+local ulib = require("lib.utils")
 
 local function my_on_attach(bufnr)
   local function opts(desc)
@@ -22,7 +22,7 @@ local function my_on_attach(bufnr)
   keymap("n", "d", api.fs.create, opts("Create"))
   keymap("n", "y", api.fs.copy.node, opts("Copy"))
   keymap("n", "D", api.fs.trash, opts("Trash"))
-  keymap("n", "R", api.fs.rename, opts("Rename"))
+  keymap("n", "R", api.fs.rename_full, opts("Rename"))
   keymap("n", "<C-S>", api.node.open.horizontal, opts("Open: Horizontal Split"))
 
   keymap("n", "b", api.marks.toggle, opts("Toggle Bookmark"))
@@ -168,7 +168,7 @@ local function close_restore_prev_pos()
   end)
 end
 aerial.setup({
-  layout = { default_direction = "prefer_left", max_width = { 28, 0.3 } },
+  layout = { default_direction = "prefer_left", max_width = { 60, 0.3 } },
   icons = { Collapsed = " >" },
   highlight_on_jump = false,
   attach_mode = "window",
