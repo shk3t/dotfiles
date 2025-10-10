@@ -12,7 +12,7 @@ local function base_init(client)
   client.config.flags.allow_incremental_sync = true
 end
 
-for _, default_key in pairs({ "grn", "gra", "grr", "gri" }) do
+for _, default_key in pairs({ "grn", "gra", "grr", "gri", "grt" }) do
   vim.keymap.del("n", default_key)
 end
 keymap({ "n", "v" }, "<Space>LR", vim.cmd.LspRestart)
@@ -20,7 +20,7 @@ keymap({ "n", "v" }, "<Space>LI", vim.cmd.LspInfo)
 
 local function base_attach(client, bufnr)
   keymap("n", "K", vim.lsp.buf.hover, { buffer = bufnr })
-  -- keymap("n", "<C-k>", vim.lsp.buf.signature_help, {buffer = bufnr})
+  keymap("i", "<C-K>", vim.lsp.buf.signature_help, { buffer = bufnr })
   keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = bufnr })
   keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = bufnr })
   keymap({ "n", "v" }, "<Space>F", vim.lsp.buf.format, { buffer = bufnr })

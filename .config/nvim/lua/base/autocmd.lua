@@ -128,15 +128,15 @@ autocmd("WinLeave", {
   end,
 })
 
--- Auto layout switch
-autocmd("InsertEnter", {
+-- Auto language layout switch
+autocmd({"InsertEnter", "CmdlineEnter"}, {
   callback = function()
-    syslib.set_layout(state.insert_layout_idx)
+    syslib.set_layout(state.notnorm_layout_idx)
   end,
 })
-autocmd("InsertLeave", {
+autocmd({"InsertLeave", "CmdlineLeave"}, {
   callback = function()
-    state.insert_layout_idx = syslib.get_layout()
+    state.notnorm_layout_idx = syslib.get_layout()
     syslib.set_layout(consts.LAYOUT.ENGLISH_IDX)
   end,
 })

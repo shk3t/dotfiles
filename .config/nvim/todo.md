@@ -1,4 +1,5 @@
 ## TODAY
+- lsp (go) fields have to go first
 - multiple cursors on the similar word like emacs
     - or is it better to use builtin motions?
 - mcphub.nvim

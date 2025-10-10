@@ -24,6 +24,7 @@ bindkey -M menuselect "^J" vi-down-line-or-history
 bindkey -M menuselect "^K" vi-up-line-or-history
 bindkey -M menuselect "^H" vi-backward-char
 bindkey -M menuselect "^L" vi-forward-char
+bindkey -M menuselect "^[[9;2u" vi-up-line-or-history
 bindkey -M menuselect "^[[Z" vi-up-line-or-history
 bindkey -M menuselect "^M" .accept-line
 # bindkey -M menuselect "^[[13;5u" accept-line
@@ -59,6 +60,7 @@ function autosuggest-accept-line() {
 }
 zle -N autosuggest-accept-line
 bindkey "^[[13;5u" autosuggest-accept-line
+bindkey "^L" autosuggest-accept-line
 # bindkey "^[[13;5u" autosuggest-accept
 bindkey "^[[13;2u" accept-and-hold
 

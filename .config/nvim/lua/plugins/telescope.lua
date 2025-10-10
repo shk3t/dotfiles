@@ -203,30 +203,30 @@ telescope.load_extension("live_grep_args")
 telescope.load_extension("undo")
 telescope.load_extension("ui-select")
 
--- https://github.com/prochri/telescope-all-recent.nvim?tab=readme-ov-file#installation
-local pickers_frecency_opts = { disable = false, use_cwd = true, sorting = "frecency" }
-require("telescope-all-recent").setup({
-  database = { max_timestamps = 4 },
-  scoring = {
-    recency_modifier = {
-      [1] = { age = 60, value = 100 }, -- past hour
-      [2] = { age = 240, value = 60 }, -- past 4 hours
-      [3] = { age = 720, value = 30 }, -- past 12 hours
-      [4] = { age = 2880, value = 15 }, -- past 2 days
-      [5] = { age = 10080, value = 5 }, -- past week
-      [6] = { age = 43200, value = 0 }, -- past month
-    },
-    -- how much the score of a recent item will be improved.
-    boost_factor = 0.0001,
-  },
-  default = {
-    disable = true, -- disable any unkown pickers (recommended)
-  },
-  pickers = {
-    find_files = pickers_frecency_opts,
-    lsp_dynamic_workspace_symbols = pickers_frecency_opts,
-  },
-})
+-- -- https://github.com/prochri/telescope-all-recent.nvim?tab=readme-ov-file#installation
+-- local pickers_frecency_opts = { disable = false, use_cwd = true, sorting = "frecency" }
+-- require("telescope-all-recent").setup({
+--   database = { max_timestamps = 4 },
+--   scoring = {
+--     recency_modifier = {
+--       [1] = { age = 60, value = 100 }, -- past hour
+--       [2] = { age = 240, value = 60 }, -- past 4 hours
+--       [3] = { age = 720, value = 30 }, -- past 12 hours
+--       [4] = { age = 2880, value = 15 }, -- past 2 days
+--       [5] = { age = 10080, value = 5 }, -- past week
+--       [6] = { age = 43200, value = 0 }, -- past month
+--     },
+--     -- how much the score of a recent item will be improved.
+--     boost_factor = 0.0001,
+--   },
+--   default = {
+--     disable = true, -- disable any unkown pickers (recommended)
+--   },
+--   pickers = {
+--     find_files = pickers_frecency_opts,
+--     lsp_dynamic_workspace_symbols = pickers_frecency_opts,
+--   },
+-- })
 
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",

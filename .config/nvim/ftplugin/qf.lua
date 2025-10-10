@@ -47,4 +47,4 @@ keymap("n", "u", function()
   vim.g.prev_qflist = nil
 end, { buffer = true })
 
-keymap("n", "\\s", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })
+keymap("n", "<Space>rp", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })

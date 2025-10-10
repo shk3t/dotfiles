@@ -97,7 +97,7 @@ require("lazy").setup({
   -- Telescope
   { "nvim-telescope/telescope.nvim", lazy = true },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-  "prochri/telescope-all-recent.nvim",
+  -- "prochri/telescope-all-recent.nvim",
   "nvim-telescope/telescope-live-grep-args.nvim",
   "debugloop/telescope-undo.nvim",
   "nvim-telescope/telescope-ui-select.nvim",

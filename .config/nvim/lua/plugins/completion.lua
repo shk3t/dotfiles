@@ -1,11 +1,11 @@
 local cmp = require("cmp")
 local consts = require("lib.consts")
-local ulib = require("lib.utils")
 local luasnip = require("luasnip")
+local ulib = require("lib.utils")
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 
-keymap("n", "<Space>ip", function()
+keymap("n", "<Space>im", function()
   ulib.norm("e")
   vim.cmd.startinsert()
   vim.schedule(function()
@@ -80,7 +80,7 @@ cmp.setup({
     ["<C-E>"] = cmp.mapping.close(),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-CR>"] = confirm_complete,
-    -- ["<C-L>"] = confirm_complete,
+    ["<C-L>"] = confirm_complete,
     ["<C-Y>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
     ["<C-K>"] = cmp.mapping(
       cmp.mapping.select_prev_item({
@@ -105,9 +105,9 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = "codeium" },
     -- { name = "cmp_ai" },
+    { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "lazydev" },
-    { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     -- {name = "spell"},

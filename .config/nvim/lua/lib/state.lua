@@ -23,5 +23,5 @@ return {
       },
     },
   },
-  insert_layout_idx = 0,
+  notnorm_layout_idx = 0,
 }
