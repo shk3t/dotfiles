@@ -27,7 +27,7 @@ history = 10000
 [window]
 decorations = "full"
 dynamic_padding = true
-opacity =  1
+opacity = 1
 
 [general]
 import = ["~/.config/alacritty/colors/rose-pine.toml", "~/.config/alacritty/extended-keys.toml"]

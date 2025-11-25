@@ -28,6 +28,10 @@ keymap({ "n", "v" }, "y", "mmy")
 -- keymap({ "n", "v" }, "p", "p`]")
 -- keymap({ "n", "v" }, "P", "P`]")
 
+-- Distinguish keypresses
+keymap("n", "<C-I>", "<C-I>")
+keymap("n", "<C-M>", "<C-M>")
+
 -- Visual actions
 keymap("v", "P", [["0p]])
 
@@ -196,11 +200,3 @@ end)
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")
 keymap("s", "<C-C>", "<Esc>")
-
--- Bugfix
-keymap({ "n", "v" }, "<M-Tab>", "<C-I>")
-function longjump_forward()
-  klib.longjump("<M-Tab>")
-end
-keymap("n", "g<M-Tab>", longjump_forward)
-keymap("n", "<C-M-Right>", longjump_forward)
