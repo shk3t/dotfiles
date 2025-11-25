@@ -1,6 +1,5 @@
 local ulib = require("lib.utils")
 local servers = require("global.lsp").servers
-local lspconfig = require("lspconfig")
 local telescope_builtin = require("telescope.builtin")
 local keymap = vim.keymap.set
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
@@ -72,7 +71,8 @@ local function setup_server(server, config)
     flags = { debounce_text_changes = nil },
   }, config)
 
-  lspconfig[server].setup(config)
+  vim.lsp.config[server] = config
+  vim.lsp.enable(server)
 end
 
 for server, config in pairs(servers) do

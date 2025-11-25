@@ -62,7 +62,14 @@ zle -N autosuggest-accept-line
 bindkey "^[[13;5u" autosuggest-accept-line
 bindkey "^L" autosuggest-accept-line
 # bindkey "^[[13;5u" autosuggest-accept
-bindkey "^[[13;2u" accept-and-hold
+# bindkey "^[[13;2u" accept-and-hold
+
+# Break line
+function insert-newline() {
+    LBUFFER+=$'\n'
+}
+zle -N insert-newline
+bindkey "^[[13;2u" insert-newline
 
 # Yank to the system clipboard
 function vi-yank-xclip() {

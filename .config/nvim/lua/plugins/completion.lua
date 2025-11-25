@@ -4,6 +4,9 @@ local luasnip = require("luasnip")
 local ulib = require("lib.utils")
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
+local compare = require("cmp.config.compare")
+local default_config = require("cmp.config").get()
+local types = require("cmp.types")
 
 keymap("n", "<Space>im", function()
   ulib.norm("e")
@@ -103,11 +106,11 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-    { name = "codeium" },
+    -- { name = "codeium" },
     -- { name = "cmp_ai" },
-    { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "lazydev" },
+    { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
     -- {name = "spell"},
@@ -115,9 +118,9 @@ cmp.setup({
   }),
   formatting = {
     format = function(entry, vim_item)
-      if vim_item.kind:find("Codeium") then
-        vim_item.kind_hl_group = "Error"
-      end
+      -- if vim_item.kind:find("Codeium") then
+      --   vim_item.kind_hl_group = "Error"
+      -- end
       vim_item = trim_redundant(vim_item)
       vim_item = add_icon(vim_item)
       return vim_item
@@ -179,9 +182,31 @@ cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
   }),
 })
 
+cmp.setup.filetype({ "go" }, {
+  sorting = {
+    comparators = (function()
+      local comparators = vim.deepcopy(default_config.sorting.comparators)
+      table.insert(comparators, 1, function(entry1, entry2)
+        local kind1 = entry1:get_kind() --- @type lsp.CompletionItemKind | number
+        local kind2 = entry2:get_kind() --- @type lsp.CompletionItemKind | number
+        if kind1 ~= kind2 then
+          if kind1 == types.lsp.CompletionItemKind.Field then
+            return true
+          end
+          if kind2 == types.lsp.CompletionItemKind.Field then
+            return false
+          end
+        end
+        return nil
+      end)
+      return comparators
+    end)(),
+  },
+})
+
 cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   sources = cmp.config.sources({
-    { name = "codeium" },
+    -- { name = "codeium" },
     { name = "luasnip" },
     { name = "vim-dadbod-completion" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },
@@ -189,9 +214,9 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
   }),
   formatting = {
     format = function(entry, vim_item)
-      if vim_item.kind:find("Codeium") then
-        vim_item.kind_hl_group = "Error"
-      end
+      -- if vim_item.kind:find("Codeium") then
+      --   vim_item.kind_hl_group = "Error"
+      -- end
       if vim_item.menu == "[DB]" then
         vim_item.kind = "Database"
         vim_item.kind_hl_group = "Keyword"

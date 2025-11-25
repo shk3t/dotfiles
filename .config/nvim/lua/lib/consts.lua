@@ -46,7 +46,7 @@ return {
     Operator = "󰆕",
     TypeParameter = "󰅲",
     Database = "󰆼",
-    Codeium = "󰘦",
+    -- Codeium = "󰘦",
   },
   DAP = DAP,
   DB = DB,

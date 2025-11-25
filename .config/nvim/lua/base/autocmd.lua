@@ -4,8 +4,8 @@ local consts = require("lib.consts")
 local klib = require("lib.keymaps")
 local slib = require("lib.base.string")
 local state = require("lib.state")
-local ulib = require("lib.utils")
 local syslib = require("lib.system")
+local ulib = require("lib.utils")
 
 -- Line numeration toggle
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
@@ -129,14 +129,41 @@ autocmd("WinLeave", {
 })
 
 -- Auto language layout switch
-autocmd({"InsertEnter", "CmdlineEnter"}, {
+local layout_enter_callback = function()
+  syslib.set_layout(state.notnorm_layout_idx)
+end
+local layout_exit_callback = function()
+  state.notnorm_layout_idx = syslib.get_layout()
+  syslib.set_layout(consts.LAYOUT.ENGLISH_IDX)
+end
+autocmd("InsertEnter", {
+  callback = layout_enter_callback,
+})
+autocmd("CmdlineEnter", {
   callback = function()
-    syslib.set_layout(state.notnorm_layout_idx)
+    if vim.v.event.cmdtype == "/" then
+      layout_enter_callback()
+    end
   end,
 })
-autocmd({"InsertLeave", "CmdlineLeave"}, {
+autocmd("InsertLeave", {
+  callback = layout_exit_callback,
+})
+autocmd("CmdlineLeave", {
   callback = function()
-    state.notnorm_layout_idx = syslib.get_layout()
-    syslib.set_layout(consts.LAYOUT.ENGLISH_IDX)
+    if vim.v.event.cmdtype == "/" then
+      layout_exit_callback()
+    end
+  end,
+})
+
+-- Auto detect Helm templates
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.yaml",
+  callback = function(args)
+    local content = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
+    if table.concat(content):find("{{.-}}") then
+      vim.bo[args.buf].filetype = "gotmpl"
+    end
   end,
 })

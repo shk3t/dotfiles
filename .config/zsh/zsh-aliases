@@ -27,6 +27,9 @@ alias vai="tmux rename-window DB; nvim -c 'CodeCompanionFullscreen'"
 alias t='tmux'
 alias ta='tmux attach'
 
+# Kubernetes
+alias k='kubectl'
+
 # Colorize output (good for log files)
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'

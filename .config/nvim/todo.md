@@ -1,5 +1,7 @@
-## TODAY
-- lsp (go) fields have to go first
+## nottoday but anyway
+- refactor everything like in: https://github.com/LazyVim/LazyVim
+- checkout new lspconfig features
+    - multiline tokens for example
 - multiple cursors on the similar word like emacs
     - or is it better to use builtin motions?
 - mcphub.nvim

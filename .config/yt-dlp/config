@@ -1,5 +1,5 @@
 # Save in ~/torrents
--o ~/torrents/%(title)s.%(ext)s
+-o ~/videos/learn/downloads/%(title)s.%(ext)s
 
 # Prefer 1080p or lower resolutions
 -f bestvideo[height<=?720]+bestaudio/best
