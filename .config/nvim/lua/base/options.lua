@@ -20,14 +20,14 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
-vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Appearance
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.cursorline = true
 -- vim.opt.cursorlineopt = {"number", "line"}
-vim.opt.cursorlineopt = {"number"}
+vim.opt.cursorlineopt = { "number" }
 vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 vim.opt.signcolumn = "yes"
 
@@ -67,7 +67,7 @@ vim.opt.langmap =
 
 -- Spell
 vim.opt.spell = false
-vim.opt.spelllang = {"en_us", "ru_ru"}
+vim.opt.spelllang = { "en_us", "ru_ru" }
 
 -- Additional filetype mappings
 vim.filetype.add({
