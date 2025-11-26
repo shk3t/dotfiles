@@ -17,22 +17,22 @@ while [[ $1 ]]; do
             fi;;
         -o | --opacity)
             if [[ $2 =~ $FLOAT_RE ]]; then
-                sed -Ei "s/(opacity = ).*$/\1 $2/" $ALAC_TOML
+                sed -Ei "s/(opacity =).*$/\1 $2/" $ALAC_TOML
                 shift
             else
                 cat $ALAC_TOML | grep opacity 
             fi;;
         -s | --scale)
             if [[ $2 =~ $POS_INT_RE ]]; then
-                sed -Ei "s/(size = ).*$/\1 $2/" $ALAC_TOML
+                sed -Ei "s/(size =).*$/\1 $2/" $ALAC_TOML
                 shift
             else
                 cat $ALAC_TOML | grep size 
             fi;;
         -b | --blur)
-            sed -Ei "s/(TERMINAL_BLUR_ENABLED=).*$/\11/" $ZSH_EXPORTS;;
+            sed -Ei "s/(blur =).*$/\1 true/" $ALAC_TOML;;
         -B | --no-blur)
-            sed -Ei "s/(TERMINAL_BLUR_ENABLED=).*$/\10/" $ZSH_EXPORTS;;
+            sed -Ei "s/(blur =).*$/\1 false/" $ALAC_TOML;;
     esac
     shift
 done

@@ -248,17 +248,10 @@ for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "ty
   ::continue::
 end
 
--- autocmd("BufWritePost", {
---   callback = function()
---     vim.cmd("silent lua require('dap').restart()")
---   end,
--- })
 autocmd("FileType", {
   pattern = "dap-repl",
   callback = function()
     keymap("i", "<C-K>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-L>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-Q>", "<C-W>k", { buffer = true })
     keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
     keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
     keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
@@ -267,10 +260,13 @@ autocmd("FileType", {
       local current_buffer = vim.api.nvim_win_get_buf(0)
       local count = vim.api.nvim_buf_line_count(current_buffer)
       if row == count then
-        vim.api.nvim_input("<Insert><CR>")
+        ulib.typekeys("<Insert><CR>")
       else
         daplib.trigger_first_action()
       end
+    end, { buffer = true, remap = true })
+    keymap("n", "o", function()
+      daplib.trigger_first_action()
     end, { buffer = true, remap = true })
   end,
 })

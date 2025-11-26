@@ -53,7 +53,7 @@ M.longjump = function(key)
     local next_row = -1
     repeat
       local prev_row = next_row
-      vim.api.nvim_input(key)
+      ulib.rnorm(key)
       next_row = unpack(vim.api.nvim_win_get_cursor(0))
     until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
   end)
@@ -62,7 +62,7 @@ M.longjump_back = function()
   M.longjump("<C-O>")
 end
 M.longjump_forward = function()
-  M.longjump("<C-I>")
+  M.longjump([[\\i]])
 end
 M.longjump_back_skip_auxiliary = function()
   repeat

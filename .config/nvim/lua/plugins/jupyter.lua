@@ -102,18 +102,3 @@ end, {
   nargs = 1,
   complete = "file",
 })
-
--- BUG
-autocmd("FileType", {
-  pattern = "TelescopePrompt",
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local picker = require("telescope.actions.state").get_current_picker(bufnr)
-    if picker.prompt_title == "Please select a kernel" then
-      vim.schedule(function()
-        vim.cmd.sleep("1m")
-        vim.api.nvim_input("<CR>")
-      end)
-    end
-  end,
-})

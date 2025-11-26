@@ -1,30 +1,30 @@
-ZSHPLUGINDIR=$HOME/.local/share/zsh
+ZSHPLUGINDIR="$HOME/.local/share/zsh"
 
-setopt appendhistory
-setopt histignorealldups
-setopt autocd extendedglob nomatch menucomplete
+# General
+unsetopt beep
+setopt append_history
+setopt hist_ignore_all_dups
 setopt interactive_comments
-unsetopt BEEP
 
-# do not highlight pasted text
-zle_highlight=('paste:none')
-
-# Completions
-autoload -U compinit                # Basic completion
-zstyle ':completion:*' menu select  # Menu
-zmodload zsh/complist               # Completion listing extensions
-_comp_options+=(globdots)           # Include hidden files
-
-# Deletion behaviour
+# Navigation & Editing
 autoload -U select-word-style
 select-word-style bash
 
-# Colors
+# Color variables
 autoload -U colors && colors
 
-# Useful Functions
-source "$ZDOTDIR/zsh-functions"
+# Completions
+autoload -U compinit
+zmodload zsh/complist
+setopt menu_complete
+_comp_options+=(globdots)
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' group-name ''
+compinit
 
+# Useful Functions
+source "$ZDOTDIR/zsh-utils"
 # Normal files to source
 source "$ZDOTDIR/zsh-exports"
 source "$ZDOTDIR/zsh-vim-mode"
@@ -34,16 +34,7 @@ source "$ZDOTDIR/zsh-keys"
 source "$ZDOTDIR/zsh-colors"
 
 # Plugins
-zsh_add_plugin "zsh-users/zsh-autosuggestions"
-zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
-
-compinit
-
-# Turn off text underline
-(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]="fg=white,bold"
-ZSH_HIGHLIGHT_STYLES[precommand]="fg=green,bold"
-ZSH_HIGHLIGHT_STYLES[suffix-alias]="fg=green,bold"
-ZSH_HIGHLIGHT_STYLES[autodirectory]="fg=green,bold"
+zsh_add_plugin "zsh-users/zsh-autosuggestions"
+zsh_add_plugin "zsh-users/zsh-syntax-highlighting"

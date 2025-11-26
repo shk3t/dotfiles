@@ -8,20 +8,11 @@ local compare = require("cmp.config.compare")
 local default_config = require("cmp.config").get()
 local types = require("cmp.types")
 
-keymap("n", "<Space>im", function()
-  ulib.norm("e")
-  vim.cmd.startinsert()
-  vim.schedule(function()
-    cmp.complete()
-    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
-  end)
-end, { desc = "Import package" })
-
 local confirm_complete = cmp.mapping(function(fallback)
   if cmp.visible() then
     cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
     if vim.fn.mode() == "c" then
-      vim.api.nvim_input("<CR>")
+      ulib.typekeys("<CR>")
     end
   else
     cmp.complete()
@@ -68,6 +59,16 @@ local function add_icon(vim_item)
   end
   return vim_item
 end
+
+keymap("n", "<Space>ip", function()
+  ulib.norm("el")
+  vim.cmd.startinsert()
+  vim.schedule(function()
+    cmp.complete()
+    vim.cmd.sleep("100m")
+    cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
+  end)
+end, { desc = "Import package" })
 
 cmp.setup({
   snippet = {

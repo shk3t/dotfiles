@@ -68,8 +68,12 @@ M.rnorm = function(command)
 end
 
 M.tnorm = function(command)
-  vim.api.nvim_input("<C-\\><C-O>")
+  M.typekeys("<C-\\><C-O>")
   vim.cmd("normal! " .. M.replace_termcodes(command))
+end
+
+M.typekeys = function(keyseq)
+  vim.api.nvim_feedkeys(M.replace_termcodes(keyseq), "t", false)
 end
 
 M.preserve_location = function(callback)

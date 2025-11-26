@@ -1,28 +1,6 @@
-# if [ "$TERM" = "linux" ]; then
-#   /bin/echo -e "
-#   \e]P0403c58
-#   \e]P1ea6f91
-#   \e]P29bced7
-#   \e]P3f1ca93
-#   \e]P434738e
-#   \e]P5c3a5e6
-#   \e]P6eabbb9
-#   \e]P7faebd7
-#   \e]P86f6e85
-#   \e]P9ea6f91
-#   \e]PA9bced7
-#   \e]PBf1ca93
-#   \e]PC34738e
-#   \e]PDc3a5e6
-#   \e]PEeabbb9
-#   \e]PFffffff
-#   "
-#   # get rid of artifacts
-#   clear
-# fi
-
-# # alacritty hack for blur in ~/.zshrc
-if [[ $TERMINAL_BLUR_ENABLED == 1 && $(ps --no-header -p $PPID -o comm) =~ '^alacritty$' ]]; then
-        for wid in $(xdotool search --pid $PPID); do
-            xprop -f _KDE_NET_WM_BLUR_BEHIND_REGION 32c -set _KDE_NET_WM_BLUR_BEHIND_REGION 0 -id $wid; done
-fi
+# Turn off text underline
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[suffix-alias]="fg=green,bold"
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=green,bold"
+ZSH_HIGHLIGHT_STYLES[autodirectory]="fg=green,bold"
+ZSH_HIGHLIGHT_STYLES[path]="bold"

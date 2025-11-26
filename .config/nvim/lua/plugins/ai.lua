@@ -1,6 +1,7 @@
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local quarto = require("quarto")
+local ulib = require("lib.utils")
 
 -- local diff = require("mini.diff")
 -- diff.setup({
@@ -93,7 +94,7 @@ autocmd("FileType", {
   pattern = "codecompanion",
   callback = function()
     keymap({ "n" }, "<C-CR>", function()
-      vim.api.nvim_input("<Esc><CR>")
+      ulib.typekeys("<Esc><CR>")
     end, { buffer = true })
     keymap({ "n", "v" }, "<F5>", vim.cmd.MarkdownPreviewToggle, { buffer = true })
     quarto.activate()

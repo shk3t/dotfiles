@@ -30,6 +30,7 @@ keymap({ "n", "v" }, "y", "mmy")
 
 -- Distinguish keypresses
 keymap("n", "<C-I>", "<C-I>")
+keymap("n", [[\\i]], "<C-I>")
 keymap("n", "<C-M>", "<C-M>")
 
 -- Visual actions

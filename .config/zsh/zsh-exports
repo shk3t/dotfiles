@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # History
 HISTFILE="$HOME/.zsh_history"
 HISTCONTROL=ignoredups
