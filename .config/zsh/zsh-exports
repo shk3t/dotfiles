@@ -1,18 +1,7 @@
 # History
 HISTFILE="$HOME/.zsh_history"
-HISTCONTROL=ignoredups
 HISTSIZE=10000
 SAVEHIST=10000
-
-# Python
-# export PYENV_ROOT="$HOME/.pyenv"
-# command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
-
-# Latex
-#PATH="$PATH:$HOME/.local/texlive/2022/bin/x86_64-linux"
-#MANPATH="$HOME/.local/texlive/2022/texmf-dist/doc/man"
-#INFOPATH="$HOME/.local/texlive/2022/texmf-dist/doc/info"
 
 # Packages
 export NODE_PATH="/usr/local/lib/node_modules"
@@ -38,12 +27,11 @@ PATH="$PATH:$GOPATH/bin"
 # Man
 export MANPAGER='nvim +Man!'
 
-# God's tools
+# Navigation
 eval "$(zoxide init zsh)"
 export FZF_DEFAULT_COMMAND='ag --depth 16 --hidden --ignore .git -g ""'
 
-# Environment variables set everywhere
+# Default apps
 EDITOR="nvim"
 TERMINAL="alacritty"
 BROWSER="google-chrome-stable"
-TERMINAL_BLUR_ENABLED=0

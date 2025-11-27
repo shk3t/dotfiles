@@ -1,4 +1,4 @@
-ZSHPLUGINDIR="$HOME/.local/share/zsh"
+ZSHPLUGINDIR="$HOME/.local/share/zsh/plugins"
 
 # General
 unsetopt beep
@@ -14,14 +14,11 @@ select-word-style bash
 autoload -U colors && colors
 
 # Completions
-autoload -U compinit
+autoload -U compinit; compinit
 zmodload zsh/complist
 setopt menu_complete
 _comp_options+=(globdots)
 zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors ''
-zstyle ':completion:*' group-name ''
-compinit
 
 # Useful Functions
 source "$ZDOTDIR/zsh-utils"

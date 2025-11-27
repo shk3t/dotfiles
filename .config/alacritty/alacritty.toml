@@ -4,7 +4,7 @@ import = ["~/.config/alacritty/colors/rose-pine.toml", "~/.config/alacritty/exte
 [window]
 dynamic_padding = true
 decorations = "Full"
-opacity = 1.0
+opacity = 1
 blur = false
 
 [scrolling]

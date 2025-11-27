@@ -1,8 +1,12 @@
-bindkey -v  # turn on vim bindings
+bindkey -v           # turn on vim bindings
 export KEYTIMEOUT=1  # no delay before mode change
 
-[[ $KEYMAP = vicmd ]] && (( max++ ))
-
+# Go to insert mode on each new prompt
+zle-line-init() {
+    zle -K viins
+    echo -ne "\e[6 q"
+}
+zle -N zle-line-init
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
     case $KEYMAP in
@@ -11,10 +15,15 @@ function zle-keymap-select () {
     esac
 }
 zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[6 q"
-}
-zle -N zle-line-init
-echo -ne '\e[6 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
+
+# Autosuggestions integration
+[[ $KEYMAP = vicmd ]] && (( max++ ))
+
+# Enable quote text-objects
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+    for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+    done
+done

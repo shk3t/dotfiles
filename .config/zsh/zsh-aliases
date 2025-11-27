@@ -1,35 +1,14 @@
-#alias g='lazygit'
-alias zsh-update-plugins="find "$ZSHPLUGINDIR/plugin" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+# Plugins
+alias zsh-update-plugins="find "$ZSHPLUGINDIR" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
-function duh {
-    du -had1 $1 | sort -h
-}
-function duh2 {
-    du -had2 $1 | sort -h
-}
-function duh3 {
-    du -had3 $1 | sort -h
-}
-
-# Neovim
-alias v='nvim'
-# alias ve='nvim .'
-alias vf="nvim -c 'Telescope find_files'"
-alias vg="nvim -c 'Telescope live_grep_args'"
-alias va="nvim -c \"normal! 'A\""
-alias vl='nvim -c "lua require(\"lib.keymaps\").longjump_back_skip_auxiliary()"'
-# alias vt='nvim -c "terminal"'
-alias vdb="cd ~/projects/draft; tmux rename-window DB; nvim -c 'DBUIToggle'"
-alias vai="tmux rename-window DB; nvim -c 'CodeCompanionFullscreen'"
-
-# Tmux
+# Shortcuts
 alias t='tmux'
 alias ta='tmux attach'
-
-# Kubernetes
 alias k='kubectl'
+alias g='lazygit'
+alias ipy=ipython
 
-# Colorize output (good for log files)
+# Colorize output
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -50,17 +29,31 @@ alias z=z_alias
 alias zi=zi_alias
 alias cdf='cd "$(fzf | xargs -0 dirname)"'
 
+# Dir info
+function duh {
+    du -had1 $1 | sort -h
+}
+function duh2 {
+    du -had2 $1 | sort -h
+}
+
+# Neovim
+alias v='nvim'
+alias vf="nvim -c 'Telescope find_files'"
+alias vg="nvim -c 'Telescope live_grep_args'"
+alias va="nvim -c \"normal! 'A\""
+alias vl='nvim -c "lua require(\"lib.keymaps\").longjump_back_skip_auxiliary()"'
+alias vdb="cd ~/projects/draft; tmux rename-window DB; nvim -c 'DBUIToggle'"
+alias vai="tmux rename-window DB; nvim -c 'CodeCompanionFullscreen'"
+
 # Clipboard
 alias clip='xclip -selection clipboard'
-function cpass {
+function copypass {
     echo -n $(pass $@) | xclip -selection clipboard
 }
 
 # Package manager
 alias autoremove='pacman -Qdtq | sudo pacman -Rs -'
-
-# Python
-alias ipy=ipython
 
 # Git
 function gacp {
@@ -103,10 +96,4 @@ function webui-restart {
 }
 function webui-stop {
     docker rm -f open-webui 2> /dev/null
-}
-
-function jupyter-venv {
-    python -m venv .venv
-    source .venv/bin/activate
-    pip install pynvim jupyter_client nbformat ipykernel cairosvg plotly kaleido pnglatex pyperclip
 }

@@ -5,47 +5,43 @@ stty susp "^Z"
 stty intr "^C"
 stty werase "^H"
 
-# Key bindings
-bindkey "^L" autosuggest-accept
-bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word
-bindkey "^[[3~" delete-char
-bindkey "^[[3;5~" kill-word
+# Navigation
+bindkey "^[[D" backward-char
 bindkey "^[[C" forward-char
-bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
 bindkey "^[[1~" beginning-of-line
 bindkey "^[[4~" end-of-line
 bindkey "^P" up-history
 bindkey "^N" down-history
 
-# Completion menu movements
-bindkey -M menuselect "^J" vi-down-line-or-history
-bindkey -M menuselect "^K" vi-up-line-or-history
-bindkey -M menuselect "^H" vi-backward-char
-bindkey -M menuselect "^L" vi-forward-char
-bindkey -M menuselect "^[[9;2u" vi-up-line-or-history
-bindkey -M menuselect "^[[Z" vi-up-line-or-history
-bindkey -M menuselect "^M" .accept-line
-# bindkey -M menuselect "^[[13;5u" accept-line
-bindkey -M menuselect "^[" vi-cmd-mode
+# Editing
+bindkey "^[[3~" delete-char
+bindkey "^[[3;5~" kill-word
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word
+function insert-newline() {
+    LBUFFER+=$'\n'
+}
+zle -N insert-newline
+bindkey "^[[13;2u" insert-newline
 
 # Vim bindings
-bindkey -M vicmd "^[[1;5C" forward-word
-bindkey -M vicmd "^[[1;5D" backward-word
-bindkey -M vicmd "j" down-line
-bindkey -M vicmd "k" up-line
-# bindkey -M vicmd "^S" autosuggest-toggle
 bindkey -rM vicmd ":"
+bindkey -M vicmd "k" up-line
+bindkey -M vicmd "j" down-line
+bindkey -M vicmd "^[[1;5D" backward-word
+bindkey -M vicmd "^[[1;5C" forward-word
 
-# Fast tmux copy mode switch
-function tmux_copy_mode() { 
-    tmux copy-mode
-    tmux send -X jump-backward $
-}
-zle -N tmux_copy_mode
-bindkey "^[[27;5u" tmux_copy_mode
-bindkey -M vicmd "^[[27;5u" tmux_copy_mode
+# Completion menu
+bindkey -M menuselect "^M" .accept-line
+bindkey -M menuselect "^[" vi-cmd-mode
+bindkey -M menuselect "^K" up-history
+bindkey -M menuselect "^[[9;2u" up-history
+bindkey -M menuselect "^[[Z" up-history
+bindkey -M menuselect "^J" down-history
+bindkey -M menuselect "^H" backward-char
+bindkey -M menuselect "^L" forward-char
 
 # Fast exit
 exit_zsh() { exit }
@@ -53,38 +49,15 @@ zle -N exit_zsh
 bindkey '^Q' exit_zsh
 bindkey -M vicmd '^Q' exit_zsh
 
-# Complete and run
-function autosuggest-accept-line() {
-    zle autosuggest-accept
-    zle accept-line
-}
-zle -N autosuggest-accept-line
-bindkey "^[[13;5u" autosuggest-accept-line
-bindkey "^L" autosuggest-accept-line
-# bindkey "^[[13;5u" autosuggest-accept
-# bindkey "^[[13;2u" accept-and-hold
-
-# Break line
-function insert-newline() {
-    LBUFFER+=$'\n'
-}
-zle -N insert-newline
-bindkey "^[[13;2u" insert-newline
-
 # Yank to the system clipboard
 function vi-yank-xclip() {
     zle vi-yank
     echo -n "$CUTBUFFER" | xclip -selection clipboard
 }
 zle -N vi-yank-xclip
-bindkey -M vicmd "\x1b[67;6u" vi-yank-xclip
+bindkey -M vicmd "^[[67;6u" vi-yank-xclip
 
 # Interrupt completion
-function interruptible-expand-or-complete {
-    COMPLETION_ACTIVE=1
-    zle expand-or-complete
-    COMPLETION_ACTIVE=0
-}
 function interrupt-completion {
     if [[ $COMPLETION_ACTIVE == 1 ]]; then
         COMPLETION_ACTIVE=0
@@ -94,27 +67,33 @@ function interrupt-completion {
         return 0
     fi
 }
-zle -N interruptible-expand-or-complete
 zle -N interrupt-completion
-bindkey '^I' interruptible-expand-or-complete
 bindkey '^E' interrupt-completion
 
-# Widgets update: https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/config.zsh#L43-L49
+# Autosuggestions
+function autosuggest-accept-line() {
+    zle autosuggest-accept
+    zle accept-line
+}
+zle -N autosuggest-accept-line
+bindkey "^[[13;5u" autosuggest-accept-line
+bindkey "^L" autosuggest-accept-line
+# Widgets update: https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/config.zsh
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(
+    forward-char
     end-of-line
+    vi-forward-char
     vi-end-of-line
     vi-add-eol
     autosuggest-accept-line
-    forward-char
-    forward-word
 )
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS=(
-    vi-forward-char
+    forward-word
+    emacs-forward-word
     vi-forward-word
     vi-forward-word-end
     vi-forward-blank-word
     vi-forward-blank-word-end
     vi-find-next-char
     vi-find-next-char-skip
-    emacs-forward-word
 )

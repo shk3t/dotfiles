@@ -44,10 +44,7 @@
 - [ ] neovim debugger
 - [ ] better autocompletion with SQL LSP
 - [ ] config x-ray/go
-- [ ] config rustaceanvim
-- [ ] graphql lsp: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#graphql
 ### Global
-- [ ] oh my zsh
 ### Debug
 - https://github.com/igorlfs/nvim-dap-view
 - https://github.com/theHamsta/nvim-dap-virtual-text
@@ -108,10 +105,7 @@
 <br>
 
 ## Global
-- [ ] CHEATSH: https://github.com/chubin/cheat.sh
 - [ ] openvpn
-- [ ] restore tmux + nvim sessions
-- [-] Tmux Ctrl + Tab
 ### ZSH
 - [ ] better vim motions: `visual select inside double quotes`
 ### KDE

@@ -1,3 +1,0 @@
-python3 $PWD/manage.py makemigrations
-python3 $PWD/manage.py migrate
-python3 $PWD/manage.py runserver
