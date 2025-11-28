@@ -1,10 +1,8 @@
 local ulib = require("lib.utils")
-local servers = require("global.lsp").servers
+local servers = require("public.lsp").servers
 local telescope_builtin = require("telescope.builtin")
 local keymap = vim.keymap.set
 local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
-
-require("mason").setup()
 
 local function base_init(client)
   client.config.flags = client.config.flags or {}
@@ -81,12 +79,4 @@ end
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = VERTICAL_BORDERS,
-})
-
-require("lazydev").setup({
-  library = {
-    -- See the configuration section for more details
-    -- Load luvit types when the `vim.uv` word is found
-    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-  },
 })

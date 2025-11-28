@@ -129,7 +129,6 @@ keymap({ "n", "v" }, "<C-W>>", "<Cmd>+tabmove<CR>")
 keymap({ "n", "v" }, "<C-W>Q", vim.cmd.tabclose)
 keymap({ "n", "v" }, "<C-W>n", klib.rename_tab)
 keymap({ "n", "v" }, "<C-W><C-N>", klib.rename_tab)
-keymap({ "n", "v" }, "<C-W>M", "gT<Cmd>Tabmerge right<CR><C-W>l")
 keymap({ "n", "v" }, "<Space><Tab>", "g<Tab>")
 keymap({ "n", "v" }, "<C-W>p", "g<Tab>")
 

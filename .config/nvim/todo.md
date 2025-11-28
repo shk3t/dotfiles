@@ -1,4 +1,5 @@
 ## nottoday but anyway
+- inner outter quotes
 - refactor everything like in: https://github.com/LazyVim/LazyVim
 - checkout new lspconfig features
     - multiline tokens for example

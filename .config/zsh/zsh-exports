@@ -6,6 +6,7 @@ SAVEHIST=10000
 # Packages
 export NODE_PATH="/usr/local/lib/node_modules"
 export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
 
 # Lua
 LUA_VERSION="5.4"
@@ -22,7 +23,7 @@ PATH="$PATH:$HOME/.local/bin"
 
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:/usr/lib/rustup/bin"
-PATH="$PATH:$GOPATH/bin"
+PATH="$PATH:$GOBIN"
 
 # Man
 export MANPAGER='nvim +Man!'

@@ -1,6 +1,4 @@
-local autocmd = vim.api.nvim_create_autocmd
 local telelib = require("lib.telescope")
-
 local keymap = vim.keymap.set
 
 require("gitsigns").setup({
@@ -106,28 +104,3 @@ require("gitsigns").setup({
     bufmap({ "o", "v" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
   end,
 })
-
-require("blame").setup({ width = 35, date_format = "%H:%M %d.%m.%Y" })
-keymap("n", "<Space>GB", vim.cmd.BlameToggle)
-autocmd("FileType", {
-  pattern = "blame",
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.signcolumn = "no"
-    vim.opt_local.wrap = false
-    vim.opt_local.cursorlineopt = "line"
-  end,
-})
-
-local actions = require("diffview.actions")
-require("diffview").setup({
-  use_icons = false,
-  signs = { fold_closed = "> ", fold_open = "v ", done = "√" },
-  keymaps = {
-    file_panel = {
-      ["a"] = actions.toggle_stage_entry,
-      ["x"] = actions.toggle_stage_entry,
-    },
-  },
-})
-keymap({ "n", "v" }, "<Space>GD", vim.cmd.DiffviewOpen)

@@ -112,9 +112,9 @@ local function setup_colors()
       break
     end
   end
-  if consts.ICONS_ENABLED then
-    require("nvim-web-devicons").setup()
-  end
+  -- if consts.ICONS_ENABLED then
+  --   require("nvim-web-devicons").setup()
+  -- end
 end
 
 autocmd({ "Colorscheme", "SourcePre" }, { callback = setup_colors })

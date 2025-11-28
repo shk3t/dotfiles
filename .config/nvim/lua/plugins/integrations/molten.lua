@@ -1,8 +1,6 @@
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local jlib = require("lib.jupyter")
-local quarto = require("quarto")
-local VERTICAL_BORDERS = require("lib.consts").VERTICAL_BORDERS
 local ulib = require("lib.utils")
 
 local opts = { silent = true }
@@ -46,37 +44,6 @@ if ulib.python_path ~= ulib.DEFAULT_PYTHON_PATH then
   vim.g.python3_host_prog = ulib.python_path
 end
 
--- Jupyter notebook `.ipynb` files conversion
-require("jupytext").setup({
-  style = "markdown",
-  output_extension = "md",
-  force_ft = "markdown",
-})
-
--- Quarto: Molten LSP integration
-quarto.setup({
-  lspFeatures = {
-    -- NOTE: put whatever languages you want here:
-    languages = { "r", "python", "rust" },
-    chunks = "all",
-    -- diagnostics = {
-    --   enabled = true,
-    --   triggers = { "InsertLeave", "TextChanged" },
-    -- },
-    -- completion = {
-    --   enabled = true,
-    -- },
-  },
-  codeRunner = {
-    enabled = true,
-    default_method = "molten",
-  },
-})
--- activate LSP on entering markdown buffer
-autocmd("FileType", {
-  pattern = "markdown",
-  callback = quarto.activate,
-})
 -- automatically import output chunks from a jupyter notebook
 autocmd("BufAdd", {
   pattern = { "*.ipynb" },

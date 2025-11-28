@@ -12,6 +12,7 @@ select-word-style bash
 
 # Color variables
 autoload -U colors && colors
+eval $(dircolors)
 
 # Completions
 autoload -U compinit; compinit
@@ -19,6 +20,7 @@ zmodload zsh/complist
 setopt menu_complete
 _comp_options+=(globdots)
 zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Useful Functions
 source "$ZDOTDIR/zsh-utils"

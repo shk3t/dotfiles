@@ -4,11 +4,10 @@ local luasnip = require("luasnip")
 local ulib = require("lib.utils")
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local compare = require("cmp.config.compare")
 local default_config = require("cmp.config").get()
 local types = require("cmp.types")
 
-local confirm_complete = cmp.mapping(function(fallback)
+local confirm_complete = cmp.mapping(function(_)
   if cmp.visible() then
     cmp.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert })
     if vim.fn.mode() == "c" then
@@ -229,6 +228,3 @@ cmp.setup.filetype({ "sql", "mysql", "plsql" }, {
     end,
   },
 })
-
-require("luasnip.loaders.from_vscode").lazy_load()
-require("global.snippets")

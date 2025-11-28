@@ -1,6 +1,5 @@
 local M = {}
 
-local builtin = require("telescope.builtin")
 local consts = require("lib.consts")
 local ulib = require("lib.utils")
 
@@ -17,7 +16,7 @@ M.quickfix_picker = function(title, callback)
       return
     end
     local cur_win = vim.api.nvim_get_current_win()
-    builtin.quickfix({ prompt_title = title })
+    require("telescope.builtin").quickfix({ prompt_title = title })
     vim.api.nvim_win_close(cur_win, false)
   end
 end

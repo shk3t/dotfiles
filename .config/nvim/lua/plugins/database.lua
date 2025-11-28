@@ -2,7 +2,7 @@ local keymap = vim.keymap.set
 local keydel = vim.keymap.del
 local autocmd = vim.api.nvim_create_autocmd
 local urllib = require("lib.url")
-local local_configs = require("global.database").local_configs
+local local_configs = require("public.database").local_configs
 
 keymap("n", "<Space>db", vim.cmd.DBUIToggle)
 keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)

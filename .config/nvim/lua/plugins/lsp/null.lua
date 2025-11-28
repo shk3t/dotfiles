@@ -17,23 +17,3 @@ null_ls.setup({
     null_ls.builtins.formatting.golines,
   },
 })
-
-require("go").setup({
-  disable_defaults = true,
-  go = "go",
-  preludes = {
-    default = function()
-      return {}
-    end,
-    GoRun = function()
-      return {}
-    end,
-  },
-})
-
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = { "json" },
---   callback = function()
---     vim.bo.formatprg = "jq"
---   end,
--- })

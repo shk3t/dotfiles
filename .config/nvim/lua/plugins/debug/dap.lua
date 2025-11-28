@@ -1,18 +1,13 @@
 local dap = require("dap")
-local daplib = require("lib.debug")
-local dapui = require("dapui")
 local slib = require("lib.base.string")
 local syslib = require("lib.system")
 local tlib = require("lib.base.table")
 local ulib = require("lib.utils")
-local widgets = require("dap.ui.widgets")
-local debug_configs = require("global.debug").debug_configs
+local debug_configs = require("public.debug").debug_configs
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
-local consts = require("lib.consts")
 local state = require("lib.state")
-
-state.dap.widgets.scopes = widgets.sidebar(widgets.scopes)
+local daplib = require("lib.debug")
 
 dap.listeners.after.event_initialized["steal_focus"] = function()
   print("Debugger is active!")
@@ -28,39 +23,6 @@ end
 dap.listeners.after.event_stopped["clear_focused_thread"] = function(session, body)
   state.dap.focus.thread = {}
 end
-
-local dapui_config = {
-  controls = { enabled = false, element = "stacks" },
-  icons = { collapsed = ">", current_frame = ">", expanded = "v" },
-  mappings = {
-    add = "A",
-    edit = "C",
-    expand = { "<CR>", "<2-LeftMouse>", "o" },
-    open = "O",
-    remove = "D",
-    repl = "r",
-    toggle = "t",
-  },
-  element_mappings = {
-    stacks = { open = { "<CR>", "<2-LeftMouse>", "o" } },
-    -- breakpoints = { open = { "<CR>", "<2-LeftMouse>", "o" } },
-  },
-  expand_lines = false,
-  floating = { border = consts.VERTICAL_BORDERS },
-  layouts = {
-    {
-      elements = {
-        { id = "stacks", size = 0.15 },
-        { id = "scopes", size = 0.60 },
-        { id = "watches", size = 0.25 },
-      },
-      position = "right",
-      size = 90,
-    },
-    { elements = { { id = "repl", size = 1 } }, position = "bottom", size = 10 },
-  },
-  render = { indent = 2 },
-}
 
 local function breakpoint_jump(find_func)
   local cur_row, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -97,42 +59,6 @@ local function bp_find_next(cur_row, qflist)
   return qflist[1].lnum
 end
 
-local function switch_thread_focus(step)
-  if not daplib.update_focused_thread() or step == 0 then
-    return
-  end
-  local threads = tlib.compact(dap.session().threads)
-  local f_thread = state.dap.focus.thread
-
-  local start
-  for i, v in pairs(threads) do
-    if v.id == f_thread.id then
-      start = i + 1
-      print("i:", i)
-    end
-  end
-  local finish = start + #threads - 2
-  if step < 0 then
-    start, finish = finish, start
-  end
-
-  for i = start, finish, step do
-    local thread = threads[(i - 1) % #threads + 1]
-    if not slib.contains_any(thread.name, consts.DAP.RUNTIME_THREADS) then
-      f_thread.id = thread.id
-      f_thread.name = thread.name
-      break
-    end
-  end
-
-  widgets.centered_float(widgets.threads)
-  vim.fn.search("\\V" .. f_thread.name)
-  daplib.trigger_first_action()
-  vim.cmd.sleep("1m")
-  vim.fn.search([[^\(.*\<\(]] .. table.concat(consts.DAP.RUNTIME_THREADS, [[\|]]) .. [[\)\>\)\@!.*$]])
-  daplib.trigger_first_action()
-end
-
 keymap({ "i", "n", "v" }, "<F9>", dap.continue)
 keymap({ "i", "n", "v" }, "<F8>", dap.step_over)
 keymap({ "i", "n", "v" }, "<F7>", dap.step_into)
@@ -154,26 +80,10 @@ keymap("n", "]b", function()
 end)
 keymap("n", "[s", dap.up)
 keymap("n", "]s", dap.down)
-keymap("n", "[t", function()
-  switch_thread_focus(-1)
-end)
-keymap("n", "]t", function()
-  switch_thread_focus(1)
-end)
 keymap("n", "<Space>dc", dap.repl.open)
 keymap("n", "<Space>dr", function()
   vim.cmd.wall()
   dap.run_last()
-end)
-keymap("n", "<Space>ds", function()
-  state.dap.widgets.scopes.toggle()
-end)
-keymap("n", "<Space>dt", function()
-  widgets.centered_float(widgets.threads)
-end)
-keymap("n", "<Space>dg", dapui.toggle)
-keymap({ "n", "v" }, "<Space>de", function(expr)
-  widgets.hover(expr, { border = consts.VERTICAL_BORDERS })
 end)
 
 dap.defaults.fallback.external_terminal = {
@@ -182,7 +92,6 @@ dap.defaults.fallback.external_terminal = {
 }
 dap.defaults.auto_continue_if_many_stopped = false
 
-dapui.setup(dapui_config)
 
 dap.adapters.python = {
   type = "executable",
@@ -194,19 +103,6 @@ dap.adapters.cppdbg = {
   type = "executable",
   command = vim.env.HOME .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
 }
--- require("dap-vscode-js").setup({
---   -- https://github.com/mxsdev/nvim-dap-vscode-js/issues/58
---   -- https://www.reddit.com/r/neovim/comments/y7dvva/typescript_debugging_in_neovim_with_nvimdap/
---   debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
---   debugger_cmd = {"js-debug-adapter"},
---   adapters = {
---     "pwa-node",
---     "pwa-chrome",
---     "pwa-msedge",
---     "node-terminal",
---     "pwa-extensionHost",
---   },
--- })
 dap.adapters["pwa-node"] = {
   type = "server",
   host = "localhost",
@@ -276,12 +172,5 @@ autocmd("FileType", {
     keymap("n", "o", function()
       daplib.trigger_first_action()
     end, { buffer = true, remap = true })
-  end,
-})
-autocmd("BufEnter", {
-  pattern = "DAP Watches",
-  callback = function()
-    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
-    keymap("n", "u", vim.cmd.undo, { buffer = true })
   end,
 })
