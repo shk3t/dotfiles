@@ -113,8 +113,11 @@ require("lazy").setup({
   -- Debug
   {
     "mfussenegger/nvim-dap",
+    config = function()
+      require("plugins.debug.dap")
+      require("plugins.colorscheme.dap").setup()
+    end,
     dependencies = "williamboman/mason.nvim",
-    config = reqfunc("plugins.debug.dap"),
   },
   {
     "rcarriga/nvim-dap-ui",
@@ -130,7 +133,7 @@ require("lazy").setup({
   { "stevearc/aerial.nvim", config = reqfunc("plugins.navigation.aerial") },
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
+    -- lazy = false,  -- TODO
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -139,7 +142,10 @@ require("lazy").setup({
       "debugloop/telescope-undo.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
     },
-    config = reqfunc("plugins.navigation.telescope"),
+    config = function()
+      require("plugins.navigation.telescope")
+      require("plugins.colorscheme.telescope")
+    end,
   },
 
   -- Integrations
@@ -174,7 +180,13 @@ require("lazy").setup({
   "gpanders/editorconfig.nvim",
 
   -- Git
-  { "lewis6991/gitsigns.nvim", config = reqfunc("plugins.git.gitsigns") },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("plugins.git.gitsigns")
+      require("plugins.colorscheme.gitsigns").setup()
+    end,
+  },
   { "FabijanZulj/blame.nvim", config = reqfunc("plugins.git.blame") },
   { "sindrets/diffview.nvim", config = reqfunc("plugins.git.diffview") },
 
@@ -190,14 +202,27 @@ require("lazy").setup({
   { "kylechui/nvim-surround", config = reqfunc("plugins.tweaks.surround") },
   { "chrisgrieser/nvim-recorder", config = reqfunc("plugins.tweaks.recorder") },
   { "vim-scripts/Tabmerge", config = reqfunc("plugins.tweaks.tabmerge") },
-  { "chentoast/marks.nvim", config = reqfunc("plugins.tweaks.marks") },
   { "chrisgrieser/nvim-spider", config = reqfunc("plugins.tweaks.spider") },
+  {
+    "chentoast/marks.nvim",
+    config = function()
+      require("plugins.tweaks.marks")
+      require("plugins.colorscheme.marks").setup()
+    end,
+  },
 
   -- UI
-  { "rose-pine/neovim", config = reqfunc("plugins.ui.colorscheme") },  -- TODO
   { "nvim-tree/nvim-web-devicons", config = require("lib.consts").ICONS_ENABLED },
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugins.ui.lualine") },
   { "nanozuki/tabby.nvim", config = reqfunc("plugins.ui.tabby") },
   { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugins.ui.indent") },
   -- "zbirenbaum/neodim",
+
+  -- Colorscheme
+  {
+    "rose-pine/neovim",
+    config = function()
+      require("plugins.colorscheme.main").setup()
+    end,
+  },
 }, { defaults = { lazy = false } })
