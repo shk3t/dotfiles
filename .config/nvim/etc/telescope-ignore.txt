@@ -72,6 +72,6 @@ bootstrap.min.css
 # Specific
 docker/languages/sql/
 model_weights/
-data/
+# data/
 *.csv
 videos/

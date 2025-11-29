@@ -1,4 +1,4 @@
-local ulib = require("lib.utils")
+local inputs = require("lib.base.input")
 local keymap = vim.keymap.set
 -- vim.g.prev_qflist = nil
 -- vim.g.prev_qfpos = nil
@@ -21,7 +21,7 @@ keymap("n", "dd", function()
 end, { buffer = true })
 
 keymap("v", "d", function()
-  ulib.norm("<Esc>")
+  inputs.norm("<Esc>")
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local start_line = vim.fn.line("'<")
   local end_line = vim.fn.line("'>")

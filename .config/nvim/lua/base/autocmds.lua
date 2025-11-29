@@ -1,11 +1,11 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local consts = require("lib.consts")
-local klib = require("lib.keymaps")
-local slib = require("lib.base.string")
-local state = require("lib.state")
+local consts = require("consts")
+local cmds = require("lib.cmds")
+local strings = require("lib.base.string")
+local state = require("state")
 local syslib = require("lib.system")
-local ulib = require("lib.utils")
+local winbufs = require("lib.winbuf")
 
 -- Line numeration toggle
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
@@ -19,13 +19,13 @@ autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
 -- Dynamic autoscroll near window edges
 autocmd({ "WinResized", "BufEnter" }, {
   callback = function()
-    klib.set_default_scrolloff()
+    cmds.set_default_scrolloff()
   end,
 })
 autocmd("ModeChanged", {
   pattern = "[vV]:*", -- After visual selection with mouse
   callback = function()
-    klib.set_default_scrolloff()
+    cmds.set_default_scrolloff()
   end,
 })
 
@@ -55,10 +55,10 @@ autocmd("FileType", {
 })
 
 -- Easy Window closing
-autocmd("CmdwinEnter", { callback = ulib.map_easy_closing })
+autocmd("CmdwinEnter", { callback = cmds.map_easy_closing })
 autocmd("FileType", {
   pattern = { "help", "dap-float", "qf" },
-  callback = ulib.map_easy_closing,
+  callback = cmds.map_easy_closing,
 })
 
 -- Highlight yank
@@ -73,7 +73,7 @@ autocmd("TextYankPost", {
   callback = function()
     if vim.v.event.operator == "y" then
       pcall(function()
-        ulib.norm("`m")
+        cmds.norm("`m")
         vim.cmd.delmarks("m")
       end)
     end
@@ -83,12 +83,12 @@ autocmd("TextYankPost", {
 -- Close all auxiliary windows if all the main windows were closed
 autocmd("WinEnter", {
   callback = function()
-    if not ulib.is_auxiliary_buffer() then
+    if not winbufs.is_auxiliary_buffer() then
       return
     end
     for _, win in pairs(vim.api.nvim_list_wins()) do
       local buf = vim.api.nvim_win_get_buf(win)
-      if not ulib.is_auxiliary_buffer(buf) then
+      if not winbufs.is_auxiliary_buffer(buf) then
         return
       end
     end
@@ -114,7 +114,7 @@ autocmd("TermOpen", {
 -- Consistent terminal mode after buffer switch
 autocmd("WinEnter", {
   callback = function()
-    if vim.bo.filetype == "terminal" and slib.contains(state.main_term.mode, "[tT]") then
+    if vim.bo.filetype == "terminal" and strings.contains(state.main_term.mode, "[tT]") then
       vim.cmd.startinsert()
     end
   end,

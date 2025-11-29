@@ -1,6 +1,6 @@
 local keymap = vim.keymap.set
-local klib = require("lib.keymaps")
-local ulib = require("lib.utils")
+local cmds = require("lib.cmds")
+local inputs = require("lib.base.input")
 
 -- Default behaviour
 keymap({ "n", "v" }, "<C-C>", "<Esc>")
@@ -58,8 +58,8 @@ keymap({ "n" }, "g<CR>", function()
   vim.fn.setreg("/", vim.fn.expand("<cword>"))
 end)
 keymap({ "v" }, "<CR>", function()
-  vim.fn.setreg("/", ulib.get_visual())
-  ulib.norm("<Esc>")
+  vim.fn.setreg("/", cmds.get_visual())
+  inputs.norm("<Esc>")
 end)
 
 -- Space mappings
@@ -68,33 +68,33 @@ keymap({ "n", "v" }, "<S-Space>", "<Space>", { remap = true })
 keymap("i", "<C-Space>", "<Nop>")
 keymap({ "n", "v" }, "<Space>y", [[mm"+y]])
 keymap("n", "<Space>yy", [[mm0vg_"+y]])
-keymap({ "n", "v" }, "<Space>Y", klib.yank_all_sys_clip)
+keymap({ "n", "v" }, "<Space>Y", cmds.yank_all_sys_clip)
 -- keymap({ "n", "v" }, "<Space>p", [["+p]])
 -- keymap({ "n", "v" }, "<Space>P", [["+P]])
 keymap({ "n", "v" }, "<Space>?", "<Cmd>set hlsearch!<CR>")
 keymap({ "n", "v" }, "<Space>I", "<Cmd>set ignorecase!<CR>")
-keymap({ "n", "v" }, "<Space>TN", klib.toggle_line_numeration)
-keymap({ "n", "v" }, "<Space>TR", klib.toggle_relative_numeration)
-keymap({ "n", "v" }, "<Space>TT", klib.toggle_tab_width)
-keymap({ "n", "v" }, "<Space>TW", klib.toggle_line_wrap)
-keymap({ "n", "v" }, "<Space>C", klib.toggle_fixed_signcolumn)
+keymap({ "n", "v" }, "<Space>TN", cmds.toggle_line_numeration)
+keymap({ "n", "v" }, "<Space>TR", cmds.toggle_relative_numeration)
+keymap({ "n", "v" }, "<Space>TT", cmds.toggle_tab_width)
+keymap({ "n", "v" }, "<Space>TW", cmds.toggle_line_wrap)
+keymap({ "n", "v" }, "<Space>C", cmds.toggle_fixed_signcolumn)
 keymap("n", "<Space>rp", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("n", "<Space>RP", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
 keymap("v", "<Space>rp", function()
   local replacement = vim.fn.input("New: ")
   if replacement ~= "" then
-    vim.cmd("s/" .. ulib.get_visual() .. "/" .. replacement .. "/g")
+    vim.cmd("s/" .. cmds.get_visual() .. "/" .. replacement .. "/g")
   end
-  ulib.norm([[<Esc>]])
+  inputs.norm([[<Esc>]])
 end)
 keymap("v", "<Space>RP", function()
-  vim.cmd([[%s/]] .. ulib.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
-  ulib.norm([[<Esc><C-O>]])
+  vim.cmd([[%s/]] .. cmds.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
+  inputs.norm([[<Esc><C-O>]])
 end)
 vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)
 keymap({ "n", "v" }, "<Space>BD", function()
   vim.cmd("%bd")
-  ulib.norm("<C-O>")
+  inputs.norm("<C-O>")
 end)
 
 -- Splits
@@ -127,8 +127,8 @@ end
 keymap({ "n", "v" }, "<C-W><", "<Cmd>-tabmove<CR>")
 keymap({ "n", "v" }, "<C-W>>", "<Cmd>+tabmove<CR>")
 keymap({ "n", "v" }, "<C-W>Q", vim.cmd.tabclose)
-keymap({ "n", "v" }, "<C-W>n", klib.rename_tab)
-keymap({ "n", "v" }, "<C-W><C-N>", klib.rename_tab)
+keymap({ "n", "v" }, "<C-W>n", cmds.rename_tab)
+keymap({ "n", "v" }, "<C-W><C-N>", cmds.rename_tab)
 keymap({ "n", "v" }, "<Space><Tab>", "g<Tab>")
 keymap({ "n", "v" }, "<C-W>p", "g<Tab>")
 
@@ -145,16 +145,16 @@ keymap({ "n", "v" }, "j", [[(v:count > 1 ? "m'" . v:count . 'j' : 'gj')]], {
 keymap({ "n", "v" }, "k", [[(v:count > 1 ? "m'" . v:count . 'k' : 'gk')]], {
   expr = true,
 })
-keymap("n", "g;", klib.prev_insert_pos)
-keymap("n", "g<C-O>", klib.longjump_back)
-keymap("n", "g<C-I>", klib.longjump_forward)
-keymap("n", "<C-M-Left>", klib.longjump_back)
-keymap("n", "<C-M-Right>", klib.longjump_forward)
+keymap("n", "g;", cmds.prev_insert_pos)
+keymap("n", "g<C-O>", cmds.longjump_back)
+keymap("n", "g<C-I>", cmds.longjump_forward)
+keymap("n", "<C-M-Left>", cmds.longjump_back)
+keymap("n", "<C-M-Right>", cmds.longjump_forward)
 
 -- Quickfix list
 keymap({ "n", "v" }, "gq", vim.cmd.copen)
-keymap({ "n", "v" }, "[q", ulib.cprev)
-keymap({ "n", "v" }, "]q", ulib.cnext)
+keymap({ "n", "v" }, "[q", cmds.quiet_cprev)
+keymap({ "n", "v" }, "]q", cmds.quiet_cnext)
 
 -- Marks
 local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
@@ -194,7 +194,7 @@ keymap({ "n", "v" }, "<S-ScrollWheelDown>", "<ScrollWheelRight>")
 keymap({ "i", "n", "v" }, "<LeftMouse>", function()
   vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 20)
   vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 60)
-  ulib.norm("<LeftMouse>")
+  inputs.norm("<LeftMouse>")
 end)
 
 -- Snippets

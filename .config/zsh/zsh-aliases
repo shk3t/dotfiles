@@ -42,7 +42,7 @@ alias v='nvim'
 alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
 alias va="nvim -c \"normal! 'A\""
-alias vl='nvim -c "lua require(\"lib.keymaps\").longjump_back_skip_auxiliary()"'
+alias vl='nvim -c "lua require(\"lib.cmds\").longjump_back_skip_auxiliary()"'
 alias vdb="cd ~/projects/draft; tmux rename-window DB; nvim -c 'DBUIToggle'"
 alias vai="tmux rename-window DB; nvim -c 'CodeCompanionFullscreen'"
 

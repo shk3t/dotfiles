@@ -18,5 +18,4 @@ M.split = function(inputstr, sep)
   return t
 end
 
-
 return M
