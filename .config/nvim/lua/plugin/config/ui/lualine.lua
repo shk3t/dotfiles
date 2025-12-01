@@ -8,7 +8,7 @@ end
 
 lualine.setup({
   options = {
-    icons_enabled = consts.ICONS_ENABLED,
+    icons_enabled = consts.ICONS.ENABLED,
     theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
@@ -29,7 +29,7 @@ lualine.setup({
         sections = { "error", "warn", "hint" },
         symbols = (function()
           local symbols = {}
-          for k, v in pairs(consts.DIAGNOSTIC_SIGNS) do
+          for k, v in pairs(consts.ICONS.DIAGNOSTIC) do
             symbols[k] = v .. " "
           end
           return symbols
@@ -37,7 +37,7 @@ lualine.setup({
       },
     },
     lualine_c = { { "filename", path = 1 } },
-    lualine_x = consts.ICONS_ENABLED
+    lualine_x = consts.ICONS.ENABLED
         and {
           { "filetype", icon = true, icon_only = true, padding = { right = 0 }, colored = false },
           filetype,

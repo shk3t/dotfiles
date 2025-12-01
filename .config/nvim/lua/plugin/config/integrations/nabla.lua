@@ -3,6 +3,6 @@ local consts = require("consts")
 local nabla = require("nabla")
 
 keymap("n", "<Space>lk", function()
-  nabla.popup({ border = consts.VERTICAL_BORDERS })
+  nabla.popup({ border = consts.ICONS.BORDER })
 end)
 keymap("n", "<Space>LK", nabla.toggle_virt)

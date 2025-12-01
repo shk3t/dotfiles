@@ -216,7 +216,7 @@ require("lazy").setup({
   },
 
   -- UI
-  { "nvim-tree/nvim-web-devicons", config = require("consts").ICONS_ENABLED },
+  { "nvim-tree/nvim-web-devicons", config = require("consts").ICONS.ENABLED },
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.config.ui.lualine") },
   { "nanozuki/tabby.nvim", config = reqfunc("plugin.config.ui.tabby") },
   { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.indent") },

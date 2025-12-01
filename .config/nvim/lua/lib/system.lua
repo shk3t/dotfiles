@@ -22,14 +22,14 @@ M.get_terminal_window = function()
   return -1
 end
 
+M.get_tmux_window = function()
+  return tonumber(vim.fn.system([[tmux display-message -p "#I"]]))
+end
+
 M.focus_window = function(window_id)
   if consts.SYSTEM.IS_XDOTOOL_AVAILABLE then
     vim.fn.system("xdotool windowactivate " .. tostring(window_id))
   end
-end
-
-M.get_tmux_window = function()
-  return tonumber(vim.fn.system([[tmux display-message -p "#I"]]))
 end
 
 M.focus_tmux_window = function(window_id)

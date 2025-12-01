@@ -6,7 +6,7 @@ local strings = require("lib.base.string")
 local sys = require("lib.system")
 local tables = require("lib.base.table")
 local debug_configs = require("plugin.data.debug").debug_configs
-local localcfg = require("lib.localcfg")
+local lcfg = require("lib.localcfg")
 local state = require("state")
 local teleutils = require("plugin.util.telescope")
 local utils = require("plugin.util.debug")
@@ -135,10 +135,10 @@ dap.adapters.bashdb = {
   name = "bashdb",
 }
 
-function setup_configs()
+local function setup_configs()
   for _, language in pairs({ "python", "go", "c", "cpp", "rust", "javascript", "typescript", "sh" }) do
     dap.configurations[language] = {}
-    local local_configs = localcfg.local_config_or({ "debug", language })
+    local local_configs = lcfg.local_config_or({ "debug", language }, nil, { reload = false })
     if local_configs then
       dap.configurations[language] = local_configs
       goto continue

@@ -1,9 +1,10 @@
-local M = {}
-
 local consts = require("consts")
+local inputs = require("lib.base.input")
 local state = require("state")
 local strings = require("lib.base.string")
 local tables = require("lib.base.table")
+
+local M = {}
 
 M.do_in_win = function(win, action, args)
   local prev_win = vim.api.nvim_get_current_win()
@@ -33,14 +34,15 @@ M.term = function(command)
   end
 
   vim.fn.chansend(vim.bo[state.main_term.buf].channel, { "\x15" .. command .. "\r\n" })
-  M.do_in_win(state.main_term.win, M.tnorm, { "G" }) -- scroll to the end
+  M.do_in_win(state.main_term.win, inputs.tnorm, { "G" }) -- scroll to the end
 end
 
+-- Which are automatically spawned to serve main buffers
 M.is_auxiliary_buffer = function(buf)
   buf = buf or 0
   local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
 
-  return tables.is_in_list(buf_name, consts.AUXILIARY.FILENAMES)
+  return tables.is_in_list(buf_name, consts.AUXILIARY_BUF.FILENAMES)
     or strings.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
     or vim.bo[buf].filetype == "terminal"
 end

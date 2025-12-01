@@ -16,7 +16,5 @@ vim.keymap.set(
     .. " '!nasm -g -f elf64' shellescape(@%, 1) '-o asm.o"
     .. " && ld asm.o -o' shellescape(expand('%:r'), 1)"
     .. " '&& rm asm.o'<CR>",
-  {
-    buffer = true,
-  }
+  { buffer = true }
 )

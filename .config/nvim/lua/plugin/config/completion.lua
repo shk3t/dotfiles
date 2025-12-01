@@ -53,8 +53,8 @@ local function trim_redundant(vim_item)
 end
 
 local function add_icon(vim_item)
-  if consts.ICONS_ENABLED then
-    vim_item.kind = ("%s %s"):format(consts.CMP_KIND_ICONS[vim_item.kind], vim_item.kind)
+  if consts.ICONS.ENABLED then
+    vim_item.kind = ("%s %s"):format(consts.ICONS.CMP_KIND[vim_item.kind], vim_item.kind)
   end
   return vim_item
 end

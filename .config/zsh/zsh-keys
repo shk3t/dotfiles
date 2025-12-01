@@ -49,14 +49,6 @@ zle -N exit_zsh
 bindkey '^Q' exit_zsh
 bindkey -M vicmd '^Q' exit_zsh
 
-# Yank to the system clipboard
-function vi-yank-xclip() {
-    zle vi-yank
-    echo -n "$CUTBUFFER" | xclip -selection clipboard
-}
-zle -N vi-yank-xclip
-bindkey -M vicmd "^[[67;6u" vi-yank-xclip
-
 # Interrupt completion
 function interrupt-completion {
     if [[ $COMPLETION_ACTIVE == 1 ]]; then

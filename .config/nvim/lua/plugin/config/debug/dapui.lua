@@ -64,7 +64,7 @@ local dapui_config = {
     -- breakpoints = { open = { "<CR>", "<2-LeftMouse>", "o" } },
   },
   expand_lines = false,
-  floating = { border = consts.VERTICAL_BORDERS },
+  floating = { border = consts.ICONS.BORDER },
   layouts = {
     {
       elements = {
@@ -95,7 +95,7 @@ keymap("n", "<Space>dt", function()
 end)
 keymap("n", "<Space>dg", dapui.toggle)
 keymap({ "n", "v" }, "<Space>de", function(expr)
-  widgets.hover(expr, { border = consts.VERTICAL_BORDERS })
+  widgets.hover(expr, { border = consts.ICONS.BORDER })
 end)
 
 autocmd("BufEnter", {

@@ -24,14 +24,14 @@ vim.diagnostic.config({
   underline = { severity = { min = "WARN" } },
   signs = {
     text = {
-      [vim.diagnostic.severity.ERROR] = consts.DIAGNOSTIC_SIGNS.error,
-      [vim.diagnostic.severity.WARN] = consts.DIAGNOSTIC_SIGNS.warn,
-      [vim.diagnostic.severity.INFO] = consts.DIAGNOSTIC_SIGNS.info,
-      [vim.diagnostic.severity.HINT] = consts.DIAGNOSTIC_SIGNS.hint,
+      [vim.diagnostic.severity.ERROR] = consts.ICONS.DIAGNOSTIC.error,
+      [vim.diagnostic.severity.WARN] = consts.ICONS.DIAGNOSTIC.warn,
+      [vim.diagnostic.severity.INFO] = consts.ICONS.DIAGNOSTIC.info,
+      [vim.diagnostic.severity.HINT] = consts.ICONS.DIAGNOSTIC.hint,
     },
   },
   update_in_insert = false,
-  float = { border = consts.VERTICAL_BORDERS },
+  float = { border = consts.ICONS.BORDER },
 })
 
 -- Create a custom namespace. This will aggregate signs from all other

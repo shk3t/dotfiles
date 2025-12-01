@@ -1,7 +1,5 @@
-local inputs = require("lib.base.input")
 local keymap = vim.keymap.set
--- vim.g.prev_qflist = nil
--- vim.g.prev_qfpos = nil
+local inputs = require("lib.base.input")
 
 keymap("n", "<CR>", "<CR>", { buffer = true })
 

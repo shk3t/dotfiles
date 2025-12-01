@@ -25,7 +25,7 @@ end
 M.adjust_iconpath_display = function(config, pickers, ext_pickers)
   pickers = pickers or {}
   ext_pickers = ext_pickers or {}
-  if not consts.ICONS_ENABLED then
+  if not consts.ICONS.ENABLED then
     return
   end
   local function adjusted_diplay(opts, path)
