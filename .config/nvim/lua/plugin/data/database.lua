@@ -1,7 +1,7 @@
 local sugar = require("lib.base.sugar")
 local tables = require("lib.base.table")
 
-local private = sugar.require_or("plugin.private.database", { itr_configs = {}, my_db_pass = "def" })
+local private = sugar.require_or("plugin.private.database", { itr_configs = {}, my_db_pass = "unknown" })
 
 local M = {}
 

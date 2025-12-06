@@ -1,5 +1,7 @@
-local strings = require("lib.base.string")
 local keymap = vim.keymap.set
+local strings = require("lib.base.string")
+
+-- TODO
 
 local M = {}
 

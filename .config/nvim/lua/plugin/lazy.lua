@@ -87,13 +87,13 @@ require("lazy").setup({
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
+    config = reqfunc("plugin.data.snippets"),
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
         require("luasnip.loaders.from_vscode").lazy_load()
       end,
     },
-    config = reqfunc("plugin.data.snippets"),
   },
 
   -- Syntax
@@ -141,7 +141,6 @@ require("lazy").setup({
     dependencies = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      -- "prochri/telescope-all-recent.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
       "debugloop/telescope-undo.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
@@ -172,7 +171,11 @@ require("lazy").setup({
     config = reqfunc("plugin.config.integrations.molten"),
     dependencies = "3rd/image.nvim",
   },
-  { "mistweaverco/kulala.nvim", config = reqfunc("plugin.config.integrations.http") },
+  {
+    "mistweaverco/kulala.nvim",
+    config = reqfunc("plugin.config.integrations.kulala"),
+    ft = { "http", "rest" },
+  },
   {
     "jbyuki/nabla.nvim",
     config = reqfunc("plugin.config.integrations.nabla"),
@@ -180,7 +183,7 @@ require("lazy").setup({
       "williamboman/mason.nvim",
     },
   },
-  "gpanders/editorconfig.nvim",
+  { "gpanders/editorconfig.nvim" },
 
   -- Git
   {

@@ -9,7 +9,6 @@ keymap("n", "<C-CR>", function()
   inputs.norm(":wa<CR>")
   winbuf.term(lcfg.local_config_or({ "run", "python" }, "python " .. vim.fn.expand("%")))
 end, { buffer = true })
-keymap("i", "<F5>", "<Esc>:wa<CR>:exec '!python3' shellescape(@%, 1)<CR>", { buffer = true })
 
 keymap("n", "gct", function()
   local ignore_comment = "  # type: ignore"

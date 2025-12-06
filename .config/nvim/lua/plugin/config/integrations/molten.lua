@@ -1,6 +1,8 @@
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local cmds = require("lib.cmds")
+local consts = require("lib.base.input")
+local files = require("lib.file")
 local inputs = require("lib.base.input")
 local utils = require("plugin.util.jupyter")
 
@@ -41,8 +43,8 @@ vim.g.molten_enter_output_behavior = "open_and_enter"
 vim.g.molten_tick_rate = 200
 
 -- Use venv packages by default
-if inputs.python_path ~= inputs.DEFAULT_PYTHON_PATH then
-  vim.g.python3_host_prog = inputs.python_path
+if files.python_path ~= consts.DEFAULT_PYTHON_PATH then
+  vim.g.python3_host_prog = files.python_path
 end
 
 -- automatically import output chunks from a jupyter notebook

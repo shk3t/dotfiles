@@ -1,5 +1,5 @@
 ## nottoday but anyway
-- inner outter quotes
+- neodim
 - refactor everything like in: https://github.com/LazyVim/LazyVim
 - checkout new lspconfig features
     - multiline tokens for example
@@ -57,7 +57,6 @@
 
 ## Other
 ### Waiting for update
-- thin cursor in terminal mode
 - Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
 - cmp replace only on confirm
 - duplicate entries for cmp-buffer (clangd, pylsp)

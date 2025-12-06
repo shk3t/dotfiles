@@ -43,9 +43,6 @@ local colorscheme_setups = {
       },
     })
   end,
-  ["calvera"] = function()
-    vim.g.calvera_borders = true
-  end,
 }
 
 autocmd("Colorscheme", {

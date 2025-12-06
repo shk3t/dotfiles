@@ -2,42 +2,7 @@ local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 local keydel = vim.keymap.del
 
-keymap("n", "<Space>db", vim.cmd.DBUIToggle)
-keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
-autocmd("FileType", {
-  pattern = { "sql", "mysql", "plsql" },
-  callback = function()
-    keydel({ "n", "v" }, "<Leader>S", { buffer = true })
-    keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap("v", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
-    keymap({ "n", "v" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
-  end,
-})
-autocmd("FileType", {
-  pattern = "dbui",
-  callback = function()
-    vim.opt_local.shiftwidth = 2
-    keydel("n", "<C-K>", { buffer = true })
-    keydel("n", "<C-J>", { buffer = true })
-    keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
-    keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
-    keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
-    keymap("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
-  end,
-})
-
-autocmd("FileType", {
-  pattern = "dbout",
-  callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.signcolumn = "no"
-    vim.opt_local.wrap = false
-    vim.opt_local.cursorlineopt = "line"
-    vim.opt_local.foldenable = false
-    vim.diagnostic.enable(false)
-  end,
-})
+vim.g.dbs = require("plugin.data.database").local_configs
 
 vim.g.db_ui_execute_on_save = false
 vim.g.db_ui_auto_execute_table_helpers = false
@@ -71,4 +36,39 @@ vim.g.db_ui_icons = {
   connection_error = "󰯇 ",
 }
 
-vim.g.dbs = require("plugin.data.database").local_configs
+keymap("n", "<Space>db", vim.cmd.DBUIToggle)
+keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
+
+autocmd("FileType", {
+  pattern = { "sql", "mysql", "plsql" },
+  callback = function()
+    keydel({ "n", "v" }, "<Leader>S", { buffer = true })
+    keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap("v", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
+    keymap({ "n", "v" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
+  end,
+})
+autocmd("FileType", {
+  pattern = "dbui",
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    keydel("n", "<C-K>", { buffer = true })
+    keydel("n", "<C-J>", { buffer = true })
+    keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
+    keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
+    keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
+    keymap("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
+  end,
+})
+autocmd("FileType", {
+  pattern = "dbout",
+  callback = function()
+    vim.opt_local.number = false
+    vim.opt_local.signcolumn = "no"
+    vim.opt_local.wrap = false
+    vim.opt_local.cursorlineopt = "line"
+    vim.opt_local.foldenable = false
+    vim.diagnostic.enable(false)
+  end,
+})

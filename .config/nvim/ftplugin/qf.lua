@@ -1,7 +1,7 @@
 local keymap = vim.keymap.set
 local inputs = require("lib.base.input")
 
-keymap("n", "<CR>", "<CR>", { buffer = true })
+keymap("n", "<CR>", "<CR>", { buffer = true }) -- Go to position
 
 keymap("n", "dd", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))

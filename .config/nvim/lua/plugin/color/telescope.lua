@@ -8,6 +8,7 @@ local function setup_telescope_colors()
   local bg_alt = get_highlight("Visual").bg
   local green = get_highlight("String").fg
   local red = get_highlight("Error").fg
+
   highlight("TelescopeBorder", { fg = bg, bg = bg, link = 0 })
   highlight("TelescopeNormal", { bg = bg, link = 0 })
   highlight("TelescopePreviewBorder", { fg = bg, bg = bg, link = 0 })

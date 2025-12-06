@@ -6,6 +6,7 @@ local strings = require("lib.base.string")
 local sys = require("lib.system")
 local tables = require("lib.base.table")
 local debug_configs = require("plugin.data.debug").debug_configs
+local files = require("lib.file")
 local lcfg = require("lib.localcfg")
 local state = require("state")
 local teleutils = require("plugin.util.telescope")
@@ -104,7 +105,7 @@ dap.defaults.auto_continue_if_many_stopped = false
 
 dap.adapters.python = {
   type = "executable",
-  command = cmds.python_path,
+  command = files.python_path,
   args = { "-m", "debugpy.adapter" },
 }
 dap.adapters.cppdbg = {

@@ -1,6 +1,7 @@
-local M = {}
-
 local caches = require("lib.cache")
+local consts = require("consts")
+
+local M = {}
 
 M.backward_file_search = function(filename)
   local curdir = vim.fn.getcwd()
@@ -15,5 +16,18 @@ end
 M.backward_file_search_c = function(filename)
   return caches.cache({ "backward_file_search", vim.fn.getcwd(), filename }, M.backward_file_search, { filename })
 end
+
+M.python_path = (function()
+  local venvdirs = { "venv", ".venv" }
+
+  for _, venvdir in pairs(venvdirs) do
+    local pybin = M.backward_file_search(venvdir .. "/bin/python")
+    if pybin and vim.fn.executable(pybin) == 1 then
+      return pybin
+    end
+  end
+
+  return consts.DEFAULT_PYTHON_PATH
+end)()
 
 return M
