@@ -26,8 +26,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.cursorline = true
--- vim.opt.cursorlineopt = {"number", "line"}
-vim.opt.cursorlineopt = { "number" }
+vim.opt.cursorlineopt = {"number", "line"}
 vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 vim.opt.signcolumn = "yes"
 
@@ -50,13 +49,9 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo/"
 vim.opt.undofile = true
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shadas/" .. vim.fn.getcwd():gsub("/", "%%")
 
--- Navigation
--- vim.opt.jumpoptions = "stack"
-
 -- Explorer
 vim.g.netrw_list_hide = [[^\./$]]
 vim.g.netrw_hide = 1
--- let b:netrw_lastfile = 1
 
 -- Language
 vim.opt.keymap = "russian-jcukenwin"
@@ -68,10 +63,3 @@ vim.opt.langmap =
 -- Spell
 vim.opt.spell = false
 vim.opt.spelllang = { "en_us", "ru_ru" }
-
--- Additional filetype mappings
-vim.filetype.add({
-  extension = {
-    http = "http",
-  },
-})

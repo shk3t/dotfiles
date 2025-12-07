@@ -3,12 +3,13 @@ local keymap = vim.keymap.set
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local consts = require("consts")
+local grep_actions = require("telescope-live-grep-args.actions")
 local inputs = require("lib.base.input")
-local lga_actions = require("telescope-live-grep-args.actions")
 local telescope = require("telescope")
 local undo_actions = require("telescope-undo.actions")
 local utils = require("plugin.util.telescope")
 local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
+local grep_shortcuts = require("telescope-live-grep-args.shortcuts")
 
 local fzf_opts = {
   fuzzy = true,
@@ -23,8 +24,6 @@ local telescope_config = {
     sorting_strategy = "ascending",
     layout_config = {
       height = 0.9,
-      -- preview_cutoff = 120,
-      -- prompt_position = "bottom",
       prompt_position = "top",
       width = 0.9,
       preview_width = 0.55,
@@ -37,11 +36,8 @@ local telescope_config = {
     borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
     results_title = "",
     file_ignore_patterns = { "node_modules" },
-
     mappings = {
       i = {
-        -- ["<Esc>"] = actions.close,
-        -- ["<C-C>"] = vim.cmd.stopinsert,
         ["<C-P>"] = actions.cycle_history_prev,
         ["<C-N>"] = actions.cycle_history_next,
         ["<C-J>"] = actions.move_selection_next,
@@ -50,8 +46,6 @@ local telescope_config = {
         ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
         ["<C-V>"] = utils.paste_action,
         ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        -- ["<C-F>"] = actions.to_fuzzy_refine,
-
         ["<S-ScrollWheelUp>"] = actions.move_selection_previous,
         ["<S-ScrollWheelDown>"] = actions.move_selection_next,
       },
@@ -113,9 +107,9 @@ local telescope_config = {
       auto_quoting = true,
       mappings = {
         i = {
-          ["<C-S>"] = lga_actions.quote_prompt(),
+          ["<C-S>"] = grep_actions.quote_prompt(),
           ["<C-G>"] = function(prompt_bufnr)
-            lga_actions.quote_prompt({ postfix = " --iglob ****" })(prompt_bufnr)
+            grep_actions.quote_prompt({ postfix = " --iglob ****" })(prompt_bufnr)
             inputs.norm("2h")
           end,
         },
@@ -134,65 +128,55 @@ local telescope_config = {
         },
       },
     },
-    ["ui-select"] = {
-      layout_config = {
-        height = 0.25,
-        prompt_position = "top",
-        width = 0.25,
-      },
-    },
   },
 }
 utils.adjust_iconpath_display(telescope_config, { "find_files", "buffers" }, { "live_grep_args" })
 
-telescope.setup(telescope_config) -- TODO: setup/keymap/autocmd order?
+telescope.setup(telescope_config)
 telescope.load_extension("fzf")
 telescope.load_extension("live_grep_args")
 telescope.load_extension("undo")
-telescope.load_extension("ui-select")
 
+keymap("n", "<C-P>", builtin.resume)
 keymap("n", "<C-F>", function()
   builtin.find_files()
-end)
--- keymap("v", "<Space>/", telelib.visual_picker(builtin.current_buffer_fuzzy_find))
-keymap("n", "<Space>p", builtin.registers)
-keymap("v", "<Space>p", function()
-  inputs.norm("d")
-  builtin.registers()
 end)
 keymap("v", "<C-F>", utils.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
 keymap("v", "<C-G>", function()
-  require("telescope-live-grep-args.shortcuts").grep_visual_selection({
+  grep_shortcuts.grep_visual_selection({
     postfix = "",
     quote = false,
     trim = true,
   })
 end)
-keymap("n", "<C-P>", builtin.resume)
-keymap("n", "g<Tab>", builtin.buffers)
-keymap("n", "<Space>th", builtin.help_tags)
-keymap("n", "<Space>tm", builtin.man_pages)
-keymap("n", "<Space>tk", builtin.keymaps)
-keymap("n", "<Space>ts", builtin.spell_suggest)
-keymap("n", "<Space><C-O>", function()
-  builtin.jumplist({ show_line = false, trim_text = true })
-end)
--- keymap("n", "<Space>l", builtin.lsp_document_symbols)
 keymap("n", "<Space>w", function()
   builtin.lsp_dynamic_workspace_symbols()
 end)
 keymap("v", "<Space>w", utils.visual_picker(builtin.lsp_dynamic_workspace_symbols))
-keymap("n", "<Space>gs", builtin.git_status)
-keymap("n", "<Space>gc", builtin.git_commits)
-keymap("n", "<Space>gb", builtin.git_branches)
+keymap("n", "g<Tab>", builtin.buffers)
+keymap("n", "<Space><C-O>", function()
+  builtin.jumplist({ show_line = false, trim_text = true })
+end)
+keymap("n", "<Space>p", builtin.registers)
+keymap("v", "<Space>p", function()
+  inputs.norm("d")
+  builtin.registers()
+end)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
+keymap("n", [[<Space>"]], builtin.marks)
+keymap("n", [[<Space>']], utils.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
 keymap("n", "<Space>q", builtin.quickfix)
 keymap("n", "<Space>Q", builtin.quickfixhistory)
 keymap("n", "<Space>:", builtin.command_history)
 keymap("n", "<Space>?", builtin.search_history)
-keymap("n", [[<Space>"]], builtin.marks)
-keymap("n", [[<Space>']], utils.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
+keymap("n", "<Space>gs", builtin.git_status)
+keymap("n", "<Space>gc", builtin.git_commits)
+keymap("n", "<Space>gb", builtin.git_branches)
+keymap("n", "<Space>th", builtin.help_tags)
+keymap("n", "<Space>tm", builtin.man_pages)
+keymap("n", "<Space>tk", builtin.keymaps)
+keymap("n", "<Space>ts", builtin.spell_suggest)
 
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",

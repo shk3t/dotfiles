@@ -1,4 +1,0 @@
-Shift_L + Alt_L
-    setxkbmap -query | grep -q 'us,ru' && setxkbmap ru,us || setxkbmap us,ru
-Shift_R + Alt_R
-    setxkbmap -query | grep -q 'us,ru' && setxkbmap ru,us || setxkbmap us,ru

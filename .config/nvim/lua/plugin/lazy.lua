@@ -143,11 +143,9 @@ require("lazy").setup({
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-telescope/telescope-live-grep-args.nvim",
       "debugloop/telescope-undo.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
     },
     config = function()
       require("plugin.config.navigation.telescope")
-      require("plugin.color.telescope").setup()
     end,
   },
 
@@ -230,6 +228,7 @@ require("lazy").setup({
     "rose-pine/neovim",
     config = function()
       require("plugin.color.colorscheme").setup()
+      require("plugin.color.telescope").setup()
     end,
   },
 
