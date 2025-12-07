@@ -2,5 +2,5 @@
 
 DOTDIR=$HOME/backup/dotfiles
 
-home_files=(bin .vimrc .zshenv .xinitrc .gdbinit .password-store .gnupg/gpg-agent.conf .ssh/config)
+home_files=(bin .vimrc .zshenv .gdbinit .password-store .gnupg/gpg-agent.conf .ssh/config)
 dotconf_files=(alacritty zsh tmux nvim mpv fontconfig user-dirs.dirs yt-dlp)

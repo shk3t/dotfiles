@@ -1,16 +1,45 @@
-" AUTOCMD
+" OPTIONS
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set cinoptions=g0,(0,Ws,l,L0
+set number
+set relativenumber
+set scrolloff=8
+set wrap
+set linebreak
+set breakindent
+syntax on
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set completeopt=menu,menuone,noselect
+set background=dark
+set cursorline
+set cursorlineopt=number,line
+set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
+set timeoutlen=10000
+set mouse=a
+set cpoptions-=_
+set noerrorbells
+set novisualbell
+set hidden
+set noswapfile
+set nobackup
+set undofile
+set undodir=~/.local/share/vim/undo/
+set updatetime=500
+let g:netrw_list_hide = '^\./$'
+let g:netrw_hide = 1
+set keymap=russian-jcukenwin
+set iminsert=0
+set imsearch=0
+set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
-
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-
-autocmd FocusLost,WinLeave * set norelativenumber
-autocmd FocusGained,WinEnter,BufEnter * if &number == 1 | set relativenumber | endif
-autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
-autocmd FileType * setlocal formatoptions+=r formatoptions-=co
-autocmd FileType markdown setlocal formatoptions-=r
-autocmd CmdwinEnter * nnoremap <buffer><silent> q :q<CR>
-autocmd FileType help nnoremap <buffer><silent> q :q<CR>
 
 
 " KEYMAPS
@@ -119,43 +148,12 @@ vnoremap k gk
 vnoremap j gj
 
 
-" OPTIONS
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-set autoindent
-set cinoptions=g0,(0,Ws,l,L0
-set number
-set relativenumber
-set scrolloff=8
-set wrap
-set linebreak
-set breakindent
-syntax on
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-set completeopt=menu,menuone,noselect
-set background=dark
-set cursorline
-set cursorlineopt=number,line
-set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
-set timeoutlen=10000
-set mouse=a
-set cpoptions-=_
-set noerrorbells
-set novisualbell
-set hidden
-set noswapfile
-set nobackup
-set undofile
-set undodir=~/.local/share/vim/undo/
-set updatetime=500
-let g:netrw_list_hide = '^\./$'
-let g:netrw_hide = 1
-set keymap=russian-jcukenwin
-set iminsert=0
-set imsearch=0
-set langmap=ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz
+" AUTOCMDS
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+autocmd FocusLost,WinLeave * set norelativenumber
+autocmd FocusGained,WinEnter,BufEnter * if &number == 1 | set relativenumber | endif
+autocmd BufEnter *.txt if &buftype == 'help' | wincmd L | endif
+autocmd FileType * setlocal formatoptions+=r formatoptions-=co
+autocmd FileType markdown setlocal formatoptions-=r
+autocmd CmdwinEnter * nnoremap <buffer><silent> q :q<CR>
+autocmd FileType help nnoremap <buffer><silent> q :q<CR>
