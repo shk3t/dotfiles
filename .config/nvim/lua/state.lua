@@ -11,9 +11,6 @@ return {
   cache = {},
   local_config = {},
   dap = {
-    widgets = {
-      scopes = nil,
-    },
     focus = {
       thread = {
         id = nil,

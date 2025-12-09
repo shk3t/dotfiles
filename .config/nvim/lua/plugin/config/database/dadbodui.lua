@@ -2,8 +2,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 local keydel = vim.keymap.del
 
-vim.g.dbs = require("plugin.data.database").local_configs
-
 vim.g.db_ui_execute_on_save = false
 vim.g.db_ui_auto_execute_table_helpers = false
 vim.g.db_ui_force_echo_notifications = true

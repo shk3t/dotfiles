@@ -1,11 +1,11 @@
--- Taboptions
+-- Indents
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.autoindent = true
-vim.opt.cinoptions = "g0,(0,Ws,l,L0"
 vim.opt.cindent = true
+vim.opt.cinoptions = "g0,(0,Ws,l,L0"
 
 -- Lines
 vim.opt.number = true
@@ -36,10 +36,6 @@ vim.opt.mouse = "a"
 vim.opt.mousescroll = "ver:3,hor:12"
 vim.opt.cpoptions:remove("_")
 
--- Sounds
-vim.opt.errorbells = false
-vim.opt.visualbell = false
-
 -- Buffer
 vim.opt.hidden = true
 vim.opt.swapfile = false
@@ -49,16 +45,20 @@ vim.opt.undodir = vim.fn.stdpath("data") .. "/undo/"
 vim.opt.undofile = true
 vim.opt.shadafile = vim.fn.stdpath("data") .. "/shadas/" .. vim.fn.getcwd():gsub("/", "%%")
 
+-- Sounds
+vim.opt.errorbells = false
+vim.opt.visualbell = false
+
 -- Explorer
-vim.g.netrw_list_hide = [[^\./$]]
 vim.g.netrw_hide = 1
+vim.g.netrw_list_hide = [[^\./$]]
 
 -- Language
 vim.opt.keymap = "russian-jcukenwin"
-vim.opt.iminsert = 0
-vim.opt.imsearch = -1
 vim.opt.langmap =
   "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.iminsert = 0
+vim.opt.imsearch = -1
 
 -- Spell
 vim.opt.spell = false

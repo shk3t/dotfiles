@@ -70,7 +70,7 @@ end
 
 M.merge_lists = function(...)
   local result = {}
-  for _, tbl in ipairs({ ... }) do
+  for _, tbl in pairs({ ... }) do
     vim.list_extend(result, tbl)
   end
   return result

@@ -29,7 +29,7 @@ M.cword_picker = function(picker)
   end
 end
 
-M.paste_action = function(_)
+M.paste_action = function()
   local selection = vim.fn.getreg('"') or ""
   if vim.bo.modifiable then
     vim.api.nvim_paste(selection, true, -1)

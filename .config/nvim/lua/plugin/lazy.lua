@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 ---@param modname string
 local function reqfunc(modname)
   return function()
-    return require(modname)
+    require(modname)
   end
 end
 
@@ -82,12 +82,12 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
-    config = reqfunc("plugin.config.completion"),
+    config = reqfunc("plugin.config.completion.cmp"),
   },
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
-    config = reqfunc("plugin.data.snippets"),
+    config = reqfunc("plugin.data.luasnip"),
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
@@ -99,11 +99,16 @@ require("lazy").setup({
   -- Syntax
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
     lazy = false,
+    branch = "main",
     build = ":TSUpdate",
     config = reqfunc("plugin.config.syntax.treesitter"),
-    dependencies = "nvim-treesitter/nvim-treesitter-textobjects",
+  },
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main", -- TODO
+    config = reqfunc("plugin.config.syntax.tstextobjects"),
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   { "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
   {
@@ -154,11 +159,11 @@ require("lazy").setup({
   { "aserowy/tmux.nvim", config = reqfunc("plugin.config.integrations.tmux") },
   {
     "iamcco/markdown-preview.nvim",
-    init = function()
-      vim.g.mkdp_auto_close = 1
-    end,
     build = function()
       vim.fn["mkdp#util#install"]()
+    end,
+    config = function()
+      vim.g.mkdp_auto_close = 1
     end,
   },
   { "antosha417/nvim-lsp-file-operations", config = true },
@@ -195,10 +200,14 @@ require("lazy").setup({
   { "FabijanZulj/blame.nvim", config = reqfunc("plugin.config.git.blame") },
   { "sindrets/diffview.nvim", config = reqfunc("plugin.config.git.diffview") },
 
-  -- SQL
-  { "tpope/vim-dadbod", config = reqfunc("plugin.config.database") },
+  -- Database
+  { "tpope/vim-dadbod", config = reqfunc("plugin.config.database.dadbod") },
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    config = reqfunc("plugin.config.database.dadbodui"),
+    dependencies = "tpope/vim-dadbod",
+  },
   { "kristijanhusak/vim-dadbod-completion", dependencies = "tpope/vim-dadbod" },
-  { "kristijanhusak/vim-dadbod-ui", dependencies = "tpope/vim-dadbod" },
   { "pbogut/vim-dadbod-ssh", dependencies = "tpope/vim-dadbod" },
 
   -- Tweaks

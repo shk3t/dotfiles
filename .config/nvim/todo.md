@@ -1,6 +1,9 @@
 ## nottoday but anyway
+- replace null-ls
+- yank preserve location plugin
+- harpoon
 - neodim
-- refactor everything like in: https://github.com/LazyVim/LazyVim
+- recursive renaming with neo-tree
 - checkout new lspconfig features
     - multiline tokens for example
 - multiple cursors on the similar word like emacs

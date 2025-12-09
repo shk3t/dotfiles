@@ -118,7 +118,7 @@ M.get_visual = function()
     ls, le = le, ls
   end
   if cs > ce then
-    cs, ce = ce, ls
+    cs, ce = ce, cs
   end
   local visual = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
   return visual[1] or ""

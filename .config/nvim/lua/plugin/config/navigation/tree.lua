@@ -3,7 +3,7 @@ local api = require("nvim-tree.api")
 local consts = require("consts")
 local utils = require("plugin.util.tree")
 
-local function my_on_attach(bufnr)
+local function custom_attach(bufnr)
   local function opts(desc)
     return {
       desc = "nvim-tree: " .. desc,
@@ -57,7 +57,7 @@ local function my_on_attach(bufnr)
 end
 
 require("nvim-tree").setup({
-  on_attach = my_on_attach,
+  on_attach = custom_attach,
   hijack_cursor = true,
   hijack_netrw = true,
   sync_root_with_cwd = true,
@@ -154,3 +154,5 @@ require("nvim-tree").setup({
     },
   },
 })
+
+vim.keymap.set("n", "<Space>e", vim.cmd.NvimTreeFindFile)

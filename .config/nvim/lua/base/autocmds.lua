@@ -1,11 +1,20 @@
-local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local consts = require("consts")
+local autocmd = vim.api.nvim_create_autocmd
 local cmds = require("lib.cmds")
-local strings = require("lib.base.string")
+local consts = require("consts")
 local state = require("state")
-local syslib = require("lib.system")
+local strings = require("lib.base.string")
+local sys = require("lib.system")
 local winbufs = require("lib.winbuf")
+
+-- Don't add the comment prefix on o/O
+autocmd("FileType", {
+  callback = function()
+    vim.opt_local.formatoptions:append("r")
+    vim.opt_local.formatoptions:remove("c")
+    vim.opt_local.formatoptions:remove("o")
+  end,
+})
 
 -- Line numeration toggle
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
@@ -29,45 +38,12 @@ autocmd("ModeChanged", {
   end,
 })
 
--- Open help | man in vertical split
-autocmd("BufEnter", {
-  callback = function()
-    if vim.bo.buftype == "help" or vim.bo.filetype == "man" then
-      vim.cmd.wincmd("L")
-    end
-  end,
-})
-
--- Reset mapping for Cmd window
-autocmd("CmdwinEnter", {
-  callback = function()
-    keymap("n", "<CR>", "<CR>", { buffer = true })
-  end,
-})
-
--- Don't add the comment prefix when I hit o/O on a comment line.
-autocmd("FileType", {
-  callback = function()
-    vim.opt_local.formatoptions:append("r")
-    vim.opt_local.formatoptions:remove("c")
-    vim.opt_local.formatoptions:remove("o")
-  end,
-})
-
--- Easy Window closing
-autocmd("CmdwinEnter", { callback = cmds.map_easy_closing })
-autocmd("FileType", {
-  pattern = { "help", "dap-float", "qf" },
-  callback = cmds.map_easy_closing,
-})
-
 -- Highlight yank
 autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank({ timeout = 100 })
   end,
 })
-
 -- Yank preserve position
 autocmd("TextYankPost", {
   callback = function()
@@ -80,6 +56,15 @@ autocmd("TextYankPost", {
   end,
 })
 
+-- Do not restore deleted marks
+autocmd("VimLeavePre", { command = "wshada!" })
+
+-- Easy Window closing
+autocmd("CmdwinEnter", { callback = cmds.map_easy_closing })
+autocmd("FileType", {
+  pattern = { "help", "dap-float", "qf" },
+  callback = cmds.map_easy_closing,
+})
 -- Close all auxiliary windows if all the main windows were closed
 autocmd("WinEnter", {
   callback = function()
@@ -96,8 +81,21 @@ autocmd("WinEnter", {
   end,
 })
 
--- Do not restore deleted marks
-autocmd("VimLeavePre", { command = "wshada!" })
+-- Open help | man in vertical split
+autocmd("BufEnter", {
+  callback = function()
+    if vim.bo.buftype == "help" or vim.bo.filetype == "man" then
+      vim.cmd.wincmd("L")
+    end
+  end,
+})
+
+-- Reset mapping for Cmd window
+autocmd("CmdwinEnter", {
+  callback = function()
+    keymap("n", "<CR>", "<CR>", { buffer = true })
+  end,
+})
 
 -- Disable numbers in terminal mode
 autocmd("TermOpen", {
@@ -130,11 +128,11 @@ autocmd("WinLeave", {
 
 -- Auto language layout switch
 local layout_enter_callback = function()
-  syslib.set_layout(state.notnorm_layout_idx)
+  sys.set_layout(state.notnorm_layout_idx)
 end
 local layout_exit_callback = function()
-  state.notnorm_layout_idx = syslib.get_layout()
-  syslib.set_layout(consts.LAYOUT.ENGLISH_IDX)
+  state.notnorm_layout_idx = sys.get_layout()
+  sys.set_layout(consts.LAYOUT.ENGLISH_IDX)
 end
 autocmd("InsertEnter", {
   callback = layout_enter_callback,

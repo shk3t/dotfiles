@@ -1,7 +1,75 @@
 local keymap = vim.keymap.set
 local teleutils = require("plugin.util.telescope")
 
+local function custom_attach(bufnr)
+  local gs = package.loaded.gitsigns
+
+  local function bufmap(mode, l, r, opts)
+    opts = opts or {}
+    opts.buffer = bufnr
+    keymap(mode, l, r, opts)
+  end
+
+  -- Navigation
+  bufmap("n", "]g", function()
+    if vim.wo.diff then
+      return "]g"
+    end
+    vim.schedule(function()
+      gs.next_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true })
+
+  bufmap("n", "[g", function()
+    if vim.wo.diff then
+      return "[g"
+    end
+    vim.schedule(function()
+      gs.prev_hunk()
+    end)
+    return "<Ignore>"
+  end, { expr = true })
+
+  -- Actions
+  bufmap("n", "<Space>ga", gs.stage_hunk)
+  bufmap("v", "<Space>ga", function()
+    gs.stage_hunk({
+      vim.fn.line("."),
+      vim.fn.line("v"),
+    })
+  end)
+  bufmap("n", "<Space>gu", gs.undo_stage_hunk)
+  bufmap("n", "<Space>gr", gs.reset_hunk)
+  bufmap("v", "<Space>gr", function()
+    gs.reset_hunk({
+      vim.fn.line("."),
+      vim.fn.line("v"),
+    })
+  end)
+  bufmap("n", "<Space>gk", gs.preview_hunk)
+  keymap("n", "<Space>gh", function()
+    gs.setqflist(
+      "all",
+      {},
+      teleutils.quickfix_picker("Git Hunks", function()
+        return
+      end)
+    )
+  end)
+
+  bufmap("n", "<Space>GA", gs.stage_buffer)
+  bufmap("n", "<Space>GR", gs.reset_buffer)
+  -- bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
+  bufmap("n", "<Space>GP", gs.toggle_deleted)
+
+  -- Text object
+  bufmap({ "o", "v" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
+  bufmap({ "o", "v" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
+end
+
 require("gitsigns").setup({
+  on_attach = custom_attach,
   signs = {
     add = { text = "█" },
     change = { text = "█" },
@@ -36,71 +104,4 @@ require("gitsigns").setup({
     row = 0,
     col = 1,
   },
-
-  on_attach = function(bufnr)
-    local gs = package.loaded.gitsigns
-
-    local function bufmap(mode, l, r, opts)
-      opts = opts or {}
-      opts.buffer = bufnr
-      keymap(mode, l, r, opts)
-    end
-
-    -- Navigation
-    bufmap("n", "]g", function()
-      if vim.wo.diff then
-        return "]g"
-      end
-      vim.schedule(function()
-        gs.next_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
-
-    bufmap("n", "[g", function()
-      if vim.wo.diff then
-        return "[g"
-      end
-      vim.schedule(function()
-        gs.prev_hunk()
-      end)
-      return "<Ignore>"
-    end, { expr = true })
-
-    -- Actions
-    bufmap("n", "<Space>ga", gs.stage_hunk)
-    bufmap("v", "<Space>ga", function()
-      gs.stage_hunk({
-        vim.fn.line("."),
-        vim.fn.line("v"),
-      })
-    end)
-    bufmap("n", "<Space>gu", gs.undo_stage_hunk)
-    bufmap("n", "<Space>gr", gs.reset_hunk)
-    bufmap("v", "<Space>gr", function()
-      gs.reset_hunk({
-        vim.fn.line("."),
-        vim.fn.line("v"),
-      })
-    end)
-    bufmap("n", "<Space>gk", gs.preview_hunk)
-    keymap("n", "<Space>gh", function()
-      gs.setqflist(
-        "all",
-        {},
-        teleutils.quickfix_picker("Git Hunks", function()
-          return
-        end)
-      )
-    end)
-
-    bufmap("n", "<Space>GA", gs.stage_buffer)
-    bufmap("n", "<Space>GR", gs.reset_buffer)
-    -- bufmap("n", "<Space>GB", gs.toggle_current_line_blame)
-    bufmap("n", "<Space>GP", gs.toggle_deleted)
-
-    -- Text object
-    bufmap({ "o", "v" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
-    bufmap({ "o", "v" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
-  end,
 })

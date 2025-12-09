@@ -1,104 +1,27 @@
-local keymap = vim.keymap.set
-
-require("nvim-treesitter.configs").setup({
-  -- ensure_installed = "all",
-  highlight = { enable = true },
-  indent = {
-    enable = false,
-    disable = { "css", "c", "cpp", "lua" },
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      -- init_selection = "<M-w>", -- maps in normal mode to init the node/scope selection
-      node_incremental = "n", -- increment to the upper named parent
-      node_decremental = "N", -- decrement to the previous node
-      -- scope_incremental = "as", -- increment to the upper scope (as defined in locals.scm),
-    },
-  },
-  textobjects = {
-    move = {
-      enable = true,
-      set_jumps = true,
-      goto_next_start = {
-        ["]f"] = "@function.outer",
-        ["]c"] = "@class.outer",
-        ["]a"] = "@parameter.inner",
-        ["]j"] = "@code_cell.inner",
-      },
-      goto_next_end = {
-        ["]F"] = "@function.outer",
-        ["]C"] = "@class.outer",
-        ["]J"] = "@code_cell.inner",
-      },
-      goto_previous_start = {
-        ["[f"] = "@function.outer",
-        ["[c"] = "@class.outer",
-        ["[a"] = "@parameter.inner",
-        ["[j"] = "@code_cell.inner",
-      },
-      goto_previous_end = {
-        ["[F"] = "@function.outer",
-        ["[C"] = "@class.outer",
-        ["[J"] = "@code_cell.inner",
-      },
-    },
-    select = {
-      enable = true,
-      lookahead = true,
-      keymaps = {
-        ["if"] = "@function.inner",
-        ["af"] = "@function.outer",
-
-        ["iC"] = "@class.inner",
-        ["aC"] = "@class.outer",
-
-        ["ia"] = "@parameter.inner",
-        ["aa"] = "@parameter.outer",
-
-        ["ic"] = "@call.inner",
-        ["ac"] = "@call.outer",
-
-        ["ib"] = "@block.inner",
-        ["ab"] = "@block.outer",
-
-        ["is"] = "@statement.outer",
-        ["as"] = "@statement.outer",
-
-        ["ij"] = "@code_cell.inner",
-        ["aj"] = "@code_cell.outer",
-      },
-      selection_modes = {
-        ["@function.outer"] = "V",
-        ["@function.inner"] = "V",
-        ["@class.outer"] = "V",
-        ["@class.inner"] = "V",
-        ["@code_cell.outer"] = "V",
-        ["@code_cell.inner"] = "V",
-      },
-      include_surrounding_whitespace = false,
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["c>a"] = "@parameter.inner",
-        ["c>f"] = "@function.outer",
-        ["c>j"] = "@code_cell.outer",
-      },
-      swap_previous = {
-        ["c<a"] = "@parameter.inner",
-        ["c<f"] = "@function.outer",
-        ["c<j"] = "@code_cell.outer",
-      },
-    },
-  },
+require("nvim-treesitter").setup({
+  install_dir = vim.fn.stdpath("data") .. "/site",
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
+
+-- TODO
+-- incremental_selection = {
+--   enable = true,
+--   keymaps = {
+--     node_incremental = "n",
+--     node_decremental = "N",
+--   },
+-- },
 
 -- keymap("v", "n", function()
 --   require("nvim-treesitter.incremental_selection").node_incremental()
---   lib.norm("o")
+--   inputs.norm("o")
 -- end)
 -- keymap("v", "N", function()
 --   require("nvim-treesitter.incremental_selection").node_decremental()
---   lib.norm("o")
+--   inputs.norm("o")
 -- end)
