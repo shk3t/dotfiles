@@ -1,5 +1,5 @@
 ## nottoday but anyway
-- replace null-ls
+- `p` paste always preserves previous yank (swap with current `P`)
 - yank preserve location plugin
 - harpoon
 - recursive renaming with neo-tree
@@ -47,7 +47,6 @@
 - https://github.com/theHamsta/nvim-dap-virtual-text
 - https://github.com/t-troebst/perfanno.nvim
 - https://github.com/Weissle/persistent-breakpoints.nvim
-
 
 <br>
 

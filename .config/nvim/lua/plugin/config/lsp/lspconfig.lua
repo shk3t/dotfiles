@@ -39,15 +39,10 @@ keymap("n", "<Space>LR", vim.cmd.LspRestart)
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-
     if lspdata.server_capabilities[client.name] then
       for k, v in pairs(lspdata.server_capabilities[client.name]) do
         client.server_capabilities[k] = v
       end
-    end
-
-    if lspdata.on_attach[client.name] then
-      lspdata.on_attach[client.name](client)
     end
 
     keymap("n", "K", function()
@@ -56,9 +51,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     keymap("i", "<C-K>", vim.lsp.buf.signature_help, { buffer = true })
     keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = true })
     keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = true })
-    keymap("n", "<Space>F", function()
-      conform.format({ lsp_format = "fallback" })
-    end, { buffer = true })
+    keymap("n", "<Space>F", conform.format, { buffer = true })
     keymap("n", "gd", telescope_builtin.lsp_definitions, { buffer = true })
     keymap("n", "gr", telescope_builtin.lsp_references, { buffer = true })
     keymap("n", "gD", telescope_builtin.lsp_type_definitions, { buffer = true })

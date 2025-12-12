@@ -1,4 +1,5 @@
 local files = require("lib.file")
+local consts = require("consts")
 
 local M = {}
 
@@ -43,8 +44,8 @@ M.debug_configs = {
       request = "launch",
       name = "Launch file",
       showDebugOutput = true,
-      pathBashdb = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb",
-      pathBashdbLib = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/extension/bashdb_dir",
+      pathBashdb = consts.MASON.PACKAGES .. "/bash-debug-adapter/extension/bashdb_dir/bashdb",
+      pathBashdbLib = consts.MASON.PACKAGES .. "/bash-debug-adapter/extension/bashdb_dir",
       trace = true,
       file = "${file}",
       program = "${file}",

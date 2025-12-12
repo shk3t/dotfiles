@@ -4,12 +4,12 @@ local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local consts = require("consts")
 local grep_actions = require("telescope-live-grep-args.actions")
+local grep_shortcuts = require("telescope-live-grep-args.shortcuts")
 local inputs = require("lib.base.input")
 local telescope = require("telescope")
 local undo_actions = require("telescope-undo.actions")
 local utils = require("plugin.util.telescope")
-local IGNORE_FILE = vim.fn.stdpath("config") .. "/etc/telescope-ignore.txt"
-local grep_shortcuts = require("telescope-live-grep-args.shortcuts")
+local IGNORE_FILE = consts.NVIM_ETC .. "/telescope-ignore.txt"
 
 local fzf_opts = {
   fuzzy = true,

@@ -6,6 +6,7 @@ local strings = require("lib.base.string")
 local sys = require("lib.system")
 local tables = require("lib.base.table")
 local debug_configs = require("plugin.data.dap").debug_configs
+local consts = require("consts")
 local files = require("lib.file")
 local lcfg = require("lib.localcfg")
 local state = require("state")
@@ -33,20 +34,20 @@ dap.adapters.delve = {
 }
 dap.adapters.bashdb = {
   type = "executable",
-  command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
+  command = consts.MASON.PACKAGES .. "/bash-debug-adapter/bash-debug-adapter",
   name = "bashdb",
 }
 dap.adapters.cppdbg = {
   id = "cppdbg",
   type = "executable",
-  command = vim.env.HOME .. "/.local/share/nvim/mason/bin/OpenDebugAD7",
+  command = consts.MASON.BIN .. "/OpenDebugAD7",
 }
 dap.adapters["pwa-node"] = {
   type = "server",
   host = "localhost",
   port = "${port}",
   executable = {
-    command = vim.env.HOME .. "/.local/share/nvim/mason/bin/js-debug-adapter",
+    command = consts.MASON.BIN .. "/js-debug-adapter",
     args = { "${port}" },
   },
 }

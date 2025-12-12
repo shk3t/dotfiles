@@ -3,6 +3,8 @@ local consts = require("consts")
 local inputs = require("lib.base.input")
 local luasnip = require("luasnip")
 
+local cmp_icons = consts.ICONS.CMP_KIND
+
 local M = {}
 
 M.trim_redundant = function(vim_item)
@@ -14,7 +16,7 @@ end
 
 M.add_icon = function(vim_item)
   if consts.ICONS.ENABLED then
-    vim_item.kind = ("%s %s"):format(consts.ICONS.CMP_KIND[vim_item.kind], vim_item.kind)
+    vim_item.kind = ("%s %s"):format(cmp_icons[vim_item.kind], vim_item.kind)
   end
   return vim_item
 end

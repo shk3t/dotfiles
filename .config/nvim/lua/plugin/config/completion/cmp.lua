@@ -8,6 +8,9 @@ local luasnip = require("luasnip")
 local types = require("cmp.types")
 local utils = require("plugin.util.cmp")
 
+-- TODO: check completions
+-- TODO: install blink
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -36,7 +39,7 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-    {name = "lazydev"},
+    { name = "lazydev", group_index = 0 },
     { name = "luasnip" },
     { name = "nvim_lsp" },
     { name = "path" },

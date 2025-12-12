@@ -1,32 +1,25 @@
 local keymap = vim.keymap.set
 local conform = require("conform")
-local NVIM_ETC = vim.fn.stdpath("config") .. "/etc" -- TODO: move to consts
+local consts = require("consts")
 
--- TODO: enable default lsp formatter because it seems to be compatible
 conform.setup({
-	formatters_by_ft = {
-		lua = { "stylua" },
-		-- python = { "black" },
-		javascript = { "prettier" },
-		go = { "golines" },
-	},
+  default_format_opts = {
+    lsp_format = "never",
+  },
+  formatters = {
+    stylua = { append_args = { "--config-path", consts.NVIM_ETC .. "/stylua.toml" } },
+    prettier = { append_args = { "--config", consts.NVIM_ETC .. "/prettier.json" } },
+    ["clang-format"] = { append_args = { "-style=file:" .. consts.NVIM_ETC .. "/clang-format.txt" } },
+  },
+  formatters_by_ft = {
+    lua = { "stylua" },
+    python = { "ruff_format", "ruff_organize_imports" },
+    go = { "golines" },
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescriptreact = { "prettier" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
+  },
 })
-
--- local null_ls = require("null-ls")
---
--- null_ls.setup({
---   debug = false,
---   sources = {
---     -- null_ls.builtins.diagnostics.typos,
---     null_ls.builtins.formatting.prettier.with({
---       extra_args = { "--config", NVIM_ETC .. "/prettier.json" },
---     }),
---     null_ls.builtins.formatting.stylua.with({
---       extra_args = { "--config-path", NVIM_ETC .. "/stylua.toml" },
---     }),
---     null_ls.builtins.formatting.clang_format.with({
---       extra_args = { "-style=file:" .. NVIM_ETC .. "/clang-format.txt" },
---     }),
---     null_ls.builtins.formatting.golines,
---   },
--- })

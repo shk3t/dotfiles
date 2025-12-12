@@ -1,4 +1,3 @@
-# https://docs.astral.sh/ruff/rules/#pyflakes-f
+# https://docs.astral.sh/ruff/rules
 [lint]
 ignore = [ "E402" ]
-# ignore = [ "F403", "F405", "E402", "E741" ]
