@@ -2,7 +2,6 @@
 - replace null-ls
 - yank preserve location plugin
 - harpoon
-- neodim
 - recursive renaming with neo-tree
 - checkout new lspconfig features
     - multiline tokens for example
@@ -10,20 +9,14 @@
     - or is it better to use builtin motions?
 - mcphub.nvim
 - nvim spider extend support for cyrillic symbols
-- dap threads fast switching
-- avante.nvim
 - git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
-- jupynium
 - cmd completion on replace
-- here is some code when add block codecompanion
-- image.nvim make images bigger in molten_output
-- remove auxiliary buffer when skip-jump (`vl`)
 - markdown formatting
 - config go.nvim
 
 ## Important
-### Config existing plugins
-- [ ] diffview
+- dap threads fast switching
+- avante.nvim
 ### Keys
 - [ ] jump to error line in stack trace
 - [ ] keys repetition nvimtools/hydra.nvim
@@ -99,7 +92,7 @@
 - [ ] lspsaga
 - [ ] neoclip
 - [ ] neorg
-- [ ] hop / leap / flash
+- [ ] flash
 - [ ] whichkey
 - [ ] lazygit (integration)
 - [ ] ssr

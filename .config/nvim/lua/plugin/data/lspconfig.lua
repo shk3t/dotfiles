@@ -1,8 +1,6 @@
 local keymap = vim.keymap.set
 local strings = require("lib.base.string")
 
--- TODO
-
 local M = {}
 
 local tss_spaces_inside_braces = false
@@ -15,7 +13,17 @@ local tss_settings = {
   },
 }
 
-M.servers = {
+-- TODO: review
+-- TODO: test ruff formatting
+M.configs = {
+  -- https://github.com/LuaLS/lua-language-server/blob/ed350080cfb3998fa95abb905cfa363f546e70ce/doc/en-us/config.md
+  lua_ls = {
+    settings = {
+      Lua = {
+        diagnostics = { severity = { ["missing-fields"] = "Hint!" } },
+      },
+    },
+  },
   -- https://github.com/microsoft/pyright/blob/main/docs/configuration.md
   pyright = {
     settings = {
@@ -33,7 +41,6 @@ M.servers = {
         },
       },
     },
-    enable_formatting = false,
   },
   -- https://github.com/astral-sh/ruff-lsp/issues/384
   ruff = {
@@ -46,31 +53,18 @@ M.servers = {
         },
       },
     },
-    custom_attach = function(client, bufnr)
-      keymap({ "n", "v" }, "<Space>I", function()
-        vim.lsp.buf.code_action({
-          context = { only = { "source.organizeImports" } },
-          apply = true,
-        })
-      end, { buffer = bufnr })
-    end,
   },
+  gopls = {},
+  bashls = {},
   -- https://github.com/typescript-language-server/typescript-language-server
   ts_ls = {
     init_options = { preferences = { providePrefixAndSuffixTextForRename = false } },
     settings = { javascript = tss_settings, typescript = tss_settings },
-    enable_formatting = false,
   },
-  html = {
-    enable_formatting = false,
-  },
-  cssls = {
-    enable_formatting = false,
-  },
-  cssmodules_ls = true,
-  jsonls = {
-    enable_formatting = false,
-  },
+  html = {},
+  cssls = {},
+  cssmodules_ls = {},
+  jsonls = {},
   clangd = {
     cmd = {
       "clangd",
@@ -82,51 +76,35 @@ M.servers = {
       "--offset-encoding=utf-16",
     },
     filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-    enable_formatting = false,
   },
-  bashls = true,
-  texlab = true,
-  -- https://github.com/LuaLS/lua-language-server/blob/ed350080cfb3998fa95abb905cfa363f546e70ce/doc/en-us/config.md
-  lua_ls = {
-    settings = {
-      Lua = {
-        runtime = {
-          version = "Lua 5.1",
-          path = strings.split(vim.env.LUA_PATH, ";"),
-        },
-        workspace = {
-          checkThirdParty = false,
-          library = { "/usr/share/lua/5.4/", "/usr/share/lua/5.1/" },
-        },
-        diagnostics = { severity = { ["missing-fields"] = "Hint!" } },
-        telemetry = { enable = false },
-      },
-    },
-    enable_formatting = false,
-  },
-  gopls = {
-    enable_formatting = false,
-  },
-  jdtls = true,
-  marksman = {
-    enable_formatting = false,
-  },
-  rust_analyzer = {
-    settings = {
-      ["rust-analyzer"] = {
-        -- checkOnSave = {
-        --   command = "clippy",
-        -- },
-        diagnostics = {
-          enable = true,
-          experimental = {
-            enable = false,
-          },
-        },
-      },
-    },
-  },
-  buf_ls = true,
+  rust_analyzer = {},
+  jdtls = {},
+  buf_ls = {},
+  texlab = {},
+}
+
+M.server_capabilities = {
+  lua_ls = { documentFormattingProvider = false },
+  pyright = { documentFormattingProvider = false },
+  ruff = { documentFormattingProvider = false },
+  gopls = { documentFormattingProvider = false },
+  ts_ls = { documentFormattingProvider = false },
+  html = { documentFormattingProvider = false },
+  cssls = { documentFormattingProvider = false },
+  cssmodules_ls = { documentFormattingProvider = false },
+  jsonls = { documentFormattingProvider = false },
+  clangd = { documentFormattingProvider = false },
+}
+
+M.on_attach = {
+  ruff = function(client)
+    keymap("n", "<Space>I", function()
+      vim.lsp.buf.code_action({
+        context = { only = { "source.organizeImports" } },
+        apply = true,
+      })
+    end, { buffer = true })
+  end,
 }
 
 return M

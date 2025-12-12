@@ -61,7 +61,7 @@ return {
       TypeParameter = "󰅲",
       Database = "󰆼",
     },
-    DIAGNOSTIC = { error = "󰚌", warn = "󰐼", hint = "󰌵", info = "" },
+    DIAGNOSTIC = { ERROR = "󰚌", WARN = "󰐼", HINT = "󰌵", INFO = "" },
     BORDER = { "", "", "", " ", "", "", "", " " },
   },
 

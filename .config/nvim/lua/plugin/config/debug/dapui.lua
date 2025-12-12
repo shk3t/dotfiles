@@ -40,7 +40,7 @@ dapui.setup({
 })
 
 keymap("n", "<Space>dg", dapui.toggle)
-keymap({ "n", "v" }, "<Space>de", function(expr)
+keymap({ "n", "x" }, "<Space>de", function(expr)
   widgets.hover(expr, { border = consts.ICONS.BORDER })
 end)
 keymap("n", "<Space>dt", function()

@@ -36,8 +36,8 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
+    {name = "lazydev"},
     { name = "luasnip" },
-    { name = "lazydev" },
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "buffer", option = { keyword_pattern = [[\k\+]] } },

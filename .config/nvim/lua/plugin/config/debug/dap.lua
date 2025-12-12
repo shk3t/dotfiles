@@ -52,7 +52,7 @@ dap.adapters["pwa-node"] = {
 }
 
 local function set_language_configurations()
-  for _, language in pairs(tables.keys(debug_configs)) do
+  for _, language in pairs(vim.tbl_keys(debug_configs)) do
     dap.configurations[language] = {}
     local local_configs = lcfg.local_config_or({ "debug", language }, nil, { reload = false })
     if local_configs then
@@ -84,11 +84,11 @@ dap.listeners.after.event_stopped["clear_focused_thread"] = function(session, bo
   state.dap.focus.thread = {}
 end
 
-keymap({ "i", "n", "v" }, "<F9>", dap.continue)
-keymap({ "i", "n", "v" }, "<F8>", dap.step_over)
-keymap({ "i", "n", "v" }, "<F7>", dap.step_into)
-keymap({ "i", "n", "v" }, "<S-F8>", dap.step_out)
-keymap({ "i", "n", "v" }, "<S-F9>", dap.goto_)
+keymap("n", "<F9>", dap.continue)
+keymap("n", "<F8>", dap.step_over)
+keymap("n", "<F7>", dap.step_into)
+keymap("n", "<S-F8>", dap.step_out)
+keymap("n", "<S-F9>", dap.goto_)
 keymap("n", "<Space>df", dap.focus_frame)
 keymap("n", "<Space>dr", function()
   vim.cmd.wall()

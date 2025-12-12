@@ -1,11 +1,5 @@
 local M = {}
 
-M.print = function(tbl)
-  for k, v in pairs(tbl) do
-    print(k, v)
-  end
-end
-
 M.len = function(tbl)
   local count = 0
   for _ in pairs(tbl) do
@@ -18,25 +12,8 @@ M.is_empty = function(tbl)
   return next(tbl) == nil
 end
 
-M.is_in_list = function(target, list)
-  for _, value in pairs(list) do
-    if target == value then
-      return true
-    end
-  end
-  return false
-end
-
-M.keys = function(tbl)
-  local keys = {}
-  for key in pairs(tbl) do
-    table.insert(keys, key)
-  end
-  return keys
-end
-
 M.sorted_pairs = function(tbl, f)
-  local keys = M.keys(tbl)
+  local keys = vim.tbl_keys(tbl)
   table.sort(keys, f)
   local i = 0
   return function() -- iterator
@@ -46,16 +23,6 @@ M.sorted_pairs = function(tbl, f)
       return key, tbl[key]
     end
   end
-end
-
-M.filter_list = function(condition, items)
-  local result = {}
-  for _, v in pairs(items) do
-    if condition(v) then
-      result[#result + 1] = v
-    end
-  end
-  return result
 end
 
 M.compact = function(tbl)

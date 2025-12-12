@@ -1,6 +1,5 @@
 local cmds = require("lib.cmds")
 local dap = require("dap")
-local state = require("state")
 local tables = require("lib.base.table")
 
 local function breakpoint_jump(find_func)
@@ -12,7 +11,7 @@ local function breakpoint_jump(find_func)
   local qflist = vim.fn.getqflist()
   vim.cmd.cclose()
   vim.api.nvim_set_current_win(cur_win)
-  qflist = tables.filter_list(function(v)
+  qflist = vim.tbl_filter(function(v)
     return v.bufnr == cur_buf
   end, qflist)
   if tables.is_empty(qflist) then

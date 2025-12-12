@@ -21,8 +21,9 @@ M.reload_local_config = function()
   end
 end
 
-(function()
+local function init()
   M.reload_local_config()
-end)()
+end
+init()
 
 return M

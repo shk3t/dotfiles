@@ -131,10 +131,10 @@ require("nvim-tree").setup({
       max = vim.diagnostic.severity.ERROR,
     },
     icons = {
-      hint = consts.ICONS.DIAGNOSTIC.hint,
-      info = consts.ICONS.DIAGNOSTIC.info,
+      hint = consts.ICONS.DIAGNOSTIC.HINT,
+      info = consts.ICONS.DIAGNOSTIC.INFO,
       warning = consts.ICONS.DIAGNOSTIC.warning,
-      error = consts.ICONS.DIAGNOSTIC.error,
+      error = consts.ICONS.DIAGNOSTIC.ERROR,
     },
   },
   live_filter = { always_show_folders = false },

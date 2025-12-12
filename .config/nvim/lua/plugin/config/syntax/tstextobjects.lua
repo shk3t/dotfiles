@@ -1,5 +1,6 @@
 local keymap = vim.keymap.set
 local move = require("nvim-treesitter-textobjects.move")
+local repeatable_move = require("nvim-treesitter-textobjects.repeatable_move")
 local select = require("nvim-treesitter-textobjects.select")
 local swap = require("nvim-treesitter-textobjects.swap")
 
@@ -23,83 +24,86 @@ require("nvim-treesitter-textobjects").setup({
 
 local keymaps = {
   select = {
-    ["if"] = "@function.inner",
-    ["af"] = "@function.outer",
-
-    ["iC"] = "@class.inner",
-    ["aC"] = "@class.outer",
-
-    ["ia"] = "@parameter.inner",
-    ["aa"] = "@parameter.outer",
-
-    ["ic"] = "@call.inner",
-    ["ac"] = "@call.outer",
-
+    ["is"] = "@assignment.lhs",
+    ["as"] = "@assignment.rhs",
     ["ib"] = "@block.inner",
     ["ab"] = "@block.outer",
-
-    ["is"] = "@statement.outer",
-    ["as"] = "@statement.outer",
-
+    ["ic"] = "@call.inner",
+    ["ac"] = "@call.outer",
+    ["iC"] = "@class.inner",
+    ["aC"] = "@class.outer",
+    ["if"] = "@function.inner",
+    ["af"] = "@function.outer",
+    ["ia"] = "@parameter.inner",
+    ["aa"] = "@parameter.outer",
     ["ij"] = "@code_cell.inner",
     ["aj"] = "@code_cell.outer",
   },
   move = {
     goto_previous_start = {
+      ["[s"] = "@assignment.outer",
+      ["[b"] = "@block.outer",
+      ["[c"] = "@call.outer",
+      ["[C"] = "@class.outer",
       ["[f"] = "@function.outer",
-      ["[c"] = "@class.outer",
       ["[a"] = "@parameter.inner",
       ["[j"] = "@code_cell.inner",
     },
-    goto_previous_end = {
-      ["[F"] = "@function.outer",
-      ["[C"] = "@class.outer",
-      ["[J"] = "@code_cell.inner",
-    },
     goto_next_start = {
+      ["]s"] = "@assignment.outer",
+      ["]b"] = "@block.outer",
+      ["]c"] = "@call.outer",
+      ["]C"] = "@class.outer",
       ["]f"] = "@function.outer",
-      ["]c"] = "@class.outer",
       ["]a"] = "@parameter.inner",
       ["]j"] = "@code_cell.inner",
-    },
-    goto_next_end = {
-      ["]F"] = "@function.outer",
-      ["]C"] = "@class.outer",
-      ["]J"] = "@code_cell.inner",
     },
   },
   swap = {
     swap_previous = {
-      ["c<a"] = "@parameter.inner",
-      ["c<f"] = "@function.outer",
-      ["c<j"] = "@code_cell.outer",
+      ["<s"] = "@assignment.outer",
+      ["<b"] = "@block.inner",
+      ["<c"] = "@call.outer",
+      ["<C"] = "@class.outer",
+      ["<f"] = "@function.outer",
+      ["<a"] = "@parameter.inner",
+      ["<j"] = "@code_cell.outer",
     },
     swap_next = {
-      ["c>a"] = "@parameter.inner",
-      ["c>f"] = "@function.outer",
-      ["c>j"] = "@code_cell.outer",
+      [">s"] = "@assignment.outer",
+      [">b"] = "@block.inner",
+      [">c"] = "@call.outer",
+      [">C"] = "@class.outer",
+      [">f"] = "@function.outer",
+      [">a"] = "@parameter.inner",
+      [">j"] = "@code_cell.outer",
     },
   },
 }
 
 for key, query in pairs(keymaps.select) do
-  keymap({ "x", "o" }, key, function() -- TODO: replace all `v` to `x`
+  keymap({ "x", "o" }, key, function()
     select.select_textobject(query)
   end)
 end
-
 for action, entries in pairs(keymaps.move) do
   for key, query in pairs(entries) do
-    keymap({ "n", "x", "o" }, key, function() -- TODO: do we really need `o`?
-      move[action](query) -- TODO: [] function selection is slower?
-    end)
-  end
-end
-
-for action, entries in pairs(keymaps.swap) do
-  for key, query in pairs(entries) do
-    keymap("n", key, function()
+    keymap({ "n", "x", "o" }, key, function()
       move[action](query)
     end)
   end
 end
+for action, entries in pairs(keymaps.swap) do
+  for key, query in pairs(entries) do
+    keymap("n", key, function()
+      swap[action](query)
+    end)
+  end
+end
+
+keymap({ "n", "x", "o" }, ";", repeatable_move.repeat_last_move_next)
+keymap({ "n", "x", "o" }, ",", repeatable_move.repeat_last_move_previous)
+keymap({ "n", "x", "o" }, "f", repeatable_move.builtin_f_expr, { expr = true })
+keymap({ "n", "x", "o" }, "F", repeatable_move.builtin_F_expr, { expr = true })
+keymap({ "n", "x", "o" }, "t", repeatable_move.builtin_t_expr, { expr = true })
+keymap({ "n", "x", "o" }, "T", repeatable_move.builtin_T_expr, { expr = true })

@@ -15,7 +15,6 @@ vim.opt.linebreak = true
 vim.opt.breakindent = true
 
 -- Syntax highlighting
-vim.cmd.syntax("on")
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true

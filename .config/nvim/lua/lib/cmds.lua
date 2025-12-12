@@ -30,8 +30,8 @@ M.toggle_fixed_signcolumn = function()
   end
 end
 M.set_default_scrolloff = function()
-  vim.opt_local.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
-  vim.opt_local.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
+  vim.wo.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
+  vim.wo.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
 end
 
 -- Jumps

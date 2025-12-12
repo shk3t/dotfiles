@@ -8,7 +8,7 @@ local utils = require("plugin.util.jupyter")
 
 local opts = { silent = true }
 
-keymap("v", "<Space>j", cmds.preserve_location(":<C-U>MoltenEvaluateVisual<CR>"), { silent = true })
+keymap("x", "<Space>j", cmds.preserve_location(":<C-U>MoltenEvaluateVisual<CR>"), { silent = true })
 keymap("n", "<Space>jl", vim.cmd.MoltenEvaluateLine, opts)
 keymap("n", "<Space>jr", vim.cmd.MoltenReevaluateCell, opts)
 keymap("n", "<Space>jd", vim.cmd.MoltenDelete, opts)

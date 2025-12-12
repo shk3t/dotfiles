@@ -64,6 +64,6 @@ keymap("n", "<Space>s", "mm:AerialOpen<CR>")
 autocmd("FileType", {
   pattern = "aerial",
   callback = function()
-    vim.opt_local.cursorlineopt = "line"
+    vim.wo.cursorlineopt = "line"
   end,
 })

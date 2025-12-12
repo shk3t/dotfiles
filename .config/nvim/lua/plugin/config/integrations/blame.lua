@@ -5,9 +5,9 @@ vim.keymap.set("n", "<Space>GB", vim.cmd.BlameToggle)
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "blame",
   callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.signcolumn = "no"
-    vim.opt_local.wrap = false
-    vim.opt_local.cursorlineopt = "line"
+    vim.wo.number = false
+    vim.wo.signcolumn = "no"
+    vim.wo.wrap = false
+    vim.wo.cursorlineopt = "line"
   end,
 })

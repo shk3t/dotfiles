@@ -21,7 +21,7 @@ autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
 autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
   callback = function()
     if vim.o.number then
-      vim.opt_local.relativenumber = true
+      vim.wo.relativenumber = true
     end
   end,
 })
@@ -100,11 +100,11 @@ autocmd("CmdwinEnter", {
 -- Disable numbers in terminal mode
 autocmd("TermOpen", {
   callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.relativenumber = false
-    vim.opt_local.scrolloff = 0
-    vim.opt_local.sidescrolloff = 0
-    vim.opt_local.signcolumn = "no"
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.wo.scrolloff = 0
+    vim.wo.sidescrolloff = 0
+    vim.wo.signcolumn = "no"
     vim.bo.filetype = "terminal"
     vim.cmd.startinsert()
   end,

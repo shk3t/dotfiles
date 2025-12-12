@@ -30,7 +30,7 @@ lualine.setup({
         symbols = (function()
           local symbols = {}
           for k, v in pairs(consts.ICONS.DIAGNOSTIC) do
-            symbols[k] = v .. " "
+            symbols[string.lower(k)] = v .. " "
           end
           return symbols
         end)(),

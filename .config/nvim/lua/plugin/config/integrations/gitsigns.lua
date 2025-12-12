@@ -33,7 +33,7 @@ local function custom_attach(bufnr)
 
   -- Actions
   bufmap("n", "<Space>ga", gs.stage_hunk)
-  bufmap("v", "<Space>ga", function()
+  bufmap("x", "<Space>ga", function()
     gs.stage_hunk({
       vim.fn.line("."),
       vim.fn.line("v"),
@@ -41,7 +41,7 @@ local function custom_attach(bufnr)
   end)
   bufmap("n", "<Space>gu", gs.undo_stage_hunk)
   bufmap("n", "<Space>gr", gs.reset_hunk)
-  bufmap("v", "<Space>gr", function()
+  bufmap("x", "<Space>gr", function()
     gs.reset_hunk({
       vim.fn.line("."),
       vim.fn.line("v"),
@@ -64,8 +64,8 @@ local function custom_attach(bufnr)
   bufmap("n", "<Space>GP", gs.toggle_deleted)
 
   -- Text object
-  bufmap({ "o", "v" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
-  bufmap({ "o", "v" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
+  bufmap({ "x", "o" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
+  bufmap({ "x", "o" }, "ag", ":<C-U>Gitsigns select_hunk<CR>")
 end
 
 require("gitsigns").setup({

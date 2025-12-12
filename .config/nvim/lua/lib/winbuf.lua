@@ -42,7 +42,7 @@ M.is_auxiliary_buffer = function(buf)
   buf = buf or 0
   local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
 
-  return tables.is_in_list(buf_name, consts.AUXILIARY_BUF.FILENAMES)
+  return vim.list_contains(consts.AUXILIARY_BUF.FILENAMES, buf_name)
     or strings.contains(buf_name, consts.DAP.REPL_FILENAME_PATTERN)
     or vim.bo[buf].filetype == "terminal"
 end

@@ -141,9 +141,9 @@ keymap("n", "<C-P>", builtin.resume)
 keymap("n", "<C-F>", function()
   builtin.find_files()
 end)
-keymap("v", "<C-F>", utils.visual_picker(builtin.find_files))
+keymap("x", "<C-F>", utils.visual_picker(builtin.find_files))
 keymap("n", "<C-G>", telescope.extensions.live_grep_args.live_grep_args)
-keymap("v", "<C-G>", function()
+keymap("x", "<C-G>", function()
   grep_shortcuts.grep_visual_selection({
     postfix = "",
     quote = false,
@@ -153,13 +153,13 @@ end)
 keymap("n", "<Space>w", function()
   builtin.lsp_dynamic_workspace_symbols()
 end)
-keymap("v", "<Space>w", utils.visual_picker(builtin.lsp_dynamic_workspace_symbols))
+keymap("x", "<Space>w", utils.visual_picker(builtin.lsp_dynamic_workspace_symbols))
 keymap("n", "g<Tab>", builtin.buffers)
 keymap("n", "<Space><C-O>", function()
   builtin.jumplist({ show_line = false, trim_text = true })
 end)
 keymap("n", "<Space>p", builtin.registers)
-keymap("v", "<Space>p", function()
+keymap("x", "<Space>p", function()
   inputs.norm("d")
   builtin.registers()
 end)
@@ -181,8 +181,8 @@ keymap("n", "<Space>ts", builtin.spell_suggest)
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
-    vim.opt_local.number = true
-    vim.opt_local.wrap = true
-    vim.opt_local.cursorline = true
+    vim.wo.number = true
+    vim.wo.wrap = true
+    vim.wo.cursorline = true
   end,
 })

@@ -36,9 +36,10 @@ M.focus_tmux_window = function(window_id)
   vim.fn.system("[[ $TMUX ]] && tmux select-window -t " .. tostring(window_id))
 end
 
-(function()
+local function init()
   state.system.terminal_window_id = M.get_terminal_window()
   state.system.tmux_window_id = M.get_tmux_window()
-end)()
+end
+init()
 
 return M

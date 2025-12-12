@@ -40,17 +40,17 @@ keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
-    keydel({ "n", "v" }, "<Leader>S", { buffer = true })
+    keydel({ "n", "x" }, "<Leader>S", { buffer = true })
     keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap("v", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap({ "n", "v" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
-    keymap({ "n", "v" }, "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
+    keymap("x", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
+    keymap("n", "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
   end,
 })
 autocmd("FileType", {
   pattern = "dbui",
   callback = function()
-    vim.opt_local.shiftwidth = 2
+    vim.bo.shiftwidth = 2
     keydel("n", "<C-K>", { buffer = true })
     keydel("n", "<C-J>", { buffer = true })
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
@@ -62,11 +62,11 @@ autocmd("FileType", {
 autocmd("FileType", {
   pattern = "dbout",
   callback = function()
-    vim.opt_local.number = false
-    vim.opt_local.signcolumn = "no"
-    vim.opt_local.wrap = false
-    vim.opt_local.cursorlineopt = "line"
-    vim.opt_local.foldenable = false
+    vim.wo.number = false
+    vim.wo.signcolumn = "no"
+    vim.wo.wrap = false
+    vim.wo.cursorlineopt = "line"
+    vim.wo.foldenable = false
     vim.diagnostic.enable(false)
   end,
 })
