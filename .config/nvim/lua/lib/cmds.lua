@@ -1,59 +1,70 @@
 local consts = require("consts")
 local inputs = require("lib.base.input")
+local state = require("state")
 local winbufs = require("lib.winbuf")
 
 local M = {}
 
 -- Toggling opts
-M.toggle_line_numeration = function()
+function M.toggle_line_numeration()
   vim.opt.number = not vim.o.number
   vim.opt.relativenumber = vim.o.number
 end
-M.toggle_relative_numeration = function()
+function M.toggle_relative_numeration()
   if vim.o.number then
     vim.opt.relativenumber = not vim.o.relativenumber
   end
 end
-M.toggle_tab_width = function()
+function M.toggle_tab_width()
   vim.opt.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
   vim.opt.tabstop = vim.o.shiftwidth
   vim.opt.softtabstop = vim.o.shiftwidth
 end
-M.toggle_line_wrap = function()
+function M.toggle_line_wrap()
   vim.opt.wrap = not vim.o.wrap
 end
-M.toggle_fixed_signcolumn = function()
+function M.toggle_fixed_signcolumn()
   if vim.o.signcolumn:find("auto") then
     vim.opt.signcolumn = "yes"
   else
     vim.opt.signcolumn = "auto:1-2"
   end
 end
-M.set_default_scrolloff = function()
+function M.set_default_scrolloff()
   vim.wo.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
   vim.wo.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
 end
 
 -- Jumps
-M.preserve_location = function(callback)
+---@param callback string|function
+function M.preserve_pos(callback)
   if type(callback) == "string" then
     return function()
-      M.norm("m" .. consts.PRESERVE_MARK .. callback .. "`" .. consts.PRESERVE_MARK)
-      vim.cmd.delmarks(consts.PRESERVE_MARK)
+      state.preserved_position = vim.api.nvim_win_get_cursor(0)
+      M.norm(callback)
+      vim.api.nvim_win_set_cursor(0, state.preserved_position)
+      state.preserved_position = nil
     end
   end
 
   return function()
-    M.norm("m" .. consts.PRESERVE_MARK)
+    state.preserved_position = vim.api.nvim_win_get_cursor(0)
     callback()
-    M.norm("`" .. consts.PRESERVE_MARK)
-    vim.cmd.delmarks(consts.PRESERVE_MARK)
+    vim.api.nvim_win_set_cursor(0, state.preserved_position)
+    state.preserved_position = nil
   end
 end
-M.save_jump = function()
+---@param expr string
+function M.preserve_pos_pre(expr)
+  return function()
+    state.preserved_position = vim.api.nvim_win_get_cursor(0)
+    return expr
+  end
+end
+function M.save_jump()
   vim.cmd("normal! m'")
 end
-M.prev_insert_pos = function()
+function M.prev_insert_pos()
   pcall(function()
     local next_row = unpack(vim.api.nvim_win_get_cursor(0))
     repeat
@@ -63,7 +74,7 @@ M.prev_insert_pos = function()
     until prev_row ~= next_row
   end)
 end
-M.longjump = function(key)
+function M.longjump(key)
   pcall(function()
     local prime_buf = vim.api.nvim_get_current_buf()
     local next_row = -1
@@ -74,13 +85,13 @@ M.longjump = function(key)
     until prime_buf ~= vim.api.nvim_get_current_buf() or prev_row == next_row
   end)
 end
-M.longjump_back = function()
+function M.longjump_back()
   M.longjump("<C-O>")
 end
-M.longjump_forward = function()
+function M.longjump_forward()
   M.longjump([[\\i]])
 end
-M.longjump_back_skip_auxiliary = function()
+function M.longjump_back_skip_auxiliary()
   repeat
     M.longjump("<C-O>")
   until not winbufs.is_auxiliary_buffer()
@@ -88,30 +99,30 @@ M.longjump_back_skip_auxiliary = function()
 end
 
 -- Quickfix
-M.quiet_cprev = function()
+function M.quiet_cprev()
   if not pcall(vim.cmd.cprevious) then
     vim.cmd.clast()
   end
 end
-M.quiet_cnext = function()
+function M.quiet_cnext()
   if not pcall(vim.cmd.cnext) then
     vim.cmd.cfirst()
   end
 end
 
 -- Other
-M.rename_tab = function()
+function M.rename_tab()
   local tabname = vim.fn.input("New tab name: ")
   if tabname then
     vim.cmd("TabRename " .. tabname)
   end
 end
 
-M.center_win = function()
+function M.center_win()
   vim.cmd("normal! zz")
 end
 
-M.get_visual = function()
+function M.get_visual()
   local _, ls, cs = unpack(vim.fn.getpos("v"))
   local _, le, ce = unpack(vim.fn.getpos("."))
   if ls > le then
@@ -124,13 +135,12 @@ M.get_visual = function()
   return visual[1] or ""
 end
 
-M.yank_all_sys_clip = function()
-  inputs.norm("mm")
+function M.yank_all_sys_clip()
   vim.cmd("%y y")
   vim.fn.setreg("+", vim.fn.getreg("y"):sub(1, -2))
 end
 
-M.map_easy_closing = function()
+function M.map_easy_closing()
   vim.keymap.set("n", "q", ":q<CR>", {
     buffer = true,
     silent = true,

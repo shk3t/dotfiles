@@ -4,7 +4,7 @@ local builtin = require("telescope.builtin")
 
 local M = {}
 
-M.quickfix_picker = function(title, callback)
+function M.quickfix_picker(title, callback)
   return function()
     if not pcall(callback) then
       return
@@ -15,28 +15,28 @@ M.quickfix_picker = function(title, callback)
   end
 end
 
-M.visual_picker = function(picker)
+function M.visual_picker(picker)
   return function()
     local visual = cmds.get_visual()
     picker({ default_text = visual })
   end
 end
 
-M.cword_picker = function(picker)
+function M.cword_picker(picker)
   return function()
     local word_under_cursor = vim.fn.expand("<cword>")
     picker({ default_text = word_under_cursor })
   end
 end
 
-M.paste_action = function()
+function M.paste_action()
   local selection = vim.fn.getreg('"') or ""
   if vim.bo.modifiable then
     vim.api.nvim_paste(selection, true, -1)
   end
 end
 
-M.adjust_iconpath_display = function(config, pickers, ext_pickers)
+function M.adjust_iconpath_display(config, pickers, ext_pickers)
   pickers = pickers or {}
   ext_pickers = ext_pickers or {}
   if not consts.ICONS.ENABLED then

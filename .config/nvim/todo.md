@@ -1,111 +1,56 @@
-## nottoday but anyway
-- `p` paste always preserves previous yank (swap with current `P`)
-- yank preserve location plugin
-- harpoon
-- recursive renaming with neo-tree
-- checkout new lspconfig features
-    - multiline tokens for example
-- multiple cursors on the similar word like emacs
-    - or is it better to use builtin motions?
-- mcphub.nvim
+## Today
+### Review
+- cmp
+- debug
+- navigation
+- integrations
+- ui
+- tweaks
+### Fixes
 - nvim spider extend support for cyrillic symbols
-- git blame misalignment: https://github.com/FabijanZulj/blame.nvim/issues/6
-- cmd completion on replace
-- markdown formatting
-- config go.nvim
-
-## Important
-- dap threads fast switching
-- avante.nvim
-### Keys
-- [ ] jump to error line in stack trace
-- [ ] keys repetition nvimtools/hydra.nvim
-- [ ] treesitter better text objects 
-    - https://github.com/nvim-treaesitter/nvim-treesitter-textobjects
-    - https://github.com/RRethy/nvim-treesitter-textsubjects
-    - https://github.com/chrisgrieser/nvim-various-textobjs
-    - https://github.com/echasnovski/mini.nvim/blob/main/readmes/mini-ai.md
-    - https://neovim.discourse.group/t/autocmd-to-keep-cursor-position-on-yank/2982/2
-    - [ ] Features
-        - `q` to select any nearest quote
-        - select any nearest bracket
-        - jump to class/function name, not keyword
-        - dot-repeat
-        - correct lua function
-        - key, value, triple quotes
-        - fast increment-decrement node selections
-        - jupyter code cells
-- [ ] flash.nvim (highlight `f` jumps)
-### LSP
-- [ ] lua ls `gd` definition duplication: https://github.com/benlubas/.dotfiles/blob/main/nvim%2Flua%2Fbenlubas%2Flsp_handlers.lua
-- [ ] neovim debugger
-- [ ] better autocompletion with SQL LSP
-- [ ] config x-ray/go
-### Global
-### Debug
-- https://github.com/igorlfs/nvim-dap-view
-- https://github.com/theHamsta/nvim-dap-virtual-text
-- https://github.com/t-troebst/perfanno.nvim
-- https://github.com/Weissle/persistent-breakpoints.nvim
-
-<br>
-
-## Other
-### Waiting for update
-- Lazy.nvim reload configs: https://github.com/folke/lazy.nvim/issues/445
+- `p` paste always preserves previous yank (swap with current `P`)
 - cmp replace only on confirm
-- duplicate entries for cmp-buffer (clangd, pylsp)
-    - https://github.com/hrsh7th/nvim-cmp/issues/511#issuecomment-1063014008
-- spider russian language support
-- rename file with lsp references: https://github.com/neovim/neovim/issues/20784
-- pyright autoimport relative
-- tmux continue search from current position (not from random starting point)
-### Features
-- [ ] preserve window camera location
-- [ ] fast global rename
-- [ ] command line rename (:s) autocomplete
-- [ ] text editing through ssh
-- [ ] yank history
-- [ ] better visualblock mode
-- [ ] normal mode in cmd with preview and syntax highlighting
-- [ ] better (modifiable) quickfix buffer
-- [ ] swap lines
-- [ ] dot-repeat previous jump
-- [?] bookmarks
-- [ ] folding
-### Instances
-- [ ] neogit
-- [ ] nvim-ufo
-- [ ] refactoring: https://github.com/ThePrimeagen/refactoring.nvim
-- [ ] heirline
-- [ ] nvim-bqf
-- [ ] trouble
-- [ ] zen-mode
-- [ ] live-command
-- [ ] mini.ai
-- [ ] unimpaired
-- [ ] telescope filebrowser
-- [ ] nvim-hlslens
-- [ ] nvim-treesitter-refactor
-- [ ] neoscroll / cinnamon
-- [ ] lspsaga
-- [ ] neoclip
-- [ ] neorg
-- [ ] flash
-- [ ] whichkey
-- [ ] lazygit (integration)
-- [ ] ssr
-- [ ] sniprun
+- command line substitute (:s) autocomplete
+### New plugins
+- mini.surround vs nvim-surround
+    - check loading time
+- mini.comment vs Comment.nvim
+- blink.cmp
+- recursive renaming with neo-tree
+    - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
+    - https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
+### New features
+- config go.nvim
+- mass replace (cdo) going backward/forward
 
-<br>
+## Fixes
+### New features
+- normal mode in cmd with preview and syntax highlighting
+- text editing through ssh
+- lazygit integration
+- performance profiler
+### Keys
+- multiple cursors on the similar word like emacs
+- jump to error line in stack trace (terminal mode)
+### LSP
+- better autocompletion with SQL LSP
 
-## Global
-- [ ] openvpn
-### ZSH
-- [ ] better vim motions: `visual select inside double quotes`
-### KDE
-- [ ] note widgets on desktop
-
-## Another software
-- [ ] pbcopy
-- [ ] lf
+## Plugins
+- harpoon
+    - Easy peasy navigation
+- avante
+    - AI
+- mcphub
+    - mcp integration
+- refactoring: https://github.com/ThePrimeagen/refactoring.nvim
+- trouble
+    - show definition, references, diagnostics in one window
+- mini.ai
+    - selecting outer brackets
+- sniprun
+    - run code snippets
+- flash
+    - f highligh
+    - / search indicator near the word 
+- nvim-bqf
+    - better (modifiable) quickfix buffer

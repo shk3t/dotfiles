@@ -1,6 +1,6 @@
 local M = {}
 
-M.len = function(tbl)
+function M.len(tbl)
   local count = 0
   for _ in pairs(tbl) do
     count = count + 1
@@ -8,11 +8,11 @@ M.len = function(tbl)
   return count
 end
 
-M.is_empty = function(tbl)
+function M.is_empty(tbl)
   return next(tbl) == nil
 end
 
-M.sorted_pairs = function(tbl, f)
+function M.sorted_pairs(tbl, f)
   local keys = vim.tbl_keys(tbl)
   table.sort(keys, f)
   local i = 0
@@ -25,7 +25,7 @@ M.sorted_pairs = function(tbl, f)
   end
 end
 
-M.compact = function(tbl)
+function M.compact(tbl)
   local new_tbl = {}
   local i = 1
   for _, v in pairs(tbl) do
@@ -35,7 +35,7 @@ M.compact = function(tbl)
   return new_tbl
 end
 
-M.merge_lists = function(...)
+function M.merge_lists(...)
   local result = {}
   for _, tbl in pairs({ ... }) do
     vim.list_extend(result, tbl)
@@ -44,7 +44,7 @@ M.merge_lists = function(...)
 end
 
 -- Data structure
-M.set = function(list)
+function M.set(list)
   local set = {}
   for _, l in pairs(list) do
     set[l] = true
@@ -53,7 +53,7 @@ M.set = function(list)
 end
 
 -- Dot-chained get
-M.geget = function(tbl, keyseq)
+function M.geget(tbl, keyseq)
   local curval = tbl
   for _, key in pairs(keyseq) do
     curval = curval and curval[key]
@@ -61,7 +61,7 @@ M.geget = function(tbl, keyseq)
   return curval
 end
 -- Dot-chained set
-M.seset = function(tbl, keyseq, value)
+function M.seset(tbl, keyseq, value)
   local last_key = table.remove(keyseq)
 
   local curval = tbl

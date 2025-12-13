@@ -6,14 +6,14 @@ local tables = require("lib.base.table")
 
 local M = {}
 
-M.do_in_win = function(win, action, args)
+function M.do_in_win(win, action, args)
   local prev_win = vim.api.nvim_get_current_win()
   vim.api.nvim_set_current_win(win)
   action(unpack(args or {}))
   vim.api.nvim_set_current_win(prev_win)
 end
 
-M.term = function(command)
+function M.term(command)
   -- Create buf if not exists
   if not vim.api.nvim_buf_is_valid(state.main_term.buf) then
     state.main_term.buf = vim.api.nvim_create_buf(false, true)
@@ -38,7 +38,7 @@ M.term = function(command)
 end
 
 -- Which are automatically spawned to serve main buffers
-M.is_auxiliary_buffer = function(buf)
+function M.is_auxiliary_buffer(buf)
   buf = buf or 0
   local buf_name = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":t")
 

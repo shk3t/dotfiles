@@ -3,7 +3,7 @@ local M = {}
 -- automatically import output chunks from a jupyter notebook
 -- tries to find a kernel that matches the kernel in the jupyter notebook
 -- falls back to a kernel that matches the name of the active venv (if any)
-M.init_molten_buffer = function(e) -- init molten buffer
+function M.init_molten_buffer(e) -- init molten buffer
   vim.schedule(function()
     local kernels = vim.fn.MoltenAvailableKernels()
     local try_kernel_name = function()
@@ -62,7 +62,7 @@ local default_notebook = [[
   }
 ]]
 
-M.new_notebook = function(filename)
+function M.new_notebook(filename)
   local path = filename .. ".ipynb"
   local file = io.open(path, "w")
   if file then

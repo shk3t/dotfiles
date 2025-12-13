@@ -1,14 +1,14 @@
 local M = {}
 
-M.contains = function(str, sub)
+function M.contains(str, sub)
   return string.find(str, sub) ~= nil
 end
 
-M.contains_any = function(str, subs)
+function M.contains_any(str, subs)
   return string.find(str, table.concat(subs, "|")) ~= nil
 end
 
-M.split = function(inputstr, sep)
+function M.split(inputstr, sep)
   inputstr = inputstr or ""
   sep = sep or "%s"
   local t = {}

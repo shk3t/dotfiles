@@ -23,7 +23,7 @@ end
 
 local M = {}
 
-M.breakpoint_jump_back = function()
+function M.breakpoint_jump_back()
   breakpoint_jump(function(cur_row, qflist)
     for i = #qflist, 1, -1 do
       if qflist[i].lnum - cur_row < 0 then
@@ -34,7 +34,7 @@ M.breakpoint_jump_back = function()
   end)
 end
 
-M.breakpoint_jump_forward = function()
+function M.breakpoint_jump_forward()
   breakpoint_jump(function(cur_row, qflist)
     for i = 1, #qflist do
       if qflist[i].lnum - cur_row > 0 then

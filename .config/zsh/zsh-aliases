@@ -77,12 +77,6 @@ function todow {
     tmux rename-window TODO
     nvim $FILE
 }
-function nvimcfg {
-    DIR=~/.config/nvim
-    cd $DIR
-    tmux rename-window NVIM
-    vf
-}
 
 # LLM
 function webui-restart {

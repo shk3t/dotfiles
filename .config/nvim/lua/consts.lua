@@ -26,7 +26,6 @@ return {
   AUXILIARY_BUF = {
     FILENAMES = merge_lists(DAP.FILENAMES, DB.FILENAMES, { "null", "ui", "DiffviewFilePanel" }),
   },
-  PRESERVE_MARK = "m",
 
   -- Appearance
   COLORSCHEME = "rose-pine",

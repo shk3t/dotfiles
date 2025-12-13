@@ -2,7 +2,7 @@ local consts = require("consts")
 
 local M = {}
 
-M.natural_order_with_filetype_cmp = function(left, right)
+function M.natural_order_with_filetype_cmp(left, right)
   local left_ft_priority = consts.FILETYPE_PRIORITIES[left.type]
   local right_ft_priority = consts.FILETYPE_PRIORITIES[right.type]
   if left_ft_priority ~= -1 and right_ft_priority ~= -1 and left_ft_priority ~= right_ft_priority then

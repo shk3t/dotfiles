@@ -4,7 +4,7 @@ require("lazydev").setup({
   },
 })
 
--- TODO
+-- TODO: blink integration
 -- { -- optional blink completion source for require statements and module annotations
 --     "saghen/blink.cmp",
 --     opts = {

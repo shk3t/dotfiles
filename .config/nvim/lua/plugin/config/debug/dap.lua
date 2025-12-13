@@ -102,8 +102,8 @@ end)
 keymap("n", "<Space>BL", function()
   dap.set_breakpoint(nil, nil, vim.fn.input(""))
 end)
-keymap("n", "[b", utils.breakpoint_jump_back)
-keymap("n", "]b", utils.breakpoint_jump_forward)
+keymap("n", "[B", utils.breakpoint_jump_back)
+keymap("n", "]B", utils.breakpoint_jump_forward)
 keymap(
   "n",
   "<Space>tb",
@@ -112,8 +112,8 @@ keymap(
     dap.list_breakpoints()
   end)
 )
-keymap("n", "[s", dap.up)
-keymap("n", "]s", dap.down)
+keymap("n", "[S", dap.up)
+keymap("n", "]S", dap.down)
 
 autocmd("FileType", {
   pattern = "dap-repl",

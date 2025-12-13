@@ -1,22 +1,22 @@
 local M = {}
 
-M.replace_termcodes = function(str)
+function M.replace_termcodes(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-M.typekeys = function(keyseq)
+function M.typekeys(keyseq)
   vim.api.nvim_feedkeys(M.replace_termcodes(keyseq), "t", false)
 end
 
-M.norm = function(command)
+function M.norm(command)
   vim.cmd("normal! " .. M.replace_termcodes(command))
 end
 
-M.rnorm = function(command)
+function M.rnorm(command)
   vim.cmd("normal " .. M.replace_termcodes(command))
 end
 
-M.tnorm = function(command)
+function M.tnorm(command)
   M.typekeys("<C-\\><C-O>")
   vim.cmd("normal! " .. M.replace_termcodes(command))
 end

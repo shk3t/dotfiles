@@ -7,14 +7,14 @@ local cmp_icons = consts.ICONS.CMP_KIND
 
 local M = {}
 
-M.trim_redundant = function(vim_item)
+function M.trim_redundant(vim_item)
   for _, redundant_pattern in pairs({ "%(.*%)", "~", "?" }) do
     vim_item.abbr = vim_item.abbr:gsub(redundant_pattern, "")
   end
   return vim_item
 end
 
-M.add_icon = function(vim_item)
+function M.add_icon(vim_item)
   if consts.ICONS.ENABLED then
     vim_item.kind = ("%s %s"):format(cmp_icons[vim_item.kind], vim_item.kind)
   end

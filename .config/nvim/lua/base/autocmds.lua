@@ -46,14 +46,12 @@ autocmd("TextYankPost", {
 })
 -- Yank preserve position
 autocmd("TextYankPost", {
-  callback = function()
-    if vim.v.event.operator == "y" then
-      pcall(function()
-        cmds.norm("`m")
-        vim.cmd.delmarks("m")
-      end)
-    end
-  end,
+    callback = function()
+        if vim.v.event.operator == "y" and state.preserved_position then
+            vim.api.nvim_win_set_cursor(0, state.preserved_position)
+            state.preserved_position = nil
+        end
+    end,
 })
 
 -- Do not restore deleted marks
@@ -128,10 +126,10 @@ autocmd("WinLeave", {
 
 -- Auto language layout switch
 local layout_enter_callback = function()
-  sys.set_layout(state.notnorm_layout_idx)
+  sys.set_layout(state.system.mode_layout_idx)
 end
 local layout_exit_callback = function()
-  state.notnorm_layout_idx = sys.get_layout()
+  state.system.mode_layout_idx = sys.get_layout()
   sys.set_layout(consts.LAYOUT.ENGLISH_IDX)
 end
 autocmd("InsertEnter", {

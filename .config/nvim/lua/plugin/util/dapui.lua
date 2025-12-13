@@ -20,11 +20,11 @@ end
 
 local M = {}
 
-M.trigger_first_action = function()
+function M.trigger_first_action()
   dap_ui.trigger_actions({ mode = "first" })
 end
 
-M.switch_thread_focus = function(step)
+function M.switch_thread_focus(step)
   if not update_focused_thread() or step == 0 then
     return
   end
