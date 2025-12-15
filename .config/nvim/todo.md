@@ -1,31 +1,26 @@
 ## Today
+- Check his plugins: https://github.com/chrisgrieser?tab=repositories&q=&type=&language=&sort=stargazers
 ### Review
-- cmp
 - debug
+- tweaks
 - navigation
 - integrations
-- ui
-- tweaks
 ### Fixes
-- nvim spider extend support for cyrillic symbols
-- `p` paste always preserves previous yank (swap with current `P`)
-- cmp replace only on confirm
-- command line substitute (:s) autocomplete
+- Search history
+- telescope show matched symbold over line highlighting
 ### New plugins
-- mini.surround vs nvim-surround
-    - check loading time
-- mini.comment vs Comment.nvim
-- blink.cmp
 - recursive renaming with neo-tree
     - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
     - https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
 ### New features
-- config go.nvim
+- nvim-recorder: macro overriding
+- go.nvim: config 
+- normal mode in cmd with preview and syntax highlighting
 - mass replace (cdo) going backward/forward
 
 ## Fixes
 ### New features
-- normal mode in cmd with preview and syntax highlighting
+- nvim spider extend support for cyrillic symbols
 - text editing through ssh
 - lazygit integration
 - performance profiler
@@ -36,21 +31,22 @@
 - better autocompletion with SQL LSP
 
 ## Plugins
+- nvim-bqf
+    - better (modifiable) quickfix buffer
 - harpoon
     - Easy peasy navigation
 - avante
     - AI
 - mcphub
     - mcp integration
-- refactoring: https://github.com/ThePrimeagen/refactoring.nvim
-- trouble
-    - show definition, references, diagnostics in one window
-- mini.ai
-    - selecting outer brackets
-- sniprun
-    - run code snippets
 - flash
     - f highligh
     - / search indicator near the word 
-- nvim-bqf
-    - better (modifiable) quickfix buffer
+- trouble
+    - show definition, references, diagnostics in one window
+- sniprun
+    - run code snippets
+- yanky
+- refactoring: https://github.com/ThePrimeagen/refactoring.nvim
+- scissors
+    - easy snippet creation

@@ -133,7 +133,7 @@ require("nvim-tree").setup({
     icons = {
       hint = consts.ICONS.DIAGNOSTIC.HINT,
       info = consts.ICONS.DIAGNOSTIC.INFO,
-      warning = consts.ICONS.DIAGNOSTIC.warning,
+      warning = consts.ICONS.DIAGNOSTIC.WARN,
       error = consts.ICONS.DIAGNOSTIC.ERROR,
     },
   },

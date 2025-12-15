@@ -3,8 +3,10 @@ local cmds = require("lib.cmds")
 local inputs = require("lib.base.input")
 
 -- Distinguish keypresses
-keymap({ "n", "x" }, "<Space>", "<Nop>")
+keymap({ "n", "x" }, "<Space>", "<NOP>")
 keymap({ "n", "x" }, "<S-Space>", "<Space>", { remap = true })
+keymap("n", "<C-W>c", "<NOP>")
+keymap("n", "<C-W><C-C>", "<NOP>")
 keymap("n", "<C-I>", "<C-I>")
 keymap("n", [[\\i]], "<C-I>")
 keymap("n", "<C-M>", "<C-M>")
@@ -40,7 +42,7 @@ keymap("n", "<Space>TS", cmds.toggle_fixed_signcolumn)
 keymap({ "n", "x" }, "ZL", "zL")
 keymap({ "n", "x" }, "ZH", "zH")
 
--- Search
+-- Search: TODO: looks buggy in statusline
 keymap({ "n", "x" }, "n", "'Nn'[v:searchforward]", { expr = true })
 keymap({ "n", "x" }, "N", "'nN'[v:searchforward]", { expr = true })
 keymap({ "n", "x" }, "g/", [[/\<\><Left><Left>]])
@@ -122,25 +124,19 @@ keymap({ "n", "x", "t" }, "<C-Q>", function()
 end)
 
 -- Tabs
-keymap("n", "<C-W>c", "<C-W><Esc>")
-keymap("n", "<C-W><C-C>", "<C-W><Esc>")
-keymap("n", "<C-W>t", "<C-W>v<C-W>T")
-keymap("n", "<C-W><C-T>", "<C-W>v<C-W>T")
 keymap("n", "<C-W>,", vim.cmd.tabprevious)
 keymap("n", "<C-W>.", vim.cmd.tabnext)
 keymap("n", "<C-W><C-,>", vim.cmd.tabprevious)
 keymap("n", "<C-W><C-.>", vim.cmd.tabnext)
-for i = 1, 9 do
-  keymap("n", "<C-W>" .. i, "<Cmd>" .. i .. "tabnext<CR>")
-  keymap("n", "<Space>" .. i, "<Cmd>" .. i .. "tabnext<CR>")
-end
 keymap("n", "<C-W><", "<Cmd>-tabmove<CR>")
 keymap("n", "<C-W>>", "<Cmd>+tabmove<CR>")
-keymap("n", "<C-W>Q", vim.cmd.tabclose)
-keymap("n", "<C-W>n", cmds.rename_tab)
-keymap("n", "<C-W><C-N>", cmds.rename_tab)
 keymap("n", "<Space><Tab>", "g<Tab>")
-keymap("n", "<C-W>p", "g<Tab>")
+for i = 1, 9 do
+  keymap("n", "<Space>" .. i, "<Cmd>" .. i .. "tabnext<CR>")
+end
+keymap("n", "<C-W>t", "<C-W>v<C-W>T")
+keymap("n", "<C-W><C-T>", "<C-W>v<C-W>T")
+keymap("n", "<C-W>Q", vim.cmd.tabclose)
 
 -- Quickfix list
 keymap("n", "gq", vim.cmd.copen)

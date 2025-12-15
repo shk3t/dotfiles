@@ -20,8 +20,8 @@ local function set_transparent_bg()
   highlight("TabLineFill", { bg = "NONE" })
   highlight("TabLine", { bg = "NONE" })
 
-  vim.opt.pumblend = consts.TRANSPARENCY
-  vim.opt.winblend = consts.TRANSPARENCY
+  vim.o.pumblend = consts.TRANSPARENCY
+  vim.o.winblend = consts.TRANSPARENCY
   highlight("Pmenu", { blend = consts.TRANSPARENCY })
   highlight("PmenuSel", { blend = 0 })
   highlight("FloatBorder", { blend = consts.TRANSPARENCY })

@@ -1,23 +1,19 @@
 local keymap = vim.keymap.set
-local cmp_lsp = require("cmp_nvim_lsp")
+local blinkcmp = require("blink.cmp")
+local conform = require("conform")
 local consts = require("consts")
 local inputs = require("lib.base.input")
 local lspdata = require("plugin.data.lspconfig")
 local telescope_builtin = require("telescope.builtin")
-local conform = require("conform")
 
 local function setup_all_lsp_servers()
-  local capabilities = cmp_lsp.default_capabilities()
-
   vim.lsp.config("*", {
-    capabilities = capabilities,
+    capabilities = blinkcmp.get_lsp_capabilities(),
   })
 
   for name, config in pairs(lspdata.configs) do
-    if type(config) == "table" then
-      vim.lsp.config(name, config)
-      vim.lsp.enable(name)
-    end
+    vim.lsp.config(name, config)
+    vim.lsp.enable(name)
   end
 end
 setup_all_lsp_servers()
@@ -48,7 +44,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     keymap("n", "K", function()
       vim.lsp.buf.hover({ border = consts.ICONS.BORDER })
     end, { buffer = true })
-    keymap("i", "<C-K>", vim.lsp.buf.signature_help, { buffer = true })
     keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = true })
     keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = true })
     keymap("n", "<Space>F", conform.format, { buffer = true })

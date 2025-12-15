@@ -68,7 +68,6 @@ function autosuggest-accept-line() {
     zle accept-line
 }
 zle -N autosuggest-accept-line
-bindkey "^[[13;5u" autosuggest-accept-line
 bindkey "^L" autosuggest-accept-line
 # Widgets update: https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/config.zsh
 ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=(

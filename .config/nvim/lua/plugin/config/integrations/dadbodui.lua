@@ -1,6 +1,7 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
 local keydel = vim.keymap.del
+local cmds = require("lib.cmds")
 
 vim.g.db_ui_execute_on_save = false
 vim.g.db_ui_auto_execute_table_helpers = false
@@ -41,8 +42,8 @@ autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
     keydel({ "n", "x" }, "<Leader>S", { buffer = true })
-    keymap("n", "<C-CR>", "mmvip<Plug>(DBUI_ExecuteQuery)", { buffer = true })
-    keymap("x", "<C-CR>", "mm<Plug>(DBUI_ExecuteQuery)", { buffer = true })
+    keymap("n", "<C-CR>", cmds.preserve_pos_pre("vip<Plug>(DBUI_ExecuteQuery)"), { buffer = true, expr = true })
+    keymap("x", "<C-CR>", cmds.preserve_pos_pre("<Plug>(DBUI_ExecuteQuery)"), { buffer = true, expr = true})
     keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
     keymap("n", "<Space>E", "<Plug>(DBUI_EditBindParameters)", { buffer = true })
   end,

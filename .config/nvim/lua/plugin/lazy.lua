@@ -31,15 +31,16 @@ require("lazy").setup({
       require("plugin.config.lsp.diagnostic")
     end,
     dependencies = {
-      "williamboman/mason.nvim",
+      "saghen/blink.cmp",
       "stevearc/conform.nvim",
       "nvim-telescope/telescope.nvim",
+      "williamboman/mason.nvim",
     },
   },
   {
     "stevearc/conform.nvim",
     config = reqfunc("plugin.config.lsp.conform"),
-    dependencies = { "williamboman/mason.nvim" },
+    dependencies = "williamboman/mason.nvim",
   },
   {
     "jmbuhr/otter.nvim",
@@ -72,24 +73,14 @@ require("lazy").setup({
 
   -- Completions
   {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "f3fora/cmp-spell",
-      "hrsh7th/cmp-cmdline",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "rcarriga/cmp-dap",
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = reqfunc("plugin.config.completion.cmp"),
+    "saghen/blink.cmp",
+    config = reqfunc("plugin.config.completion.blinkcmp"),
+    dependencies = "L3MON4D3/LuaSnip",
   },
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
-    config = reqfunc("plugin.data.luasnip"),
+    config = reqfunc("plugin.config.completion.luasnip"),
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
@@ -141,7 +132,11 @@ require("lazy").setup({
   },
 
   -- Navigation
-  { "kyazdani42/nvim-tree.lua", config = reqfunc("plugin.config.navigation.tree") },
+  {
+    "kyazdani42/nvim-tree.lua",
+    config = reqfunc("plugin.config.navigation.tree"),
+    dependencies = "echasnovski/mini.nvim",
+  },
   { "stevearc/aerial.nvim", config = reqfunc("plugin.config.navigation.aerial") },
   {
     "nvim-telescope/telescope.nvim",
@@ -158,7 +153,6 @@ require("lazy").setup({
 
   -- Integrations
   { "3rd/image.nvim", config = reqfunc("plugin.config.integrations.image") },
-  { "aserowy/tmux.nvim", config = reqfunc("plugin.config.integrations.tmux") },
   {
     "iamcco/markdown-preview.nvim",
     build = function()
@@ -184,9 +178,7 @@ require("lazy").setup({
   {
     "jbyuki/nabla.nvim",
     config = reqfunc("plugin.config.integrations.nabla"),
-    dependencies = {
-      "williamboman/mason.nvim",
-    },
+    dependencies = "williamboman/mason.nvim",
   },
   { "gpanders/editorconfig.nvim" },
   -- Git
@@ -225,10 +217,8 @@ require("lazy").setup({
   },
 
   -- UI
-  { "nvim-tree/nvim-web-devicons", config = require("consts").ICONS.ENABLED },
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.config.ui.lualine") },
-  { "nanozuki/tabby.nvim", config = reqfunc("plugin.config.ui.tabby") },
-  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.indent") },
+  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.indentblankline") },
 
   -- Colorscheme
   {

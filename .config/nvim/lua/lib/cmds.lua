@@ -7,27 +7,27 @@ local M = {}
 
 -- Toggling opts
 function M.toggle_line_numeration()
-  vim.opt.number = not vim.o.number
-  vim.opt.relativenumber = vim.o.number
+  vim.o.number = not vim.o.number
+  vim.o.relativenumber = vim.o.number
 end
 function M.toggle_relative_numeration()
   if vim.o.number then
-    vim.opt.relativenumber = not vim.o.relativenumber
+    vim.o.relativenumber = not vim.o.relativenumber
   end
 end
 function M.toggle_tab_width()
-  vim.opt.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
-  vim.opt.tabstop = vim.o.shiftwidth
-  vim.opt.softtabstop = vim.o.shiftwidth
+  vim.o.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
+  vim.o.tabstop = vim.o.shiftwidth
+  vim.o.softtabstop = vim.o.shiftwidth
 end
 function M.toggle_line_wrap()
-  vim.opt.wrap = not vim.o.wrap
+  vim.o.wrap = not vim.o.wrap
 end
 function M.toggle_fixed_signcolumn()
   if vim.o.signcolumn:find("auto") then
-    vim.opt.signcolumn = "yes"
+    vim.o.signcolumn = "yes"
   else
-    vim.opt.signcolumn = "auto:1-2"
+    vim.o.signcolumn = "auto:1-2"
   end
 end
 function M.set_default_scrolloff()
@@ -41,7 +41,7 @@ function M.preserve_pos(callback)
   if type(callback) == "string" then
     return function()
       state.preserved_position = vim.api.nvim_win_get_cursor(0)
-      M.norm(callback)
+      inputs.norm(callback)
       vim.api.nvim_win_set_cursor(0, state.preserved_position)
       state.preserved_position = nil
     end
@@ -55,6 +55,7 @@ function M.preserve_pos(callback)
   end
 end
 ---@param expr string
+--- When post hook restores position (e.g. "TextYankPost")
 function M.preserve_pos_pre(expr)
   return function()
     state.preserved_position = vim.api.nvim_win_get_cursor(0)
@@ -111,13 +112,6 @@ function M.quiet_cnext()
 end
 
 -- Other
-function M.rename_tab()
-  local tabname = vim.fn.input("New tab name: ")
-  if tabname then
-    vim.cmd("TabRename " .. tabname)
-  end
-end
-
 function M.center_win()
   vim.cmd("normal! zz")
 end

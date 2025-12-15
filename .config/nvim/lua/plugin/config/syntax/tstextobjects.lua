@@ -22,6 +22,8 @@ require("nvim-treesitter-textobjects").setup({
   },
 })
 
+-- TODO: use another mappings for assignment (`e`)
+-- TODO: also restore good mappings for dap jumps (`]_`)
 local keymaps = {
   select = {
     ["is"] = "@assignment.lhs",

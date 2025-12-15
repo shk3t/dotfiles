@@ -1,67 +1,47 @@
-local autocmd = vim.api.nvim_create_autocmd
 local consts = require("consts")
 local lualine = require("lualine")
-
-local function filetype()
-  return vim.bo.filetype
-end
 
 lualine.setup({
   options = {
     icons_enabled = consts.ICONS.ENABLED,
-    theme = "auto",
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
-    disabled_filetypes = { statusline = {}, winbar = {} },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = { statusline = 100, tabline = 100, winbar = 100 },
+    globalstatus = true,
   },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
-      { "branch", icon = "" },
+      { "branch", icon = consts.ICONS.ENABLED and "" },
       "diff",
       {
         "diagnostics",
-        sources = { "nvim_diagnostic", "coc" },
         sections = { "error", "warn", "hint" },
-        symbols = (function()
-          local symbols = {}
-          for k, v in pairs(consts.ICONS.DIAGNOSTIC) do
-            symbols[string.lower(k)] = v .. " "
-          end
-          return symbols
-        end)(),
+        symbols = consts.ICONS.ENABLED and {
+          error = consts.ICONS.DIAGNOSTIC.ERROR .. " ",
+          warn = consts.ICONS.DIAGNOSTIC.WARN .. " ",
+          info = consts.ICONS.DIAGNOSTIC.INFO .. " ",
+          hint = consts.ICONS.DIAGNOSTIC.HINT .. " ",
+        },
       },
     },
-    lualine_c = { { "filename", path = 1 } },
-    lualine_x = consts.ICONS.ENABLED
-        and {
-          { "filetype", icon = true, icon_only = true, padding = { right = 0 }, colored = false },
-          filetype,
-          -- {filetype, padding = {right = 0}},
-          -- {"filetype", icon = true, icon_only = true, padding = {right = 2}, colored = false},
-        }
-      or { "filetype" },
+    lualine_c = {
+      { "filename", path = 1 },
+    },
+    lualine_x = {
+      { "%S" },
+      { "searchcount", maxcount = 999 },
+      {
+        "lsp_status",
+        icon = consts.ICONS.ENABLED and "󰒋",
+        symbols = {
+          spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
+          done = "",
+          separator = "|",
+        },
+      },
+      { "filetype", icon = consts.ICONS.ENABLED, colored = true },
+    },
     lualine_y = { "%l:%v" },
-    lualine_z = { "%LL" },
+    lualine_z = { "%L=" },
   },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { "filename" },
-    lualine_x = { "%l:%v" },
-    lualine_y = {},
-    lualine_z = {},
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {},
-})
-
-autocmd({ "ModeChanged", "BufWritePost" }, {
-  callback = lualine.refresh,
 })
