@@ -1,5 +1,6 @@
 local consts = require("consts")
 local lualine = require("lualine")
+local state = require("state")
 
 lualine.setup({
   options = {
@@ -9,14 +10,25 @@ lualine.setup({
     globalstatus = true,
   },
   sections = {
-    lualine_a = { "mode" },
+    lualine_a = {
+      "mode",
+      {
+        function()
+          return consts.ICONS.ENABLED and "󰯊 " or "S"
+        end,
+        cond = function()
+          return state.spider_mappings
+        end,
+        padding = { left = 0, right = 1 },
+      },
+    },
     lualine_b = {
-      { "branch", icon = consts.ICONS.ENABLED and "" },
+      { "branch", icon = "" },
       "diff",
       {
         "diagnostics",
         sections = { "error", "warn", "hint" },
-        symbols = consts.ICONS.ENABLED and {
+        symbols = {
           error = consts.ICONS.DIAGNOSTIC.ERROR .. " ",
           warn = consts.ICONS.DIAGNOSTIC.WARN .. " ",
           info = consts.ICONS.DIAGNOSTIC.INFO .. " ",
@@ -32,7 +44,7 @@ lualine.setup({
       { "searchcount", maxcount = 999 },
       {
         "lsp_status",
-        icon = consts.ICONS.ENABLED and "󰒋",
+        icon = "󰒋",
         symbols = {
           spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
           done = "",
@@ -42,6 +54,6 @@ lualine.setup({
       { "filetype", icon = consts.ICONS.ENABLED, colored = true },
     },
     lualine_y = { "%l:%v" },
-    lualine_z = { "%L=" },
+    lualine_z = { "%LL" },
   },
 })

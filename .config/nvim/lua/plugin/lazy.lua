@@ -101,7 +101,10 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
     config = reqfunc("plugin.config.syntax.tstextobjects"),
-    dependencies = "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "echasnovski/mini.nvim", -- After mini.ai
+    },
   },
   { "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
   {
@@ -135,7 +138,7 @@ require("lazy").setup({
   {
     "kyazdani42/nvim-tree.lua",
     config = reqfunc("plugin.config.navigation.tree"),
-    dependencies = "echasnovski/mini.nvim",
+    dependencies = "echasnovski/mini.nvim", -- After mini.icons
   },
   { "stevearc/aerial.nvim", config = reqfunc("plugin.config.navigation.aerial") },
   {
@@ -202,19 +205,18 @@ require("lazy").setup({
   { "pbogut/vim-dadbod-ssh", dependencies = "tpope/vim-dadbod" },
 
   -- Tweaks
-  { "echasnovski/mini.nvim", config = reqfunc("plugin.config.tweaks.mini") },
+  {
+    "echasnovski/mini.nvim",
+    config = function()
+      require("plugin.config.ui.mini")
+      require("plugin.config.tweaks.mini")
+    end,
+  },
   { "numToStr/Comment.nvim", config = true },
   { "kylechui/nvim-surround", config = reqfunc("plugin.config.tweaks.surround") },
   { "chrisgrieser/nvim-recorder", config = reqfunc("plugin.config.tweaks.recorder") },
-  { "vim-scripts/Tabmerge", config = reqfunc("plugin.config.tweaks.tabmerge") },
   { "chrisgrieser/nvim-spider", config = reqfunc("plugin.config.tweaks.spider") },
-  {
-    "chentoast/marks.nvim",
-    config = function()
-      require("plugin.config.tweaks.marks")
-      require("plugin.color.marks").setup()
-    end,
-  },
+  { "vim-scripts/Tabmerge", config = reqfunc("plugin.config.tweaks.tabmerge") },
 
   -- UI
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.config.ui.lualine") },
@@ -228,8 +230,8 @@ require("lazy").setup({
       require("plugin.color.telescope").setup()
     end,
   },
-
-  rocks = { hererocks = true },
 }, {
-  defaults = { lazy = false },
+  defaults = {
+    lazy = false,
+  },
 })

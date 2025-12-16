@@ -45,7 +45,10 @@ require("blink.cmp").setup({
     },
     window = { border = consts.ICONS.BORDER },
   },
-  fuzzy = { implementation = "prefer_rust_with_warning" },
+  fuzzy = {
+    implementation = "prefer_rust_with_warning",
+    sorts = { "exact", "score", "sort_text" },
+  },
   sources = {
     default = { "lsp", "path", "snippets", "buffer" },
     per_filetype = {

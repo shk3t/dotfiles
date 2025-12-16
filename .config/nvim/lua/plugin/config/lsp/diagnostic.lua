@@ -55,3 +55,6 @@ keymap("n", "]d", function()
     severity = { min = "WARN" },
   })
 end)
+keymap("n", "<Space>TD", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end)

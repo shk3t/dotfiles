@@ -1,24 +1,25 @@
 local keymap = vim.keymap.set
-local spider = require("spider")
-
-vim.g.spider_mappings = false
+local state = require("state")
 
 local function toggle_spider_keymaps()
-  if not vim.g.spider_mappings then
+  if not state.spider_mappings then
     for _, key in pairs({ "w", "e", "b", "ge" }) do
-      keymap({ "n", "x", "o" }, key, function()
-        spider.motion(key)
-      end, {
-        desc = "Spider-" .. key,
-      })
+      keymap({ "n", "x", "o" }, key, "<Cmd>lua require('spider').motion('" .. key .. "')<CR>")
     end
   else
     for _, key in pairs({ "w", "e", "b", "ge" }) do
       keymap({ "n", "x", "o" }, key, key)
     end
   end
-  vim.g.spider_mappings = not vim.g.spider_mappings
-  print("Spider mappings: " .. tostring(vim.g.spider_mappings))
+  state.spider_mappings = not state.spider_mappings
+end
+
+-- For cyrillic support on Arch: `sudo pacman -S lua51-luautf8`
+require("spider").setup()
+
+if state.spider_mappings then
+  state.spider_mappings = false
+  toggle_spider_keymaps()
 end
 
 keymap({ "n", "x" }, "<Space><Space>", toggle_spider_keymaps)

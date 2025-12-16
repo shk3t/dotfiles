@@ -6,6 +6,14 @@ local winbufs = require("lib.winbuf")
 local M = {}
 
 -- Toggling opts
+function M.toggle_tab_width()
+  vim.o.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
+  vim.o.tabstop = vim.o.shiftwidth
+  vim.o.softtabstop = vim.o.shiftwidth
+end
+function M.toggle_line_wrap()
+  vim.o.wrap = not vim.o.wrap
+end
 function M.toggle_line_numeration()
   vim.o.number = not vim.o.number
   vim.o.relativenumber = vim.o.number
@@ -14,14 +22,6 @@ function M.toggle_relative_numeration()
   if vim.o.number then
     vim.o.relativenumber = not vim.o.relativenumber
   end
-end
-function M.toggle_tab_width()
-  vim.o.shiftwidth = vim.o.shiftwidth == 4 and 2 or 4
-  vim.o.tabstop = vim.o.shiftwidth
-  vim.o.softtabstop = vim.o.shiftwidth
-end
-function M.toggle_line_wrap()
-  vim.o.wrap = not vim.o.wrap
 end
 function M.toggle_fixed_signcolumn()
   if vim.o.signcolumn:find("auto") then

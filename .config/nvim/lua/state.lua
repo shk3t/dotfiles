@@ -7,6 +7,7 @@ return {
       },
     },
   },
+  spider_mappings = true,
 
   preserved_position = nil,
   cache = {},

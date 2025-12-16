@@ -35,7 +35,6 @@ function M.switch_thread_focus(step)
   for i, v in pairs(threads) do
     if v.id == f_thread.id then
       start = i + 1
-      print("i:", i)
     end
   end
   local finish = start + #threads - 2

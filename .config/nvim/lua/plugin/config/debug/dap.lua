@@ -32,24 +32,10 @@ dap.adapters.delve = {
     args = { "dap", "-l", "127.0.0.1:${port}" },
   },
 }
-dap.adapters.bashdb = {
-  type = "executable",
-  command = consts.MASON.PACKAGES .. "/bash-debug-adapter/bash-debug-adapter",
-  name = "bashdb",
-}
 dap.adapters.cppdbg = {
   id = "cppdbg",
   type = "executable",
   command = consts.MASON.BIN .. "/OpenDebugAD7",
-}
-dap.adapters["pwa-node"] = {
-  type = "server",
-  host = "localhost",
-  port = "${port}",
-  executable = {
-    command = consts.MASON.BIN .. "/js-debug-adapter",
-    args = { "${port}" },
-  },
 }
 
 local function set_language_configurations()
@@ -86,10 +72,10 @@ dap.listeners.after.event_stopped["clear_focused_thread"] = function(session, bo
 end
 
 keymap("n", "<F9>", dap.continue)
+keymap("n", "<S-F9>", dap.goto_)
 keymap("n", "<F8>", dap.step_over)
 keymap("n", "<F7>", dap.step_into)
-keymap("n", "<S-F8>", dap.step_out)
-keymap("n", "<S-F9>", dap.goto_)
+keymap("n", "<S-F7>", dap.step_out)
 keymap("n", "<Space>df", dap.focus_frame)
 keymap("n", "<Space>dr", function()
   vim.cmd.wall()

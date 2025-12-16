@@ -1,8 +1,6 @@
-local ai = require("mini.ai")
-local consts = require("consts")
+require("mini.ai").setup()
 
 vim.g.miniindentscope_disable = true
-
 require("mini.indentscope").setup({
   mappings = {
     object_scope = "ii",
@@ -11,11 +9,3 @@ require("mini.indentscope").setup({
     goto_bottom = "]i",
   },
 })
-
-if consts.ICONS.ENABLED then
-  local icons = require("mini.icons")
-  icons.setup()
-  icons.mock_nvim_web_devicons()
-end
-
-ai.setup({})

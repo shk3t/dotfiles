@@ -25,8 +25,8 @@ autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
     end
   end,
 })
--- Dynamic autoscroll near window edges
-autocmd({ "WinResized", "BufEnter" }, {
+-- Dynamic autoscroll depending on window size
+autocmd({ "WinEnter", "WinResized" }, {
   callback = function()
     cmds.set_default_scrolloff()
   end,
@@ -46,16 +46,13 @@ autocmd("TextYankPost", {
 })
 -- Yank preserve position
 autocmd("TextYankPost", {
-    callback = function()
-        if vim.v.event.operator == "y" and state.preserved_position then
-            vim.api.nvim_win_set_cursor(0, state.preserved_position)
-            state.preserved_position = nil
-        end
-    end,
+  callback = function()
+    if vim.v.event.operator == "y" and state.preserved_position then
+      vim.api.nvim_win_set_cursor(0, state.preserved_position)
+      state.preserved_position = nil
+    end
+  end,
 })
-
--- Do not restore deleted marks
-autocmd("VimLeavePre", { command = "wshada!" })
 
 -- Easy Window closing
 autocmd("CmdwinEnter", { callback = cmds.map_easy_closing })

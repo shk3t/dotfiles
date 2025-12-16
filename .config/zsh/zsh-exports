@@ -7,20 +7,14 @@ SAVEHIST=10000
 export NODE_PATH="/usr/local/lib/node_modules"
 export GOPATH="$HOME/go"
 export GOBIN="$GOPATH/bin"
-
-# Lua
-LUA_VERSION="5.4"
-LP="/usr/share/lua/$LUA_VERSION"
-LCP="/lib/lua/$LUA_VERSION"
-export LUA_PATH="?.lua;?/init.lua;$LP/?.lua;$LP/?/init.lua"
-export LUA_CPATH="$LCP/?.so"
+export LUA_PATH="?.lua;?/init.lua;/usr/share/lua/5.4/?.lua;/usr/share/lua/5.4/?/init.lua;/usr/share/lua/5.1/?.lua;/usr/share/lua/5.1/?/init.lua"
+export LUA_CPATH="/lib/lua/5.4/?.so;/lib/lua/5.1/?.so"
 
 # Path
 PATH=""
 PATH="$PATH:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin"
 PATH="$PATH:$HOME/bin"
 PATH="$PATH:$HOME/.local/bin"
-
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:/usr/lib/rustup/bin"
 PATH="$PATH:$GOBIN"

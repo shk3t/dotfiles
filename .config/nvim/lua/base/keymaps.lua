@@ -31,20 +31,17 @@ keymap("n", "J", function()
 end)
 
 -- Options toggle
+keymap("n", "<Space>TT", cmds.toggle_tab_width)
+keymap("n", "<Space>TW", cmds.toggle_line_wrap)
 keymap("n", "<Space>TI", "<Cmd>set ignorecase!<CR>")
 keymap("n", "<Space>TN", cmds.toggle_line_numeration)
 keymap("n", "<Space>TR", cmds.toggle_relative_numeration)
-keymap("n", "<Space>TT", cmds.toggle_tab_width)
-keymap("n", "<Space>TW", cmds.toggle_line_wrap)
 keymap("n", "<Space>TS", cmds.toggle_fixed_signcolumn)
 
 -- View
 keymap({ "n", "x" }, "ZL", "zL")
 keymap({ "n", "x" }, "ZH", "zH")
 
--- Search: TODO: looks buggy in statusline
-keymap({ "n", "x" }, "n", "'Nn'[v:searchforward]", { expr = true })
-keymap({ "n", "x" }, "N", "'nN'[v:searchforward]", { expr = true })
 keymap({ "n", "x" }, "g/", [[/\<\><Left><Left>]])
 keymap({ "n", "x" }, "g?", [[?\<\><Left><Left>]])
 keymap("n", "<CR>", function()
@@ -142,17 +139,6 @@ keymap("n", "<C-W>Q", vim.cmd.tabclose)
 keymap("n", "gq", vim.cmd.copen)
 keymap("n", "[q", cmds.quiet_cprev)
 keymap("n", "]q", cmds.quiet_cnext)
-
--- Marks
-local buffer_marks = "abcdefghijklmnopqrstuvwxyz"
-for i = 1, #buffer_marks do
-  local mark = buffer_marks:sub(i, i)
-  keymap({ "n", "x" }, "m" .. mark, "m" .. mark:upper())
-  keymap({ "n", "x" }, "'" .. mark, "'" .. mark:upper())
-end
-keymap("n", "dM", function()
-  vim.cmd.delmarks("a-zA-Z")
-end)
 
 -- Terminal mode
 keymap("n", "<Space>\\", vim.cmd.terminal)

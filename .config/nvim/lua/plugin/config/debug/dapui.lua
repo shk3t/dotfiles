@@ -2,13 +2,11 @@ local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local consts = require("consts")
 local dapui = require("dapui")
-local state = require("state")
 local utils = require("plugin.util.dapui")
 local widgets = require("dap.ui.widgets")
 
 dapui.setup({
-  controls = { enabled = false, element = "stacks" },
-  icons = { collapsed = ">", current_frame = ">", expanded = "v" },
+  controls = { enabled = false },
   mappings = {
     add = "A",
     edit = "C",
@@ -19,11 +17,10 @@ dapui.setup({
     toggle = "t",
   },
   element_mappings = {
-    stacks = { open = { "<CR>", "<2-LeftMouse>", "o" } },
-    -- breakpoints = { open = { "<CR>", "<2-LeftMouse>", "o" } },
+    stacks = {
+      open = { "<CR>", "<2-LeftMouse>", "o" },
+    },
   },
-  expand_lines = false,
-  floating = { border = consts.ICONS.BORDER },
   layouts = {
     {
       elements = {
@@ -34,9 +31,25 @@ dapui.setup({
       position = "right",
       size = 90,
     },
-    { elements = { { id = "repl", size = 1 } }, position = "bottom", size = 10 },
+    {
+      elements = {
+        { id = "repl", size = 1 },
+      },
+      position = "bottom",
+      size = 10,
+    },
   },
-  render = { indent = 2 },
+  expand_lines = false,
+  icons = {
+    collapsed = ">",
+    current_frame = ">",
+    expanded = "v",
+  },
+  floating = { border = consts.ICONS.BORDER },
+  render = {
+    indent = 2,
+    max_value_lines = 100,
+  },
 })
 
 keymap("n", "<Space>dg", dapui.toggle)

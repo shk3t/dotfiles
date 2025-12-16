@@ -21,7 +21,7 @@ local function setup_telescope_colors()
   highlight("TelescopeResultsBorder", { fg = bg, bg = bg, link = 0 })
   highlight("TelescopeResultsNormal", { bg = bg, link = 0 })
   highlight("TelescopeResultsTitle", { fg = bg, bg = bg, blend = 0, link = 0 })
-  highlight("TelescopeSelection", { blend = 0, link = 0 })
+  highlight("TelescopeSelection", { fg = "NONE", blend = 0, link = 0 })
   highlight("TelescopeSelectionCaret", { blend = 0, link = 0 })
 end
 

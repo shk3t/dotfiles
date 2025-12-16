@@ -19,7 +19,6 @@ function M.init_molten_buffer(e) -- init molten buffer
       end
     end
     if kernel_name ~= nil and vim.tbl_contains(kernels, kernel_name) then
-      print(kernel_name)
       vim.cmd(("MoltenInit %s"):format(kernel_name))
     end
     vim.cmd("MoltenImportOutput")

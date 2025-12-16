@@ -164,12 +164,10 @@ keymap("x", "<Space>p", function()
   builtin.registers()
 end)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
-keymap("n", [[<Space>"]], builtin.marks)
-keymap("n", [[<Space>']], utils.quickfix_picker("Buffer Marks", vim.cmd.MarksQFListAll))
 keymap("n", "<Space>q", builtin.quickfix)
 keymap("n", "<Space>Q", builtin.quickfixhistory)
 keymap("n", "<Space>:", builtin.command_history)
-keymap("n", "<Space>?", builtin.search_history)
+keymap("n", "<Space>/", builtin.search_history)
 keymap("n", "<Space>gs", builtin.git_status)
 keymap("n", "<Space>gc", builtin.git_commits)
 keymap("n", "<Space>gb", builtin.git_branches)
@@ -177,12 +175,12 @@ keymap("n", "<Space>th", builtin.help_tags)
 keymap("n", "<Space>tm", builtin.man_pages)
 keymap("n", "<Space>tk", builtin.keymaps)
 keymap("n", "<Space>ts", builtin.spell_suggest)
+keymap("n", "<Space>tl", builtin.highlights)
 
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",
   callback = function()
     vim.wo.number = true
     vim.wo.wrap = true
-    vim.wo.cursorline = true
   end,
 })

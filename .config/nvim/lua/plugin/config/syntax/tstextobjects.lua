@@ -9,12 +9,12 @@ require("nvim-treesitter-textobjects").setup({
     lookahead = true,
     include_surrounding_whitespace = false,
     selection_modes = {
-      ["@function.outer"] = "V",
-      ["@function.inner"] = "V",
-      ["@class.outer"] = "V",
+      ["@block.inner"] = "V",
+      ["@block.outer"] = "V",
       ["@class.inner"] = "V",
-      ["@code_cell.outer"] = "V",
+      ["@class.outer"] = "V",
       ["@code_cell.inner"] = "V",
+      ["@code_cell.outer"] = "V",
     },
   },
   move = {
@@ -22,14 +22,12 @@ require("nvim-treesitter-textobjects").setup({
   },
 })
 
--- TODO: use another mappings for assignment (`e`)
--- TODO: also restore good mappings for dap jumps (`]_`)
 local keymaps = {
   select = {
-    ["is"] = "@assignment.lhs",
-    ["as"] = "@assignment.rhs",
-    ["ib"] = "@block.inner",
-    ["ab"] = "@block.outer",
+    ["ie"] = "@assignment.lhs",
+    ["ae"] = "@assignment.rhs",
+    ["io"] = "@block.inner",
+    ["ao"] = "@block.outer",
     ["ic"] = "@call.inner",
     ["ac"] = "@call.outer",
     ["iC"] = "@class.inner",
@@ -43,8 +41,8 @@ local keymaps = {
   },
   move = {
     goto_previous_start = {
-      ["[s"] = "@assignment.outer",
-      ["[b"] = "@block.outer",
+      ["[e"] = "@assignment.outer",
+      ["[o"] = "@block.outer",
       ["[c"] = "@call.outer",
       ["[C"] = "@class.outer",
       ["[f"] = "@function.outer",
@@ -52,8 +50,8 @@ local keymaps = {
       ["[j"] = "@code_cell.inner",
     },
     goto_next_start = {
-      ["]s"] = "@assignment.outer",
-      ["]b"] = "@block.outer",
+      ["]e"] = "@assignment.outer",
+      ["]o"] = "@block.outer",
       ["]c"] = "@call.outer",
       ["]C"] = "@class.outer",
       ["]f"] = "@function.outer",
@@ -63,8 +61,8 @@ local keymaps = {
   },
   swap = {
     swap_previous = {
-      ["<s"] = "@assignment.outer",
-      ["<b"] = "@block.inner",
+      ["<e"] = "@assignment.outer",
+      ["<o"] = "@block.inner",
       ["<c"] = "@call.outer",
       ["<C"] = "@class.outer",
       ["<f"] = "@function.outer",
@@ -72,8 +70,8 @@ local keymaps = {
       ["<j"] = "@code_cell.outer",
     },
     swap_next = {
-      [">s"] = "@assignment.outer",
-      [">b"] = "@block.inner",
+      [">e"] = "@assignment.outer",
+      [">o"] = "@block.inner",
       [">c"] = "@call.outer",
       [">C"] = "@class.outer",
       [">f"] = "@function.outer",
