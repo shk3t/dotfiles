@@ -46,7 +46,7 @@ local function set_language_configurations()
       dap.configurations[language] = local_configs
     else
       for path, config in tables.sorted_pairs(debug_configs[language]) do
-        if type(path) == "number" or type(path) == "string" and strings.contains(vim.fn.getcwd(), path) then
+        if type(path) == "number" or type(path) == "string" and vim.fn.getcwd():find(path) then
           for _, config_entry in pairs(config) do
             table.insert(dap.configurations[language], config_entry)
           end
@@ -105,7 +105,6 @@ autocmd("FileType", {
   pattern = "dap-repl",
   callback = function()
     keymap("i", "<C-K>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
     keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
     keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
     keymap("n", "<CR>", function()

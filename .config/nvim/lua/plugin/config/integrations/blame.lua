@@ -1,4 +1,14 @@
-require("blame").setup({ width = 35, date_format = "%H:%M %d.%m.%Y" })
+require("blame").setup({
+  date_format = "%H:%M %d.%m.%Y",
+  max_summary_width = 35,
+  mappings = {
+    commit_info = "K",
+    stack_push = "<C-P>",
+    stack_pop = "<C-N>",
+    show_commit = "<CR>",
+    close = { "<Esc>", "q" },
+  },
+})
 
 vim.keymap.set("n", "<Space>GB", vim.cmd.BlameToggle)
 

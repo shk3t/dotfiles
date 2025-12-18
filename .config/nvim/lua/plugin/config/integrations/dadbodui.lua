@@ -41,7 +41,6 @@ keymap("n", "<Space>DR", vim.cmd.DBUIFindBuffer)
 autocmd("FileType", {
   pattern = { "sql", "mysql", "plsql" },
   callback = function()
-    keydel({ "n", "x" }, "<Leader>S", { buffer = true })
     keymap("n", "<C-CR>", cmds.preserve_pos_pre("vip<Plug>(DBUI_ExecuteQuery)"), { buffer = true, expr = true })
     keymap("x", "<C-CR>", cmds.preserve_pos_pre("<Plug>(DBUI_ExecuteQuery)"), { buffer = true, expr = true})
     keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR><Plug>(DBUI_SaveQuery)", { buffer = true })
@@ -52,12 +51,10 @@ autocmd("FileType", {
   pattern = "dbui",
   callback = function()
     vim.bo.shiftwidth = 2
-    keydel("n", "<C-K>", { buffer = true })
-    keydel("n", "<C-J>", { buffer = true })
+    vim.wo.cursorlineopt = "line"
     keymap("n", "D", "<Plug>(DBUI_DeleteLine)", { buffer = true })
     keymap("n", "h", "<Plug>(DBUI_GotoParentNode)<Plug>(DBUI_SelectLine)", { buffer = true })
     keymap("n", "l", "<Plug>(DBUI_SelectLine)", { buffer = true })
-    keymap("n", "R", "<Plug>(DBUI_Redraw)", { buffer = true })
   end,
 })
 autocmd("FileType", {

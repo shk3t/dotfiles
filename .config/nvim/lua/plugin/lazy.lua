@@ -1,3 +1,5 @@
+local reqfunc = require("lib.base.sugar").require_func
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -13,13 +15,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
----@param modname string
-local function reqfunc(modname)
-  return function()
-    require(modname)
-  end
-end
 
 require("lazy").setup({
   -- Lsp
@@ -64,12 +59,14 @@ require("lazy").setup({
   },
   {
     "ray-x/go.nvim",
+    ft = { "go", "gomod" },
     config = reqfunc("plugin.config.lsp.go"),
     dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  { "antosha417/nvim-lsp-file-operations", config = true },  -- TODO: remove
 
   -- Completions
   {
@@ -103,7 +100,7 @@ require("lazy").setup({
     config = reqfunc("plugin.config.syntax.tstextobjects"),
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      "echasnovski/mini.nvim", -- After mini.ai
+      "echasnovski/mini.nvim", -- mini.ai
     },
   },
   { "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
@@ -118,7 +115,7 @@ require("lazy").setup({
     "mfussenegger/nvim-dap",
     config = function()
       require("plugin.config.debug.dap")
-      require("plugin.color.dap").setup()
+      require("plugin.color.dap")
     end,
     dependencies = {
       "williamboman/mason.nvim",
@@ -127,20 +124,24 @@ require("lazy").setup({
   },
   {
     "rcarriga/nvim-dap-ui",
+    config = reqfunc("plugin.config.debug.dapui"),
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },
-    config = reqfunc("plugin.config.debug.dapui"),
   },
 
   -- Navigation
   {
-    "kyazdani42/nvim-tree.lua",
+    "kyazdani42/nvim-tree.lua", -- TODO: remove
     config = reqfunc("plugin.config.navigation.tree"),
-    dependencies = "echasnovski/mini.nvim", -- After mini.icons
+    dependencies = "echasnovski/mini.nvim", -- mini.icons
   },
-  { "stevearc/aerial.nvim", config = reqfunc("plugin.config.navigation.aerial") },
+  {
+    "stevearc/aerial.nvim",
+    config = reqfunc("plugin.config.navigation.aerial"),
+    dependencies = "nvim-treesitter/nvim-treesitter",
+  },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -149,13 +150,10 @@ require("lazy").setup({
       "nvim-telescope/telescope-live-grep-args.nvim",
       "debugloop/telescope-undo.nvim",
     },
-    config = function()
-      require("plugin.config.navigation.telescope")
-    end,
+    config = reqfunc("plugin.config.navigation.telescope"),
   },
 
   -- Integrations
-  { "3rd/image.nvim", config = reqfunc("plugin.config.integrations.image") },
   {
     "iamcco/markdown-preview.nvim",
     build = function()
@@ -164,14 +162,6 @@ require("lazy").setup({
     config = function()
       vim.g.mkdp_auto_close = 1
     end,
-  },
-  { "antosha417/nvim-lsp-file-operations", config = true },
-  { "GCBallesteros/jupytext.nvim", config = reqfunc("plugin.config.integrations.jupytext") },
-  {
-    "benlubas/molten-nvim",
-    build = ":UpdateRemoteplugin.config",
-    config = reqfunc("plugin.config.integrations.molten"),
-    dependencies = "3rd/image.nvim",
   },
   {
     "mistweaverco/kulala.nvim",
@@ -183,13 +173,11 @@ require("lazy").setup({
     config = reqfunc("plugin.config.integrations.nabla"),
     dependencies = "williamboman/mason.nvim",
   },
-  { "gpanders/editorconfig.nvim" },
   -- Git
   {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("plugin.config.integrations.gitsigns")
-      require("plugin.color.gitsigns").setup()
     end,
     dependencies = "nvim-telescope/telescope.nvim",
   },
@@ -208,8 +196,8 @@ require("lazy").setup({
   {
     "echasnovski/mini.nvim",
     config = function()
-      require("plugin.config.ui.mini")
       require("plugin.config.tweaks.mini")
+      require("plugin.config.ui.mini")
     end,
   },
   { "numToStr/Comment.nvim", config = true },
@@ -220,14 +208,15 @@ require("lazy").setup({
 
   -- UI
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.config.ui.lualine") },
-  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.indentblankline") },
+  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.ibl") },
 
   -- Colorscheme
   {
     "rose-pine/neovim",
     config = function()
-      require("plugin.color.colorscheme").setup()
-      require("plugin.color.telescope").setup()
+      require("plugin.color.base")
+      require("plugin.color.telescope")
+      require("plugin.color.rosepine")
     end,
   },
 }, {

@@ -107,7 +107,7 @@ autocmd("TermOpen", {
 -- Consistent terminal mode after buffer switch
 autocmd("WinEnter", {
   callback = function()
-    if vim.bo.filetype == "terminal" and strings.contains(state.main_term.mode, "[tT]") then
+    if vim.bo.filetype == "terminal" then
       vim.cmd.startinsert()
     end
   end,
@@ -115,7 +115,6 @@ autocmd("WinEnter", {
 autocmd("WinLeave", {
   callback = function()
     if vim.bo.filetype == "terminal" then
-      state.main_term.mode = vim.api.nvim_get_mode().mode
       vim.cmd.stopinsert()
     end
   end,
@@ -151,7 +150,7 @@ autocmd("CmdlineLeave", {
 })
 
 -- Auto detect Helm templates
-autocmd({ "BufNewFile", "BufRead" }, {
+autocmd("BufRead", {
   pattern = "*.yaml",
   callback = function(args)
     local content = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)

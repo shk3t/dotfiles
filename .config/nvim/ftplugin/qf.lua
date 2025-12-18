@@ -1,13 +1,14 @@
 local keymap = vim.keymap.set
 local inputs = require("lib.base.input")
+local state = require("state")
 
 keymap("n", "<CR>", "<CR>", { buffer = true }) -- Go to position
 
 keymap("n", "dd", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local qflist = vim.fn.getqflist()
-  vim.g.prev_qflist = qflist
-  vim.g.prev_qfpos = { row, col }
+  state.qf.prev_list = qflist
+  state.qf.prev_pos = { row, col }
   table.remove(qflist, row)
   vim.fn.setqflist(qflist, "r")
   if not pcall(vim.api.nvim_win_set_cursor, 0, { row, col }) then
@@ -21,28 +22,28 @@ end, { buffer = true })
 keymap("x", "d", function()
   inputs.norm("<Esc>")
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  local start_line = vim.fn.line("'<")
-  local end_line = vim.fn.line("'>")
+  local sl = vim.fn.line("'<")
+  local el = vim.fn.line("'>")
   local qflist = vim.fn.getqflist()
-  vim.g.prev_qflist = qflist
-  vim.g.prev_qfpos = { row, col }
-  for line = start_line, end_line do
-    table.remove(qflist, start_line)
+  state.qf.prev_list = qflist
+  state.qf.prev_pos = { row, col }
+  for line = sl, el do
+    table.remove(qflist, sl)
   end
   vim.fn.setqflist(qflist, "r")
-  local actual_row = row - (end_line - start_line) + 1
+  local actual_row = row - (el - sl) + 1
   if not pcall(vim.api.nvim_win_set_cursor, 0, { actual_row, col }) then
-    pcall(vim.api.nvim_win_set_cursor, 0, { start_line - 1, col })
+    pcall(vim.api.nvim_win_set_cursor, 0, { sl - 1, col })
   end
 end, { buffer = true })
 
 keymap("n", "u", function()
-  if not vim.g.prev_qflist then
+  if not state.qf.prev_list then
     return
   end
-  vim.fn.setqflist(vim.g.prev_qflist, "r")
-  pcall(vim.api.nvim_win_set_cursor, 0, vim.g.prev_qfpos)
-  vim.g.prev_qflist = nil
+  vim.fn.setqflist(state.qf.prev_list, "r")
+  pcall(vim.api.nvim_win_set_cursor, 0, state.qf.prev_pos)
+  state.qf.prev_list = nil
 end, { buffer = true })
 
 keymap("n", "<Space>rp", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })

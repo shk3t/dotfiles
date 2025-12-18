@@ -8,15 +8,19 @@ return {
     },
   },
   spider_mappings = true,
+  aerial_preserved_position = nil,
 
   preserved_position = nil,
   cache = {},
   local_config = {},
 
+  qf = {
+    prev_list = nil,
+    prev_pos = nil,
+  },
   main_term = {
     buf = -1,
     win = -1,
-    mode = "t",
   },
 
   system = {

@@ -9,4 +9,11 @@ function M.require_or(module, default)
   return M.fallback(require, { module }, default)
 end
 
+---@param modname string
+function M.require_func(modname)
+  return function()
+    require(modname)
+  end
+end
+
 return M

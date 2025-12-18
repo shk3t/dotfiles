@@ -1,69 +1,42 @@
-local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local inputs = require("lib.base.input")
-
 local actions = require("aerial.actions")
 local aerial = require("aerial")
+local consts = require("consts")
+local inputs = require("lib.base.input")
+local state = require("state")
+
 local function close_restore_prev_pos()
   aerial.close()
-  pcall(function()
-    inputs.norm("`m")
-    vim.cmd.delmarks("m")
-  end)
+  vim.api.nvim_win_set_cursor(0, state.aerial_preserved_position)
+  state.aerial_preserved_position = nil
 end
+
 aerial.setup({
-  layout = { default_direction = "prefer_left", max_width = { 60, 0.3 } },
-  icons = { Collapsed = " >" },
-  highlight_on_jump = false,
-  attach_mode = "window",
+  layout = {
+    default_direction = "prefer_right",
+    max_width = { 60, 0.3 },
+    win_opts = {
+      cursorlineopt = "line",
+    },
+    placement = "edge",
+  },
+  attach_mode = "global",
   keymaps = {
     ["o"] = actions.jump,
-    ["k"] = actions.prev,
-    ["j"] = actions.next,
     ["K"] = actions.prev_up,
     ["J"] = actions.next_up,
-    ["<C-K>"] = false,
-    ["<C-J>"] = false,
-    -- ["<C-K>"] = function() tmux.move_top() end,
-    -- ["<C-J>"] = function() tmux.move_bottom() end,
-    -- ["<C-K>"] = function()
-    --   aerial.prev_up()
-    --   aerial.next()
-    -- end,
-    -- ["<C-J>"] = function()
-    --   aerial.next_up()
-    --   aerial.prev()
-    -- end,
-    ["H"] = function()
-      aerial.tree_close({ recurse = true })
-    end,
-    ["L"] = function()
-      aerial.tree_open({ recurse = true })
-    end,
     ["W"] = actions.tree_close_all,
     ["E"] = actions.tree_open_all,
-    ["<C-P>"] = actions.prev_up,
     ["<C-O>"] = close_restore_prev_pos,
   },
-  close_on_select = true,
-  show_guides = true,
-  guides = {
-    -- When the child item has a sibling below it
-    mid_item = "🭲 ",
-    -- When the child item is the last in the list
-    last_item = "🭲 ",
-    -- When there are nested child guides to the right
-    nested_top = "🭲 ",
-    -- Raw indentation
-    whitespace = "  ",
-  },
-  -- filter_kind = false,
+  highlight_on_jump = false,
   autojump = true,
+  icons = consts.ICONS.KINDS,
+  close_on_select = true,
+  show_guides = false,
 })
-keymap("n", "<Space>s", "mm:AerialOpen<CR>")
-autocmd("FileType", {
-  pattern = "aerial",
-  callback = function()
-    vim.wo.cursorlineopt = "line"
-  end,
-})
+
+keymap("n", "<Space>s", function()
+  state.aerial_preserved_position = vim.api.nvim_win_get_cursor(0)
+  vim.cmd.AerialOpen()
+end)

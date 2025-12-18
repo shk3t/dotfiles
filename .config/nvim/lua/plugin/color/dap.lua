@@ -10,5 +10,4 @@ local function define_dap_signs()
   sign_define("DapBreakpointCondition", { text = "󰘥", texthl = "WarningMsg" })
   sign_define("DapLogPoint", { text = "󰗖", texthl = "MoreMsg" })
 end
-
-return { setup = define_dap_signs }
+define_dap_signs()

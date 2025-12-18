@@ -1,13 +1,18 @@
 local M = {}
 
-function M.contains(str, sub)
-  return string.find(str, sub) ~= nil
+---@param str string
+function M.lua_escape(str)
+  return str:gsub("[%%%.%+%-%*%?%[%]%^%$%(%)]", "%%%0")
 end
 
+---@param str string
+---@param subs table
 function M.contains_any(str, subs)
   return string.find(str, table.concat(subs, "|")) ~= nil
 end
 
+---@param inputstr string
+---@param sep string
 function M.split(inputstr, sep)
   inputstr = inputstr or ""
   sep = sep or "%s"

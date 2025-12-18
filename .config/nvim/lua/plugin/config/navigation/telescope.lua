@@ -11,13 +11,6 @@ local undo_actions = require("telescope-undo.actions")
 local utils = require("plugin.util.telescope")
 local IGNORE_FILE = consts.NVIM_ETC .. "/telescope-ignore.txt"
 
-local fzf_opts = {
-  fuzzy = true,
-  override_generic_sorter = true,
-  override_file_sorter = true,
-  case_mode = "smart_case",
-}
-
 local telescope_config = {
   defaults = {
     initial_mode = "insert",
@@ -28,10 +21,6 @@ local telescope_config = {
       width = 0.9,
       preview_width = 0.55,
     },
-    preview = {
-      filesize_limit = 0.1, -- MB
-    },
-    winblend = consts.TRANSPARENCY,
     border = true,
     borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
     results_title = "",
@@ -83,26 +72,15 @@ local telescope_config = {
     },
     buffers = { sort_mru = true, ignore_current_buffer = true },
     lsp_references = { include_declaration = false, show_line = false },
-    diagnostics = { severity_limit = "WARN" }, -- Only warnings and errors
-    lsp_dynamic_workspace_symbols = {
-      ignore_symbols = {
-        "variable",
-        "boolean",
-        "string",
-        "number",
-        "array",
-        "package",
-        "module",
-        "property",
-        "constant",
-        "field",
-      },
-      sorter = telescope.extensions.fzf.native_fzf_sorter(fzf_opts),
-    },
-    quickfix = { path_display = {} },
+    diagnostics = { severity_limit = "WARN" },
   },
   extensions = {
-    fzf = fzf_opts,
+    fzf = {
+      fuzzy = true,
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      case_mode = "smart_case",
+    },
     live_grep_args = {
       auto_quoting = true,
       mappings = {
@@ -112,6 +90,7 @@ local telescope_config = {
             grep_actions.quote_prompt({ postfix = " --iglob ****" })(prompt_bufnr)
             inputs.norm("2h")
           end,
+          ["<C-T>"] = utils.set_prompt_action("TODO(:| |$)"),
         },
       },
     },
@@ -120,11 +99,14 @@ local telescope_config = {
       side_by_side = false,
       vim_diff_opts = { ctxlen = 20 },
       entry_format = "state #$ID, $STAT, $TIME",
+      time_format = "",
+      saved_only = false,
       mappings = {
         i = {
           ["<CR>"] = undo_actions.yank_additions,
           ["<S-CR>"] = undo_actions.yank_deletions,
-          ["<C-CR>"] = undo_actions.restore,
+          ["<C-Y>"] = undo_actions.yank_deletions,
+          ["<C-R>"] = undo_actions.restore,
         },
       },
     },
@@ -150,32 +132,20 @@ keymap("x", "<C-G>", function()
     trim = true,
   })
 end)
-keymap("n", "<Space>w", function()
-  builtin.lsp_dynamic_workspace_symbols()
-end)
-keymap("x", "<Space>w", utils.visual_picker(builtin.lsp_dynamic_workspace_symbols))
 keymap("n", "g<Tab>", builtin.buffers)
 keymap("n", "<Space><C-O>", function()
   builtin.jumplist({ show_line = false, trim_text = true })
 end)
-keymap("n", "<Space>p", builtin.registers)
-keymap("x", "<Space>p", function()
-  inputs.norm("d")
-  builtin.registers()
-end)
 keymap("n", "<Space>u", telescope.extensions.undo.undo)
 keymap("n", "<Space>q", builtin.quickfix)
 keymap("n", "<Space>Q", builtin.quickfixhistory)
-keymap("n", "<Space>:", builtin.command_history)
 keymap("n", "<Space>/", builtin.search_history)
-keymap("n", "<Space>gs", builtin.git_status)
-keymap("n", "<Space>gc", builtin.git_commits)
-keymap("n", "<Space>gb", builtin.git_branches)
+keymap("n", "<Space>:", builtin.command_history)
 keymap("n", "<Space>th", builtin.help_tags)
 keymap("n", "<Space>tm", builtin.man_pages)
 keymap("n", "<Space>tk", builtin.keymaps)
-keymap("n", "<Space>ts", builtin.spell_suggest)
 keymap("n", "<Space>tl", builtin.highlights)
+keymap("n", "<Space>ts", builtin.spell_suggest)
 
 autocmd("User", {
   pattern = "TelescopePreviewerLoaded",

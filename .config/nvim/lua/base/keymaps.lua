@@ -21,7 +21,7 @@ keymap("n", "<M-Left>", "<C-O>")
 keymap("n", "<M-Right>", "<C-I>")
 
 -- Default behaviour
-keymap({ "i", "n", "x" }, "<C-C>", "<Esc>")
+keymap({ "i", "n", "x", "s" }, "<C-C>", "<Esc>")
 keymap({ "n", "x" }, "<BS>", "s")
 keymap("x", "$", "g_")
 keymap("n", "J", function()
@@ -153,11 +153,13 @@ keymap("t", "<C-L>", "<C-\\><C-O><C-W>l")
 keymap({ "n", "x" }, "<S-ScrollWheelUp>", "<ScrollWheelLeft>")
 keymap({ "n", "x" }, "<S-ScrollWheelDown>", "<ScrollWheelRight>")
 keymap({ "n", "i", "x" }, "<LeftMouse>", function()
-  vim.wo.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 20)
-  vim.wo.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 60)
+  cmds.set_minimal_scrolloff()
   inputs.norm("<LeftMouse>")
 end)
 
 -- Snippets
 keymap("s", "<BS>", "_<C-W>")
-keymap("s", "<C-C>", "<Esc>")
+
+-- Tweaks
+keymap("n", "gct", cmds.toggle_todo)
+keymap("n", "gcT", cmds.toggle_todo_append)

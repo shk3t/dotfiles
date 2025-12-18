@@ -32,7 +32,7 @@ kulala.setup({
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = "http",
+  pattern = { "http", "rest" },
   callback = function()
     keymap("n", "<C-CR>", kulala.run, { buffer = true, desc = "Send request" })
     keymap("n", "<Space>rs", kulala.run, { buffer = true, desc = "Send request" })

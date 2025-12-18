@@ -1,8 +1,16 @@
-local consts = require("consts")
-local cmds = require("lib.cmds")
+local action_state = require("telescope.actions.state")
 local builtin = require("telescope.builtin")
+local cmds = require("lib.cmds")
+local consts = require("consts")
 
 local M = {}
+
+function M.set_prompt_action(value)
+  return function(prompt_bufnr)
+    local picker = action_state.get_current_picker(prompt_bufnr)
+    picker:set_prompt(value)
+  end
+end
 
 function M.quickfix_picker(title, callback)
   return function()

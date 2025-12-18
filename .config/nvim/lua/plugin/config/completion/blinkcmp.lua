@@ -5,8 +5,8 @@ require("blink.cmp").setup({
     preset = "none",
     ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
     ["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
-    ["<C-K>"] = { "select_prev" },
-    ["<C-J>"] = { "select_next" },
+    ["<C-K>"] = { "select_prev", "fallback" },
+    ["<C-J>"] = { "select_next", "fallback" },
     ["<C-L>"] = { "show", "select_and_accept" },
     ["<C-E>"] = { "hide" },
     ["<C-U>"] = { "scroll_documentation_up" },
@@ -21,7 +21,7 @@ require("blink.cmp").setup({
       },
     },
     accept = {
-      resolve_timeout_ms = 100,
+      resolve_timeout_ms = 40,
     },
     menu = {
       border = nil,
@@ -29,7 +29,7 @@ require("blink.cmp").setup({
         padding = 1,
         gap = 1,
         snippet_indicator = "",
-        columns = { { "label" }, { "label_description" }, { "kind_icon" }, { "kind" } },
+        columns = { { "label" }, { "label_description" }, { "kind_icon", "kind" } },
       },
     },
     documentation = {
@@ -56,11 +56,12 @@ require("blink.cmp").setup({
       lua = { inherit_defaults = true, "lazydev" },
     },
     providers = {
-      buffer = {
-        opts = {
-          enable_in_ex_commands = true,
-        },
-      },
+      -- buffer = {
+      --   opts = {
+      --     -- INFO: Enabling this option will temporarily disable Neovim's 'inccommand' feature
+      --     enable_in_ex_commands = true,
+      --   },
+      -- },
       dadbod = {
         module = "vim_dadbod_completion.blink",
         fallbacks = { "buffer" },
@@ -69,16 +70,18 @@ require("blink.cmp").setup({
       lazydev = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",
-        score_offset = 5,
+        score_offset = 100,
       },
     },
   },
   appearance = {
     nerd_font_variant = "mono",
+    kind_icons = consts.ICONS.KINDS,
   },
   cmdline = {
     keymap = {
       preset = "inherit",
+      ["<Tab>"] = { "show_and_insert", "select_next" },
       ["<C-L>"] = { "show", "select_accept_and_enter" },
     },
     completion = {

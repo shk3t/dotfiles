@@ -47,7 +47,7 @@ local function custom_attach(bufnr)
       vim.fn.line("v"),
     })
   end)
-  bufmap("n", "<Space>gk", gs.preview_hunk)
+  bufmap("n", "<Space>gk", gs.preview_hunk_inline)
   keymap("n", "<Space>gh", function()
     gs.setqflist(
       "all",

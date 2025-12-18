@@ -1,6 +1,6 @@
-local consts = require("consts")
 local inputs = require("lib.base.input")
 local state = require("state")
+local strings = require("lib.base.string")
 local winbufs = require("lib.winbuf")
 
 local M = {}
@@ -33,6 +33,10 @@ end
 function M.set_default_scrolloff()
   vim.wo.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 5)
   vim.wo.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 5)
+end
+function M.set_minimal_scrolloff()
+  vim.wo.scrolloff = math.floor(vim.api.nvim_win_get_height(0) / 20)
+  vim.wo.sidescrolloff = math.floor(vim.api.nvim_win_get_width(0) / 60)
 end
 
 -- Jumps
@@ -111,21 +115,47 @@ function M.quiet_cnext()
   end
 end
 
+-- Comment
+function M.toggle_todo()
+  local todo_comment = " " .. vim.bo.commentstring:format("TODO")
+  local line = vim.api.nvim_get_current_line()
+  if line:find(todo_comment) then
+    line = line:gsub(strings.lua_escape(todo_comment) .. ".*$", "", 1)
+  else
+    line = line .. todo_comment
+  end
+  vim.api.nvim_set_current_line(line)
+end
+
+function M.toggle_todo_append()
+  local todo_comment = " " .. vim.bo.commentstring:format("TODO")
+  local line = vim.api.nvim_get_current_line()
+  if line:find(todo_comment) then
+    line = line:gsub(strings.lua_escape(todo_comment) .. ".*$", "", 1)
+    vim.api.nvim_set_current_line(line)
+  else
+    line = line .. todo_comment .. ": "
+    vim.api.nvim_set_current_line(line)
+    vim.cmd.startinsert()
+    inputs.norm("$")
+  end
+end
+
 -- Other
 function M.center_win()
   vim.cmd("normal! zz")
 end
 
 function M.get_visual()
-  local _, ls, cs = unpack(vim.fn.getpos("v"))
-  local _, le, ce = unpack(vim.fn.getpos("."))
-  if ls > le then
-    ls, le = le, ls
+  local _, sl, sc = unpack(vim.fn.getpos("v"))
+  local _, el, ec = unpack(vim.fn.getpos("."))
+  if sl > el then
+    sl, el = el, sl
   end
-  if cs > ce then
-    cs, ce = ce, cs
+  if sc > ec then
+    sc, ec = ec, sc
   end
-  local visual = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+  local visual = vim.api.nvim_buf_get_text(0, sl - 1, sc - 1, el - 1, ec, {})
   return visual[1] or ""
 end
 

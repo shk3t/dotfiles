@@ -23,12 +23,12 @@ vim.o.smartcase = true
 vim.o.termguicolors = true
 vim.o.background = "dark"
 vim.o.cursorline = true
-vim.o.cursorlineopt = "line,number"
+vim.o.cursorlineopt = "number"
 vim.o.guicursor = "n-v-sm-t:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 vim.o.signcolumn = "yes"
 vim.opt.shortmess:append("sS")
 vim.o.showcmdloc = "statusline"
--- vim.opt.winborder = { "", "", "", " ", "", "", "", " " },  # INFO: currently not supported
+-- vim.opt.winborder = { "", "", "", " ", "", "", "", " " },  -- INFO: currently not supported
 
 -- Controls
 vim.o.timeoutlen = 10000
