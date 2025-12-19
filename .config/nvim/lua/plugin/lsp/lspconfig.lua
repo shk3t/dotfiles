@@ -1,9 +1,8 @@
 local keymap = vim.keymap.set
 local blinkcmp = require("blink.cmp")
-local conform = require("conform")
 local consts = require("consts")
 local inputs = require("lib.base.input")
-local lspdata = require("plugin.data.lspconfig")
+local lspdata = require("data.lspconfig")
 local telescope_builtin = require("telescope.builtin")
 
 local function setup_all_lsp_servers()
@@ -46,7 +45,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, { buffer = true })
     keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = true })
     keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = true })
-    keymap("n", "<Space>F", conform.format, { buffer = true })
     keymap("n", "gd", telescope_builtin.lsp_definitions, { buffer = true })
     keymap("n", "gr", telescope_builtin.lsp_references, { buffer = true })
     keymap("n", "gD", telescope_builtin.lsp_type_definitions, { buffer = true })

@@ -1,39 +1,41 @@
 ## Today
-- Check his plugins: https://github.com/chrisgrieser?tab=repositories&q=&type=&language=&sort=stargazers
 ### Review
-- gitsigns
 ### Fixes
+- use separate libs for mini
 ### New features
 - go.nvim: config 
     - disable auto-configuring lsp, dap, cmp
 - normal mode in cmd with preview and syntax highlighting
+    - nvim-rip-substitute (check more plugins)
+    - try use builtin `<C-F>`
+- normal mode renaming (`<Space>rn`)
 - mass replace (cdo) going backward/forward
-### New plugins
-- harpoon
-- recursive renaming with neo-tree
-    - rename file with lsp references: https://github.com/neovim/neovim/issues/20784
-    - https://github.com/folke/snacks.nvim/blob/main/docs/rename.md
 
 ## Fixes
 ### New features
 - scroll animation
-- dadbod: keymap show previous request
 - performance profiler
 - text editing through ssh
+    - file editing through ssh and oil.nvim
 ### Keys
 - multiple cursors on the similar word like emacs
 - jump to error line in stack trace (terminal mode)
 - ts-objects + surround: delete function declaration without body
-- ts-objects + mini.ai
+- dadbod: keymap show previous request
+- dadbod: foreignkey jump
 ### LSP
 - better autocompletion with SQL LSP
 
 ## Plugins
+- various-textobjects
+    - better textobjects (than mini.ai)
+    - replace mini.indent with it
 - lazygit
+- grug-far
 - nvim-bqf
+- quicker
     - better (modifiable) quickfix buffer
 - avante
-    - AI
 - mcphub
 - flash
     - f highligh
@@ -43,9 +45,9 @@
     - run code snippets
 ### Not sure
 - live-command
-    - commandline macro
-- trouble
-    - show definition, references, diagnostics in one window
+    - commandline macro (hope it will work in normal-cmdline-mode `<C-F>`)
 - yanky
 - scissors
     - easy snippet creation
+- todo-comments
+- Persistence

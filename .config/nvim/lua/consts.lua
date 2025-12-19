@@ -34,6 +34,7 @@ return {
     ENABLED = true,
     DIAGNOSTIC = { ERROR = "󰚌", WARN = "󰐼", HINT = "󰌵", INFO = "" },
     BORDER = { "", "", "", " ", "", "", "", " " },
+    ALT_BORDER = { " ", " ", " ", " ", " ", " ", " ", " " },
     GUIDE = "▎",
     KINDS = {
       Array = " ",

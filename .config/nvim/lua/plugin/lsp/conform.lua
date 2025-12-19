@@ -23,3 +23,5 @@ conform.setup({
     cpp = { "clang-format" },
   },
 })
+
+keymap({ "n", "x" }, "=", conform.format)

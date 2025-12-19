@@ -8,7 +8,7 @@ local grep_shortcuts = require("telescope-live-grep-args.shortcuts")
 local inputs = require("lib.base.input")
 local telescope = require("telescope")
 local undo_actions = require("telescope-undo.actions")
-local utils = require("plugin.util.telescope")
+local utils = require("util.telescope")
 local IGNORE_FILE = consts.NVIM_ETC .. "/telescope-ignore.txt"
 
 local telescope_config = {
@@ -22,7 +22,7 @@ local telescope_config = {
       preview_width = 0.55,
     },
     border = true,
-    borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+    borderchars = consts.ICONS.ALT_BORDER,
     results_title = "",
     file_ignore_patterns = { "node_modules" },
     mappings = {
@@ -39,6 +39,8 @@ local telescope_config = {
         ["<S-ScrollWheelDown>"] = actions.move_selection_next,
       },
       n = {
+        ["<C-J>"] = actions.move_selection_next,
+        ["<C-K>"] = actions.move_selection_previous,
         ["<C-Q>"] = actions.smart_send_to_qflist + actions.open_qflist,
         ["0"] = function()
           inputs.norm("0w")

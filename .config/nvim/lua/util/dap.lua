@@ -3,22 +3,22 @@ local dap = require("dap")
 local tables = require("lib.base.table")
 
 local function breakpoint_jump(find_func)
-  local cur_row, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
-  local cur_buf = vim.api.nvim_get_current_buf()
-  local cur_win = vim.api.nvim_get_current_win()
+  local row, cur_col = unpack(vim.api.nvim_win_get_cursor(0))
+  local buf = vim.api.nvim_get_current_buf()
+  local win = vim.api.nvim_get_current_win()
   vim.cmd.copen()
   dap.list_breakpoints()
   local qflist = vim.fn.getqflist()
   vim.cmd.cclose()
-  vim.api.nvim_set_current_win(cur_win)
+  vim.api.nvim_set_current_win(win)
   qflist = vim.tbl_filter(function(v)
-    return v.bufnr == cur_buf
+    return v.bufnr == buf
   end, qflist)
   if tables.is_empty(qflist) then
     return
   end
   cmds.save_jump()
-  vim.api.nvim_win_set_cursor(0, { find_func(cur_row, qflist), cur_col })
+  vim.api.nvim_win_set_cursor(0, { find_func(row, qflist), cur_col })
 end
 
 local M = {}

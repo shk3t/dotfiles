@@ -22,19 +22,18 @@ require("lazy").setup({
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("plugin.config.lsp.lspconfig")
-      require("plugin.config.lsp.diagnostic")
+      require("plugin.lsp.lspconfig")
+      require("plugin.lsp.diagnostic")
     end,
     dependencies = {
       "saghen/blink.cmp",
-      "stevearc/conform.nvim",
       "nvim-telescope/telescope.nvim",
       "williamboman/mason.nvim",
     },
   },
   {
     "stevearc/conform.nvim",
-    config = reqfunc("plugin.config.lsp.conform"),
+    config = reqfunc("plugin.lsp.conform"),
     dependencies = "williamboman/mason.nvim",
   },
   {
@@ -46,7 +45,7 @@ require("lazy").setup({
   },
   {
     "quarto-dev/quarto-nvim",
-    config = reqfunc("plugin.config.lsp.quarto"),
+    config = reqfunc("plugin.lsp.quarto"),
     dependencies = {
       "jmbuhr/otter.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -55,29 +54,28 @@ require("lazy").setup({
   {
     "folke/lazydev.nvim",
     ft = "lua",
-    config = reqfunc("plugin.config.lsp.lazydev"),
+    config = reqfunc("plugin.lsp.lazydev"),
   },
   {
     "ray-x/go.nvim",
     ft = { "go", "gomod" },
-    config = reqfunc("plugin.config.lsp.go"),
+    config = reqfunc("plugin.lsp.go"),
     dependencies = {
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
   },
-  { "antosha417/nvim-lsp-file-operations", config = true },  -- TODO: remove
 
   -- Completions
   {
     "saghen/blink.cmp",
-    config = reqfunc("plugin.config.completion.blinkcmp"),
+    config = reqfunc("plugin.completion.blinkcmp"),
     dependencies = "L3MON4D3/LuaSnip",
   },
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
-    config = reqfunc("plugin.config.completion.luasnip"),
+    config = reqfunc("plugin.completion.luasnip"),
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()
@@ -89,24 +87,20 @@ require("lazy").setup({
   -- Syntax
   {
     "nvim-treesitter/nvim-treesitter",
-    lazy = false,
     branch = "main",
     build = ":TSUpdate",
-    config = reqfunc("plugin.config.syntax.treesitter"),
+    config = reqfunc("plugin.syntax.treesitter"),
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
     branch = "main",
-    config = reqfunc("plugin.config.syntax.tstextobjects"),
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "echasnovski/mini.nvim", -- mini.ai
-    },
+    config = reqfunc("plugin.syntax.tstextobjects"),
+    dependencies = "nvim-treesitter/nvim-treesitter",
   },
   { "nvim-treesitter/nvim-treesitter-context", dependencies = "nvim-treesitter/nvim-treesitter" },
   {
     "Wansmer/treesj",
-    config = reqfunc("plugin.config.syntax.treesj"),
+    config = reqfunc("plugin.syntax.treesj"),
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
 
@@ -114,8 +108,7 @@ require("lazy").setup({
   {
     "mfussenegger/nvim-dap",
     config = function()
-      require("plugin.config.debug.dap")
-      require("plugin.color.dap")
+      require("plugin.debug.dap")
     end,
     dependencies = {
       "williamboman/mason.nvim",
@@ -124,7 +117,7 @@ require("lazy").setup({
   },
   {
     "rcarriga/nvim-dap-ui",
-    config = reqfunc("plugin.config.debug.dapui"),
+    config = reqfunc("plugin.debug.dapui"),
     dependencies = {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
@@ -133,13 +126,13 @@ require("lazy").setup({
 
   -- Navigation
   {
-    "kyazdani42/nvim-tree.lua", -- TODO: remove
-    config = reqfunc("plugin.config.navigation.tree"),
+    "stevearc/oil.nvim",
+    config = reqfunc("plugin.navigation.oil"),
     dependencies = "echasnovski/mini.nvim", -- mini.icons
   },
   {
     "stevearc/aerial.nvim",
-    config = reqfunc("plugin.config.navigation.aerial"),
+    config = reqfunc("plugin.navigation.aerial"),
     dependencies = "nvim-treesitter/nvim-treesitter",
   },
   {
@@ -150,7 +143,13 @@ require("lazy").setup({
       "nvim-telescope/telescope-live-grep-args.nvim",
       "debugloop/telescope-undo.nvim",
     },
-    config = reqfunc("plugin.config.navigation.telescope"),
+    config = reqfunc("plugin.navigation.telescope"),
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    config = reqfunc("plugin.navigation.harpoon"),
+    dependencies = "nvim-lua/plenary.nvim",
   },
 
   -- Integrations
@@ -166,27 +165,26 @@ require("lazy").setup({
   {
     "mistweaverco/kulala.nvim",
     ft = { "http", "rest" },
-    config = reqfunc("plugin.config.integrations.kulala"),
+    config = reqfunc("plugin.integrations.kulala"),
   },
   {
     "jbyuki/nabla.nvim",
-    config = reqfunc("plugin.config.integrations.nabla"),
+    config = reqfunc("plugin.integrations.nabla"),
     dependencies = "williamboman/mason.nvim",
   },
   -- Git
   {
     "lewis6991/gitsigns.nvim",
     config = function()
-      require("plugin.config.integrations.gitsigns")
+      require("plugin.integrations.gitsigns")
     end,
     dependencies = "nvim-telescope/telescope.nvim",
   },
-  { "FabijanZulj/blame.nvim", config = reqfunc("plugin.config.integrations.blame") },
   -- Database
-  { "tpope/vim-dadbod", config = reqfunc("plugin.config.integrations.dadbod") },
+  { "tpope/vim-dadbod", config = reqfunc("plugin.integrations.dadbod") },
   {
     "kristijanhusak/vim-dadbod-ui",
-    config = reqfunc("plugin.config.integrations.dadbodui"),
+    config = reqfunc("plugin.integrations.dadbodui"),
     dependencies = "tpope/vim-dadbod",
   },
   { "kristijanhusak/vim-dadbod-completion", dependencies = "tpope/vim-dadbod" },
@@ -196,27 +194,27 @@ require("lazy").setup({
   {
     "echasnovski/mini.nvim",
     config = function()
-      require("plugin.config.tweaks.mini")
-      require("plugin.config.ui.mini")
+      require("plugin.tweaks.mini")
+      require("plugin.ui.mini")
     end,
   },
   { "numToStr/Comment.nvim", config = true },
-  { "kylechui/nvim-surround", config = reqfunc("plugin.config.tweaks.surround") },
-  { "chrisgrieser/nvim-recorder", config = reqfunc("plugin.config.tweaks.recorder") },
-  { "chrisgrieser/nvim-spider", config = reqfunc("plugin.config.tweaks.spider") },
-  { "vim-scripts/Tabmerge", config = reqfunc("plugin.config.tweaks.tabmerge") },
+  { "kylechui/nvim-surround", config = reqfunc("plugin.tweaks.surround") },
+  { "chrisgrieser/nvim-recorder", config = reqfunc("plugin.tweaks.recorder") },
+  { "chrisgrieser/nvim-spider", config = reqfunc("plugin.tweaks.spider") },
+  { "vim-scripts/Tabmerge", config = reqfunc("plugin.tweaks.tabmerge") },
 
   -- UI
-  { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.config.ui.lualine") },
-  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.config.ui.ibl") },
+  { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.ui.lualine") },
+  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.ui.ibl") },
 
   -- Colorscheme
   {
     "rose-pine/neovim",
     config = function()
-      require("plugin.color.base")
-      require("plugin.color.telescope")
-      require("plugin.color.rosepine")
+      require("color.base")
+      require("color.plugins")
+      require("color.rosepine")
     end,
   },
 }, {

@@ -161,5 +161,5 @@ end)
 keymap("s", "<BS>", "_<C-W>")
 
 -- Tweaks
-keymap("n", "gct", cmds.toggle_todo)
-keymap("n", "gcT", cmds.toggle_todo_append)
+keymap("n", "gt", cmds.toggle_todo)
+keymap("n", "gT", cmds.toggle_todo_append)

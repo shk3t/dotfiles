@@ -116,28 +116,30 @@ function M.quiet_cnext()
 end
 
 -- Comment
-function M.toggle_todo()
-  local todo_comment = " " .. vim.bo.commentstring:format("TODO")
+local function todo_line()
+  local todo_comment = vim.bo.commentstring:format("TODO")
   local line = vim.api.nvim_get_current_line()
   if line:find(todo_comment) then
-    line = line:gsub(strings.lua_escape(todo_comment) .. ".*$", "", 1)
+    return line:gsub(" *" .. strings.lua_escape(todo_comment) .. ".*$", "", 1), false
+  elseif line == "" then
+    return todo_comment, true
   else
-    line = line .. todo_comment
+    return line .. " " .. todo_comment, true
   end
+end
+function M.toggle_todo()
+  local line = todo_line()
   vim.api.nvim_set_current_line(line)
 end
-
 function M.toggle_todo_append()
-  local todo_comment = " " .. vim.bo.commentstring:format("TODO")
-  local line = vim.api.nvim_get_current_line()
-  if line:find(todo_comment) then
-    line = line:gsub(strings.lua_escape(todo_comment) .. ".*$", "", 1)
-    vim.api.nvim_set_current_line(line)
-  else
-    line = line .. todo_comment .. ": "
+  local line, commented = todo_line()
+  if commented then
+    line = line .. ": "
     vim.api.nvim_set_current_line(line)
     vim.cmd.startinsert()
     inputs.norm("$")
+  else
+    vim.api.nvim_set_current_line(line)
   end
 end
 

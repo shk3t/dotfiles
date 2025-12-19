@@ -1,6 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local consts = require("consts")
-local highlight = require("lib.base.color").highlight
+local highlight = require("lib.base.highlight").highlight
 
 local function set_transparent_bg()
   if consts.TRANSPARENCY == 0 then

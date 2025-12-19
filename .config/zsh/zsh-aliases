@@ -39,9 +39,10 @@ function duh2 {
 
 # Neovim
 alias v='nvim'
+alias vl='nvim -c "lua require(\"lib.cmds\").longjump_back_skip_auxiliary()"'
 alias vf="nvim -c 'Telescope find_files'"
 alias vg="nvim -c 'Telescope live_grep_args'"
-alias vl='nvim -c "lua require(\"lib.cmds\").longjump_back_skip_auxiliary()"'
+alias v1='nvim -c "lua require(\"harpoon\"):list():select(1)"'
 alias vdb="cd ~/projects/draft; tmux rename-window DB; nvim -c 'DBUIToggle'"
 
 # Clipboard

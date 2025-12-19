@@ -1,17 +1,14 @@
 local keymap = vim.keymap.set
-local autocmd = vim.api.nvim_create_autocmd
-local cmds = require("lib.cmds")
 local dap = require("dap")
-local strings = require("lib.base.string")
 local sys = require("lib.system")
 local tables = require("lib.base.table")
-local debug_configs = require("plugin.data.dap").debug_configs
+local debug_configs = require("data.dap").debug_configs
 local consts = require("consts")
 local files = require("lib.file")
 local lcfg = require("lib.localcfg")
 local state = require("state")
-local teleutils = require("plugin.util.telescope")
-local utils = require("plugin.util.dap")
+local teleutils = require("util.telescope")
+local utils = require("util.dap")
 
 dap.defaults.fallback.external_terminal = {
   command = "/usr/bin/alacritty",
@@ -100,33 +97,3 @@ keymap(
 )
 keymap("n", "[S", dap.up)
 keymap("n", "]S", dap.down)
-
-autocmd("FileType", {
-  pattern = "dap-repl",
-  callback = function()
-    keymap("i", "<C-K>", "<C-W>k", { buffer = true })
-    keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
-    keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
-    keymap("n", "<CR>", function()
-      local row = unpack(vim.api.nvim_win_get_cursor(0))
-      local current_buffer = vim.api.nvim_win_get_buf(0)
-      local count = vim.api.nvim_buf_line_count(current_buffer)
-      if row == count then
-        cmds.typekeys("<Insert><CR>")
-      else
-        utils.trigger_first_action()
-      end
-    end, { buffer = true, remap = true })
-    keymap("n", "o", function()
-      utils.trigger_first_action()
-    end, { buffer = true, remap = true })
-  end,
-})
-autocmd("FileType", {
-  pattern = "dap-float",
-  callback = function()
-    keymap("n", "o", function()
-      utils.trigger_first_action()
-    end, { buffer = true, remap = true })
-  end,
-})

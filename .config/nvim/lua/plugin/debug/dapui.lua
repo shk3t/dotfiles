@@ -1,8 +1,9 @@
 local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
+local cmds = require("lib.cmds")
 local consts = require("consts")
 local dapui = require("dapui")
-local utils = require("plugin.util.dapui")
+local utils = require("util.dapui")
 local widgets = require("dap.ui.widgets")
 
 dapui.setup({
@@ -10,7 +11,7 @@ dapui.setup({
   mappings = {
     add = "A",
     edit = "C",
-    expand = { "<CR>", "<2-LeftMouse>", "o" },
+    expand = { "<CR>", "<2-LeftMouse>" },
     open = "O",
     remove = "D",
     repl = "r",
@@ -18,7 +19,7 @@ dapui.setup({
   },
   element_mappings = {
     stacks = {
-      open = { "<CR>", "<2-LeftMouse>", "o" },
+      open = { "<CR>", "<2-LeftMouse>" },
     },
   },
   layouts = {
@@ -71,5 +72,24 @@ autocmd("BufEnter", {
   callback = function()
     keymap("i", "<C-W>", "<C-O>db<BS>", { buffer = true })
     keymap("n", "u", vim.cmd.undo, { buffer = true })
+  end,
+})
+
+autocmd("FileType", {
+  pattern = "dap-repl",
+  callback = function()
+    keymap("i", "<C-K>", "<C-W>k", { buffer = true })
+    keymap("i", "<C-P>", "<Up><End>", { buffer = true, remap = true })
+    keymap("i", "<C-N>", "<Down><End>", { buffer = true, remap = true })
+    keymap("n", "<CR>", function()
+      local row = unpack(vim.api.nvim_win_get_cursor(0))
+      local current_buffer = vim.api.nvim_win_get_buf(0)
+      local count = vim.api.nvim_buf_line_count(current_buffer)
+      if row == count then
+        cmds.typekeys("<Insert><CR>")
+      else
+        utils.trigger_first_action()
+      end
+    end, { buffer = true, remap = true })
   end,
 })

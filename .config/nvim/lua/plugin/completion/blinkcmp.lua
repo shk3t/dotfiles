@@ -53,24 +53,12 @@ require("blink.cmp").setup({
     default = { "lsp", "path", "snippets", "buffer" },
     per_filetype = {
       sql = { "dadbod", "snippets", "buffer" },
-      lua = { inherit_defaults = true, "lazydev" },
     },
     providers = {
-      -- buffer = {
-      --   opts = {
-      --     -- INFO: Enabling this option will temporarily disable Neovim's 'inccommand' feature
-      --     enable_in_ex_commands = true,
-      --   },
-      -- },
       dadbod = {
         module = "vim_dadbod_completion.blink",
         fallbacks = { "buffer" },
         score_offset = 5,
-      },
-      lazydev = {
-        name = "LazyDev",
-        module = "lazydev.integrations.blink",
-        score_offset = 100,
       },
     },
   },

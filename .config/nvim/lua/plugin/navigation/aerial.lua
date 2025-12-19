@@ -22,7 +22,6 @@ aerial.setup({
   },
   attach_mode = "global",
   keymaps = {
-    ["o"] = actions.jump,
     ["K"] = actions.prev_up,
     ["J"] = actions.next_up,
     ["W"] = actions.tree_close_all,
