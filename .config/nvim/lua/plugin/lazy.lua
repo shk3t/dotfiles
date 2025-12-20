@@ -20,6 +20,11 @@ require("lazy").setup({
   -- Lsp
   { "williamboman/mason.nvim", config = true },
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    config = reqfunc("plugin.lsp.masoninstall"),
+    dependencies = "mason-org/mason.nvim",
+  },
+  {
     "neovim/nvim-lspconfig",
     config = function()
       require("plugin.lsp.lspconfig")
@@ -69,6 +74,7 @@ require("lazy").setup({
   -- Completions
   {
     "saghen/blink.cmp",
+    version = "1.*",
     config = reqfunc("plugin.completion.blinkcmp"),
     dependencies = "L3MON4D3/LuaSnip",
   },
@@ -128,7 +134,7 @@ require("lazy").setup({
   {
     "stevearc/oil.nvim",
     config = reqfunc("plugin.navigation.oil"),
-    dependencies = "echasnovski/mini.nvim", -- mini.icons
+    dependencies = "nvim-mini/mini.icons",
   },
   {
     "stevearc/aerial.nvim",
@@ -192,11 +198,8 @@ require("lazy").setup({
 
   -- Tweaks
   {
-    "echasnovski/mini.nvim",
-    config = function()
-      require("plugin.tweaks.mini")
-      require("plugin.ui.mini")
-    end,
+    "nvim-mini/mini.indentscope",
+    config = reqfunc("plugin.tweaks.mini"),
   },
   { "numToStr/Comment.nvim", config = true },
   { "kylechui/nvim-surround", config = reqfunc("plugin.tweaks.surround") },
@@ -205,6 +208,10 @@ require("lazy").setup({
   { "vim-scripts/Tabmerge", config = reqfunc("plugin.tweaks.tabmerge") },
 
   -- UI
+  {
+    "nvim-mini/mini.icons",
+    config = reqfunc("plugin.ui.mini"),
+  },
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.ui.lualine") },
   { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.ui.ibl") },
 

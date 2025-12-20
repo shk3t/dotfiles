@@ -7,7 +7,7 @@ keymap("n", "<CR>", "<CR>", { buffer = true }) -- Go to position
 keymap("n", "dd", function()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   local qflist = vim.fn.getqflist()
-  state.qf.prev_list = qflist
+  state.qf.prev_list = vim.deepcopy(qflist)
   state.qf.prev_pos = { row, col }
   table.remove(qflist, row)
   vim.fn.setqflist(qflist, "r")
@@ -25,7 +25,7 @@ keymap("x", "d", function()
   local sl = vim.fn.line("'<")
   local el = vim.fn.line("'>")
   local qflist = vim.fn.getqflist()
-  state.qf.prev_list = qflist
+  state.qf.prev_list = vim.deepcopy(qflist)
   state.qf.prev_pos = { row, col }
   for line = sl, el do
     table.remove(qflist, sl)
@@ -46,4 +46,4 @@ keymap("n", "u", function()
   state.qf.prev_list = nil
 end, { buffer = true })
 
-keymap("n", "<Space>rp", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })
+keymap("n", "<Space>rs", [[:cdo s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })

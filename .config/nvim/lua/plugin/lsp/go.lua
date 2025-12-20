@@ -1,4 +1,5 @@
 require("go").setup({
   disable_defaults = true,
-   go = "go",
+  go = "go",
+  noSemanticTokens = true,
 })

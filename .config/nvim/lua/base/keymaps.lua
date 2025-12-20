@@ -12,8 +12,7 @@ keymap("n", [[\\i]], "<C-I>")
 keymap("n", "<C-M>", "<C-M>")
 
 -- Old school
-keymap({ "n", "x" }, "<C-S>", ":<C-U>write<CR>", { silent = true })
-keymap("i", "<C-S>", "<C-O>:<C-U>write<CR>", { silent = true })
+keymap("n", "<C-S>", vim.cmd.write)
 keymap("i", "<C-Z>", "<C-O>u")
 keymap("i", "<C-S-Z>", "<C-O><C-R>")
 keymap("i", "<C-Del>", "<C-O>de")
@@ -89,18 +88,21 @@ end)
 keymap("c", "<C-V>", '<C-R>"')
 
 -- Substitute
-keymap("n", "<Space>rp", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
-keymap("n", "<Space>RP", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
-keymap("x", "<Space>rp", function()
+keymap("n", "<Space>rs", [[:s/\<<C-R><C-W>\>//g<Left><Left>]])
+keymap("n", "<Space>RS", [[:%s/\<<C-R><C-W>\>//g<Left><Left>]])
+keymap("x", "<Space>rs", function()
   local replacement = vim.fn.input("New: ")
   if replacement ~= "" then
     vim.cmd("s/" .. cmds.get_visual() .. "/" .. replacement .. "/g")
   end
-  inputs.norm([[<Esc>]])
+  inputs.norm("<Esc>")
 end)
-keymap("x", "<Space>RP", function()
-  vim.cmd([[%s/]] .. cmds.get_visual() .. "/" .. vim.fn.input("New: ") .. "/g")
-  inputs.norm([[<Esc><C-O>]])
+keymap("x", "<Space>RS", function()
+  local replacement = vim.fn.input("New: ")
+  if replacement ~= "" then
+    vim.cmd([[%s/]] .. cmds.get_visual() .. "/" .. replacement .. "/g")
+  end
+  inputs.norm("<Esc>")
 end)
 
 -- Splits
@@ -140,14 +142,14 @@ keymap("n", "gq", vim.cmd.copen)
 keymap("n", "[q", cmds.quiet_cprev)
 keymap("n", "]q", cmds.quiet_cnext)
 
+-- Command-line mode
+keymap("c", "<Esc>", "<C-F>")
+
 -- Terminal mode
 keymap("n", "<Space>\\", vim.cmd.terminal)
-keymap("t", "<Esc>", vim.cmd.stopinsert)
+keymap("t", "<Esc>", "<C-\\><C-N>")
 keymap("t", ":", "<C-\\><C-O><:")
-keymap("t", "<C-H>", "<C-\\><C-O><C-W>h")
-keymap("t", "<C-J>", "<C-\\><C-O><C-W>j")
-keymap("t", "<C-K>", "<C-\\><C-O><C-W>k")
-keymap("t", "<C-L>", "<C-\\><C-O><C-W>l")
+keymap("t", "<C-K>", "<C-\\><C-N><C-W>k")
 
 -- Mouse
 keymap({ "n", "x" }, "<S-ScrollWheelUp>", "<ScrollWheelLeft>")

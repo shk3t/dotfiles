@@ -26,13 +26,14 @@ function M.term(command)
   end
 
   -- Use buf as terminal if it is not
-  if vim.bo[state.main_term.buf].filetype ~= "terminal" then
+  if vim.bo[state.main_term.buf].buftype ~= "terminal" then
     M.do_in_win(state.main_term.win, vim.cmd.terminal)
     vim.cmd.sleep("50m") -- Shell initialization time
   end
 
   vim.fn.chansend(vim.bo[state.main_term.buf].channel, { "\x15" .. command .. "\r\n" })
   M.do_in_win(state.main_term.win, inputs.tnorm, { "G" }) -- scroll to the end
+  vim.cmd.stopinsert() -- Do not inherit terminal default mode
 end
 
 -- Which are automatically spawned to serve main buffers
@@ -42,7 +43,7 @@ function M.is_auxiliary_buffer(buf)
 
   return vim.list_contains(consts.AUXILIARY_BUF.FILENAMES, buf_name)
     or buf_name:find(consts.DAP.REPL_FILENAME_PATTERN)
-    or vim.bo[buf].filetype == "terminal"
+    or vim.bo[buf].buftype == "terminal"
 end
 
 return M

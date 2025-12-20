@@ -4,7 +4,7 @@ local lcfg = require("lib.localcfg")
 local winbuf = require("lib.winbuf")
 
 keymap("n", "<C-CR>", function()
-  inputs.norm(":wa<CR>")
+  vim.cmd.wall()
   winbuf.term(lcfg.local_config_or({ "run", "python" }, "python " .. vim.fn.expand("%")))
 end, { buffer = true })
 

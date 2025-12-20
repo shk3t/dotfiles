@@ -105,8 +105,7 @@ local telescope_config = {
       saved_only = false,
       mappings = {
         i = {
-          ["<CR>"] = undo_actions.yank_additions,
-          ["<S-CR>"] = undo_actions.yank_deletions,
+          ["<C-A>"] = undo_actions.yank_additions,
           ["<C-Y>"] = undo_actions.yank_deletions,
           ["<C-R>"] = undo_actions.restore,
         },

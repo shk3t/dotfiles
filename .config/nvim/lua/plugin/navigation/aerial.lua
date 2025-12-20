@@ -2,7 +2,6 @@ local keymap = vim.keymap.set
 local actions = require("aerial.actions")
 local aerial = require("aerial")
 local consts = require("consts")
-local inputs = require("lib.base.input")
 local state = require("state")
 
 local function close_restore_prev_pos()

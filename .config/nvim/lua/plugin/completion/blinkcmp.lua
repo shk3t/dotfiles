@@ -15,7 +15,7 @@ require("blink.cmp").setup({
   snippets = { preset = "luasnip" },
   completion = {
     list = {
-      max_items = 200,
+      max_items = 64,
       selection = {
         preselect = false,
       },
@@ -55,6 +55,9 @@ require("blink.cmp").setup({
       sql = { "dadbod", "snippets", "buffer" },
     },
     providers = {
+      snippets = {
+        score_offset = 4,
+      },
       dadbod = {
         module = "vim_dadbod_completion.blink",
         fallbacks = { "buffer" },

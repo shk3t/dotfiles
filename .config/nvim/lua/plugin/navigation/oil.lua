@@ -1,7 +1,7 @@
 local keymap = vim.keymap.set
+local consts = require("consts")
 local inputs = require("lib.base.input")
 local oil = require("oil")
-local consts = require("consts")
 
 require("oil").setup({
   default_file_explorer = true,
@@ -35,6 +35,9 @@ require("oil").setup({
   use_default_keymaps = false,
   view_options = {
     show_hidden = true,
+    is_always_hidden = function(name, bufnr)
+      return name == ".."
+    end,
     natural_order = "fast",
     case_insensitive = false,
     sort = {

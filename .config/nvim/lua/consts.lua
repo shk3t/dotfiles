@@ -21,6 +21,7 @@ return {
   -- Plugins
   DAP = DAP,
   DB = DB,
+  MASON_ENSURE_INSTALLED = true,
 
   -- Navigation
   AUXILIARY_BUF = {

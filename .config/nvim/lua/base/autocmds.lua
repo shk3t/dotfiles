@@ -6,6 +6,7 @@ local state = require("state")
 local strings = require("lib.base.string")
 local sys = require("lib.system")
 local winbufs = require("lib.winbuf")
+local inputs = require("lib.base.input")
 
 -- Don't add the comment prefix on o/O
 autocmd("FileType", {
@@ -55,7 +56,6 @@ autocmd("TextYankPost", {
 })
 
 -- Easy Window closing
-autocmd("CmdwinEnter", { callback = cmds.map_easy_closing })
 autocmd("FileType", {
   pattern = { "help", "dap-float", "qf" },
   callback = cmds.map_easy_closing,
@@ -80,61 +80,53 @@ autocmd("WinEnter", {
 autocmd("BufEnter", {
   callback = function()
     if vim.bo.buftype == "help" or vim.bo.filetype == "man" then
-      vim.cmd.wincmd("L")
+      inputs.norm("<C-W>L82<C-W>|")
     end
   end,
 })
 
--- Reset mapping for Cmd window
+-- Mapping for Cmd window
 autocmd("CmdwinEnter", {
   callback = function()
+    cmds.map_easy_closing()
+    keymap("n", ":", "<NOP>", { buffer = true })
     keymap("n", "<CR>", "<CR>", { buffer = true })
+    keymap("n", "<C-S>", "<CR>", { buffer = true })
+    keymap({"n"}, "<Esc>", "<C-W>q", { buffer = true })
+    keymap({"n", "i"}, "<C-C>", "<Esc><C-W>q", { buffer = true })
   end,
 })
 
--- Disable numbers in terminal mode
-autocmd("TermOpen", {
+-- Terminal default mode is insert
+autocmd({"TermOpen", "WinEnter"}, {
   callback = function()
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.wo.scrolloff = 0
-    vim.wo.sidescrolloff = 0
-    vim.wo.signcolumn = "no"
-    vim.bo.filetype = "terminal"
-    vim.cmd.startinsert()
-  end,
-})
--- Consistent terminal mode after buffer switch
-autocmd("WinEnter", {
-  callback = function()
-    if vim.bo.filetype == "terminal" then
+    if vim.bo.buftype == "terminal" then
       vim.cmd.startinsert()
-    end
-  end,
-})
-autocmd("WinLeave", {
-  callback = function()
-    if vim.bo.filetype == "terminal" then
-      vim.cmd.stopinsert()
     end
   end,
 })
 
 -- Auto language layout switch
-local layout_enter_callback = function()
+local restore_layout = function()
+  if vim.bo.buftype == "nofile" then
+    return
+  end
   sys.set_layout(state.system.mode_layout_idx)
 end
 local layout_exit_callback = function()
+  if vim.bo.buftype == "nofile" then
+    return
+  end
   state.system.mode_layout_idx = sys.get_layout()
   sys.set_layout(consts.LAYOUT.ENGLISH_IDX)
 end
 autocmd("InsertEnter", {
-  callback = layout_enter_callback,
+  callback = restore_layout,
 })
 autocmd("CmdlineEnter", {
   callback = function()
     if vim.v.event.cmdtype == "/" then
-      layout_enter_callback()
+      restore_layout()
     end
   end,
 })
@@ -145,17 +137,6 @@ autocmd("CmdlineLeave", {
   callback = function()
     if vim.v.event.cmdtype == "/" then
       layout_exit_callback()
-    end
-  end,
-})
-
--- Auto detect Helm templates
-autocmd("BufRead", {
-  pattern = "*.yaml",
-  callback = function(args)
-    local content = vim.api.nvim_buf_get_lines(args.buf, 0, -1, false)
-    if table.concat(content):find("{{.-}}") then
-      vim.bo[args.buf].filetype = "gotmpl"
     end
   end,
 })
