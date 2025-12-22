@@ -23,9 +23,14 @@ local function set_transparent_bg()
   highlight("FloatBorder", { blend = consts.TRANSPARENCY })
 end
 
+local function setup_quickfix()
+  highlight("QuickFixLine", { link = "CursorLine" })
+end
+
 local setup = function()
   highlight("CursorLineNr", { bold = true })
   set_transparent_bg()
+  setup_quickfix()
 end
 
 autocmd("Colorscheme", { callback = setup })

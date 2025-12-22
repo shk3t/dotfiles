@@ -20,7 +20,7 @@ setup_all_lsp_servers()
 for _, default_key in pairs({ "grn", "gra", "grr", "gri", "grt", "gO" }) do
   vim.keymap.del("n", default_key)
 end
--- -- INFO: future releases
+-- -- INFO: Neovim future release
 -- -- Don't forget to test: `inputs.norm("o")`
 -- vim.keymap.set("x", "an", function()
 --   vim.lsp.buf.selection_range("outer")
@@ -43,10 +43,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     keymap("n", "K", function()
       vim.lsp.buf.hover({ border = consts.ICONS.BORDER })
     end, { buffer = true })
-    keymap("n", "<Space>rn", function()
-      vim.lsp.buf.rename()
-      -- inputs.typekeys("<C-F>") -- TODO
-    end, { buffer = true })
+    keymap("n", "<Space>rn", vim.lsp.buf.rename, { buffer = true })
     keymap("n", "<Space>ca", vim.lsp.buf.code_action, { buffer = true })
     keymap("n", "gd", telescope_builtin.lsp_definitions, { buffer = true })
     keymap("n", "gr", telescope_builtin.lsp_references, { buffer = true })

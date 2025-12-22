@@ -3,6 +3,19 @@ local autocmd = vim.api.nvim_create_autocmd
 local get_highlight = require("lib.base.highlight").get_highlight
 local highlight = require("lib.base.highlight").highlight
 
+local function setup_diagnostic_colors()
+  ---@type vim.api.keyset.highlight
+  local under_opts = {
+    undercurl = false,
+    underline = true,
+  }
+  highlight("DiagnosticUnderlineOk", under_opts)
+  highlight("DiagnosticUnderlineHint", under_opts)
+  highlight("DiagnosticUnderlineInfo", under_opts)
+  highlight("DiagnosticUnderlineWarn", under_opts)
+  highlight("DiagnosticUnderlineError", under_opts)
+end
+
 local function define_dap_signs()
   sign_define("DapBreakpoint", { text = "󰪥", texthl = "Error" })
   sign_define("DapStopped", {
@@ -48,6 +61,7 @@ end
 define_dap_signs()
 autocmd("Colorscheme", {
   callback = function()
+    setup_diagnostic_colors()
     setup_telescope_colors()
     setup_harpoon_colors()
   end,

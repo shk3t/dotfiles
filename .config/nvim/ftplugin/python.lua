@@ -1,5 +1,4 @@
 local keymap = vim.keymap.set
-local inputs = require("lib.base.input")
 local lcfg = require("lib.localcfg")
 local winbuf = require("lib.winbuf")
 

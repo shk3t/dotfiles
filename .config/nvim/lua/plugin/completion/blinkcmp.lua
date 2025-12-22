@@ -55,9 +55,6 @@ require("blink.cmp").setup({
       sql = { "dadbod", "snippets", "buffer" },
     },
     providers = {
-      snippets = {
-        score_offset = 4,
-      },
       dadbod = {
         module = "vim_dadbod_completion.blink",
         fallbacks = { "buffer" },

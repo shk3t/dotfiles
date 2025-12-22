@@ -12,7 +12,7 @@ require("oil").setup({
     cursorlineopt = "line,number",
   },
   delete_to_trash = true,
-  skip_confirm_for_simple_edits = false,
+  skip_confirm_for_simple_edits = true,
   prompt_save_on_select_new_entry = true,
   lsp_file_methods = {
     enabled = true,
@@ -53,6 +53,7 @@ require("oil").setup({
 })
 
 keymap("n", "<Space>e", function()
+  inputs.norm("<C-W>H")
   oil.open(nil, nil, function()
     oil.open_preview(nil, function()
       inputs.norm("<C-W>H80<C-W>|")

@@ -2,11 +2,11 @@ local keymap = vim.keymap.set
 local autocmd = vim.api.nvim_create_autocmd
 local cmds = require("lib.cmds")
 local consts = require("consts")
+local inputs = require("lib.base.input")
 local state = require("state")
 local strings = require("lib.base.string")
 local sys = require("lib.system")
 local winbufs = require("lib.winbuf")
-local inputs = require("lib.base.input")
 
 -- Don't add the comment prefix on o/O
 autocmd("FileType", {
@@ -27,7 +27,7 @@ autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
   end,
 })
 -- Dynamic autoscroll depending on window size
-autocmd({ "WinEnter", "WinResized" }, {
+autocmd({ "BufEnter", "WinResized" }, {
   callback = function()
     cmds.set_default_scrolloff()
   end,
@@ -92,13 +92,13 @@ autocmd("CmdwinEnter", {
     keymap("n", ":", "<NOP>", { buffer = true })
     keymap("n", "<CR>", "<CR>", { buffer = true })
     keymap("n", "<C-S>", "<CR>", { buffer = true })
-    keymap({"n"}, "<Esc>", "<C-W>q", { buffer = true })
-    keymap({"n", "i"}, "<C-C>", "<Esc><C-W>q", { buffer = true })
+    keymap({ "n" }, "<Esc>", "<C-W>q", { buffer = true })
+    keymap({ "n", "i" }, "<C-C>", "<Esc><C-W>q", { buffer = true })
   end,
 })
 
 -- Terminal default mode is insert
-autocmd({"TermOpen", "WinEnter"}, {
+autocmd({ "TermOpen", "WinEnter" }, {
   callback = function()
     if vim.bo.buftype == "terminal" then
       vim.cmd.startinsert()

@@ -206,6 +206,11 @@ require("lazy").setup({
   { "chrisgrieser/nvim-recorder", config = reqfunc("plugin.tweaks.recorder") },
   { "chrisgrieser/nvim-spider", config = reqfunc("plugin.tweaks.spider") },
   { "vim-scripts/Tabmerge", config = reqfunc("plugin.tweaks.tabmerge") },
+  {
+    "stevearc/quicker.nvim",
+    ft = "qf",
+    config = reqfunc("plugin.tweaks.quicker"),
+  },
 
   -- UI
   {

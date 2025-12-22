@@ -138,7 +138,7 @@ keymap("n", "<C-W><C-T>", "<C-W>v<C-W>T")
 keymap("n", "<C-W>Q", vim.cmd.tabclose)
 
 -- Quickfix list
-keymap("n", "gq", vim.cmd.copen)
+keymap("n", "<Space>q", vim.cmd.copen)
 keymap("n", "[q", cmds.quiet_cprev)
 keymap("n", "]q", cmds.quiet_cnext)
 

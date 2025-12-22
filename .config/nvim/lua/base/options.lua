@@ -15,7 +15,7 @@ vim.o.breakindent = true
 
 -- Syntax highlighting
 vim.o.hlsearch = true
-vim.o.incsearch = true  -- INFO: both incsearch and inccommand will work in cmdwin in Neovim 0.12
+vim.o.incsearch = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
@@ -30,7 +30,6 @@ vim.opt.shortmess:append("sS")
 vim.o.showcmdloc = "statusline"
 vim.o.cmdheight = 1
 vim.o.cmdwinheight = 4
--- vim.opt.winborder = { "", "", "", " ", "", "", "", " " },  -- INFO: currently not supported
 
 -- Controls
 vim.o.timeoutlen = 10000
