@@ -218,7 +218,7 @@ require("lazy").setup({
     config = reqfunc("plugin.ui.mini"),
   },
   { "nvim-lualine/lualine.nvim", config = reqfunc("plugin.ui.lualine") },
-  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.ui.ibl") },
+  { "lukas-reineke/indent-blankline.nvim", config = reqfunc("plugin.ui.indent") },
 
   -- Colorscheme
   {

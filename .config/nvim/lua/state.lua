@@ -1,4 +1,5 @@
 return {
+  completion_enabled = true,
   dap = {
     focus = {
       thread = {

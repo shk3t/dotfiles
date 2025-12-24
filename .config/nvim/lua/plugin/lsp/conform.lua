@@ -15,6 +15,8 @@ conform.setup({
     lua = { "stylua" },
     python = { "ruff_format", "ruff_organize_imports" },
     go = { "golines" },
+    html = { "prettier" },
+    css = { "prettier" },
     javascript = { "prettier" },
     typescript = { "prettier" },
     javascriptreact = { "prettier" },

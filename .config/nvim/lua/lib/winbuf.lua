@@ -21,7 +21,7 @@ function M.term(command)
   if not vim.api.nvim_win_is_valid(state.main_term.win) then
     state.main_term.win = vim.api.nvim_open_win(state.main_term.buf, false, {
       split = "below",
-      height = 16,
+      height = math.floor(vim.api.nvim_win_get_height(0) / 4),
     })
   end
 

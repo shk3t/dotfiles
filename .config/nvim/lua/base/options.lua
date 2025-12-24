@@ -26,6 +26,7 @@ vim.o.cursorline = true
 vim.o.cursorlineopt = "number"
 vim.o.guicursor = "n-v-sm-t:block,i-c-ci-ve:ver25,r-cr-o:hor20"
 vim.o.signcolumn = "yes"
+vim.o.fillchars = "horiz:━,horizup:┻,horizdown:┳,vert:┃,vertleft:┫,vertright:┣,verthoriz:╋"
 vim.opt.shortmess:append("sS")
 vim.o.showcmdloc = "statusline"
 vim.o.cmdheight = 1

@@ -13,10 +13,6 @@ quicker.setup({
     },
     { "u", quicker.refresh, desc = "Refresh quickfix list" },
   },
-  on_qf = function (bufnr)
-    -- Reset mappings
-    keymap("n", "<Space>rs", [[:s/\<<C-R><C-W>\>//g<Left><Left>]], { buffer = true })
-  end,
   edit = {
     enabled = true,
     autosave = "unmodified",
@@ -36,6 +32,15 @@ quicker.setup({
     I = consts.ICONS.DIAGNOSTIC.INFO,
     N = consts.ICONS.DIAGNOSTIC.INFO,
     H = consts.ICONS.DIAGNOSTIC.HINT,
+  },
+  borders = {
+    vert = "│",
+    strong_header = "─",
+    strong_cross = "┼",
+    strong_end = "┤",
+    soft_header = "╴",
+    soft_cross = "┤",
+    soft_end = "│",
   },
   max_filename_width = function()
     return math.floor(math.min(95, vim.o.columns / 2))

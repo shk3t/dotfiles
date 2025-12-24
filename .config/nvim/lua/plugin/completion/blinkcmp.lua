@@ -1,6 +1,11 @@
+local keymap = vim.keymap.set
 local consts = require("consts")
+local state = require("state")
 
 require("blink.cmp").setup({
+  enabled = function()
+    return state.completion_enabled
+  end,
   keymap = {
     preset = "none",
     ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
@@ -55,6 +60,9 @@ require("blink.cmp").setup({
       sql = { "dadbod", "snippets", "buffer" },
     },
     providers = {
+      snippets = {
+        score_offset = 2,
+      },
       dadbod = {
         module = "vim_dadbod_completion.blink",
         fallbacks = { "buffer" },
@@ -79,3 +87,7 @@ require("blink.cmp").setup({
   },
   term = { enabled = false },
 })
+
+keymap("n", "TC", function()
+  state.completion_enabled = not state.completion_enabled
+end)

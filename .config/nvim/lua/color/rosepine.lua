@@ -19,7 +19,7 @@ require("rose-pine").setup({
     BlinkCmpKindUnit = { link = "@keyword" },
     BlinkCmpKindValue = { link = "@number" },
     BlinkCmpKindKeyword = { link = "@keyword" },
-    BlinkCmpKindSnippet = { link = "@regexp" },
+    BlinkCmpKindSnippet = { link = "@string.regexp" },
     BlinkCmpKindColor = { link = "Error" },
     BlinkCmpKindFile = { link = "@text" },
     BlinkCmpKindReference = { link = "@parameter" },
