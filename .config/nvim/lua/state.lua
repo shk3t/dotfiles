@@ -1,4 +1,6 @@
 return {
+  relativenumber = vim.o.relativenumber,
+
   completion_enabled = true,
   dap = {
     focus = {

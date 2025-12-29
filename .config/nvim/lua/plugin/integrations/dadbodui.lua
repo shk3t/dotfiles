@@ -1,6 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
 local keymap = vim.keymap.set
-local keydel = vim.keymap.del
 local cmds = require("lib.cmds")
 
 vim.g.db_ui_execute_on_save = false

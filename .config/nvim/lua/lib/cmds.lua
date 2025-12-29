@@ -17,10 +17,12 @@ end
 function M.toggle_line_numeration()
   vim.o.number = not vim.o.number
   vim.o.relativenumber = vim.o.number
+  state.relativenumber = vim.o.relativenumber
 end
 function M.toggle_relative_numeration()
   if vim.o.number then
     vim.o.relativenumber = not vim.o.relativenumber
+    state.relativenumber = vim.o.relativenumber
   end
 end
 function M.toggle_fixed_signcolumn()
@@ -119,12 +121,14 @@ end
 local function todo_line()
   local todo_comment = vim.bo.commentstring:format("TODO")
   local line = vim.api.nvim_get_current_line()
-  if line:find(todo_comment) then
-    return line:gsub(" *" .. strings.lua_escape(todo_comment) .. ".*$", "", 1), false
+  local todo_comment_re = strings.lua_escape(todo_comment)
+  todo_comment_re = " *" .. todo_comment_re:gsub("TODO", "TODO.*", 1)
+  if line:find(todo_comment_re) then
+    return line:gsub(todo_comment_re, "", 1)
   elseif line == "" then
-    return todo_comment, true
+    return todo_comment
   else
-    return line .. " " .. todo_comment, true
+    return line .. " " .. todo_comment
   end
 end
 function M.toggle_todo()
@@ -132,12 +136,14 @@ function M.toggle_todo()
   vim.api.nvim_set_current_line(line)
 end
 function M.toggle_todo_append()
-  local line, commented = todo_line()
-  if commented then
-    line = line .. ": "
+  local line = todo_line()
+  local row = unpack(vim.api.nvim_win_get_cursor(0))
+  local _, todo_end = line:find("TODO")
+  if todo_end ~= nil then
+    line = line:gsub("TODO", "TODO: ", 1)
     vim.api.nvim_set_current_line(line)
     vim.cmd.startinsert()
-    inputs.norm("$")
+    vim.api.nvim_win_set_cursor(0, { row, todo_end + 2 })
   else
     vim.api.nvim_set_current_line(line)
   end

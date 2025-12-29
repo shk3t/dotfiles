@@ -4,7 +4,6 @@ local cmds = require("lib.cmds")
 local consts = require("consts")
 local inputs = require("lib.base.input")
 local state = require("state")
-local strings = require("lib.base.string")
 local sys = require("lib.system")
 local winbufs = require("lib.winbuf")
 
@@ -17,11 +16,11 @@ autocmd("FileType", {
   end,
 })
 
--- Line numeration toggle
+-- Focused window line relative-numeration
 autocmd({ "FocusLost", "WinLeave" }, { command = "setlocal norelativenumber" })
 autocmd({ "VimEnter", "FocusGained", "WinEnter" }, {
   callback = function()
-    if vim.o.number then
+    if vim.o.number and state.relativenumber then
       vim.wo.relativenumber = true
     end
   end,
@@ -107,36 +106,21 @@ autocmd({ "TermOpen", "WinEnter" }, {
 })
 
 -- Auto language layout switch
-local restore_layout = function()
-  if vim.bo.buftype == "nofile" then
-    return
-  end
-  sys.set_layout(state.system.mode_layout_idx)
+local function need_save_layout()
+  return vim.bo.buftype ~= "nofile" and vim.bo.buftype ~= "prompt" and vim.v.event.cmdtype ~= ":"
 end
-local layout_exit_callback = function()
-  if vim.bo.buftype == "nofile" then
-    return
-  end
-  state.system.mode_layout_idx = sys.get_layout()
-  sys.set_layout(consts.LAYOUT.ENGLISH_IDX)
-end
-autocmd("InsertEnter", {
-  callback = restore_layout,
-})
-autocmd("CmdlineEnter", {
+autocmd({ "InsertEnter", "CmdlineEnter" }, {
   callback = function()
-    if vim.v.event.cmdtype == "/" then
-      restore_layout()
+    if need_save_layout() then
+      sys.set_layout(state.system.mode_layout_idx)
     end
   end,
 })
-autocmd("InsertLeave", {
-  callback = layout_exit_callback,
-})
-autocmd("CmdlineLeave", {
+autocmd({ "InsertLeave", "CmdlineLeave" }, {
   callback = function()
-    if vim.v.event.cmdtype == "/" then
-      layout_exit_callback()
+    if need_save_layout() then
+      state.system.mode_layout_idx = sys.get_layout()
     end
+    sys.set_layout(consts.LAYOUT.ENGLISH_IDX)
   end,
 })
